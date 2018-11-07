@@ -14,6 +14,6 @@ export class AdminDashboardComponent implements OnInit {
     }
 
     closeNav() {
-        document.getElementById('mySidenav').style.width = '0';
+        document.getElementById('leftmenu').style.width = '0';
     }
 }
