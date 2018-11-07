@@ -8,8 +8,7 @@ import {LoaderComponent} from './app-components/loader/loader.component';
 import {AppRoutingModule} from './app-routes/routing.module';
 import {MainModule} from './app-modules/main.module';
 import {HttpClientModule} from '@angular/common/http';
-import {TerritoriesComponent} from './app-components/main-body/business-container/territories/territories.component';
-import {MainHubsComponent} from './app-components/main-body/business-container/main-hubs/main-hubs.component';
+
 
 @NgModule({
     declarations: [
@@ -17,8 +16,6 @@ import {MainHubsComponent} from './app-components/main-body/business-container/m
         HeaderComponent,
         FooterComponent,
         LoaderComponent,
-        TerritoriesComponent,
-        MainHubsComponent,
     ],
     imports: [
         BrowserModule,

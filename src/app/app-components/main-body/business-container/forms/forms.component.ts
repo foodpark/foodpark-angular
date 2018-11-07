@@ -36,9 +36,28 @@ export class FormsComponent implements OnInit {
         this.submitted = true;
         if (this.loginForm.valid) {
             this.http.post('https://api.instamarkt.co/auth/login', this.loginForm.value).subscribe((res) => {
-                if (res['user']['role'].toLowerCase() === 'admin') {
-                    this.router.navigate(['/adminlogin']);
-                    this.showAdminLoginPage.emit(res);
+                switch (res['user']['role'].toLowerCase()) {
+                    case 'admin':
+                        this.router.navigate(['/admin']);
+                        break;
+                    case 'customer':
+                        this.router.navigate(['/customer']);
+                        break;
+                    case 'owner':
+                        this.router.navigate(['/owner']);
+                        break;
+                    case 'unitmgr':
+                        this.router.navigate(['/unitmanager']);
+                        break;
+                    case 'driver':
+                        this.router.navigate(['/driver']);
+                        break;
+                    case 'foodparkmgr':
+                        this.router.navigate(['/foodparkmanager']);
+                        break;
+                    case 'hubmgr':
+                        this.router.navigate(['/hubmanager']);
+                        break;
                 }
             });
         } else {

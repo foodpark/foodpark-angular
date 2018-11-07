@@ -7,16 +7,9 @@ import {Component, OnInit} from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-    isAdminPage = false;
-
     constructor() {
     }
 
     ngOnInit() {
     }
-
-    showAdminPage(event) {
-        this.isAdminPage = true;
-    }
-
 }
