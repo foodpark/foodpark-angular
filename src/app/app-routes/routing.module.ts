@@ -8,6 +8,8 @@ import {UnitManagerDashboardComponent} from '../app-components/main-body/busines
 import {DriverDashboardComponent} from '../app-components/main-body/business-container/driver-dashboard/driver-dashboard.component';
 import {FoodparkManagerDashboardComponent} from '../app-components/main-body/business-container/foodpark-manager-dashboard/foodpark-manager-dashboard.component';
 import {HubManagerDashboardComponent} from '../app-components/main-body/business-container/hub-manager-dashboard/hub-manager-dashboard.component';
+import {TerritoriesComponent} from "../app-components/main-body/business-container/territories/territories.component";
+import {MainHubsComponent} from "../app-components/main-body/business-container/main-hubs/main-hubs.component";
 
 const routes: Routes = [
     {
@@ -17,7 +19,17 @@ const routes: Routes = [
         path: 'dashboard', component: DashboardComponent, children: []
     },
     {
-        path: 'admin', component: AdminDashboardComponent, children: []
+        path: 'admin', component: AdminDashboardComponent, children: [
+            {
+                path: 'territories', component: TerritoriesComponent, children: []
+            },
+            {
+                path: 'mainhubs', component: MainHubsComponent, children: []
+            },
+            {
+                path: 'hubmanager', component: HubManagerDashboardComponent, children: []
+            }
+        ]
     },
     {
         path: 'customer', component: CustomerDashboardComponent, children: []

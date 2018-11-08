@@ -1,6 +1,9 @@
-<div id="leftmenu" class="sidenav">
-    <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
-    <a href="#">Territories</a>
-    <a href="#">Main HUBS</a>
-    <a href="#">HUB Manager</a>
+<div id="leftmenu"
+     class="sidenav"
+     style="position: absolute;top: 70px;">
+    <a class="closebtn" (click)="closeNav()">&times;</a>
+    <a class="nav-link" routerLink="/admin/territories" routerLinkActive="active" (click)="closeNav()">Territories</a>
+    <a class=" nav-link" routerLink="/admin/mainhubs" routerLinkActive="active" (click)="closeNav()">Main HUBS</a>
+    <a class="nav-link" routerLink="/admin/hubmanager" routerLinkActive="active" (click)="closeNav()">HUB Manager</a>
+    <router-outlet></router-outlet>
 </div>
