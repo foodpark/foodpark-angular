@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {DataService} from "../../../../app-services/data.service";
+import {DataService} from "../../../app-services/data.service";
 
 @Component({
     selector: 'app-admin-dashboard',

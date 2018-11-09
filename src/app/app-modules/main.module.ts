@@ -1,17 +1,16 @@
 import {NgModule} from '@angular/core';
-import {DashboardComponent} from '../app-components/main-body/business-container/dashboard/dashboard.component';
-import {MainBodyComponent} from '../app-components/main-body/main-body.component';
+import {DashboardComponent} from '../app-components/main-body/dashboard/dashboard.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
-import {AdminDashboardComponent} from '../app-components/main-body/business-container/admin-dashboard/admin-dashboard.component';
-import {HubManagerDashboardComponent} from '../app-components/main-body/business-container/hub-manager-dashboard/hub-manager-dashboard.component';
-import {DriverDashboardComponent} from '../app-components/main-body/business-container/driver-dashboard/driver-dashboard.component';
-import {FoodparkManagerDashboardComponent} from '../app-components/main-body/business-container/foodpark-manager-dashboard/foodpark-manager-dashboard.component';
-import {UnitManagerDashboardComponent} from '../app-components/main-body/business-container/unit-manager-dashboard/unit-manager-dashboard.component';
-import {OwnerDashboardComponent} from '../app-components/main-body/business-container/owner-dashboard/owner-dashboard.component';
-import {CustomerDashboardComponent} from '../app-components/main-body/business-container/customer-dashboard/customer-dashboard.component';
-import {TerritoriesComponent} from "../app-components/main-body/business-container/territories/territories.component";
-import {MainHubsComponent} from "../app-components/main-body/business-container/main-hubs/main-hubs.component";
+import {AdminDashboardComponent} from '../app-components/main-body/admin-dashboard/admin-dashboard.component';
+import {HubManagerDashboardComponent} from '../app-components/main-body/hub-manager-dashboard/hub-manager-dashboard.component';
+import {DriverDashboardComponent} from '../app-components/main-body/driver-dashboard/driver-dashboard.component';
+import {FoodparkManagerDashboardComponent} from '../app-components/main-body/foodpark-manager-dashboard/foodpark-manager-dashboard.component';
+import {UnitManagerDashboardComponent} from '../app-components/main-body/unit-manager-dashboard/unit-manager-dashboard.component';
+import {OwnerDashboardComponent} from '../app-components/main-body/owner-dashboard/owner-dashboard.component';
+import {CustomerDashboardComponent} from '../app-components/main-body/customer-dashboard/customer-dashboard.component';
+import {TerritoriesComponent} from "../app-components/main-body/territories/territories.component";
+import {MainHubsComponent} from "../app-components/main-body/main-hubs/main-hubs.component";
 import {RouterModule} from "@angular/router";
 
 @NgModule({
@@ -23,7 +22,6 @@ import {RouterModule} from "@angular/router";
     ],
     declarations: [
         DashboardComponent,
-        MainBodyComponent,
         AdminDashboardComponent,
         TerritoriesComponent,
         MainHubsComponent,
@@ -35,8 +33,7 @@ import {RouterModule} from "@angular/router";
         HubManagerDashboardComponent,
     ],
     exports: [
-        DashboardComponent,
-        MainBodyComponent
+        DashboardComponent
     ],
 })
 

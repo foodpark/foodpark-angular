@@ -12,4 +12,9 @@ export class HeaderComponent implements OnInit {
 
     ngOnInit() {
     }
+
+
+    openNav() {
+      document.getElementById('leftmenu').style.display = 'block';
+    }
 }
