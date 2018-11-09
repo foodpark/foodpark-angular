@@ -1,9 +1,15 @@
+<span style="font-size:30px;cursor:pointer;position: absolute; left: 15px; top: 100px;"
+      (click)="openNav()">&#9776;</span>
 <div id="leftmenu"
      class="sidenav"
      style="position: absolute;top: 70px;">
     <a class="closebtn" (click)="closeNav()">&times;</a>
-    <a class="nav-link" routerLink="/admin/territories" routerLinkActive="active" (click)="closeNav()">Territories</a>
-    <a class=" nav-link" routerLink="/admin/mainhubs" routerLinkActive="active" (click)="closeNav()">Main HUBS</a>
-    <a class="nav-link" routerLink="/admin/hubmanager" routerLinkActive="active" (click)="closeNav()">HUB Manager</a>
-    <router-outlet></router-outlet>
+    <ng-container *ngIf="sideNavData.length">
+        <a *ngFor="let item of sideNavData"
+           class="nav-link"
+           routerLink="/admin/{{item.toLowerCase()}}"
+           routerLinkActive="active"
+           (click)="closeNav()">{{item | titlecase}}</a>
+    </ng-container>
 </div>
+<router-outlet></router-outlet>

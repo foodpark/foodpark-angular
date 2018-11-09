@@ -1,1 +1,33 @@
-<app-forms></app-forms>
+<div class="canvas inner_wrapper pt35" style="position: absolute;top: 100px;">
+    <section class="greybg center ">
+        <div class="container-fluid col-sm-12 menu_detail shell bg_1">
+            <form [formGroup]="loginForm">
+                <div class="form-group">
+                    <input
+                        type="email"
+                        formControlName="username"
+                        class="form-control"
+                        placeholder="User Name"
+                        [ngClass]="{'fp-input-error': f.username.errors }">
+                </div>
+                <div class="form-group">
+                    <input
+                        type="password"
+                        formControlName="password"
+                        class="form-control"
+                        placeholder="Password"
+                        [ngClass]="{'is-invalid': submitted && f.password.errors }">
+                </div>
+                <button
+                    type="submit"
+                    class="btn btn-default"
+                    (click)="onLoginClick()"
+                    [disabled]="f['username'].errors ||f['password'].errors">Login
+                </button>
+            </form>
+        </div>
+    </section>
+</div>
+
+
+

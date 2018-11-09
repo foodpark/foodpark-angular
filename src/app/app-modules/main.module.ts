@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {DashboardComponent} from '../app-components/main-body/business-container/dashboard/dashboard.component';
-import {FormsComponent} from '../app-components/main-body/business-container/forms/forms.component';
 import {MainBodyComponent} from '../app-components/main-body/main-body.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
@@ -24,7 +23,6 @@ import {RouterModule} from "@angular/router";
     ],
     declarations: [
         DashboardComponent,
-        FormsComponent,
         MainBodyComponent,
         AdminDashboardComponent,
         TerritoriesComponent,
@@ -38,7 +36,6 @@ import {RouterModule} from "@angular/router";
     ],
     exports: [
         DashboardComponent,
-        FormsComponent,
         MainBodyComponent
     ],
 })
