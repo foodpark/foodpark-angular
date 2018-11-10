@@ -19,10 +19,6 @@ export class AdminDashboardComponent implements OnInit {
         });
     }
 
-    openNav() {
-        document.getElementById('leftmenu').style.display = 'block';
-    }
-
     closeNav() {
         document.getElementById('leftmenu').style.display = 'none';
     }
