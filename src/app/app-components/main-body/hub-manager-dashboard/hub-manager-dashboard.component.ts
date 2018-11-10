@@ -21,7 +21,7 @@ export class HubManagerDashboardComponent implements OnInit {
     this.hubmanagerForm = this.formBuilder.group({
         firstname:['', Validators.required],
         lastname: ['', Validators.required],
-        username: ['', Validators.required],
+        email: ['', Validators.required],
         password: ['', Validators.required],
         repeatpassword: ['', Validators.required],
         country: ['', Validators.required],
@@ -34,4 +34,7 @@ export class HubManagerDashboardComponent implements OnInit {
       return this.hubmanagerForm.controls;
   }
 
+  onCreateMainHubClick() {
+    
+  }
 }
