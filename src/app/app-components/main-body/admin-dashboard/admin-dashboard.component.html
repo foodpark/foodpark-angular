@@ -3,7 +3,7 @@
     <ng-container *ngIf="sideNavData.length">
         <a *ngFor="let item of sideNavData"
            class="nav-link"
-           routerLink="/admin/{{item.toLowerCase()}}"
+           routerLink="/admin/{{item.toLowerCase()| removeSpaces}}"
            routerLinkActive="active"
            (click)="closeNav()">{{item.toLocaleString() | removeSpaces}}</a>
     </ng-container>
