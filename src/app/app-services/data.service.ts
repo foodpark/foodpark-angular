@@ -1,11 +1,10 @@
 import {Injectable} from '@angular/core';
-import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
-import {HttpClient} from "@angular/common/http";
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {HttpClient} from '@angular/common/http';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
+
 export class DataService {
     localeStringsMap: any;
 
@@ -22,12 +21,12 @@ export class DataService {
     }
 
     httpGetTranslations(): Observable<any> {
-        let currentLang = navigator.language;
-        return this.http.get('./assets/il8n/' + currentLang + '.json').pipe(
+        const currentLang = navigator.language;
+        return this.http.get('assets/i18n/' + currentLang + '.json').pipe(
             map((res: any) => {
                 return res || {};
             })
-        )
+        );
     }
 
     stringComparator(originalString: string, comparedString: string) {
