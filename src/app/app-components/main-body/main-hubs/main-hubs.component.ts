@@ -10,6 +10,6 @@ export class MainHubsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-  }
 
+  }
 }

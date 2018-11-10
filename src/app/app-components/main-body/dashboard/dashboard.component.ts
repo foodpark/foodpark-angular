@@ -13,7 +13,6 @@ export class DashboardComponent implements OnInit {
     loginForm: FormGroup;
     submitted = false;
 
-
     @Output() showAdminLoginPage = new EventEmitter();
 
     constructor(private formBuilder: FormBuilder,

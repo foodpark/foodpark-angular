@@ -13,7 +13,7 @@ import {timer} from 'rxjs/observable/timer';
 })
 export class LogoutService {
     APPLICATION_TIMEOUT_TIME = 1000 * 5;
-
+    timer = timer(2000,1000);
     constructor(private actions$: Actions) {
     }
 

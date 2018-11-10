@@ -24,10 +24,10 @@ const routes: Routes = [
                 path: 'territories', component: TerritoriesComponent, children: []
             },
             {
-                path: 'mainhubs', component: MainHubsComponent, children: []
+                path: 'createmainhub', component: MainHubsComponent, children: []
             },
             {
-                path: 'hubmanager', component: HubManagerDashboardComponent, children: []
+                path: 'newmainhubmanager', component: HubManagerDashboardComponent, children: []
             }
         ]
     },
