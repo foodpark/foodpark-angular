@@ -8,8 +8,8 @@ import {UnitManagerDashboardComponent} from '../app-components/main-body/unit-ma
 import {DriverDashboardComponent} from '../app-components/main-body/driver-dashboard/driver-dashboard.component';
 import {FoodparkManagerDashboardComponent} from '../app-components/main-body/foodpark-manager-dashboard/foodpark-manager-dashboard.component';
 import {HubManagerDashboardComponent} from '../app-components/main-body/hub-manager-dashboard/hub-manager-dashboard.component';
-import {TerritoriesComponent} from "../app-components/main-body/territories/territories.component";
-import {MainHubsComponent} from "../app-components/main-body/main-hubs/main-hubs.component";
+import {TerritoriesComponent} from '../app-components/main-body/territories/territories.component';
+import {MainHubsComponent} from '../app-components/main-body/main-hubs/main-hubs.component';
 
 const routes: Routes = [
     {
