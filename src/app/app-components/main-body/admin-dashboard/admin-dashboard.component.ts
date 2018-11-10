@@ -7,7 +7,7 @@ import {DataService} from "../../../app-services/data.service";
     styleUrls: ['./admin-dashboard.component.scss']
 })
 export class AdminDashboardComponent implements OnInit {
-    sideNavData;
+    sideNavData = [];
 
     constructor(private dataService: DataService) {
     }

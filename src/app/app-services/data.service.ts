@@ -7,13 +7,34 @@ import {HttpClient} from "@angular/common/http";
     providedIn: 'root'
 })
 export class DataService {
+    localeStringsMap: any;
 
     constructor(private http: HttpClient) {
+        this.httpGetTranslations().subscribe(transMap => {
+            this.localeStringsMap = transMap;
+        });
     }
 
     getJsonData(role: string): Observable<any> {
         return this.http.get('assets/json/' + role + '-leftnav.json').pipe(map(res => {
             return res || {};
         }));
+    }
+
+    httpGetTranslations(): Observable<any> {
+        let currentLang = navigator.language;
+        return this.http.get('./assets/il8n/' + currentLang + '.json').pipe(
+            map((res: any) => {
+                return res || {};
+            })
+        )
+    }
+
+    stringComparator(originalString: string, comparedString: string) {
+        return this.nullCheck(originalString) && this.nullCheck(comparedString) && originalString.toLowerCase() === comparedString.toLowerCase();
+    }
+
+    nullCheck(element): boolean {
+        return element !== null && element !== undefined && element !== '';
     }
 }

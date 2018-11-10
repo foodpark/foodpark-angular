@@ -8,6 +8,7 @@ import {LoaderComponent} from './app-components/loader/loader.component';
 import {AppRoutingModule} from './app-routes/routing.module';
 import {MainModule} from './app-modules/main.module';
 import {HttpClientModule} from '@angular/common/http';
+import {RemoveSpacesPipe} from "./app-pipes/removeSpaces.pipe";
 
 
 @NgModule({

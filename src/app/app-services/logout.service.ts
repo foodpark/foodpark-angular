@@ -6,22 +6,25 @@ import {Observable} from 'rxjs';
 
 import * as ApplicationActions from '../app-store/app.action';
 import {switchMap, map} from "rxjs/operators";
-import {timer} from 'rxjs/observable/timer';
+
+// import {timer} from 'rxjs/observable/timer';
 
 @Injectable({
     providedIn: 'root'
 })
 export class LogoutService {
     APPLICATION_TIMEOUT_TIME = 1000 * 5;
-    timer = timer(2000,1000);
+
+    // timer = timer(2000, 1000);
+
     constructor(private actions$: Actions) {
     }
 
-    @Effect()
-    extendApplicationTimeout$ = this.actions$.pipe(
-        switchMap((action: Action) => Observable.timer(this.APPLICATION_TIMEOUT_TIME)),
-        map(() => new ApplicationActions.LogOut())
-    );
+    // @Effect()
+    // extendApplicationTimeout$ = this.actions$.pipe(
+    //     switchMap((action: Action) => Observable.timer(this.APPLICATION_TIMEOUT_TIME)),
+    //     map(() => new ApplicationActions.LogOut())
+    // );
 
 
 }

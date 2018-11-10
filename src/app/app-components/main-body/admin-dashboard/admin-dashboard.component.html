@@ -5,7 +5,7 @@
            class="nav-link"
            routerLink="/admin/{{item.toLowerCase()}}"
            routerLinkActive="active"
-           (click)="closeNav()">{{item | titlecase}}</a>
+           (click)="closeNav()">{{item.toLocaleString() | removeSpaces}}</a>
     </ng-container>
 </div>
 <router-outlet></router-outlet>
