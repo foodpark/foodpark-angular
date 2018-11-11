@@ -1,7 +1,7 @@
 import * as ApplicationActions from './app.action';
 
 export interface State {
-    isLoggedIn: boolean
+    isLoggedIn: boolean;
 }
 
 const initialState: State = {
@@ -14,14 +14,14 @@ export function reducer(state = initialState, action: ApplicationActions.All): S
             return {
                 ...state,
                 isLoggedIn: false
-            }
+            };
         }
 
         case ApplicationActions.LOG_IN: {
             return {
                 ...state,
                 isLoggedIn: true
-            }
+            };
         }
 
         default: {
