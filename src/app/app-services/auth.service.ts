@@ -12,7 +12,7 @@ export class AuthService {
 
     private token: string;
     private userrole: string;
-    private username: String;
+    private username: string;
     private timerReference;
     isTimeout: boolean;
 
@@ -61,6 +61,7 @@ export class AuthService {
                 this.authStatusListener.next(true);
                 this.userrole = response['user']['role'].toLowerCase();
                 this.username = response['user']['username'];
+                this.saveAuthData(token, this.userrole, this.username);
 
                 switch (this.userrole) {
                     case 'admin':
@@ -89,10 +90,51 @@ export class AuthService {
         });
     }
 
+    autoAuthUser() {
+        const authIfnormation = this.getAuthData();
+        if (!authIfnormation) {
+            return;
+        }
+
+        this.token = authIfnormation.token;
+        this.userrole = authIfnormation.userrole;
+        this.username = authIfnormation.username;
+        this.isAuthenticated = true;
+        this.authStatusListener.next(true);
+    }
+
     logout() {
         this.token = null;
         this.isAuthenticated = false;
         this.authStatusListener.next(false);
+        this.clearAuthData();
         this.router.navigate(['/dashboard']);
+    }
+
+    private saveAuthData(token: string, userrole: string,  username: string) {
+        localStorage.setItem('token', token);
+        localStorage.setItem('userrole', userrole);
+        localStorage.setItem('username', username);
+    }
+
+    private clearAuthData() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('userrole');
+        localStorage.removeItem('username');
+    }
+
+    private getAuthData() {
+        const token = localStorage.getItem('token');
+        const role = localStorage.getItem('userrole');
+        const name = localStorage.getItem('username');
+        if (!token || !role || !name) {
+            return;
+        }
+
+        return {
+            token: token,
+            username: name,
+            userrole: role
+        };
     }
 }
