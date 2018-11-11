@@ -8,8 +8,9 @@ import {UnitManagerDashboardComponent} from '../app-components/main-body/unit-ma
 import {DriverDashboardComponent} from '../app-components/main-body/driver-dashboard/driver-dashboard.component';
 import {FoodparkManagerDashboardComponent} from '../app-components/main-body/foodpark-manager-dashboard/foodpark-manager-dashboard.component';
 import {HubManagerDashboardComponent} from '../app-components/main-body/hub-manager-dashboard/hub-manager-dashboard.component';
-import {TerritoriesComponent} from "../app-components/main-body/territories/territories.component";
-import {MainHubsComponent} from "../app-components/main-body/main-hubs/main-hubs.component";
+import {TerritoriesComponent} from '../app-components/main-body/territories/territories.component';
+import {MainHubsComponent} from '../app-components/main-body/main-hubs/main-hubs.component';
+import { AuthGuard } from '../app-services/auth.guard';
 
 const routes: Routes = [
     {
@@ -19,7 +20,7 @@ const routes: Routes = [
         path: 'dashboard', component: DashboardComponent, children: []
     },
     {
-        path: 'admin', component: AdminDashboardComponent, children: [
+        path: 'admin', component: AdminDashboardComponent, canActivate: [AuthGuard], children: [
             {
                 path: 'territories', component: TerritoriesComponent, children: []
             },
@@ -32,27 +33,30 @@ const routes: Routes = [
         ]
     },
     {
-        path: 'customer', component: CustomerDashboardComponent, children: []
+        path: 'customer', component: CustomerDashboardComponent, canActivate: [AuthGuard], children: []
     },
     {
-        path: 'owner', component: OwnerDashboardComponent, children: []
+        path: 'owner', component: OwnerDashboardComponent, canActivate: [AuthGuard], children: []
     },
     {
-        path: 'unitmanager', component: UnitManagerDashboardComponent, children: []
+        path: 'unitmanager', component: UnitManagerDashboardComponent, canActivate: [AuthGuard], children: []
     },
     {
-        path: 'driver', component: DriverDashboardComponent, children: []
+        path: 'driver', component: DriverDashboardComponent, canActivate: [AuthGuard], children: []
     },
     {
-        path: 'foodparkmanager', component: FoodparkManagerDashboardComponent, children: []
-    }, {
-        path: 'hubmanager', component: HubManagerDashboardComponent, children: []
+        path: 'foodparkmanager', component: FoodparkManagerDashboardComponent, canActivate: [AuthGuard], children: []
+    },
+    {
+        path: 'hubmanager', component: HubManagerDashboardComponent, canActivate: [AuthGuard], children: []
     }
 ];
 
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule]
+    exports: [RouterModule],
+    providers: [AuthGuard]
 })
+
 export class AppRoutingModule {
 }

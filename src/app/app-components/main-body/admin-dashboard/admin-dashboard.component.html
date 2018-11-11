@@ -1,5 +1,15 @@
 <div id="leftmenu" class="sidenav sidenav__admin-dashboard">
     <a class="closebtn" (click)="closeNav()">&times;</a>
+    <div class="leftmenu-header text-center">
+        <img src="assets/images/logo.png" alt="" class="img-responsive" style="height: 75px;">
+        <div>{{this.authService.getUserName()}}</div>
+        <div>
+            <a class="nav-link" (click)="onLogout()">
+            Logout
+            </a>
+        </div>
+    </div>
+
     <ng-container *ngIf="sideNavData.length">
         <a *ngFor="let item of sideNavData"
            class="nav-link"
