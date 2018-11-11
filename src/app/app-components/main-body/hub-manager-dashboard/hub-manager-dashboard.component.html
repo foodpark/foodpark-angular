@@ -4,6 +4,7 @@
       <div class="container-fluid col-sm-12 menu_detail shell bg_1">
         <form [formGroup]="hubmanagerForm">
             <div class="form-group">
+                <h4>First Name</h4>
                 <input
                     type="text"
                     formControlName="firstname"
@@ -12,6 +13,7 @@
                     [ngClass]="{'fp-input-error': f.firstname.errors }">
             </div>
             <div class="form-group">
+                <h4>Last Name</h4>
                 <input
                     type="text"
                     formControlName="lastname"
@@ -20,14 +22,16 @@
                     [ngClass]="{'fp-input-error': f.lastname.errors }">
             </div>
             <div class="form-group">
+                <h4>Email</h4>
                 <input
                     type="email"
                     formControlName="email"
                     class="form-control"
-                    placeholder="Email"
+                    placeholder="email@xyz.com"
                     [ngClass]="{'fp-input-error': f.email.errors }">
             </div>
             <div class="form-group">
+                <h4>Password</h4>
                 <input
                     type="password"
                     formControlName="password"
@@ -36,6 +40,7 @@
                     [ngClass]="{'is-invalid': submitted && f.password.errors }">
             </div>
             <div class="form-group">
+                <h4>Repeat Password</h4>
                 <input
                     type="password"
                     formControlName="repeatpassword"
@@ -44,16 +49,19 @@
                     [ngClass]="{'is-invalid': submitted && f.repeatpassword.errors }">
             </div>
             <div class="form-group">
+                <h4>Country</h4>
                 <select class="form-control" name="country">
                     <option value="">Country</option>
                 </select>
             </div>
             <div class="form-group">
+                <h4>Territory</h4>
                 <select class="form-control" name="territory">
                     <option value="">Territory</option>
                 </select>
             </div>
             <div class="form-group">
+                <h4>Main Hub</h4>
                 <select class="form-control" name="mainhub">
                     <option value="">Main Hub</option>
                 </select>
