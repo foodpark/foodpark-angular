@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {Subject} from 'rxjs';
 
+import { environment } from '../../environments/environment';
 import {AuthData} from './auth-data.module';
 
 @Injectable({providedIn: 'root'})
@@ -51,7 +52,7 @@ export class AuthService {
 
     login(usrname: string, pwd: string) {
         const authData: AuthData = {username: usrname, password: pwd};
-        this.http.post<{ token: string }>('https://api.instamarkt.co/auth/login', authData)
+        this.http.post<{ token: string }>(environment.apiUrl + '/auth/login', authData)
             .subscribe(response => {
                 const token = response.token;
                 this.token = token;
