@@ -4,7 +4,6 @@ import {Pipe, PipeTransform} from '@angular/core';
 export class RemoveSpacesPipe implements PipeTransform {
     transform(value: string): string {
         value = value.replace(/ +/g, "").toLowerCase();
-        console.log(value);
         return value
     }
 }
