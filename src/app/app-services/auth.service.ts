@@ -12,8 +12,8 @@ export class AuthService {
     private authStatusListener = new Subject<boolean>();
 
     private token: string;
-    private userrole: string;
-    private username: string;
+    private userRole: string;
+    private userName: string;
     private timerReference;
     isTimeout: boolean;
 
@@ -35,7 +35,7 @@ export class AuthService {
     }
 
     getUserRole() {
-        return this.userrole;
+        return this.userRole;
     }
 
     getIsAuth() {
@@ -47,48 +47,47 @@ export class AuthService {
     }
 
     getUserName() {
-        return this.username;
+        return this.userName;
     }
 
     login(usrname: string, pwd: string) {
         const authData: AuthData = {username: usrname, password: pwd};
         this.http.post<{ token: string }>(environment.apiUrl + '/auth/login', authData)
             .subscribe(response => {
-            const token = response.token;
-            this.token = token;
+                const token = response.token;
+                this.token = token;
 
-            if (token) {
-                this.isAuthenticated = true;
-                this.authStatusListener.next(true);
-                this.userrole = response['user']['role'].toLowerCase();
-                this.username = response['user']['username'];
-                this.saveAuthData(token, this.userrole, this.username);
-
-                switch (this.userrole) {
-                    case 'admin':
-                        this.router.navigate(['/admin']);
-                        break;
-                    case 'customer':
-                        this.router.navigate(['/customer']);
-                        break;
-                    case 'owner':
-                        this.router.navigate(['/owner']);
-                        break;
-                    case 'unitmgr':
-                        this.router.navigate(['/unitmanager']);
-                        break;
-                    case 'driver':
-                        this.router.navigate(['/driver']);
-                        break;
-                    case 'foodparkmgr':
-                        this.router.navigate(['/foodparkmanager']);
-                        break;
-                    case 'hubmgr':
-                        this.router.navigate(['/hubmanager']);
-                        break;
+                if (token) {
+                    this.isAuthenticated = true;
+                    this.authStatusListener.next(true);
+                    this.userRole = response['user']['role'].toLowerCase();
+                    this.userName = response['user']['username'];
+                    this.saveAuthData(token, this.userRole, this.userName);
+                    switch (this.userRole) {
+                        case 'admin':
+                            this.router.navigate(['/admin']);
+                            break;
+                        case 'customer':
+                            this.router.navigate(['/customer']);
+                            break;
+                        case 'owner':
+                            this.router.navigate(['/owner']);
+                            break;
+                        case 'unitmgr':
+                            this.router.navigate(['/unitmanager']);
+                            break;
+                        case 'driver':
+                            this.router.navigate(['/driver']);
+                            break;
+                        case 'foodparkmgr':
+                            this.router.navigate(['/foodparkmanager']);
+                            break;
+                        case 'hubmgr':
+                            this.router.navigate(['/hubmanager']);
+                            break;
+                    }
                 }
-            }
-        });
+            });
     }
 
     autoAuthUser() {
@@ -98,8 +97,8 @@ export class AuthService {
         }
 
         this.token = authIfnormation.token;
-        this.userrole = authIfnormation.userrole;
-        this.username = authIfnormation.username;
+        this.userRole = authIfnormation.userrole;
+        this.userName = authIfnormation.username;
         this.isAuthenticated = true;
         this.authStatusListener.next(true);
     }
@@ -112,7 +111,7 @@ export class AuthService {
         this.router.navigate(['/dashboard']);
     }
 
-    private saveAuthData(token: string, userrole: string,  username: string) {
+    private saveAuthData(token: string, userrole: string, username: string) {
         localStorage.setItem('token', token);
         localStorage.setItem('userrole', userrole);
         localStorage.setItem('username', username);

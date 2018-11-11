@@ -1,11 +1,11 @@
-<div id="leftmenu" class="sidenav sidenav__admin-dashboard">
+<div id="leftmenu" class="sidenav sidenav__admin-dashboard" style="background-color: #edede6">
     <a class="closebtn" (click)="closeNav()">&times;</a>
     <div class="leftmenu-header text-center">
-        <img src="assets/images/logo.png" alt="" class="img-responsive" style="height: 75px;">
-        <div>{{this.authService.getUserName()}}</div>
+        <img src="assets/images/logo.png" alt="logo" style="height: 50px; width:160px;object-fit: contain;">
+        <div style="color: #818181;">{{this.authService.getUserName()}}</div>
         <div>
             <a class="nav-link" (click)="onLogout()">
-            Logout
+                Logout
             </a>
         </div>
     </div>
@@ -15,7 +15,7 @@
            class="nav-link"
            routerLink="/admin/{{item.toLowerCase()| removeSpaces}}"
            routerLinkActive="active"
-           (click)="closeNav()">{{item.toLocaleString() | removeSpaces}}</a>
+           (click)="closeNav()">{{item.toLocaleString()}}</a>
     </ng-container>
 </div>
 <router-outlet></router-outlet>
