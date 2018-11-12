@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://api.instamarkt.co'
+  apiUrl: 'http://35.196.225.9/'
   //'http://localhost:4200/'
 };
 
