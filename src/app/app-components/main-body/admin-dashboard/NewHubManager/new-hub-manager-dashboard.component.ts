@@ -4,10 +4,10 @@ import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 
 @Component({
-    selector: 'new-hub-manager-dashboard',
+    selector: 'app-new-hub-manager-dashboard',
     templateUrl: './new-hub-manager-dashboard.component.html'
-    // styleUrls: ['./hub-manager-dashboard.component.scss']
 })
+
 export class NewHubManagerComponent implements OnInit {
     hubmanagerForm: FormGroup;
     submitted = false;
