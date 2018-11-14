@@ -14,13 +14,15 @@ import {FoodparkManagerDashboardComponent} from '../app-components/main-body/foo
 import {DriverDashboardComponent} from '../app-components/main-body/driver-dashboard/driver-dashboard.component';
 import {HubManagerDashboardComponent} from '../app-components/main-body/hub-manager-dashboard/hub-manager-dashboard.component';
 import {RemoveSpacesPipe} from '../app-pipes/removeSpaces.pipe';
+import {DropdownModule} from "../app-components/main-body/dropdown/dropdown.module";
 
 @NgModule({
     imports: [
         FormsModule,
         ReactiveFormsModule,
         BrowserModule,
-        RouterModule
+        RouterModule,
+        DropdownModule
     ],
     declarations: [
         DashboardComponent,

@@ -1,0 +1,6 @@
+<div class="dropdown">
+    <button id="button" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"></button>
+    <ul class="dropdown-menu">
+        <li *ngFor="let item of dropdownData; let i = index" (click)="onListItemClick(i)">{{item.name}}</li>
+    </ul>
+</div>

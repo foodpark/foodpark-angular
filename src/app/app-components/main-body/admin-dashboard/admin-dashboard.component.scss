@@ -17,9 +17,9 @@
         color: #818181;
         display: block;
         transition: 0.3s;
-        // &:hover {
-        //     color: #f1f1f1;
-        // }
+        &:hover {
+            color: #f1f1f1;
+        }
     }
     .closebtn {
         position: absolute;
