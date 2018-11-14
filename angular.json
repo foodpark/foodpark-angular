@@ -26,7 +26,7 @@
                             {
                               "input": "node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
                             },
-                            "src/styles.css"
+                            "src/sass/styles.scss"
                           ],
                         "scripts": [
                         ]
@@ -76,7 +76,7 @@
                         "tsConfig": "src/tsconfig.spec.json",
                         "karmaConfig": "src/karma.conf.js",
                         "styles": [
-                            "src/styles.scss"
+                            "src/sass/styles.scss"
                         ],
                         "scripts": [],
                         "assets": [
@@ -123,10 +123,6 @@
                             "**/node_modules/**"
                         ]
                     }
-                },
-                "defaults": {
-                  "styleExt": "scss",
-                  "component": {}
                 }
             }
         }
