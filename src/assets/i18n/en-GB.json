@@ -341,5 +341,17 @@
     "UNIQUENESS_DESCRIPTION": "Homemade tortillas, stuffed lime-marinated lengua, smothered in avocado and our famous melt-your-face salsa.",
     "ORDER_TIME:": "Payment Time: ",
     "ORDER_DATE_TIME:": "Date/Time: ",
-    "TERRITORIES": "territories"
+    "TERRITORIES": "Territories",
+    "CREATE_MAIN_HUB": "Create Main Hub",
+    "NEW_MAIN_HUB_MANAGER": "New Main Hub Manager",
+    "POD_APPLICATIONS": "Pod Applications",
+    "DISTRIBUTION_CENTER_MANAGEMENT": "Distribution Center management",
+    "LOAD_MANAGEMENT": "Load Mgmt",
+    "REPORTING": "Reporting",
+    "HUB_MANAGER": "Hub Manager",
+    "HUB_PICKUPS": "Hub Pickups",
+    "POD_PROFILE": "Pod Profile",
+    "VOLUNTEERS": "Volunteers",
+    "POD_PICKUPS": "Pod Pickups",
+    "LOAD_REQUESTS": "Load Requests"
 }
