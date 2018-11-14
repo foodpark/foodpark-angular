@@ -1,40 +1,33 @@
-import {Component, OnInit, ViewContainerRef} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
+import { DataService } from '../../../app-services/data.service';
+import { AuthService } from '../../../app-services/auth.service';
+
+import { from } from 'rxjs';
 
 @Component({
     selector: 'app-hub-manager-dashboard',
-    templateUrl: './hub-manager-dashboard.component.html',
-    styleUrls: ['./hub-manager-dashboard.component.scss']
+    templateUrl: './hub-manager-dashboard.component.html'
 })
 export class HubManagerDashboardComponent implements OnInit {
-    hubmanagerForm: FormGroup;
-    submitted = false;
+    sideNavData = [];
 
-    constructor(private formBuilder: FormBuilder,
-                private http: HttpClient,
-                private router: Router) {}
+    constructor(private dataService: DataService,
+                public authService: AuthService) {
+    }
 
     ngOnInit() {
-        this.hubmanagerForm = this.formBuilder.group({
-            firstname: ['', Validators.required],
-            lastname: ['', Validators.required],
-            email: ['', Validators.required],
-            password: ['', Validators.required],
-            repeatpassword: ['', Validators.required],
-            country: ['', Validators.required],
-            territory: ['', Validators.required],
-            mainhub: ['', Validators.required]
+        this.dataService.getHubManagerJsonData('hub').subscribe(res => {
+            this.sideNavData = res;
         });
     }
 
-    get f() {
-        return this.hubmanagerForm.controls;
+    closeNav() {
+        document.getElementById('leftmenu').style.display = 'none';
     }
 
-
-    onCreateMainHubManagerClick() {
-
+    onLogout() {
+        this.authService.logout();
     }
 }

@@ -353,5 +353,6 @@
     "POD_PROFILE": "Pod Profile",
     "VOLUNTEERS": "Volunteers",
     "POD_PICKUPS": "Pod Pickups",
-    "LOAD_REQUESTS": "Load Requests"
+    "LOAD_REQUESTS": "Load Requests",
+    "CREATE_REGIONAL_HUB": "Create Regional Hub"
 }
