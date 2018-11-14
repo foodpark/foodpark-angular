@@ -1,0 +1,21 @@
+.dropdown {
+    button {
+        background-color: rgb(246, 246, 243);
+        color: black;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        &.dropdown-toggle {
+            font-size: 18px;
+        }
+        &.dropdown-toggle:empty::after {
+            background: red;
+        }
+    }
+    ul {
+        width: 100%;
+        li {
+            padding: 2px 15px;
+        }
+    }
+}

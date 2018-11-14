@@ -1,76 +1,72 @@
 <div class="canvas inner_wrapper pt35" style="position: absolute;top: 100px; padding: 15px;">
     <section class="greybg center ">
-      <h2>Create New Hub Manager</h2>
-      <div class="container-fluid col-sm-12 menu_detail shell bg_1">
-        <form [formGroup]="hubmanagerForm">
-            <div class="form-group">
-                <h4>First Name</h4>
-                <input
-                    type="text"
-                    formControlName="firstname"
-                    class="form-control"
-                    placeholder="First Name"
-                    [ngClass]="{'fp-input-error': f.firstname.errors }">
-            </div>
-            <div class="form-group">
-                <h4>Last Name</h4>
-                <input
-                    type="text"
-                    formControlName="lastname"
-                    class="form-control"
-                    placeholder="Last Name"
-                    [ngClass]="{'fp-input-error': f.lastname.errors }">
-            </div>
-            <div class="form-group">
-                <h4>Email</h4>
-                <input
-                    type="email"
-                    formControlName="email"
-                    class="form-control"
-                    placeholder="email@xyz.com"
-                    [ngClass]="{'fp-input-error': f.email.errors }">
-            </div>
-            <div class="form-group">
-                <h4>Password</h4>
-                <input
-                    type="password"
-                    formControlName="password"
-                    class="form-control"
-                    placeholder="Password"
-                    [ngClass]="{'is-invalid': submitted && f.password.errors }">
-            </div>
-            <div class="form-group">
-                <h4>Repeat Password</h4>
-                <input
-                    type="password"
-                    formControlName="repeatpassword"
-                    class="form-control"
-                    placeholder="Repeat Password"
-                    [ngClass]="{'is-invalid': submitted && f.repeatpassword.errors }">
-            </div>
-            <div class="form-group">
-                <h4>Country</h4>
-                <select class="form-control" name="country">
-                    <option value="">Country</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <h4>Territory</h4>
-                <select class="form-control" name="territory">
-                    <option value="">Territory</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <h4>Main Hub</h4>
-                <select class="form-control" name="mainhub">
-                    <option value="">Main Hub</option>
-                </select>
-            </div>
-            <button
-                type="submit"
-                class="btn btn-default"
-                (click)="onCreateMainHubManagerClick()"
-                [disabled]="f['firstname'].errors ||
+        <h2>Create New Hub Manager</h2>
+        <div class="container-fluid col-sm-12 menu_detail shell bg_1">
+            <form [formGroup]="hubmanagerForm">
+                <div class="form-group">
+                    <h4>First Name</h4>
+                    <input
+                        type="text"
+                        formControlName="firstname"
+                        class="form-control"
+                        placeholder="First Name"
+                        [ngClass]="{'fp-input-error': f.firstname.errors }">
+                </div>
+                <div class="form-group">
+                    <h4>Last Name</h4>
+                    <input
+                        type="text"
+                        formControlName="lastname"
+                        class="form-control"
+                        placeholder="Last Name"
+                        [ngClass]="{'fp-input-error': f.lastname.errors }">
+                </div>
+                <div class="form-group">
+                    <h4>Email</h4>
+                    <input
+                        type="email"
+                        formControlName="email"
+                        class="form-control"
+                        placeholder="email@xyz.com"
+                        [ngClass]="{'fp-input-error': f.email.errors }">
+                </div>
+                <div class="form-group">
+                    <h4>Password</h4>
+                    <input
+                        type="password"
+                        formControlName="password"
+                        class="form-control"
+                        placeholder="Password"
+                        [ngClass]="{'is-invalid': submitted && f.password.errors }">
+                </div>
+                <div class="form-group">
+                    <h4>Repeat Password</h4>
+                    <input
+                        type="password"
+                        formControlName="repeatpassword"
+                        class="form-control"
+                        placeholder="Repeat Password"
+                        [ngClass]="{'is-invalid': submitted && f.repeatpassword.errors }">
+                </div>
+                <div class="form-group">
+                    <h4>Country</h4>
+                    <app-dropdown [dropdownName]="'countries'"></app-dropdown>
+                </div>
+                <div class="form-group">
+                    <h4>Territory</h4>
+                    <app-dropdown [dropdownName]="'territories'"></app-dropdown>
+                </div>
+                <div class="form-group">
+                    <h4>Main Hub</h4>
+                    <select class="form-control" name="mainhub">
+                        <option value="">Main Hub</option>
+                    </select>
+                </div>
+                <button
+                    type="submit"
+                    class="btn btn-default"
+                    (click)="onCreateMainHubManagerClick()"
+                    [disabled]="f['firstname'].errors ||
                             f['lastname'].errors ||
                             f['email'].errors ||
                             f['password'].errors ||
@@ -78,8 +74,8 @@
                             f['country'].errors ||
                             f['territory'].errors ||
                             f['mainhub'].errors">REGISTER
-            </button>
-        </form>
-      </div>
+                </button>
+            </form>
+        </div>
     </section>
 </div>
