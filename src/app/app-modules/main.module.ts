@@ -18,6 +18,12 @@ import {DriverDashboardComponent}                                     from '../a
 
 import {HubManagerDashboardComponent}                                 from '../app-components/main-body/hub-manager-dashboard/hub-manager-dashboard.component';
 import {RegionalHubComponent}                                         from '../app-components/main-body/hub-manager-dashboard/regionalhub/regionalhub.component';
+import {ReportingComponent}                                           from '../app-components/main-body/hub-manager-dashboard/reporting/reporting.component';
+import {PodApplicationsComponent}                                     from '../app-components/main-body/hub-manager-dashboard/pod-applications/pod-applications.component';
+import {LoadManagementComponent}                                      from '../app-components/main-body/hub-manager-dashboard/load-management/load-management.component';
+import {HubPickupsComponent}                                          from '../app-components/main-body/hub-manager-dashboard/hub-pickups/hub-pickups.component';
+import {HubManagerComponent}                                          from '../app-components/main-body/hub-manager-dashboard/hub-manager/hub-manager.component';
+import {DistributionCenterComponent}                                  from '../app-components/main-body/hub-manager-dashboard/distrubution-center/distrubution-center.component';
 
 import {RemoveSpacesPipe}                                             from '../app-pipes/removeSpaces.pipe';
 import {DropdownModule}                                               from "../app-components/main-body/dropdown/dropdown.module";
@@ -45,6 +51,12 @@ import {DropdownModule}                                               from "../a
 
         HubManagerDashboardComponent,
         RegionalHubComponent,
+        ReportingComponent,
+        PodApplicationsComponent,
+        LoadManagementComponent,
+        HubPickupsComponent,
+        HubManagerComponent,
+        DistributionCenterComponent,
 
         RemoveSpacesPipe
     ],
@@ -63,6 +75,12 @@ import {DropdownModule}                                               from "../a
 
         HubManagerDashboardComponent,
         RegionalHubComponent,
+        ReportingComponent,
+        PodApplicationsComponent,
+        LoadManagementComponent,
+        HubPickupsComponent,
+        HubManagerComponent,
+        DistributionCenterComponent,
     ],
 })
 export class MainModule {

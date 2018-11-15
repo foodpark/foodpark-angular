@@ -10,6 +10,12 @@ import {FoodparkManagerDashboardComponent}                 from '../app-componen
 
 import {HubManagerDashboardComponent}                      from '../app-components/main-body/hub-manager-dashboard/hub-manager-dashboard.component';
 import {RegionalHubComponent}                              from '../app-components/main-body/hub-manager-dashboard/regionalhub/regionalhub.component';
+import {ReportingComponent}                                from '../app-components/main-body/hub-manager-dashboard/reporting/reporting.component';
+import {PodApplicationsComponent}                          from '../app-components/main-body/hub-manager-dashboard/pod-applications/pod-applications.component';
+import {LoadManagementComponent}                           from '../app-components/main-body/hub-manager-dashboard/load-management/load-management.component';
+import {HubPickupsComponent}                               from '../app-components/main-body/hub-manager-dashboard/hub-pickups/hub-pickups.component';
+import {HubManagerComponent}                               from '../app-components/main-body/hub-manager-dashboard/hub-manager/hub-manager.component';
+import {DistributionCenterComponent}                       from '../app-components/main-body/hub-manager-dashboard/distrubution-center/distrubution-center.component';
 
 
 import {NewHubManagerComponent}                            from '../app-components/main-body/admin-dashboard/NewHubManager/new-hub-manager-dashboard.component';
@@ -54,9 +60,15 @@ const routes: Routes = [
         path: 'foodparkmanager', component: FoodparkManagerDashboardComponent, canActivate: [AuthGuard], children: []
     },
     {
-        path: 'hubmanager', component: HubManagerDashboardComponent,
+        path: 'hubmanager', component: HubManagerDashboardComponent, canActivate: [AuthGuard]
           children: [
-            { path: 'create_regional_hub', component:RegionalHubComponent }
+            { path: 'create_regional_hub', component:RegionalHubComponent },
+            { path: 'reporting', component:ReportingComponent }
+            { path: 'pod_applications', component:PodApplicationsComponent }
+            { path: 'load_management', component:LoadManagementComponent }
+            { path: 'hub_pickups', component:HubPickupsComponent }
+            { path: 'hub_manager', component:HubManagerComponent }
+            { path: 'distribution_center_management', component:DistributionCenterComponent }
           ]
     }
 ];
