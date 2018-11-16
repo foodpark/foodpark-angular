@@ -60,15 +60,14 @@ const routes: Routes = [
         path: 'foodparkmanager', component: FoodparkManagerDashboardComponent, canActivate: [AuthGuard], children: []
     },
     {
-        path: 'hubmanager', component: HubManagerDashboardComponent, canActivate: [AuthGuard]
-          children: [
-            { path: 'create_regional_hub', component:RegionalHubComponent },
-            { path: 'reporting', component:ReportingComponent }
-            { path: 'pod_applications', component:PodApplicationsComponent }
-            { path: 'load_management', component:LoadManagementComponent }
-            { path: 'hub_pickups', component:HubPickupsComponent }
-            { path: 'hub_manager', component:HubManagerComponent }
-            { path: 'distribution_center_management', component:DistributionCenterComponent }
+        path: 'hubmanager', component: HubManagerDashboardComponent, canActivate: [AuthGuard], children: [
+            { path: 'create_regional_hub', component: RegionalHubComponent, children: [] },
+            { path: 'reporting', component: ReportingComponent, children: [] },
+            { path: 'pod_applications', component: PodApplicationsComponent, children: [] },
+            { path: 'load_management', component: LoadManagementComponent, children: [] },
+            { path: 'hub_pickups', component: HubPickupsComponent, children: [] },
+            { path: 'hub_manager', component: HubManagerComponent, children: [] },
+            { path: 'distribution_center_management', component: DistributionCenterComponent, children: [] }
           ]
     }
 ];
