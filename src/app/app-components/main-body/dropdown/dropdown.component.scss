@@ -1,5 +1,7 @@
 .dropdown {
+    height: 50px;
     button {
+        height: 50px;
         background-color: rgb(246, 246, 243);
         color: black;
         width: 100%;
@@ -7,15 +9,19 @@
         justify-content: space-between;
         &.dropdown-toggle {
             font-size: 18px;
+            color: #999;
         }
-        &.dropdown-toggle:empty::after {
-            background: red;
+        &.dropdown-toggle::after {
+            position: absolute;
+            top: 20px;
+            right: 15px;
         }
     }
     ul {
         width: 100%;
         li {
-            padding: 2px 15px;
+            padding: 5px 15px;
+            cursor: pointer;
         }
     }
 }

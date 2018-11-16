@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import { Router } from '@angular/router';
+import {Router} from '@angular/router';
+
 
 @Component({
     selector: 'app-territories',
@@ -26,7 +27,7 @@ export class TerritoriesComponent implements OnInit {
     }
 
     onEditClick() {
-        this.router.navigate(['/add_edit_territories']);
+        this.router.navigate(['/admin/territories/edit_territory']);
     }
 
     onDeleteClick() {
