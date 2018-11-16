@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-territories',
@@ -11,7 +12,7 @@ export class TerritoriesComponent implements OnInit {
     territories = [];
     country = [];
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private router: Router) {
         this.http.get('https://api.instamarkt.co/api/v1/rel/territories').subscribe(res => {
             Object.values(res).forEach(item => {
                 this.territories.push(item['territory']);
@@ -25,6 +26,7 @@ export class TerritoriesComponent implements OnInit {
     }
 
     onEditClick() {
+        this.router.navigate(['/add_edit_territories']);
     }
 
     onDeleteClick() {

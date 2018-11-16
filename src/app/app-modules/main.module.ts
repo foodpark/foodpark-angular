@@ -21,6 +21,7 @@ import {RegionalHubComponent}                                         from '../a
 
 import {RemoveSpacesPipe}                                             from '../app-pipes/removeSpaces.pipe';
 import {DropdownModule}                                               from "../app-components/main-body/dropdown/dropdown.module";
+import { EditTerritoryComponent } from '../app-components/main-body/edit-territory/edit-territory.component';
 
 @NgModule({
     imports: [
@@ -34,6 +35,7 @@ import {DropdownModule}                                               from "../a
         DashboardComponent,
         AdminDashboardComponent,
         TerritoriesComponent,
+        EditTerritoryComponent,
         NewHubManagerComponent,
 
         MainHubsComponent,
@@ -52,6 +54,7 @@ import {DropdownModule}                                               from "../a
         DashboardComponent,
         AdminDashboardComponent,
         TerritoriesComponent,
+        EditTerritoryComponent,
         NewHubManagerComponent,
 
         MainHubsComponent,
