@@ -17,6 +17,7 @@ import {TerritoriesComponent}                              from '../app-componen
 // import {TerritoriesComponent}                           from '../app-components/main-body/territories/territories.component';
 import {MainHubsComponent}                                 from '../app-components/main-body/main-hubs/main-hubs.component';
 import { AuthGuard }                                       from '../app-services/auth.guard';
+import { EditTerritoryComponent } from '../app-components/main-body/edit-territory/edit-territory.component';
 
 const routes: Routes = [
     {
@@ -28,7 +29,11 @@ const routes: Routes = [
     {
         path: 'admin', component: AdminDashboardComponent, canActivate: [AuthGuard], children: [
             {
-                path: 'territories', component: TerritoriesComponent, children: []
+                path: 'territories', component: TerritoriesComponent, children: [
+                    {
+                        path: 'create_edit_territories', component: EditTerritoryComponent, children: []
+                    }
+                ]
             },
             {
                 path: 'create_main_hub', component: MainHubsComponent, children: []

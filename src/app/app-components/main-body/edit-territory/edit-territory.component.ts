@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-territory',
@@ -6,10 +7,24 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./edit-territory.component.css']
 })
 export class EditTerritoryComponent implements OnInit {
+  addEditTerritoryForm: FormGroup;
 
-  constructor() { }
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+      this.addEditTerritoryForm = this.formBuilder.group({
+          territory: ['', Validators.required],
+          latitude: ['', Validators.required],
+          longitude: ['', Validators.required],
+          country: ['', Validators.required]
+      });
   }
 
+  get f() {
+      return  this.addEditTerritoryForm.controls;
+  }
+
+  onSaveClick() {
+
+  }
 }
