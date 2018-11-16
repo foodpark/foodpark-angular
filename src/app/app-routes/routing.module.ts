@@ -31,7 +31,7 @@ const routes: Routes = [
             {
                 path: 'territories', component: TerritoriesComponent, children: [
                     {
-                        path: 'create_edit_territories', component: EditTerritoryComponent, children: []
+                        path: 'add_edit_territories', component: EditTerritoryComponent, children: []
                     }
                 ]
             },
