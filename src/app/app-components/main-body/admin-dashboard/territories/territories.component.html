@@ -9,9 +9,10 @@
         </tr>
         </thead>
         <tbody>
+        {{allTerritories | json}}
         <tr *ngFor="let gridData of gridMetadata; let i = index">
-            <td>{{territories[i]}}</td>
-            <td>{{country[i]}}</td>
+            <td>{{territories[i]['territory']}}</td>
+            <td>{{territories[i]['country']}}</td>
             <td>
                 <i class="material-icons" (click)="onEditClick()">
                     edit

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {HttpClient} from "@angular/common/http";
-import {Router} from "@angular/router";
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {HttpClient} from '@angular/common/http';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-main-hubs',
@@ -40,11 +40,6 @@ export class MainHubsComponent implements OnInit {
             this.mainhubForm.get('country').setValue(event['country']);
         } else {
             this.mainhubForm.get('territory_id').setValue(event);
-            // Object.values(event).forEach(item => {
-            //     if (this.mainhubForm.get('country').value.toLowerCase() === item['country'].toLowerCase()) {
-            //         this.mainhubForm.get('territory_id').setValue(item['id']);
-            //     }
-            // });
         }
     }
 
