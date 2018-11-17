@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 import {Subject} from 'rxjs';
 
 import { environment } from '../../environments/environment';
-import {AuthData} from './auth-data.module';
+import {AuthData} from '../app-modules/auth-data.module';
 
 @Injectable({providedIn: 'root'})
 export class AuthService {

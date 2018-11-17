@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {HttpService} from '../../../../app-services/http.service';
+import {TerritoryService} from '../../../../app-services/territory.service';
 
 
 @Component({
@@ -13,8 +13,8 @@ export class TerritoriesComponent implements OnInit {
     territories = [];
     country = [];
 
-    constructor(private httpService: HttpService, private router: Router) {
-        this.httpService.loadTerritoryData().subscribe(
+    constructor(private service: TerritoryService, private router: Router) {
+        this.service.getTerritories().subscribe(
             res => {
                 Object.values(res).forEach(item => {
                     this.territories.push(item['territory']);
