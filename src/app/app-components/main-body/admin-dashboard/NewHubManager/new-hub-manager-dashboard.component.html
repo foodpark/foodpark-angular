@@ -50,11 +50,15 @@
                 </div>
                 <div class="form-group">
                     <h4>Country</h4>
-                    <app-dropdown [dropdownName]="'countries'"></app-dropdown>
+                    <app-dropdown
+                        (selectedOption)="onDropdownChange($event)"
+                        [dropdownName]="'country'"></app-dropdown>
                 </div>
                 <div class="form-group">
                     <h4>Territory</h4>
-                    <app-dropdown [dropdownName]="'territories'"></app-dropdown>
+                    <app-dropdown
+                        (selectedOption)="onDropdownChange($event)"
+                        [dropdownName]="'territory'"></app-dropdown>
                 </div>
                 <div class="form-group">
                     <h4>Main Hub</h4>

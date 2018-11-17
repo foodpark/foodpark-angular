@@ -5,7 +5,7 @@ import {Subject} from 'rxjs';
 import { Observable } from "rxjs/Observable";
 
 import { environment } from '../../environments/environment';
-import {AuthData} from './auth-data.module';
+import {AuthData} from '../app-modules/auth-data.module';
 
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/catch";

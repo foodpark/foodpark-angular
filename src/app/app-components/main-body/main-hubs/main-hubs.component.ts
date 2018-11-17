@@ -10,8 +10,10 @@ import {Router} from "@angular/router";
 })
 export class MainHubsComponent implements OnInit {
 
-    createMainhubrForm: FormGroup;
+    mainhubForm: FormGroup;
     submitted = false;
+    territoryData;
+    countryData;
 
     constructor(private formBuilder: FormBuilder,
                 private http: HttpClient,
@@ -19,20 +21,36 @@ export class MainHubsComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.createMainhubrForm = this.formBuilder.group({
-            mainhubname: ['', Validators.required],
+        this.mainhubForm = this.formBuilder.group({
+            name: ['', Validators.required],
             latitude: ['', Validators.required],
             longitude: ['', Validators.required],
             country: ['', Validators.required],
-            territory: ['', Validators.required],
-            mainhub: ['', Validators.required]
+            territory_id: ['', Validators.required],
+            type: ['MAIN', Validators.required]
         });
     }
 
     get f() {
-        return this.createMainhubrForm.controls;
+        return this.mainhubForm.controls;
+    }
+
+    onDropdownChange(event) {
+        if (event.hasOwnProperty('country')) {
+            this.mainhubForm.get('country').setValue(event['country']);
+        } else {
+            this.mainhubForm.get('territory_id').setValue(event);
+            // Object.values(event).forEach(item => {
+            //     if (this.mainhubForm.get('country').value.toLowerCase() === item['country'].toLowerCase()) {
+            //         this.mainhubForm.get('territory_id').setValue(item['id']);
+            //     }
+            // });
+        }
     }
 
     onCreateMainHubClick() {
+        this.http.post('http://35.196.225.9:1337 ', this.mainhubForm.value).subscribe(res => {
+            console.log(res);
+        });
     }
 }

@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { DataService } from '../../../../app-services/data.service';
 import { AuthService } from '../../../../app-services/auth.service';
 
 import { from } from 'rxjs';
 @Component({
-  selector: 'regional-hub',
+  selector: 'app-regional-hub',
   templateUrl: './regionalhub.component.html',
 
 })
@@ -64,5 +65,21 @@ export class RegionalHubComponent implements OnInit {
   ngOnInit() {
 
   }
-
+    // createRegionalhubsForm: FormGroup;
+    //
+    // constructor(private formBuilder: FormBuilder,
+    //     private router: Router) { }
+    //
+    // ngOnInit() {
+    //     this.createRegionalhubsForm = this.formBuilder.group({
+    //         regionalhubname: ['', Validators.required]
+    //     });
+    // }
+    //
+    // get f() {
+    //     return this.createRegionalhubsForm.controls;
+    // }
+    //
+    // onCreateRegionalHubClick() {
+    // }
 }

@@ -2,15 +2,15 @@
     <section class="greybg center ">
         <h2>Create Main Hub</h2>
         <div class="container-fluid col-sm-12 menu_detail shell bg_1">
-            <form [formGroup]="createMainhubrForm">
+            <form [formGroup]="mainhubForm">
                 <div class="form-group">
                     <h4>Main Hub</h4>
                     <input
                         type="text"
-                        formControlName="mainhubname"
+                        formControlName="name"
                         class="form-control"
                         placeholder="Main Hub Name"
-                        [ngClass]="{'fp-input-error': f.mainhubname.errors }">
+                        [ngClass]="{'fp-input-error': f.name.errors }">
                 </div>
                 <div class="form-group">
                     <h4>Latitude</h4>
@@ -32,19 +32,22 @@
                 </div>
                 <div class="form-group">
                     <h4>Country</h4>
-                    <app-dropdown [dropdownName]="'countries'"></app-dropdown>
+                    <app-dropdown
+                        [dropdownName]="'country'"
+                        (selectedOption)="onDropdownChange($event)">
+                    </app-dropdown>
                 </div>
                 <div class="form-group">
                     <h4>Territory</h4>
-                    <app-dropdown [dropdownName]="'territories'"></app-dropdown>
+                    <app-dropdown
+                        [dropdownName]="'territory'"
+                        (selectedOption)="onDropdownChange($event)">
+                    </app-dropdown>
                 </div>
                 <button
                     type="submit"
                     class="btn btn-default"
-                    (click)="onCreateMainHubClick()"
-                    [disabled]="f['mainhubname'].errors ||
-                            f['latitude'].errors ||
-                            f['longitude'].errors">REGISTER
+                    (click)="onCreateMainHubClick()">REGISTER
                 </button>
             </form>
         </div>
