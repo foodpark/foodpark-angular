@@ -24,7 +24,18 @@ export class NewHubManagerComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.hubmanagerForm = this.formBuilder.group({
+        this.hubmanagerForm = this.buildForm();
+        this.countryService.getCountries().subscribe(
+            res => {
+                this.countries = [];
+                Object.values(res).forEach(item => {
+                    this.countries.push({'name': item['name'], 'id': item['id']});
+                });
+            });
+    }
+
+    buildForm() {
+        const group = this.formBuilder.group({
             firstname: ['', Validators.required],
             lastname: ['', Validators.required],
             email: ['', Validators.required],
@@ -36,14 +47,7 @@ export class NewHubManagerComponent implements OnInit {
             mainhubId: ['', Validators.required],
             role: ['HUBMGR', Validators.required]
         });
-
-        this.countryService.getCountries().subscribe(
-            res => {
-                this.countries = [];
-                Object.values(res).forEach(item => {
-                    this.countries.push({'name': item['name'], 'id': item['id']});
-                });
-            });
+        return group;
     }
 
     get f() {
@@ -101,7 +105,13 @@ export class NewHubManagerComponent implements OnInit {
             'country_id': this.hubmanagerForm.get('country_id').value,
             'territory_id': this.hubmanagerForm.get('territory_id').value,
         };
-
         this.hubManagerService.create(obj).subscribe();
+        this.hubmanagerForm.reset();
+        const country_button = document.getElementById('country_button');
+        country_button.innerText = 'Select country';
+        const territory_button = document.getElementById('territory_button');
+        territory_button.innerText = 'Select territory';
+        const mainhub_button = document.getElementById('mainhub_button');
+        mainhub_button.innerText = 'Select mainhub';
     }
 }
