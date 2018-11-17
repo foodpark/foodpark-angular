@@ -2,9 +2,15 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {Subject} from 'rxjs';
+import { Observable } from "rxjs/Observable";
 
 import { environment } from '../../environments/environment';
 import {AuthData} from './auth-data.module';
+
+import "rxjs/add/operator/map";
+import "rxjs/add/operator/catch";
+import "rxjs/add/observable/throw";
+
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -16,6 +22,7 @@ export class AuthService {
     private userName: string;
     private timerReference;
     isTimeout: boolean;
+    id: any
 
     loginTimeout() {
         this.isTimeout = true;
@@ -62,7 +69,8 @@ export class AuthService {
                     this.authStatusListener.next(true);
                     this.userRole = response['user']['role'].toLowerCase();
                     this.userName = response['user']['username'];
-                    this.saveAuthData(token, this.userRole, this.userName);
+                    this.id = response['user']['id'];
+                    this.saveAuthData(token, this.userRole, this.userName, this.id);
                     switch (this.userRole) {
                         case 'admin':
                             this.router.navigate(['/admin']);
@@ -111,10 +119,11 @@ export class AuthService {
         this.router.navigate(['/dashboard']);
     }
 
-    private saveAuthData(token: string, userrole: string, username: string) {
+    private saveAuthData(token: string, userrole: string, username: string, id:string) {
         localStorage.setItem('token', token);
         localStorage.setItem('userrole', userrole);
         localStorage.setItem('username', username);
+        localStorage.setItem('id', id);
     }
 
     private clearAuthData() {
@@ -123,10 +132,11 @@ export class AuthService {
         localStorage.removeItem('username');
     }
 
-    private getAuthData() {
+     getAuthData() {
         const token = localStorage.getItem('token');
         const role = localStorage.getItem('userrole');
         const name = localStorage.getItem('username');
+        const id = localStorage.getItem('id');
         if (!token || !role || !name) {
             return;
         }
@@ -134,7 +144,20 @@ export class AuthService {
         return {
             token: token,
             username: name,
-            userrole: role
+            userrole: role,
+            id: id
         };
+    }
+
+    apiGetMainHUbDetails(parms){
+      return this.http.get(environment.apiUrl + '/api/v1/rel/food_parks' + parms).map((response)=>{
+        return response;
+      });
+    }
+
+    apiCreaateRegionHub(reqobj){
+      return this.http.post(environment.apiUrl + '/api/v1/rel/regionalhubs',reqobj).map((response)=>{
+        return response;
+      });
     }
 }

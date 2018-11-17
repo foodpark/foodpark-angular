@@ -1,1 +1,11 @@
-<p style="padding-top:100px;display:flex;justify-content:center;width:100%;">this is regional hub</p>
+<div class="dashboard_content_layout regional__hub">
+  <div class="regional__hub-section">
+    <p class="mainhub-name">Main Hub: <span>{{MainHubName}}</span></p>
+    <!-- <input type="text" name="" value="" placeholder="Enter Regional hub name"> -->
+    <div class="common__input_fields">
+      <input type="text" class="inputText" [(ngModel)]="createRegionName"  required/>
+      <span class="floating-label">Enter Regional Hub Name</span>
+    </div>
+    <button type="button" name="button" class="hubcreation" (click)="createRegionHub()">create</button>
+  </div>
+</div>

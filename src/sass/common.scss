@@ -1,0 +1,21 @@
+.sub_menu_layout {
+  height: 100px;
+  background-color: $color-black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .sub_menu_layout--actions {
+    button {
+      border: none;
+      background-color: #fff;
+      padding: 15px;
+      height: 35px;
+      margin-right: 20px;
+    }
+  }
+}
+
+.dashboard_content_layout {
+  padding-top: 85px;
+  width: 100%;
+}
