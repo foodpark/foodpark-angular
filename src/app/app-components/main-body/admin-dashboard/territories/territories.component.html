@@ -11,7 +11,7 @@
         <tbody>
         {{allTerritories | json}}
         <tr *ngFor="let gridData of gridMetadata; let i = index">
-            <td>{{territories[i]['territory']}}</td>
+            <td>{{territories[i]['name']}}</td>
             <td>{{territories[i]['country']}}</td>
             <td>
                 <i class="material-icons" (click)="onEditClick()">

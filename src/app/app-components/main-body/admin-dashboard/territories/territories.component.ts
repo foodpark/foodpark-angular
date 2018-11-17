@@ -16,7 +16,7 @@ export class TerritoriesComponent implements OnInit {
         this.service.getTerritories().subscribe(
             res => {
                 Object.values(res).forEach(item => {
-                    this.territories.push({'territory': item['territory'], 'country': item['country']});
+                    this.territories.push({'name': item['territory'], 'country': item['country'], 'id': item['id']});
                 });
                 this.gridMetadata = res;
             }

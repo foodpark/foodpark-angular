@@ -6,8 +6,7 @@ import {TerritoryService} from '../../../app-services/territory.service';
 
 @Component({
     selector: 'app-dropdown',
-    templateUrl: './dropdown.component.html',
-    styleUrls: ['./dropdown.component.scss']
+    templateUrl: './dropdown.component.html'
 })
 
 export class DropdownComponent implements OnInit {
@@ -19,16 +18,14 @@ export class DropdownComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (this.dropdownName.toLowerCase() === 'country') {
-            this.countryService.getCountries().subscribe(res => {
-                this.dropdownData = res;
-            });
-        }
+
     }
 
     getTerritory(id: number) {
         this.territoryService.getTerritoriesInCountry(id).subscribe(res => {
-            this.dropdownData = res;
+            Object.values(res).forEach(item => {
+                this.dropdownData.push({'name': item['territory'], 'id': item['id']});
+            });
         });
     }
 
