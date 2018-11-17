@@ -1,6 +1,6 @@
 import {NgModule}                                          from '@angular/core';
 import {RouterModule, Routes}                              from '@angular/router';
-import {DashboardComponent}                                from '../app-components/main-body/dashboard/dashboard.component';
+import {LoginComponent}                                from '../app-components/main-body/dashboard/login.component';
 import {AdminDashboardComponent}                           from '../app-components/main-body/admin-dashboard/admin-dashboard.component';
 import {CustomerDashboardComponent}                        from '../app-components/main-body/customer-dashboard/customer-dashboard.component';
 import {OwnerDashboardComponent}                           from '../app-components/main-body/owner-dashboard/owner-dashboard.component';
@@ -18,7 +18,7 @@ import {HubManagerComponent}                               from '../app-componen
 import {DistributionCenterComponent}                       from '../app-components/main-body/hub-manager-dashboard/distrubution-center/distrubution-center.component';
 
 
-import {NewHubManagerComponent}                            from '../app-components/main-body/admin-dashboard/NewHubManager/new-hub-manager-dashboard.component';
+import {NewHubManagerComponent}                            from '../app-components/main-body/admin-dashboard/NewHubManager/new-hub-manager.component';
 import {TerritoriesComponent}                              from '../app-components/main-body/admin-dashboard/territories/territories.component';
 // import {TerritoriesComponent}                           from '../app-components/main-body/territories/territories.component';
 import {MainHubsComponent}                                 from '../app-components/main-body/main-hubs/main-hubs.component';
@@ -31,7 +31,7 @@ const routes: Routes = [
         path: '', redirectTo: '/dashboard', pathMatch: 'full'
     },
     {
-        path: 'dashboard', component: DashboardComponent, children: []
+        path: 'dashboard', component: LoginComponent, children: []
     },
     {
         path: 'admin', component: AdminDashboardComponent, canActivate: [AuthGuard], children: [
