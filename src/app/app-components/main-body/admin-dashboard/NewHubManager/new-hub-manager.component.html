@@ -1,0 +1,104 @@
+<div class="canvas inner_wrapper pt35" style="position: absolute;top: 100px; padding: 15px;">
+    <section class="greybg center ">
+        <h2>Create New Hub Manager</h2>
+        <div class="container-fluid col-sm-12 menu_detail shell bg_1">
+            <form [formGroup]="hubmanagerForm">
+                <div class="form-group">
+                    <h4>First Name</h4>
+                    <input
+                        type="text"
+                        formControlName="firstname"
+                        class="form-control"
+                        placeholder="First Name"
+                        [ngClass]="{'fp-input-error': f.firstname.errors }">
+                </div>
+                <div class="form-group">
+                    <h4>Last Name</h4>
+                    <input
+                        type="text"
+                        formControlName="lastname"
+                        class="form-control"
+                        placeholder="Last Name"
+                        [ngClass]="{'fp-input-error': f.lastname.errors }">
+                </div>
+                <div class="form-group">
+                    <h4>Email</h4>
+                    <input
+                        type="email"
+                        formControlName="email"
+                        class="form-control"
+                        placeholder="email@xyz.com"
+                        [ngClass]="{'fp-input-error': f.email.errors }">
+                </div>
+                <div class="form-group">
+                    <h4>Password</h4>
+                    <input
+                        type="password"
+                        formControlName="password"
+                        class="form-control"
+                        placeholder="Password"
+                        [ngClass]="{'is-invalid': submitted && f.password.errors }">
+                </div>
+                <div class="form-group">
+                    <h4>Repeat Password</h4>
+                    <input
+                        type="password"
+                        formControlName="repeatpassword"
+                        class="form-control"
+                        placeholder="Repeat Password"
+                        [ngClass]="{'is-invalid': submitted && f.repeatpassword.errors }">
+                </div>
+                <div class="form-group">
+                    <h4>Country</h4>
+                    <div class="dropdown">
+                        <button id="country_button"
+                                class="btn btn-primary dropdown-toggle"
+                                type="button"
+                                data-toggle="dropdown">Select country
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li *ngFor="let item of countries; let i = index" (click)="onCountryClick(i, item['id'])">
+                                {{item.name}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h4>Territory</h4>
+                    <div class="dropdown">
+                        <button id="territory_button"
+                                class="btn btn-primary dropdown-toggle"
+                                type="button"
+                                data-toggle="dropdown">Select territory
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li *ngFor="let item of territories; let i = index" (click)="onTerritoryClick(i)">
+                                {{item.name}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h4>Main Hub</h4>
+                    <div class="dropdown">
+                        <button id="mainhub_button"
+                                class="btn btn-primary dropdown-toggle"
+                                type="button"
+                                data-toggle="dropdown">Select mainhub
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li *ngFor="let item of mainHubs; let i = index" (click)="onMainhubClick(i)">
+                                {{item.name}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <button
+                    type="submit"
+                    class="btn btn-default"
+                    (click)="onCreateMainHubManagerClick()">REGISTER
+                </button>
+            </form>
+        </div>
+    </section>
+</div>

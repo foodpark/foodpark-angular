@@ -5,6 +5,10 @@
         width: 100%;
         display: flex;
         justify-content: space-between;
+        &.btn-primary:hover {
+            background: none;
+            border-color: none;
+        }
         &.dropdown-toggle {
             font-size: 18px;
         }
@@ -15,7 +19,8 @@
     ul {
         width: 100%;
         li {
-            padding: 2px 15px;
+            cursor: pointer;
+            padding: 5px 15px;
         }
     }
 }

@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {DashboardComponent} from '../app-components/main-body/dashboard/dashboard.component';
+import {LoginComponent} from '../app-components/main-body/dashboard/login.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {RouterModule} from '@angular/router';
@@ -7,7 +7,7 @@ import {RouterModule} from '@angular/router';
 import {AdminDashboardComponent} from '../app-components/main-body/admin-dashboard/admin-dashboard.component';
 // import {TerritoriesComponent}                                      from '../app-components/main-body/territories/territories.component';
 import {TerritoriesComponent} from '../app-components/main-body/admin-dashboard/territories/territories.component';
-import {NewHubManagerComponent} from '../app-components/main-body/admin-dashboard/NewHubManager/new-hub-manager-dashboard.component';
+import {NewHubManagerComponent} from '../app-components/main-body/admin-dashboard/NewHubManager/new-hub-manager.component';
 
 import {MainHubsComponent} from '../app-components/main-body/main-hubs/main-hubs.component';
 import {CustomerDashboardComponent} from '../app-components/main-body/customer-dashboard/customer-dashboard.component';
@@ -38,7 +38,7 @@ import {EditTerritoryComponent} from "../app-components/main-body/edit-territory
         DropdownModule
     ],
     declarations: [
-        DashboardComponent,
+        LoginComponent,
         AdminDashboardComponent,
         TerritoriesComponent,
         NewHubManagerComponent,
@@ -60,7 +60,7 @@ import {EditTerritoryComponent} from "../app-components/main-body/edit-territory
         RemoveSpacesPipe
     ],
     exports: [
-        DashboardComponent,
+        LoginComponent,
         AdminDashboardComponent,
         TerritoriesComponent,
         NewHubManagerComponent,

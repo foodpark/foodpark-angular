@@ -1,34 +1,33 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from 'src/environments/environment';
+import {CountryService} from '../../../app-services/country.service';
+import {TerritoryService} from '../../../app-services/territory.service';
 
 @Component({
     selector: 'app-dropdown',
-    templateUrl: './dropdown.component.html',
-    styleUrls: ['./dropdown.component.scss']
+    templateUrl: './dropdown.component.html'
 })
 
 export class DropdownComponent implements OnInit {
     dropdownData;
-    countryData;
     @Input() dropdownName: string;
     @Output() selectedOption = new EventEmitter();
 
-    constructor(private http: HttpClient) {
+    constructor(private countryService: CountryService, private territoryService: TerritoryService) {
     }
 
     ngOnInit() {
-        if (this.dropdownName.toLowerCase() === 'country') {
-            this.http.get(environment.apiUrl + '/api/v1/rel/countries').subscribe(res => {
-                this.dropdownData = res;
-            });
-        } else if (this.dropdownName.toLowerCase() === 'territory') {
-            this.http.get(environment.apiUrl + '/api/v1/rel/territories').subscribe(res => {
-                this.dropdownData = res;
-            });
-        }
+
     }
 
+    getTerritory(id: number) {
+        this.territoryService.getTerritoriesInCountry(id).subscribe(res => {
+            Object.values(res).forEach(item => {
+                this.dropdownData.push({'name': item['territory'], 'id': item['id']});
+            });
+        });
+    }
 
     onListItemClick(index: number) {
         const button = document.getElementById('button' + this.dropdownName);
@@ -38,6 +37,7 @@ export class DropdownComponent implements OnInit {
         } else {
             const obj = {};
             obj[this.dropdownName] = this.dropdownData[index]['name'];
+            this.getTerritory(this.dropdownData[index]['id']);
             this.selectedOption.emit(obj);
         }
     }

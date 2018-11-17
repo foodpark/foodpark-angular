@@ -11,14 +11,12 @@ import {TerritoryService} from '../../../../app-services/territory.service';
 export class TerritoriesComponent implements OnInit {
     gridMetadata;
     territories = [];
-    country = [];
 
     constructor(private service: TerritoryService, private router: Router) {
         this.service.getTerritories().subscribe(
             res => {
                 Object.values(res).forEach(item => {
-                    this.territories.push(item['territory']);
-                    this.country.push(item['country']);
+                    this.territories.push({'name': item['territory'], 'country': item['country'], 'id': item['id']});
                 });
                 this.gridMetadata = res;
             }
