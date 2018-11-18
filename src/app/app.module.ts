@@ -28,7 +28,7 @@ import {ErrorComponent} from './error/error.component';
         MainModule,
         HttpClientModule
     ],
-    providers: [],
+    providers: [{provide: ErrorInterceptor, useClass: ErrorInterceptor, multi: true}],
     bootstrap: [AppComponent],
     entryComponents: [ErrorComponent],
 })
