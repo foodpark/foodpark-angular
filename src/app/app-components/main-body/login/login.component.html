@@ -8,7 +8,7 @@
                         formControlName="username"
                         class="form-control"
                         placeholder="User Name"
-                        [ngClass]="{'fp-input-error': f.username.errors }">
+                        required>
                 </div>
                 <div class="form-group">
                     <input
@@ -16,13 +16,13 @@
                         formControlName="password"
                         class="form-control"
                         placeholder="Password"
-                        [ngClass]="{'is-invalid': submitted && f.password.errors }">
+                        required>
                 </div>
                 <button
                     type="submit"
                     class="btn btn-default"
                     (click)="onLoginClick()"
-                    [disabled]="f['username'].errors ||f['password'].errors">Login
+                    [disabled]=!loginForm.valid>Login
                 </button>
             </form>
         </div>

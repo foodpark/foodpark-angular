@@ -1,4 +1,4 @@
-export interface TerritoryModule {
+export interface TerritoryModel {
     id: number;
     city: string;
     territory: string;

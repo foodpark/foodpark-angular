@@ -70,8 +70,8 @@ export class MainHubsComponent implements OnInit {
         const button = document.getElementById('territory_button');
         button.innerText = this.territories[index]['name'];
         this.mainhubForm.get('territory_id').setValue(this.territories[index]['id']);
+        console.log(this.mainhubForm);
     }
-
 
     onCreateMainHubClick() {
         this.mainhubService.create(this.mainhubForm.value).subscribe();

@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
-import { AuthService } from '../../../app-services/auth.service';
+import {AuthService} from '../../../app-services/auth.service';
 
 @Component({
     selector: 'app-login',
@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
     onLoginClick() {
         this.submitted = true;
         if (this.loginForm.valid) {
-          this.authService.login(this.loginForm.value.username, this.loginForm.value.password);
+            this.authService.login(this.loginForm.value.username, this.loginForm.value.password);
         }
     }
 }

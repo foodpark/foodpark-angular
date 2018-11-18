@@ -1,4 +1,4 @@
-export interface HubmanagerModule {
+export interface HubmanagerModel {
     role: string;
     food_park_id: string;
     email: string;
