@@ -22,14 +22,7 @@ export class MainHubsComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.mainhubForm = this.formBuilder.group({
-            name: ['', Validators.required],
-            latitude: ['', Validators.required],
-            longitude: ['', Validators.required],
-            country: ['', Validators.required],
-            territory_id: ['', Validators.required],
-            type: ['MAIN', Validators.required]
-        });
+        this.mainhubForm = this.buildForm();
 
         this.countryService.getCountries().subscribe(
             res => {
@@ -38,6 +31,19 @@ export class MainHubsComponent implements OnInit {
                     this.countries.push({'name': item['name'], 'id': item['id']});
                 });
             });
+    }
+
+
+    buildForm() {
+        const group = this.formBuilder.group({
+            name: ['', Validators.required],
+            latitude: ['', Validators.required],
+            longitude: ['', Validators.required],
+            country: ['', Validators.required],
+            territory_id: ['', Validators.required],
+            type: ['MAIN', Validators.required]
+        });
+        return group;
     }
 
     get f() {
@@ -69,5 +75,10 @@ export class MainHubsComponent implements OnInit {
 
     onCreateMainHubClick() {
         this.mainhubService.create(this.mainhubForm.value).subscribe();
+        this.mainhubForm.reset();
+        const country_button = document.getElementById('country_button');
+        country_button.innerText = 'Select country';
+        const territory_button = document.getElementById('territory_button');
+        territory_button.innerText = 'Select territory';
     }
 }

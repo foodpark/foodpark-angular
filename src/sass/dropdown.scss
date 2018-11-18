@@ -6,14 +6,21 @@
         display: flex;
         justify-content: space-between;
         &.btn-primary:hover {
-            background: none;
-            border-color: none;
+            background: #f6f6f3;
+            border-color: #f6f6f3;
         }
         &.dropdown-toggle {
+            color: black !important;
+            background: #f6f6f3 !important;
+            border-color: #f6f6f3 !important;
+            display: flex;
+            align-items: center;
             font-size: 18px;
         }
         &.dropdown-toggle:empty::after {
-            background: red;
+            position: absolute;
+            top: 20px;
+            right: 15px;
         }
     }
     ul {
