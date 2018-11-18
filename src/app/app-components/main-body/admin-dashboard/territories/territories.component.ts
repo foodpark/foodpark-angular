@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {TerritoryService} from '../../../../app-services/territory.service';
-import {ErrorService} from '../../../../error/error.service';
 
 
 @Component({
@@ -14,8 +13,7 @@ export class TerritoriesComponent implements OnInit {
     territories = [];
 
     constructor(private service: TerritoryService,
-                private router: Router,
-                private errorService: ErrorService) {
+                private router: Router) {
         this.service.getTerritories().subscribe(
             res => {
                 Object.values(res).forEach(item => {
@@ -34,8 +32,7 @@ export class TerritoriesComponent implements OnInit {
     }
 
     onDeleteClick() {
-        this.errorService.throwError('Are you sure ?');
-        this.service.deleteTerritories('');
+        // this.service.deleteTerritories('');
     }
 
 }
