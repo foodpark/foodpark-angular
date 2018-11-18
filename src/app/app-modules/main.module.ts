@@ -29,8 +29,7 @@ import {HubManagerComponent} from '../app-components/main-body/hub-manager-dashb
 import {DistributionCenterComponent} from '../app-components/main-body/hub-manager-dashboard/distrubution-center/distrubution-center.component';
 
 import {RemoveSpacesPipe} from '../app-pipes/removeSpaces.pipe';
-import {DropdownModule} from '../app-components/main-body/dropdown/dropdown.module';
-import {EditTerritoryComponent} from '../app-components/main-body/edit-territory/edit-territory.component';
+import {AddAndEditTerritoryComponent} from '../app-components/main-body/add-and-edit-territory/add-and-edit-territory.component';
 
 @NgModule({
     imports: [
@@ -38,14 +37,13 @@ import {EditTerritoryComponent} from '../app-components/main-body/edit-territory
         ReactiveFormsModule,
         BrowserModule,
         RouterModule,
-        DropdownModule
     ],
     declarations: [
         LoginComponent,
         AdminDashboardComponent,
         TerritoriesComponent,
         NewHubManagerComponent,
-        EditTerritoryComponent,
+        AddAndEditTerritoryComponent,
         MainHubsComponent,
         CustomerDashboardComponent,
         OwnerDashboardComponent,
@@ -69,7 +67,7 @@ import {EditTerritoryComponent} from '../app-components/main-body/edit-territory
         AdminDashboardComponent,
         TerritoriesComponent,
         NewHubManagerComponent,
-        EditTerritoryComponent,
+        AddAndEditTerritoryComponent,
         MainHubsComponent,
         CustomerDashboardComponent,
         OwnerDashboardComponent,

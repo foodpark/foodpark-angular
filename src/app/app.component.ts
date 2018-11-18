@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {environment} from '../environments/environment';
-import {DataService} from "./app-services/data.service";
-import {Router} from "@angular/router";
+import {DataService} from './app-services/data.service';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-root',

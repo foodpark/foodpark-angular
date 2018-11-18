@@ -1,0 +1,54 @@
+<div class="canvas inner_wrapper" style="position: absolute;top: 100px;">
+    <section class="greybg center ">
+        <h2>Edit Territory</h2>
+        <div class="container-fluid col-sm-12 menu_detail shell bg_1">
+            <form [formGroup]="form">
+                <div class="form-group">
+                    <h4>Territory</h4>
+                    <input
+                        type="text"
+                        formControlName="territory"
+                        class="form-control"
+                        placeholder="Main Hub Name">
+                </div>
+                <div class="form-group">
+                    <h4>Country</h4>
+                    <div class="dropdown">
+                        <button id="country_button"
+                                class="btn btn-primary dropdown-toggle"
+                                type="button"
+                                data-toggle="dropdown">Select country
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li *ngFor="let item of countries; let i = index" (click)="onCountryClick(i)">
+                                {{item.name}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h4>Latitude</h4>
+                    <input
+                        type="text"
+                        formControlName="latitude"
+                        class="form-control"
+                        placeholder="ex: 5.342378">
+                </div>
+                <div class="form-group">
+                    <h4>Longitude</h4>
+                    <input
+                        type="text"
+                        formControlName="longitude"
+                        class="form-control"
+                        placeholder="ex: 78.324789">
+                </div>
+                <button
+                    type="submit"
+                    class="btn btn-default"
+                    (click)="onSaveClick()"
+                    [disabled]="!form.valid">{{SAVE_AND_CLOSE.toLocaleString()}}
+                </button>
+            </form>
+        </div>
+    </section>
+</div>
