@@ -9,7 +9,6 @@
         </tr>
         </thead>
         <tbody>
-        {{allTerritories | json}}
         <tr *ngFor="let gridData of gridMetadata; let i = index">
             <td>{{territories[i]['name']}}</td>
             <td>{{territories[i]['country']}}</td>
