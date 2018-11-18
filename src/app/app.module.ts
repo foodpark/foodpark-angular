@@ -2,7 +2,16 @@ import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgModule} from '@angular/core';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
-
+import {
+    MatInputModule,
+    MatCardModule,
+    MatButtonModule,
+    MatToolbarModule,
+    MatExpansionModule,
+    MatProgressSpinnerModule,
+    MatPaginatorModule,
+    MatDialogModule
+  } from '@angular/material';
 import {AppComponent} from './app.component';
 import {HeaderComponent} from './app-components/header/header.component';
 import {FooterComponent} from './app-components/footer/footer.component';
@@ -26,9 +35,17 @@ import {ErrorComponent} from './error/error.component';
         BrowserAnimationsModule,
         AppRoutingModule,
         MainModule,
-        HttpClientModule
+        HttpClientModule,
+        MatInputModule,
+        MatCardModule,
+        MatButtonModule,
+        MatToolbarModule,
+        MatExpansionModule,
+        MatProgressSpinnerModule,
+        MatPaginatorModule,
+        MatDialogModule
     ],
-    providers: [{provide: ErrorInterceptor, useClass: ErrorInterceptor, multi: true}],
+    providers: [{provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}],
     bootstrap: [AppComponent],
     entryComponents: [ErrorComponent],
 })
