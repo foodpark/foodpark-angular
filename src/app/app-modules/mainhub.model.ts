@@ -1,4 +1,4 @@
-export interface MainhubModule {
+export interface MainhubModel {
     name: string;
     territory_id: number;
     country: string;

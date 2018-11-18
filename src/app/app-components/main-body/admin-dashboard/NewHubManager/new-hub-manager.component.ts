@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CountryService} from '../../../../app-services/country.service';
 import {TerritoryService} from '../../../../app-services/territory.service';
 import {HubmanagerService} from '../../../../app-services/hubmanager.service';
-import {HubmanagerModule} from '../../../../app-modules/hubmanager.module';
+import {HubmanagerModel} from '../../../../app-modules/hubmanager.model';
 
 @Component({
     selector: 'app-new-hub-manager-dashboard',
@@ -38,14 +38,14 @@ export class NewHubManagerComponent implements OnInit {
         const group = this.formBuilder.group({
             firstname: ['', Validators.required],
             lastname: ['', Validators.required],
-            email: ['', Validators.required],
+            email: ['', Validators.email],
             password: ['', Validators.required],
             repeatpassword: ['', Validators.required],
             country_id: ['', Validators.required],
             country: ['', Validators.required],
             territory_id: ['', Validators.required],
             mainhubId: ['', Validators.required],
-            role: ['HUBMGR', Validators.required]
+            role: ['HUBMGR']
         });
         return group;
     }
@@ -82,6 +82,7 @@ export class NewHubManagerComponent implements OnInit {
         const button = document.getElementById('mainhub_button');
         button.innerText = this.mainHubs[index]['name'];
         this.hubmanagerForm.get('mainhubId').setValue(this.mainHubs[index]['id']);
+        console.log(this.hubmanagerForm);
     }
 
     getMainhub(id: number) {
@@ -95,7 +96,7 @@ export class NewHubManagerComponent implements OnInit {
 
 
     onCreateMainHubManagerClick() {
-        const obj: HubmanagerModule = {
+        const obj: HubmanagerModel = {
             'role': this.hubmanagerForm.get('role').value,
             'food_park_id': this.hubmanagerForm.get('mainhubId').value,
             'email': this.hubmanagerForm.get('email').value,

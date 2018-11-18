@@ -10,7 +10,7 @@
                         formControlName="firstname"
                         class="form-control"
                         placeholder="First Name"
-                        [ngClass]="{'fp-input-error': f.firstname.errors }">
+                        required>
                 </div>
                 <div class="form-group">
                     <h4>Last Name</h4>
@@ -19,7 +19,7 @@
                         formControlName="lastname"
                         class="form-control"
                         placeholder="Last Name"
-                        [ngClass]="{'fp-input-error': f.lastname.errors }">
+                        required>
                 </div>
                 <div class="form-group">
                     <h4>Email</h4>
@@ -28,7 +28,7 @@
                         formControlName="email"
                         class="form-control"
                         placeholder="email@xyz.com"
-                        [ngClass]="{'fp-input-error': f.email.errors }">
+                        required>
                 </div>
                 <div class="form-group">
                     <h4>Password</h4>
@@ -37,7 +37,7 @@
                         formControlName="password"
                         class="form-control"
                         placeholder="Password"
-                        [ngClass]="{'is-invalid': submitted && f.password.errors }">
+                        required>
                 </div>
                 <div class="form-group">
                     <h4>Repeat Password</h4>
@@ -46,7 +46,7 @@
                         formControlName="repeatpassword"
                         class="form-control"
                         placeholder="Repeat Password"
-                        [ngClass]="{'is-invalid': submitted && f.repeatpassword.errors }">
+                        required>
                 </div>
                 <div class="form-group">
                     <h4>Country</h4>
@@ -72,7 +72,8 @@
                                 data-toggle="dropdown">Select territory
                         </button>
                         <ul class="dropdown-menu">
-                            <li *ngFor="let item of territories; let i = index" (click)="onTerritoryClick(i)">
+                            <li
+                                *ngFor="let item of territories; let i = index" (click)="onTerritoryClick(i)">
                                 {{item.name}}
                             </li>
                         </ul>
@@ -96,7 +97,8 @@
                 <button
                     type="submit"
                     class="btn btn-default"
-                    (click)="onCreateMainHubManagerClick()">REGISTER
+                    (click)="onCreateMainHubManagerClick()"
+                    [disabled]="!hubmanagerForm.valid">REGISTER
                 </button>
             </form>
         </div>

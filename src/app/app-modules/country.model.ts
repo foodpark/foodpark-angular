@@ -1,4 +1,4 @@
-export interface CountryModule {
+export interface CountryModel {
     id: number;
     name: string;
     is_enabled: boolean;

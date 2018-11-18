@@ -10,7 +10,7 @@
                         formControlName="name"
                         class="form-control"
                         placeholder="Main Hub Name"
-                        [ngClass]="{'fp-input-error': f.name.errors }">
+                        required>
                 </div>
                 <div class="form-group">
                     <h4>Latitude</h4>
@@ -18,8 +18,7 @@
                         type="text"
                         formControlName="latitude"
                         class="form-control"
-                        placeholder="ex: 5.342378"
-                        [ngClass]="{'fp-input-error': f.latitude.errors }">
+                        placeholder="ex: 5.342378">
                 </div>
                 <div class="form-group">
                     <h4>Longitude</h4>
@@ -28,7 +27,7 @@
                         formControlName="longitude"
                         class="form-control"
                         placeholder="ex: 78.324789"
-                        [ngClass]="{'fp-input-error': f.longitude.errors }">
+                        required>
                 </div>
                 <div class="form-group">
                     <h4>Country</h4>
@@ -63,7 +62,8 @@
                 <button
                     type="submit"
                     class="btn btn-default"
-                    (click)="onCreateMainHubClick()">REGISTER
+                    (click)="onCreateMainHubClick()"
+                    [disabled]="!mainhubForm.valid">REGISTER
                 </button>
             </form>
         </div>

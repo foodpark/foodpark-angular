@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {MainhubModule} from '../app-modules/mainhub.module';
+import {MainhubModel} from '../app-modules/mainhub.model';
 import {environment} from '../../environments/environment';
 
 @Injectable({
@@ -12,6 +12,6 @@ export class MainhubService {
     }
 
     create(data) {
-        return this.http.post<MainhubModule>(environment.apiUrl + '/api/v1/rel/food_parks', data);
+        return this.http.post<MainhubModel>(environment.apiUrl + '/api/v1/rel/food_parks', data);
     }
 }
