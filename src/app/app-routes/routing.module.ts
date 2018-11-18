@@ -12,6 +12,9 @@ import {HubManagerDashboardComponent}                      from '../app-componen
 import {RegionalHubComponent}                              from '../app-components/main-body/hub-manager-dashboard/regionalhub/regionalhub.component';
 import {ReportingComponent}                                from '../app-components/main-body/hub-manager-dashboard/reporting/reporting.component';
 import {PodApplicationsComponent}                          from '../app-components/main-body/hub-manager-dashboard/pod-applications/pod-applications.component';
+import {CreatePodsComponent}                               from '../app-components/main-body/hub-manager-dashboard/pod-applications/create-pods/create-pods.component';
+import {PodsComponent}                                     from '../app-components/main-body/hub-manager-dashboard/pod-applications/pods/pods.component';
+
 import {LoadManagementComponent}                           from '../app-components/main-body/hub-manager-dashboard/load-management/load-management.component';
 import {HubPickupsComponent}                               from '../app-components/main-body/hub-manager-dashboard/hub-pickups/hub-pickups.component';
 import {HubManagerComponent}                               from '../app-components/main-body/hub-manager-dashboard/hub-manager/hub-manager.component';
@@ -71,7 +74,13 @@ const routes: Routes = [
           children: [
             { path: 'create_regional_hub', component:RegionalHubComponent },
             { path: 'reporting', component:ReportingComponent },
-            { path: 'pod_applications', component:PodApplicationsComponent },
+            { path: 'pod_applications', component:PodApplicationsComponent,
+                children: [
+                  { path: '', redirectTo: 'pods', pathMatch: 'full', canActivate: [AuthGuard] },
+                  { path:'pods', component:PodsComponent},
+                  { path:'create-pods', component:CreatePodsComponent},
+                ]
+            },
             { path: 'load_management', component:LoadManagementComponent },
             { path: 'hub_pickups', component:HubPickupsComponent },
             { path: 'hub_manager', component:HubManagerComponent },

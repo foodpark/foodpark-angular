@@ -19,7 +19,11 @@ import {DriverDashboardComponent} from '../app-components/main-body/driver-dashb
 import {HubManagerDashboardComponent} from '../app-components/main-body/hub-manager-dashboard/hub-manager-dashboard.component';
 import {RegionalHubComponent} from '../app-components/main-body/hub-manager-dashboard/regionalhub/regionalhub.component';
 import {ReportingComponent} from '../app-components/main-body/hub-manager-dashboard/reporting/reporting.component';
+
 import {PodApplicationsComponent} from '../app-components/main-body/hub-manager-dashboard/pod-applications/pod-applications.component';
+import {CreatePodsComponent} from '../app-components/main-body/hub-manager-dashboard/pod-applications/create-pods/create-pods.component';
+import {PodsComponent} from '../app-components/main-body/hub-manager-dashboard/pod-applications/pods/pods.component';
+
 import {LoadManagementComponent} from '../app-components/main-body/hub-manager-dashboard/load-management/load-management.component';
 import {HubPickupsComponent} from '../app-components/main-body/hub-manager-dashboard/hub-pickups/hub-pickups.component';
 import {HubManagerComponent} from '../app-components/main-body/hub-manager-dashboard/hub-manager/hub-manager.component';
@@ -53,6 +57,8 @@ import {EditTerritoryComponent} from "../app-components/main-body/edit-territory
         RegionalHubComponent,
         ReportingComponent,
         PodApplicationsComponent,
+        PodsComponent,
+        CreatePodsComponent,
         LoadManagementComponent,
         HubPickupsComponent,
         HubManagerComponent,
@@ -75,6 +81,8 @@ import {EditTerritoryComponent} from "../app-components/main-body/edit-territory
         RegionalHubComponent,
         ReportingComponent,
         PodApplicationsComponent,
+        PodsComponent,
+        CreatePodsComponent,
         LoadManagementComponent,
         HubPickupsComponent,
         HubManagerComponent,

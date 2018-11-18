@@ -1,8 +1,11 @@
 <div class="dashboard_content_layout pod_applications">
   <div class="sub_menu_layout">
     <div class="sub_menu_layout--actions">
-      <button type="button" name="button">Pods</button>
-      <button type="button" name="button">Create Pods</button>
+      <button type="button" name="button" [routerLink]="['./pods']">Pods</button>
+      <button type="button" name="button" [routerLink]="['./create-pods']" >Create Pods</button>
     </div>
+  </div>
+  <div class="">
+    <router-outlet></router-outlet>
   </div>
 </div>
