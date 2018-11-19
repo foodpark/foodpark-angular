@@ -19,10 +19,6 @@ export class CountryService {
     constructor(private http: HttpClient) {
     }
 
-
-    constructor(private http: HttpClient) {
-    }
-
     getCountries() {
         this.http.get<CountryModel[]>(environment.apiUrl + '/api/v1/rel/countries')
             .subscribe((countryData) => {

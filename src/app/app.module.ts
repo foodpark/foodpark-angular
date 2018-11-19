@@ -21,7 +21,7 @@ import {MainModule} from './app-modules/main.module';
 import {RemoveSpacesPipe} from './app-pipes/removeSpaces.pipe';
 import {ErrorInterceptor} from './error-interceptor';
 import {ErrorComponent} from './error/error.component';
-import { AuthInterceptor } from './auth-interceptor';
+import {AuthInterceptor} from './auth-interceptor';
 
 @NgModule({
     declarations: [

@@ -23,6 +23,9 @@ export class AuthService {
     isTimeout: boolean;
     id: string;
 
+
+    constructor(private http: HttpClient, private router: Router) {}
+
     loginTimeout() {
         this.isTimeout = true;
     }
@@ -31,9 +34,6 @@ export class AuthService {
         this.timerReference = setTimeout(() => {
             this.loginTimeout();
         }, 600000);
-    }
-
-    constructor(private http: HttpClient, private router: Router) {
     }
 
     getToken() {
@@ -59,42 +59,47 @@ export class AuthService {
     login(usrname: string, pwd: string) {
         const authData: AuthData = {username: usrname, password: pwd};
         this.http.post<{ token: string }>(environment.apiUrl + '/auth/login', authData)
-            .subscribe(response => {
-                const token = response.token;
-                this.token = token;
+            .subscribe(
+                response => {
+                    const token = response.token;
+                    this.token = token;
 
-                if (token) {
-                    this.isAuthenticated = true;
-                    this.authStatusListener.next(true);
-                    this.userRole = response['user']['role'].toLowerCase();
-                    this.userName = response['user']['username'];
-                    this.id = response['user']['id'];
-                    this.saveAuthData(token, this.userRole, this.userName, this.id);
-                    switch (this.userRole) {
-                        case 'admin':
-                            this.router.navigate(['/admin']);
-                            break;
-                        case 'customer':
-                            this.router.navigate(['/customer']);
-                            break;
-                        case 'owner':
-                            this.router.navigate(['/owner']);
-                            break;
-                        case 'unitmgr':
-                            this.router.navigate(['/unitmanager']);
-                            break;
-                        case 'driver':
-                            this.router.navigate(['/driver']);
-                            break;
-                        case 'foodparkmgr':
-                            this.router.navigate(['/foodparkmanager']);
-                            break;
-                        case 'hubmgr':
-                            this.router.navigate(['/hubmanager']);
-                            break;
+                    if (token) {
+                        this.isAuthenticated = true;
+                        this.authStatusListener.next(true);
+                        this.userRole = response['user']['role'].toLowerCase();
+                        this.userName = response['user']['username'];
+                        this.id = response['user']['id'];
+                        this.saveAuthData(token, this.userRole, this.userName, this.id);
+                        switch (this.userRole) {
+                            case 'admin':
+                                this.router.navigate(['/admin']);
+                                break;
+                            case 'customer':
+                                this.router.navigate(['/customer']);
+                                break;
+                            case 'owner':
+                                this.router.navigate(['/owner']);
+                                break;
+                            case 'unitmgr':
+                                this.router.navigate(['/unitmanager']);
+                                break;
+                            case 'driver':
+                                this.router.navigate(['/driver']);
+                                break;
+                            case 'foodparkmgr':
+                                this.router.navigate(['/foodparkmanager']);
+                                break;
+                            case 'hubmgr':
+                                this.router.navigate(['/hubmanager']);
+                                break;
+                        }
                     }
+                },
+                error => {
+                    this.authStatusListener.next(false);
                 }
-            });
+            );
     }
 
     autoAuthUser() {
