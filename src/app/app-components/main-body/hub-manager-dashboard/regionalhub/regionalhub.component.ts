@@ -21,7 +21,7 @@ export class RegionalHubComponent implements OnInit {
     FoodParkId: any;
     createRegion: any;
 
-    constructor(private dataService: DataService, public authService: AuthService, private activateroute: ActivatedRoute ) {
+    constructor(private dataService: DataService, public authService: AuthService, private activateroute: ActivatedRoute) {
         this.activatedroute = this.activateroute;
         console.log('this is response data', this.activatedroute);
 

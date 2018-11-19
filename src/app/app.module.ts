@@ -11,7 +11,7 @@ import {
     MatProgressSpinnerModule,
     MatPaginatorModule,
     MatDialogModule
-  } from '@angular/material';
+} from '@angular/material';
 import {AppComponent} from './app.component';
 import {HeaderComponent} from './app-components/header/header.component';
 import {FooterComponent} from './app-components/footer/footer.component';

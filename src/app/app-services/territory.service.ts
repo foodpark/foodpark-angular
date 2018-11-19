@@ -12,7 +12,7 @@ export class TerritoryService {
     }
 
     getTerritories() {
-        return this.http.get<TerritoryModel>(environment.apiUrl + '/api/v1/rel/territories');
+        return this.http.get<TerritoryModel[]>(environment.apiUrl + '/api/v1/rel/territories');
     }
 
     addTerritories(data) {
@@ -20,7 +20,7 @@ export class TerritoryService {
     }
 
     deleteTerritories(id) {
-        this.http.delete(environment.apiUrl + '/api/v1/rel/territories' + id);
+        return this.http.delete(environment.apiUrl + '/api/v1/rel/territories/' + id);
     }
 
     getTerritoriesInCountry(countryId: number) {

@@ -2,14 +2,14 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {Subject} from 'rxjs';
-import { Observable } from "rxjs/Observable";
+import {Observable} from 'rxjs/Observable';
 
-import { environment } from '../../environments/environment';
+import {environment} from '../../environments/environment';
 import {AuthData} from '../app-modules/auth-data.model';
 
-import "rxjs/add/operator/map";
-import "rxjs/add/operator/catch";
-import "rxjs/add/observable/throw";
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 
 
 @Injectable({providedIn: 'root'})
@@ -22,7 +22,7 @@ export class AuthService {
     private userName: string;
     private timerReference;
     isTimeout: boolean;
-    id: any
+    id: any;
 
     loginTimeout() {
         this.isTimeout = true;
@@ -119,7 +119,7 @@ export class AuthService {
         this.router.navigate(['/dashboard']);
     }
 
-    private saveAuthData(token: string, userrole: string, username: string, id:string) {
+    private saveAuthData(token: string, userrole: string, username: string, id: string) {
         localStorage.setItem('token', token);
         localStorage.setItem('userrole', userrole);
         localStorage.setItem('username', username);
@@ -132,7 +132,7 @@ export class AuthService {
         localStorage.removeItem('username');
     }
 
-     getAuthData() {
+    getAuthData() {
         const token = localStorage.getItem('token');
         const role = localStorage.getItem('userrole');
         const name = localStorage.getItem('username');
@@ -149,15 +149,15 @@ export class AuthService {
         };
     }
 
-    apiGetMainHUbDetails(parms){
-      return this.http.get(environment.apiUrl + '/api/v1/rel/food_parks' + parms).map((response)=>{
-        return response;
-      });
+    apiGetMainHUbDetails(parms) {
+        return this.http.get(environment.apiUrl + '/api/v1/rel/food_parks' + parms).map((response) => {
+            return response;
+        });
     }
 
-    apiCreaateRegionHub(reqobj){
-      return this.http.post(environment.apiUrl + '/api/v1/rel/regionalhubs',reqobj).map((response)=>{
-        return response;
-      });
+    apiCreaateRegionHub(reqobj) {
+        return this.http.post(environment.apiUrl + '/api/v1/rel/regionalhubs', reqobj).map((response) => {
+            return response;
+        });
     }
 }

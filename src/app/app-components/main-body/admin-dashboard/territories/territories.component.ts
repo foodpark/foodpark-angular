@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {TerritoryService} from '../../../../app-services/territory.service';
+import {ErrorComponent} from '../../../../error/error.component';
+import {MatDialog} from '@angular/material';
 
 
 @Component({
@@ -13,7 +15,12 @@ export class TerritoriesComponent implements OnInit {
     territories = [];
 
     constructor(private service: TerritoryService,
-                private router: Router) {
+                private router: Router,
+                private dialog: MatDialog) {
+        this.getTerritories();
+    }
+
+    getTerritories() {
         this.service.getTerritories().subscribe(
             res => {
                 Object.values(res).forEach(item => {
@@ -31,8 +38,10 @@ export class TerritoriesComponent implements OnInit {
         this.router.navigate(['/admin/edit_territory']);
     }
 
-    onDeleteClick() {
-        // this.service.deleteTerritories('');
+    onDeleteClick(id: number) {
+        // this.dialog.open(ErrorComponent, {data: {message: 'are you sure?'}});
+        this.service.deleteTerritories(id).subscribe();
+        this.getTerritories();
     }
 
 }

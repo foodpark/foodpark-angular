@@ -1,4 +1,7 @@
 <div style="position: absolute;top: 100px;left: 100px; right: 100px;">
+    <h2>Territories</h2>
+    <button>Add territory
+        <i class="material-icons"> add </i></button>
     <table class="table table-borderless">
         <thead>
         <tr>
@@ -18,7 +21,7 @@
                 </i>
             </td>
             <td>
-                <i class="material-icons" (click)="onDeleteClick()">
+                <i class="material-icons" (click)="onDeleteClick(territories[i]['id'])">
                     delete
                 </i>
             </td>
