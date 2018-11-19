@@ -1,19 +1,25 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
+
 import {CountryService} from '../../../app-services/country.service';
 import {TerritoryService} from '../../../app-services/territory.service';
 import {MainhubService} from '../../../app-services/mainhub.service';
+import { CountryModel } from 'src/app/app-modules/country.model';
+import { Subscription } from 'rxjs';
+import { TerritoryModel } from 'src/app/app-modules/territory.model';
 
 @Component({
     selector: 'app-main-hubs',
     templateUrl: './main-hubs.component.html'
 })
-export class MainHubsComponent implements OnInit {
+
+export class MainHubsComponent implements OnInit, OnDestroy {
 
     mainhubForm: FormGroup;
-    countries = [];
-    territories = [];
+    countries: CountryModel[] = [];
+    territories: TerritoryModel[] = [];
+    private countriesSubscription: Subscription;
+    private territoriesSubscription: Subscription;
 
     constructor(private formBuilder: FormBuilder,
                 private countryService: CountryService,
@@ -24,12 +30,14 @@ export class MainHubsComponent implements OnInit {
     ngOnInit() {
         this.mainhubForm = this.buildForm();
 
-        this.countryService.getCountries().subscribe(
-            res => {
-                this.countries = [];
-                Object.values(res).forEach(item => {
-                    this.countries.push({'name': item['name'], 'id': item['id']});
-                });
+        this.countryService.getCountries();
+        this.countriesSubscription = this.countryService.getCountriesUpdateListener()
+            .subscribe((countries: CountryModel[]) => {
+                this.countries = countries;
+            });
+        this.territoriesSubscription = this.territoryService.getTerritoriesUpdateListener()
+            .subscribe((territories: TerritoryModel[]) => {
+                this.territories = territories;
             });
     }
 
@@ -58,17 +66,12 @@ export class MainHubsComponent implements OnInit {
     }
 
     getTerritory(id: number) {
-        this.territoryService.getTerritoriesInCountry(id).subscribe(res => {
-            this.territories = [];
-            Object.values(res).forEach(item => {
-                this.territories.push({'name': item['territory'], 'id': item['id']});
-            });
-        });
+        this.territoryService.getTerritoriesInCountry(id);
     }
 
     onTerritoryClick(index: number) {
         const button = document.getElementById('territory_button');
-        button.innerText = this.territories[index]['name'];
+        button.innerText = this.territories[index]['territory'];
         this.mainhubForm.get('territory_id').setValue(this.territories[index]['id']);
         console.log(this.mainhubForm);
     }
@@ -80,5 +83,10 @@ export class MainHubsComponent implements OnInit {
         country_button.innerText = 'Select country';
         const territory_button = document.getElementById('territory_button');
         territory_button.innerText = 'Select territory';
+    }
+
+    ngOnDestroy() {
+        this.countriesSubscription.unsubscribe();
+        this.territoriesSubscription.unsubscribe();
     }
 }

@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {TerritoryService} from '../../../../app-services/territory.service';
+import { TerritoryModel } from 'src/app/app-modules/territory.model';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -10,18 +12,15 @@ import {TerritoryService} from '../../../../app-services/territory.service';
 })
 export class TerritoriesComponent implements OnInit {
     gridMetadata;
-    territories = [];
+    territories: TerritoryModel[] = [];
+    private territoriesSubscription: Subscription;
 
-    constructor(private service: TerritoryService,
-                private router: Router) {
-        this.service.getTerritories().subscribe(
-            res => {
-                Object.values(res).forEach(item => {
-                    this.territories.push({'name': item['territory'], 'country': item['country'], 'id': item['id']});
-                });
-                this.gridMetadata = res;
-            }
-        );
+    constructor(private territoryService: TerritoryService, private router: Router) {
+        this.territoryService.getTerritories();
+        this.territoriesSubscription = this.territoryService.getTerritoriesUpdateListener()
+            .subscribe((territories: TerritoryModel[]) => {
+                this.territories = territories;
+        });
     }
 
     ngOnInit() {

@@ -2,17 +2,26 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {TerritoryModel} from '../app-modules/territory.model';
+import { Subject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
 export class TerritoryService {
+    private territories: TerritoryModel[] = [];
+    private territoriesUpdated = new Subject<TerritoryModel[]>();
+    constructor(private http: HttpClient) {}
 
-    constructor(private http: HttpClient) {
+    getTerritoriesUpdateListener() {
+        return this.territoriesUpdated.asObservable();
     }
 
     getTerritories() {
-        return this.http.get<TerritoryModel>(environment.apiUrl + '/api/v1/rel/territories');
+        this.http.get<TerritoryModel[]>(environment.apiUrl + '/api/v1/rel/territories')
+            .subscribe((territoryData) => {
+                this.territories = territoryData;
+                this.territoriesUpdated.next([...this.territories]);
+            });
     }
 
     addTerritories(data) {
@@ -24,6 +33,10 @@ export class TerritoryService {
     }
 
     getTerritoriesInCountry(countryId: number) {
-        return this.http.get<TerritoryModel>(environment.apiUrl + '/api/v1/rel/countries/' + countryId + '/territories');
+        this.http.get<TerritoryModel[]>(environment.apiUrl + '/api/v1/rel/countries/' + countryId + '/territories')
+            .subscribe((territoryData) => {
+                this.territories = territoryData;
+                this.territoriesUpdated.next([...this.territories]);
+            });
     }
 }
