@@ -26,13 +26,13 @@ export class AddAndEditTerritoryComponent implements OnInit {
             country: ['', Validators.required]
         });
 
-        this.countryService.getCountries().subscribe(
-            res => {
-                this.countries = [];
-                Object.values(res).forEach(item => {
-                    this.countries.push({'name': item['name'], 'id': item['id']});
-                });
-            });
+        // this.countryService.getCountries().subscribe(
+        //     res => {
+        //         this.countries = [];
+        //         Object.values(res).forEach(item => {
+        //             this.countries.push({'name': item['name'], 'id': item['id']});
+        //         });
+        //     });
     }
 
     get f() {

@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {TerritoryService} from '../../../../app-services/territory.service';
-import {ErrorComponent} from '../../../../error/error.component';
+import {TerritoryModel} from 'src/app/app-modules/territory.model';
+import {Subscription} from 'rxjs';
 import {MatDialog} from '@angular/material';
 
 
@@ -12,23 +13,15 @@ import {MatDialog} from '@angular/material';
 })
 export class TerritoriesComponent implements OnInit {
     gridMetadata;
-    territories = [];
+    territories: TerritoryModel[] = [];
+    private territoriesSubscription: Subscription;
 
-    constructor(private service: TerritoryService,
-                private router: Router,
-                private dialog: MatDialog) {
-        this.getTerritories();
-    }
-
-    getTerritories() {
-        this.service.getTerritories().subscribe(
-            res => {
-                Object.values(res).forEach(item => {
-                    this.territories.push({'name': item['territory'], 'country': item['country'], 'id': item['id']});
-                });
-                this.gridMetadata = res;
-            }
-        );
+    constructor(private territoryService: TerritoryService, private router: Router) {
+        this.territoryService.getTerritories();
+        this.territoriesSubscription = this.territoryService.getTerritoriesUpdateListener()
+            .subscribe((territories: TerritoryModel[]) => {
+                this.territories = territories;
+            });
     }
 
     ngOnInit() {
@@ -40,8 +33,7 @@ export class TerritoriesComponent implements OnInit {
 
     onDeleteClick(id: number) {
         // this.dialog.open(ErrorComponent, {data: {message: 'are you sure?'}});
-        this.service.deleteTerritories(id).subscribe();
-        this.getTerritories();
+        this.territoryService.deleteTerritories(id).subscribe();
     }
-
 }
+
