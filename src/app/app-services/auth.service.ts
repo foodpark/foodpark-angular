@@ -2,14 +2,13 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {Subject} from 'rxjs';
-import { Observable } from "rxjs/Observable";
 
 import { environment } from '../../environments/environment';
 import {AuthData} from '../app-modules/auth-data.model';
 
-import "rxjs/add/operator/map";
-import "rxjs/add/operator/catch";
-import "rxjs/add/observable/throw";
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 
 
 @Injectable({providedIn: 'root'})
@@ -22,7 +21,7 @@ export class AuthService {
     private userName: string;
     private timerReference;
     isTimeout: boolean;
-    id: any
+    id: string;
 
     loginTimeout() {
         this.isTimeout = true;

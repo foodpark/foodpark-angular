@@ -21,6 +21,7 @@ import {MainModule} from './app-modules/main.module';
 import {RemoveSpacesPipe} from './app-pipes/removeSpaces.pipe';
 import {ErrorInterceptor} from './error-interceptor';
 import {ErrorComponent} from './error/error.component';
+import { AuthInterceptor } from './auth-interceptor';
 
 @NgModule({
     declarations: [
@@ -45,7 +46,10 @@ import {ErrorComponent} from './error/error.component';
         MatPaginatorModule,
         MatDialogModule
     ],
-    providers: [{provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}],
+    providers: [
+        {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+        {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+    ],
     bootstrap: [AppComponent],
     entryComponents: [ErrorComponent],
 })
