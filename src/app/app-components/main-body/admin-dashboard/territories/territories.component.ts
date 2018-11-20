@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {TerritoryService} from '../../../../app-services/territory.service';
 import {TerritoryModel} from 'src/app/app-modules/territory.model';
@@ -11,8 +11,7 @@ import {MatDialog} from '@angular/material';
     templateUrl: './territories.component.html',
     styleUrls: ['./territories.component.scss']
 })
-export class TerritoriesComponent implements OnInit {
-    gridMetadata;
+export class TerritoriesComponent implements OnInit, OnDestroy {
     territories: TerritoryModel[] = [];
     private territoriesSubscription: Subscription;
 
@@ -27,13 +26,21 @@ export class TerritoriesComponent implements OnInit {
     ngOnInit() {
     }
 
-    onEditClick() {
+    onAddTerritoryClick() {
+        this.router.navigate(['/admin/edit_territory']);
+    }
+
+    onEditClick(index: number) {
+        localStorage.setItem('edit_territory', JSON.stringify(this.territories[index]));
         this.router.navigate(['/admin/edit_territory']);
     }
 
     onDeleteClick(id: number) {
-        // this.dialog.open(ErrorComponent, {data: {message: 'are you sure?'}});
-        this.territoryService.deleteTerritories(id).subscribe();
+        this.territoryService.deleteTerritory(id);
+    }
+
+    ngOnDestroy() {
+        this.territoriesSubscription.unsubscribe();
     }
 }
 
