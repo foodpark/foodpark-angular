@@ -1,11 +1,20 @@
 <div class="dashboard_content_layout regional__hub">
   <div class="regional__hub-section">
-    <p class="mainhub-name">Main Hub: <span>{{MainHubName}}</span></p>
+    <!-- <p class="mainhub-name">Main Hub: <span>{{MainHubName}}</span></p> -->
     <!-- <input type="text" name="" value="" placeholder="Enter Regional hub name"> -->
-    <div class="common__input_fields">
+    <!-- <div class="common__input_fields">
       <input type="text" class="inputText" [(ngModel)]="createRegionName" placeholder="Enter Regional Hub" required/>
+    </div> -->
+    <div class="form-group">
+      <h4>Main Hub : <span>{{MainHubName}}</span></h4>
     </div>
-    <button type="button" name="button" class="hubcreation" (click)="createRegionHub()">create</button>
+    <div class="form-group">
+      <h4>Regional Hub</h4>
+      <input type="text" class="form-control" [(ngModel)]="createRegionName" placeholder="Enter Regional Hub" required/>
+    </div>
+    <button type="submit" name="button" class="btn btn-default" (click)="createRegionHub()">Create</button>
+
+    <!-- <button type="button" name="button" class="hubcreation" (click)="createRegionHub()">create</button> -->
   </div>
 </div>
 <!-- <div class="canvas inner_wrapper pt35" style="position: absolute;top: 100px; padding: 15px;">
