@@ -66,13 +66,15 @@ export class AddAndEditTerritoryComponent implements OnInit, OnDestroy {
         return this.form.controls;
     }
 
-    onSaveClick() {
-        this.territory['territory'] = this.form.value['territory'];
-        this.territory['longitude'] = parseFloat(this.form.value['longitude']);
-        this.territory['latitude'] = parseFloat(this.form.value['latitude']);
+    onSaveClick(formData) {
+
         if (!this.isEditTerritory) {
-            this.this.territoryService.addTerritory(this.territory);
+            this.territoryService.addTerritory(formData);
         } else {
+            this.territory['latitude'] = parseFloat(formData['latitude']);
+            this.territory['longitude'] = parseFloat(formData['longitude']);
+            this.territory['territory'] = formData['territory'];
+            this.territory['country'] = formData['country'];
             this.territoryService.editTerritory(this.territory);
         }
         this.router.navigate(['/admin/territories']);
@@ -81,7 +83,7 @@ export class AddAndEditTerritoryComponent implements OnInit, OnDestroy {
     onCountryClick(index: number) {
         const button = document.getElementById('country_button');
         button.innerText = this.countries[index]['name'];
-        this.territory['country'] = this.countries[index]['name'];
+        this.form.get('country').setValue(this.countries[index]['name']);
     }
 
     ngOnDestroy() {
