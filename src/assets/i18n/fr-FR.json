@@ -244,5 +244,19 @@
   "ADD_OPTIONS_CREATE_NEW_MENU_ITEM": "In order for 'Options' to be added, please create a New Menu Item",
   "VENDOR_PREFERENCES": "Préférences du vendeur",
   "VENDOR_PROFILE_DETAILS": "Afficher les détails du profil vendeur",
-  "SET_DEFAULT_UNIT": "Set as default"
+  "SET_DEFAULT_UNIT": "Set as default",
+  "TERRITORIES": "Territories",
+  "CREATE_MAIN_HUB": "Create Main Hub",
+  "NEW_MAIN_HUB_MANAGER": "New Main Hub Manager",
+  "POD_APPLICATIONS": "Pod Applications",
+  "DISTRIBUTION_CENTER_MANAGEMENT": "Distribution Center management",
+  "LOAD_MANAGEMENT": "Load Mgmt",
+  "REPORTING": "Reporting",
+  "HUB_MANAGER": "Hub Manager",
+  "HUB_PICKUPS": "Hub Pickups",
+  "POD_PROFILE": "Pod Profile",
+  "VOLUNTEERS": "Volunteers",
+  "POD_PICKUPS": "Pod Pickups",
+  "LOAD_REQUESTS": "Load Requests",
+  "CREATE_REGIONAL_HUB": "Create Regional Hub"
 }

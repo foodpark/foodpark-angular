@@ -259,5 +259,19 @@
 "ORDER_READY_TIME:": "Hora em que pedido esta pronto",
 "SIGN_IN": "Entrar",
 "PASSWORD": "contraseña",
-"REPEAT_PASSWORD": "Repetir contraseña"     
+"REPEAT_PASSWORD": "Repetir contraseña",
+"TERRITORIES": "Territories",
+"CREATE_MAIN_HUB": "Create Main Hub",
+"NEW_MAIN_HUB_MANAGER": "New Main Hub Manager",
+"POD_APPLICATIONS": "Pod Applications",
+"DISTRIBUTION_CENTER_MANAGEMENT": "Distribution Center management",
+"LOAD_MANAGEMENT": "Load Mgmt",
+"REPORTING": "Reporting",
+"HUB_MANAGER": "Hub Manager",
+"HUB_PICKUPS": "Hub Pickups",
+"POD_PROFILE": "Pod Profile",
+"VOLUNTEERS": "Volunteers",
+"POD_PICKUPS": "Pod Pickups",
+"LOAD_REQUESTS": "Load Requests",
+"CREATE_REGIONAL_HUB": "Create Regional Hub"
  }
