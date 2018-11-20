@@ -55,4 +55,17 @@ export class TerritoryService {
                 this.territoriesUpdated.next([...this.territories]);
             });
     }
+
+    getMainHubInTerritory(territoryId: number, type: string) {
+        return this.http.get<TerritoryModel>(environment.apiUrl + '/api/v1/rel/territories/' + territoryId + '/food_parks?type=' + type);
+    }
+
+    getRegionalHubInMainhib(mainhubId: number) {
+        return this.http.get<TerritoryModel>(environment.apiUrl + '/api/v1/rel/food_parks/' + mainhubId + '/regionalhubs');
+    }
+
+    Apicreatepods(data){
+      return this.http.post(environment.apiUrl + ' /auth/register ', data);
+
+    }
 }
