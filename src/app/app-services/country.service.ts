@@ -20,7 +20,7 @@ export class CountryService {
     }
 
     getCountries() {
-        this.http.get<CountryModel[]>(environment.apiUrl + '/api/v1/rel/countries')
+        this.http.get<CountryModel[]>(environment.apiUrl + '/api/v1/rel/countries?is_enabled=true')
             .subscribe((countryData) => {
                 this.countries = countryData;
                 this.countriesUpdated.next([...this.countries]);
