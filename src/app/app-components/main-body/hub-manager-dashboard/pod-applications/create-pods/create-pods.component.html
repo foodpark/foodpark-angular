@@ -1,167 +1,168 @@
 <div class="create_pods_section">
-  <div class="create_pods_section--first-step">
-    <div class="form-group">
-      <h4>First Name</h4>
-      <input type="text" class="form-control" name="" value="" placeholder="First Name">
-    </div>
-    <div class="form-group">
-      <h4>Last Name</h4>
-      <input type="text" class="form-control" name="" value="" placeholder="Last Name">
-    </div>
-    <div class="form-group">
-      <h4>Email</h4>
-      <input type="text" class="form-control" name="" value="" placeholder="Email">
-    </div>
-    <div class="form-group">
-      <h4>Password</h4>
-      <input type="text" class="form-control" name="" value="" placeholder="Password">
-    </div>
-    <div class="form-group">
-      <h4>Retype Password</h4>
-      <input type="text" class="form-control" name="" value="" placeholder="Retype Password">
-    </div>
-    <div class="form-group">
-      <h4>Vendor Name</h4>
-      <input type="text" class="form-control" name="" value="" placeholder="Pod Name">
-    </div>
-    <div class="form-group">
-        <h4>Latitude</h4>
-        <input type="text" formControlName="latitude" class="form-control" placeholder="ex: 5.342378">
-    </div>
-    <div class="form-group">
-        <h4>Longitude</h4>
-        <input type="text" formControlName="longitude" class="form-control" placeholder="ex: 78.324789" required>
-    </div>
-    <div class="form-group">
-        <h4>Country</h4>
-        <div class="dropdown">
-            <button id="country_button"
-                    class="btn btn-primary dropdown-toggle"
-                    type="button"
-                    data-toggle="dropdown">Select country
-            </button>
-            <ul class="dropdown-menu">
-                <li>India</li>
-                <li>India</li>
-            </ul>
-        </div>
-    </div>
-    <div class="form-group">
-        <h4>Teritory</h4>
-        <div class="dropdown">
-            <button id="country_button"
-                    class="btn btn-primary dropdown-toggle"
-                    type="button"
-                    data-toggle="dropdown">Select Teritory
-            </button>
-            <ul class="dropdown-menu">
-                <li>India</li>
-                <li>India</li>
-            </ul>
-        </div>
-    </div>
-    <div class="form-group">
-        <h4>Main Hub</h4>
-        <div class="dropdown">
-            <button id="country_button"
-                    class="btn btn-primary dropdown-toggle"
-                    type="button"
-                    data-toggle="dropdown">Main Hub
-            </button>
-            <ul class="dropdown-menu">
-                <li>India</li>
-                <li>India</li>
-            </ul>
-        </div>
-    </div>
-    <div class="form-group">
-        <h4>Regional Hub</h4>
-        <div class="dropdown">
-            <button id="country_button"
-                    class="btn btn-primary dropdown-toggle"
-                    type="button"
-                    data-toggle="dropdown"> Regional Hub
-            </button>
-            <ul class="dropdown-menu">
-                <li>India</li>
-                <li>India</li>
-            </ul>
-        </div>
-    </div>
-    <div class="form-group">
-      <h4>Sponsor</h4>
-      <input type="text" class="form-control" name="" value="" placeholder="Sponsor">
-    </div>
-    <div class="form-group">
-      <h4>Title</h4>
-      <input type="text" class="form-control" name="" value="" placeholder="Title">
-    </div>
+  <form [formGroup]="register_company" (ngSubmit)="createcompany()">
+    <div class="create_pods_section--first-step">
+      <div class="form-group">
+        <h4>First Name</h4>
+        <input type="text" class="form-control" name="" value="" placeholder="First Name" formControlName = "firstname" >
+        <p *ngIf="formErrors.firstname">{{formErrors.firstname}}</p>
+      </div>
+      <div class="form-group">
+        <h4>Last Name</h4>
+        <input type="text" class="form-control" name="" value="" placeholder="Last Name" formControlName = "lastname" >
+        <p *ngIf="formErrors.lastname">{{formErrors.lastname}}</p>
+      </div>
+      <div class="form-group">
+        <h4>Email</h4>
+        <input type="text" class="form-control" name="" value="" placeholder="Email" formControlName = "email" >
+        <p *ngIf="formErrors.email">{{formErrors.email}}</p>
+      </div>
+      <div class="form-group">
+        <h4>Password</h4>
+        <input type="text" class="form-control" name="" value="" placeholder="Password" formControlName = "password">
+      </div>
+      <div class="form-group">
+        <h4>Retype Password</h4>
+        <input type="text" class="form-control" name="" value="" placeholder="Retype Password" formControlName = "retypepassword">
+      </div>
+      <div class="form-group">
+        <h4>Vendor Name</h4>
+        <input type="text" class="form-control" name="" value="" placeholder="Vendor Name" formControlName = "companyname">
+      </div>
+     <div class="form-group">
+          <h4>Country</h4>
+          <div class="dropdown">
+              <button id="country_button"
+                      class="btn btn-primary dropdown-toggle"
+                      type="button"
+                      data-toggle="dropdown">Select country
+              </button>
+              <ul class="dropdown-menu">
+                  <li *ngFor="let item of countries; let i = index" (click)="onCountryClick(i, item['id'])">
+                      {{item.name}}
+                  </li>
+              </ul>
+          </div>
+      </div>
+      <div class="form-group">
+          <h4>Teritory</h4>
+          <div class="dropdown">
+              <button id="territory_button"
+                      class="btn btn-primary dropdown-toggle"
+                      type="button"
+                      data-toggle="dropdown">Select territory
+              </button>
+              <ul class="dropdown-menu">
+                  <li
+                      *ngFor="let item of territories; let i = index" (click)="onTerritoryClick(i)">
+                      {{item.territory}}
+                  </li>
+              </ul>
+          </div>
+      </div>
+      <div class="form-group">
+          <h4>Main Hub</h4>
+          <div class="dropdown">
+              <button id="mainhub_button"
+                      class="btn btn-primary dropdown-toggle"
+                      type="button"
+                      data-toggle="dropdown">Select mainhub
+              </button>
+              <ul class="dropdown-menu">
+                  <li *ngFor="let item of mainHubs; let i = index" (click)="onMainhubClick(i)">
+                      {{item.name}}
+                  </li>
+              </ul>
+          </div>
+      </div>
+       <div class="form-group">
+          <h4>Regional Hub</h4>
+          <div class="dropdown">
+              <button id="region_button"
+                      class="btn btn-primary dropdown-toggle"
+                      type="button"
+                      data-toggle="dropdown"> Regional Hub
+              </button>
+              <ul class="dropdown-menu">
+                <li *ngFor="let item of reginaolHubs; let i = index" (click)="onRegionhubClick(i)">
+                    {{item.name}}
+                </li>
+              </ul>
+          </div>
+      </div>
+    <!--  <div class="form-group">
+        <h4>Sponsor</h4>
+        <input type="text" class="form-control" name="" value="" placeholder="Sponsor">
+      </div>
+      <div class="form-group">
+        <h4>Title</h4>
+        <input type="text" class="form-control" name="" value="" placeholder="Title">
+      </div>
 
-    <div class="form-group">
-        <div class="dropdown">
-            <button id="country_button"
-                    class="btn btn-primary dropdown-toggle"
-                    type="button"
-                    data-toggle="dropdown"> Type
-            </button>
-            <ul class="dropdown-menu">
-                <li>India</li>
-                <li>India</li>
-            </ul>
-        </div>
+      <div class="form-group">
+          <div class="dropdown">
+              <button id="country_button"
+                      class="btn btn-primary dropdown-toggle"
+                      type="button"
+                      data-toggle="dropdown"> Type
+              </button>
+              <ul class="dropdown-menu">
+                  <li>India</li>
+                  <li>India</li>
+              </ul>
+          </div>
+      </div>
+      <div class="form-group">
+          <div class="dropdown">
+              <button id="country_button"
+                      class="btn btn-primary dropdown-toggle"
+                      type="button"
+                      data-toggle="dropdown"> Connected By
+              </button>
+              <ul class="dropdown-menu">
+                  <li>India</li>
+                  <li>India</li>
+              </ul>
+          </div>
+      </div>
+      <div class="form-group">
+        <h4>Upload Attachments</h4>
+        <input type="text" class="form-control" name="" value="" placeholder="Upload Attachments">
+      </div>
+      <div class="form-group">
+        <h4>Tags</h4>
+        <input type="text" class="form-control" name="" value="" placeholder="Tags">
+      </div>
+      <div class="form-group">
+        <h4>Description</h4>
+        <input type="text" class="form-control" name="" value="" placeholder="Description">
+      </div>
+      <div class="form-group weekly-schedule-buttons">
+        <h4>Weekly Schedule</h4>
+        <button type="button" name="button">MO</button>
+        <button type="button" name="button">TU</button>
+        <button type="button" name="button">WE</button>
+        <button type="button" name="button">TH</button>
+        <button type="button" name="button">FR</button>
+        <button type="button" name="button">SA</button>
+        <button type="button" name="button">SU</button>
+      </div>
+      <div class="form-group typical-hours">
+        <h4>Typical Hours</h4>
+        <input type="text" class="form-control" name="" value="" placeholder="Time">
+      </div>
+      <div class="form-group">
+        <h4>Facebook/Website</h4>
+        <input type="text" class="form-control" name="" value="" placeholder="Facebook/ Website">
+      </div>
+      <div class="form-group">
+        <h4>Bussiness Address</h4>
+        <input type="text" class="form-control" name="" value="" placeholder="Bussiness Address">
+      </div>
+      <div class="form-group">
+        <h4>Phone Number</h4>
+        <input type="text" class="form-control" name="" value="" placeholder="Phone Number">
+      </div> -->
+      <button type="submit" name="button" class="btn btn-default">Create Pods</button>
     </div>
-    <div class="form-group">
-        <div class="dropdown">
-            <button id="country_button"
-                    class="btn btn-primary dropdown-toggle"
-                    type="button"
-                    data-toggle="dropdown"> Connected By
-            </button>
-            <ul class="dropdown-menu">
-                <li>India</li>
-                <li>India</li>
-            </ul>
-        </div>
-    </div>
-    <div class="form-group">
-      <h4>Upload Attachments</h4>
-      <input type="text" class="form-control" name="" value="" placeholder="Upload Attachments">
-    </div>
-    <div class="form-group">
-      <h4>Tags</h4>
-      <input type="text" class="form-control" name="" value="" placeholder="Tags">
-    </div>
-    <div class="form-group">
-      <h4>Description</h4>
-      <input type="text" class="form-control" name="" value="" placeholder="Description">
-    </div>
-    <div class="form-group weekly-schedule-buttons">
-      <h4>Weekly Schedule</h4>
-      <button type="button" name="button">MO</button>
-      <button type="button" name="button">TU</button>
-      <button type="button" name="button">WE</button>
-      <button type="button" name="button">TH</button>
-      <button type="button" name="button">FR</button>
-      <button type="button" name="button">SA</button>
-      <button type="button" name="button">SU</button>
-    </div>
-    <div class="form-group typical-hours">
-      <h4>Typical Hours</h4>
-      <input type="text" class="form-control" name="" value="" placeholder="Time">
-    </div>
-    <div class="form-group">
-      <h4>Facebook/Website</h4>
-      <input type="text" class="form-control" name="" value="" placeholder="Facebook/ Website">
-    </div>
-    <div class="form-group">
-      <h4>Bussiness Address</h4>
-      <input type="text" class="form-control" name="" value="" placeholder="Bussiness Address">
-    </div>
-    <div class="form-group">
-      <h4>Phone Number</h4>
-      <input type="text" class="form-control" name="" value="" placeholder="Phone Number">
-    </div>
-    <button type="button" name="button" class="btn btn-default">Create Pods</button>
-  </div>
-
+  </form>
 </div>
