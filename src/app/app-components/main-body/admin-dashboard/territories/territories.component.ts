@@ -3,7 +3,6 @@ import {Router} from '@angular/router';
 import {TerritoryService} from '../../../../app-services/territory.service';
 import {TerritoryModel} from 'src/app/app-modules/territory.model';
 import {Subscription} from 'rxjs';
-import {MatDialog} from '@angular/material';
 
 
 @Component({
@@ -36,7 +35,9 @@ export class TerritoriesComponent implements OnInit, OnDestroy {
     }
 
     onDeleteClick(id: number) {
-        this.territoryService.deleteTerritory(id);
+        this.territoryService.deleteTerritory(id).subscribe(() => {
+            this.territoryService.getTerritories();
+        });
     }
 
     ngOnDestroy() {

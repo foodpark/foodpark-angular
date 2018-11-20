@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpEvent, HttpEventType} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {TerritoryModel} from '../app-modules/territory.model';
 import {Subject} from 'rxjs';
@@ -26,25 +26,16 @@ export class TerritoryService {
             });
     }
 
-    addTerritory(data) {
-        this.http.post(environment.apiUrl + '/api/v1/rel/territories', data)
+    addTerritory(data: FormData) {
+        return this.http.post<TerritoryModel>(environment.apiUrl + '/api/v1/rel/territories', data)
             .subscribe((response) => {
+                this.territories.push(response);
                 this.territoriesUpdated.next([...this.territories]);
             });
     }
 
     deleteTerritory(deleteTerritoryID) {
-        this.http.delete(environment.apiUrl + '/api/v1/rel/territories/' + deleteTerritoryID)
-            .subscribe((event: HttpEvent<any>) => {
-                switch (event.type) {
-                    case HttpEventType.Sent:
-                        console.log('Request sent!');
-                        break;
-                    case HttpEventType.Response:
-                        console.log('😺 Done!', event.body);
-                }
-                // this.territoriesUpdated.next([...this.territories]);
-            });
+        return this.http.delete(environment.apiUrl + '/api/v1/rel/territories/' + deleteTerritoryID);
     }
 
     editTerritory(territory: TerritoryModel) {
