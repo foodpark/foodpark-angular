@@ -74,7 +74,15 @@ export class TerritoryService {
     }
 
     Apicreatepods(data){
-      return this.http.post(environment.apiUrl + ' /auth/register ', data);
+      return this.http.post(environment.apiUrl + '/auth/register ', data);
 
+    }
+
+    getCompanydetails(Id: number) {
+        return this.http.get(environment.apiUrl + '/api/v1/rel/companies?user_id=' + Id);
+    }
+
+    updateCompanydetails(companyDetails) {
+        return this.http.put(environment.apiUrl + '/api/v1/rel/companies/' + companyDetails.id, companyDetails);
     }
 }

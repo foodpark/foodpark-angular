@@ -71,7 +71,7 @@ export class AddAndEditTerritoryComponent implements OnInit, OnDestroy {
         this.territory['longitude'] = parseFloat(this.form.value['longitude']);
         this.territory['latitude'] = parseFloat(this.form.value['latitude']);
         if (!this.isEditTerritory) {
-            this.this.territoryService.addTerritory(this.territory);
+            this.territoryService.addTerritory(this.territory);
         } else {
             this.territoryService.editTerritory(this.territory);
         }

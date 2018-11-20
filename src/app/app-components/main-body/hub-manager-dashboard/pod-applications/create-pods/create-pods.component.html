@@ -19,14 +19,17 @@
       <div class="form-group">
         <h4>Password</h4>
         <input type="text" class="form-control" name="" value="" placeholder="Password" formControlName = "password">
+         <p *ngIf="formErrors.password">{{formErrors.password}}</p>
       </div>
       <div class="form-group">
         <h4>Retype Password</h4>
         <input type="text" class="form-control" name="" value="" placeholder="Retype Password" formControlName = "retypepassword">
+         <p *ngIf="formErrors.retypepassword">{{formErrors.retypepassword}}</p>
       </div>
       <div class="form-group">
         <h4>Vendor Name</h4>
         <input type="text" class="form-control" name="" value="" placeholder="Vendor Name" formControlName = "companyname">
+         <p *ngIf="formErrors.companyname">{{formErrors.companyname}}</p>
       </div>
      <div class="form-group">
           <h4>Country</h4>
@@ -42,6 +45,7 @@
                   </li>
               </ul>
           </div>
+          <p *ngIf="formErrors.country">{{formErrors.country}}</p>
       </div>
       <div class="form-group">
           <h4>Teritory</h4>
@@ -58,6 +62,7 @@
                   </li>
               </ul>
           </div>
+          <p *ngIf="formErrors.territory_id">{{formErrors.territory_id}}</p>
       </div>
       <div class="form-group">
           <h4>Main Hub</h4>
@@ -73,6 +78,7 @@
                   </li>
               </ul>
           </div>
+          <p *ngIf="formErrors.mainhubId">{{formErrors.mainhubId}}</p>
       </div>
        <div class="form-group">
           <h4>Regional Hub</h4>
@@ -88,80 +94,84 @@
                 </li>
               </ul>
           </div>
+          <p *ngIf="formErrors.regionalhubId">{{formErrors.regionalhubId}}</p>
       </div>
-    <!--  <div class="form-group">
+    <div class="form-group">
         <h4>Sponsor</h4>
-        <input type="text" class="form-control" name="" value="" placeholder="Sponsor">
+        <input type="text" class="form-control" name="" value="" placeholder="Sponsor" formControlName = "sponser">
       </div>
       <div class="form-group">
         <h4>Title</h4>
-        <input type="text" class="form-control" name="" value="" placeholder="Title">
+        <input type="text" class="form-control" name="" value="" placeholder="Title" formControlName = "title">
       </div>
 
       <div class="form-group">
           <div class="dropdown">
-              <button id="country_button"
+              <button id="church_type"
                       class="btn btn-primary dropdown-toggle"
                       type="button"
-                      data-toggle="dropdown"> Type
+                      data-toggle="dropdown"> Church Type
               </button>
               <ul class="dropdown-menu">
-                  <li>India</li>
-                  <li>India</li>
+                  <li (click)="onChurchTypeClick('Church')">Church</li>
+                  <li (click)="onChurchTypeClick('Non-Profit')">Non-Profit</li>
+                  <li (click)="onChurchTypeClick('Non-Religious')">Non-Religious</li>
+                  <li (click)="onChurchTypeClick('Non-Denominational')">Non-Denominational</li>
+                  <li (click)="onChurchTypeClick('Other')">Other</li>
               </ul>
           </div>
       </div>
       <div class="form-group">
-          <div class="dropdown">
-              <button id="country_button"
-                      class="btn btn-primary dropdown-toggle"
-                      type="button"
-                      data-toggle="dropdown"> Connected By
-              </button>
-              <ul class="dropdown-menu">
-                  <li>India</li>
-                  <li>India</li>
-              </ul>
-          </div>
+        <h4>Connected By</h4>
+        <input type="text" class="form-control" name="" value="" placeholder="Upload Attachments" formControlName = "connectedBy">
       </div>
       <div class="form-group">
         <h4>Upload Attachments</h4>
-        <input type="text" class="form-control" name="" value="" placeholder="Upload Attachments">
+        <input type="text" class="form-control" name="" value="" placeholder="Upload Attachments" formControlName = "uploadAttachments">
       </div>
       <div class="form-group">
         <h4>Tags</h4>
-        <input type="text" class="form-control" name="" value="" placeholder="Tags">
+        <input type="text" class="form-control" name="" value="" placeholder="Tags" formControlName = "tags">
       </div>
       <div class="form-group">
         <h4>Description</h4>
-        <input type="text" class="form-control" name="" value="" placeholder="Description">
+        <input type="text" class="form-control" name="" value="" placeholder="Description" formControlName = "description">
       </div>
       <div class="form-group weekly-schedule-buttons">
         <h4>Weekly Schedule</h4>
-        <button type="button" name="button">MO</button>
-        <button type="button" name="button">TU</button>
-        <button type="button" name="button">WE</button>
-        <button type="button" name="button">TH</button>
-        <button type="button" name="button">FR</button>
-        <button type="button" name="button">SA</button>
-        <button type="button" name="button">SU</button>
+        <button type="button" name="button" (click)="onClickWeeklySchedule('1')">MO</button>
+        <button type="button" name="button" (click)="onClickWeeklySchedule('2')">TU</button>
+        <button type="button" name="button" (click)="onClickWeeklySchedule('3')">WE</button>
+        <button type="button" name="button" (click)="onClickWeeklySchedule('4')">TH</button>
+        <button type="button" name="button" (click)="onClickWeeklySchedule('5')">FR</button>
+        <button type="button" name="button" (click)="onClickWeeklySchedule('6')">SA</button>
+        <button type="button" name="button" (click)="onClickWeeklySchedule('7')">SU</button>
       </div>
       <div class="form-group typical-hours">
         <h4>Typical Hours</h4>
-        <input type="text" class="form-control" name="" value="" placeholder="Time">
+        <input type="text" class="form-control" name="" value="" placeholder="Time" formControlName = "typicalHours">
       </div>
       <div class="form-group">
         <h4>Facebook/Website</h4>
-        <input type="text" class="form-control" name="" value="" placeholder="Facebook/ Website">
+        <input type="text" class="form-control" name="" value="" placeholder="Facebook/ Website" formControlName = "fborweb">
       </div>
       <div class="form-group">
         <h4>Bussiness Address</h4>
-        <input type="text" class="form-control" name="" value="" placeholder="Bussiness Address">
+        <input type="text" class="form-control" name="" value="" placeholder="Bussiness Address" formControlName = "address">
       </div>
       <div class="form-group">
         <h4>Phone Number</h4>
-        <input type="text" class="form-control" name="" value="" placeholder="Phone Number">
-      </div> -->
+        <input type="text" class="form-control" name="" value="" placeholder="Phone Number" formControlName = "phoneNumber">
+      </div>
+      <div class="form-group">
+        <h4>Latitude</h4>
+        <input type="text" class="form-control" name="" value="" placeholder="Latitude" formControlName = "latitude">
+      </div>
+      <div class="form-group">
+        <h4>Longitude</h4>
+        <input type="text" class="form-control" name="" value="" placeholder="Longitude" formControlName = "longitude">
+      </div>
+      <p *ngIf="messages.validationmessage">{{messages.validationmessage}}</p>
       <button type="submit" name="button" class="btn btn-default">Create Pods</button>
     </div>
   </form>

@@ -21,18 +21,33 @@ export class CreatePodsComponent implements OnInit {
   private territoriesSubscription: Subscription;
   mainHubs = [];
   reginaolHubs = [];
+  private messages: any;
+  private companydetails: any;
+  private vendorCreationResponse: any;
 
   constructor(private route : Router,
     		 private fb: FormBuilder,
     		 private countryService: CountryService,
     		 private territoryService: TerritoryService) {
   		this.countryService = countryService;
+      this.messages = {};
+      this.messages.validationmessage = "";
+      this.companydetails = {};
+      this.vendorCreationResponse = {};
   }
 
   formErrors = {
-    startcard : "",
-    endcard:"",
-    email:""
+         firstname: "",
+         lastname: "",
+         email: "",
+         password: "",
+         retypepassword: "",
+         companyname: "",
+         country_id: "",
+         country: "",
+         territory_id : "",
+         mainhubId: "",
+         regionalhubId: ""
   };
 
   validationMessages = {
@@ -59,6 +74,21 @@ export class CreatePodsComponent implements OnInit {
      "companyname" :{
         'required': 'Kindly enter valid vendor name',
        'pattern' : 'Enter a valid vendor name'
+     },
+     "country" :{
+        'required': 'Kindly select the country'
+     },
+     "country_id":{
+         'required': 'Kindly select the country'
+     },
+     "territory_id":{
+        'required': 'Kindly select the territory'
+     },
+     "mainhubId" :{
+       'required': 'Kindly select the main hub'
+     },
+     "regionalhubId":{
+       'required': 'Kindly select the regional hub'
      }
 
   };
@@ -87,7 +117,22 @@ export class CreatePodsComponent implements OnInit {
          country_id: ['', Validators.required],
          country: ['', Validators.required],
          territory_id : ['', Validators.required],
-         mainhubId: ['', Validators.required]
+         mainhubId: ['', Validators.required],
+         regionalhubId: ['', Validators.required],
+         sponser:[''],
+         title:[''],
+         type:[''],
+         connectedBy:[''],
+         uploadAttachments:[''],
+         tags:[''],
+         description:[''],
+         weekelySchedule:[''],
+         typicalHours:[''],
+         fborweb:[''],
+         address:[''],
+         phoneNumber:[''],
+         latitude:[''],
+         longitude:['']
        });
       this.register_company.valueChanges
         .subscribe(data => this.onValueChanged(data));
@@ -101,6 +146,21 @@ export class CreatePodsComponent implements OnInit {
       this.formErrors[field] = '';
       const control = form.get(field);
       if (control && control.dirty && !control.valid) {
+        const messages = this.validationMessages[field];
+        for (const key in control.errors) {
+          this.formErrors[field] += messages[key] + ' ';
+        }
+      }
+    }
+  }
+
+  onValueSubmit(data?: any) {
+    if (!this.register_company) { return; }
+    const form = this.register_company;
+    for (const field in this.formErrors) {
+      this.formErrors[field] = '';
+      const control = form.get(field);
+      if (control && !control.valid) {
         const messages = this.validationMessages[field];
         for (const key in control.errors) {
           this.formErrors[field] += messages[key] + ' ';
@@ -149,9 +209,7 @@ export class CreatePodsComponent implements OnInit {
     onRegionhubClick(index: number) {
         const button = document.getElementById('region_button');
         button.innerText = this.reginaolHubs[index]['name'];
-        // this.register_company.get('mainhubId').setValue(this.mainHubs[index]['id']);
-        //console.log(this.register_company);
-        //this.getReginolHubs(this.mainHubs[index]['id']);
+        this.register_company.get('regionalhubId').setValue(this.reginaolHubs[index]['id']);
     }
 
     getMainhub(id: number) {
@@ -163,15 +221,78 @@ export class CreatePodsComponent implements OnInit {
         });
     }
 
-  createcompany(){
-    this.territoryService.Apicreatepods(this.register_company).subscribe(res => {
+    onChurchTypeClick(type: string){
+        const button = document.getElementById('church_type');
+        button.innerText = type;
+        this.register_company.get('type').setValue(type);
+    }
 
-      console.log("form is working");
-    	console.log(this.register_company);
-    })
+    onClickWeeklySchedule(id: string){
+      this.register_company.get('weekelySchedule').setValue(id);
+    }
+
+  createcompany(){
     console.log("form is working");
     console.log(this.register_company);
+    this.onValueSubmit();
+    this.messages.validationmessage = "";
+    if(this.register_company.valid){
+      if(this.register_company.value.password == this.register_company.value.retypepassword ){
+          let reqObject = {
+            "company_name": this.register_company.value.companyname,
+            "country": this.register_company.value.country,
+            "country_id": this.register_company.value.country_id,
+            "email": this.register_company.value.email,
+            "first_name": this.register_company.value.firstname,
+            "last_name": this.register_company.value.lastname,
+            "password": this.register_company.value.password,
+            "role": "owner",
+            "regional_hub_id":this.register_company.value.regionalhubId
+          }
 
+          this.territoryService.Apicreatepods(reqObject).subscribe(res => {
+              console.log(res);
+              this.vendorCreationResponse = res;
+              this.companydetails = {};
+              let id = (this.vendorCreationResponse && this.vendorCreationResponse.user) ? this.vendorCreationResponse.user.id : "";
+              this.territoryService.getCompanydetails(id).subscribe(response =>{
+                  console.log(response);
+                  this.companydetails = response && response[0] ? response[0] : {};
+                  if(this.companydetails.id){
+                    this.companydetails.sponsor = this.register_company.value.sponser;
+                    this.companydetails.title = this.register_company.value.title;
+                    this.companydetails.connected_by = this.register_company.value.connectedBy;
+                    this.companydetails.type = this.register_company.value.type;
+                    this.companydetails.tags = this.register_company.value.tags;
+                    this.companydetails.description = this.register_company.value.description;
+                    this.companydetails.schedule = this.register_company.value.weekelySchedule;
+                    this.companydetails.hours = this.register_company.value.typicalHours;
+                    this.companydetails.facebook = this.register_company.value.fborweb;
+                    this.companydetails.business_address = this.register_company.value.address;
+                    this.companydetails.phone = this.register_company.value.phoneNumber;
+                    this.companydetails.photo = this.register_company.value.uploadAttachments;
+                    this.companydetails.latitude = this.register_company.value.latitude;
+                    this.companydetails.longitude = this.register_company.value.longitude;
+                    console.log("Updating Company details");
+                    console.log(this.companydetails);
+                    this.territoryService.updateCompanydetails(this.companydetails).subscribe(apires => {
+                        console.log(apires);
+                        alert("Company/Vendor created successfully");
+                        this.companydetails = {};
+                        this.ngOnInit();
+                    })
+                  }else{
+                    console.log("error occured");
+                  }
+              })
+
+          });
+      }else{
+        console.log("passwords are not matching");
+        this.messages.validationmessage = "Password and retype password are not matching";
+      }
+        
+    }
   }
 
 }
