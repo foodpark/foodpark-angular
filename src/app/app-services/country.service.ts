@@ -1,5 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 import {HttpClient} from '@angular/common/http';
 
 import {environment} from '../../environments/environment';
@@ -12,8 +15,9 @@ import {CountryModel} from '../app-modules/country.model';
 export class CountryService {
     private countries: CountryModel[] = [];
     private countriesUpdated = new Subject<CountryModel[]>();
-    constructor(private http: HttpClient) {}
 
+    constructor(private http: HttpClient) {
+    }
 
     getCountries() {
         this.http.get<CountryModel[]>(environment.apiUrl + '/api/v1/rel/countries')
@@ -22,6 +26,7 @@ export class CountryService {
                 this.countriesUpdated.next([...this.countries]);
             });
     }
+
 
     getCountriesUpdateListener() {
         return this.countriesUpdated.asObservable();

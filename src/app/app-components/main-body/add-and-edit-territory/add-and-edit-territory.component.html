@@ -1,6 +1,6 @@
 <div class="canvas inner_wrapper" style="position: absolute;top: 100px;">
     <section class="greybg center ">
-        <h2>Edit Territory</h2>
+        <h2 class="page-header" style="margin: 10px 80px;">{{pageTitle}}</h2>
         <div class="container-fluid col-sm-12 menu_detail shell bg_1">
             <form [formGroup]="form">
                 <div class="form-group">
@@ -9,7 +9,8 @@
                         type="text"
                         formControlName="territory"
                         class="form-control"
-                        placeholder="Main Hub Name">
+                        placeholder="Main Hub Name"
+                        value="{{territory?.territory || ''}}">
                 </div>
                 <div class="form-group">
                     <h4>Country</h4>
@@ -17,7 +18,7 @@
                         <button id="country_button"
                                 class="btn btn-primary dropdown-toggle"
                                 type="button"
-                                data-toggle="dropdown">Select country
+                                data-toggle="dropdown">{{territory?.country || 'Select country'}}
                         </button>
                         <ul class="dropdown-menu">
                             <li *ngFor="let item of countries; let i = index" (click)="onCountryClick(i)">
@@ -32,7 +33,8 @@
                         type="text"
                         formControlName="latitude"
                         class="form-control"
-                        placeholder="ex: 5.342378">
+                        placeholder="ex: 5.342378"
+                        value="{{territory?.latitude || ''}}">
                 </div>
                 <div class="form-group">
                     <h4>Longitude</h4>
@@ -40,13 +42,13 @@
                         type="text"
                         formControlName="longitude"
                         class="form-control"
-                        placeholder="ex: 78.324789">
+                        placeholder="ex: 78.324789"
+                        value="{{territory?.longitude || ''}}">
                 </div>
                 <button
                     type="submit"
                     class="btn btn-default"
-                    (click)="onSaveClick()"
-                    [disabled]="!form.valid">SAVE
+                    (click)="onSaveClick()">SAVE
                 </button>
             </form>
         </div>
