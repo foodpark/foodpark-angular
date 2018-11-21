@@ -22,6 +22,7 @@ import {RemoveSpacesPipe} from './app-pipes/removeSpaces.pipe';
 import {ErrorInterceptor} from './error-interceptor';
 import {ErrorComponent} from './error/error.component';
 import {AuthInterceptor} from './auth-interceptor';
+import { MainHubRevampedComponent } from './app-components/main-body/main-hub-revamped/main-hub-revamped.component';
 
 @NgModule({
     declarations: [
@@ -30,6 +31,7 @@ import {AuthInterceptor} from './auth-interceptor';
         FooterComponent,
         LoaderComponent,
         ErrorComponent,
+        MainHubRevampedComponent
     ],
     imports: [
         BrowserModule,

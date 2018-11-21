@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {TerritoryModel} from '../app-modules/territory.model';
 import {Subject} from 'rxjs';
+import {TerritoryModel} from '../model';
 
 @Injectable({
     providedIn: 'root'
@@ -64,8 +64,8 @@ export class TerritoryService {
         return this.http.get<TerritoryModel>(environment.apiUrl + '/api/v1/rel/food_parks/' + mainhubId + '/regionalhubs');
     }
 
-    Apicreatepods(data){
-      return this.http.post(environment.apiUrl + '/auth/register ', data);
+    Apicreatepods(data) {
+        return this.http.post(environment.apiUrl + '/auth/register ', data);
 
     }
 

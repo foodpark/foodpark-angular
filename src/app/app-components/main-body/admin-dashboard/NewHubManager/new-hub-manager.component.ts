@@ -3,10 +3,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CountryService} from '../../../../app-services/country.service';
 import {TerritoryService} from '../../../../app-services/territory.service';
 import {HubmanagerService} from '../../../../app-services/hubmanager.service';
-import {HubmanagerModel} from '../../../../app-modules/hubmanager.model';
-import { CountryModel } from 'src/app/app-modules/country.model';
-import { TerritoryModel } from 'src/app/app-modules/territory.model';
 import { Subscription } from 'rxjs';
+import {CountryModel, HubmanagerModel, TerritoryModel} from '../../../../model';
 
 @Component({
     selector: 'app-new-hub-manager-dashboard',

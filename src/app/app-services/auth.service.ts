@@ -4,11 +4,11 @@ import {Router} from '@angular/router';
 import {Subject} from 'rxjs';
 
 import {environment} from '../../environments/environment';
-import {AuthData} from '../app-modules/auth-data.model';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
+import {AuthData} from '../model';
 
 
 @Injectable({providedIn: 'root'})

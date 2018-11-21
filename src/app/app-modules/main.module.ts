@@ -28,8 +28,10 @@ import {HubPickupsComponent} from '../app-components/main-body/hub-manager-dashb
 import {HubManagerComponent} from '../app-components/main-body/hub-manager-dashboard/hub-manager/hub-manager.component';
 import {DistributionCenterComponent} from '../app-components/main-body/hub-manager-dashboard/distrubution-center/distrubution-center.component';
 
-import {RemoveSpacesPipe} from '../app-pipes/removeSpaces.pipe';
 import {AddAndEditTerritoryComponent} from '../app-components/main-body/add-and-edit-territory/add-and-edit-territory.component';
+import {MatDatepickerModule, MatNativeDateModule} from '@angular/material';
+import {MatMomentDateModule} from '@angular/material-moment-adapter';
+import {RemoveSpacesPipe} from '../app-pipes/removeSpaces.pipe';
 
 @NgModule({
     imports: [
@@ -37,6 +39,9 @@ import {AddAndEditTerritoryComponent} from '../app-components/main-body/add-and-
         ReactiveFormsModule,
         BrowserModule,
         RouterModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatMomentDateModule
     ],
     declarations: [
         LoginComponent,
@@ -84,6 +89,7 @@ import {AddAndEditTerritoryComponent} from '../app-components/main-body/add-and-
         HubPickupsComponent,
         HubManagerComponent,
         DistributionCenterComponent,
+        RemoveSpacesPipe
     ],
 })
 export class MainModule {

@@ -6,7 +6,7 @@ import 'rxjs/add/observable/throw';
 import {HttpClient} from '@angular/common/http';
 
 import {environment} from '../../environments/environment';
-import {CountryModel} from '../app-modules/country.model';
+import {CountryModel} from '../model';
 
 @Injectable({
     providedIn: 'root'

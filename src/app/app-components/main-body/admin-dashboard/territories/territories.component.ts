@@ -1,8 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {TerritoryService} from '../../../../app-services/territory.service';
-import {TerritoryModel} from 'src/app/app-modules/territory.model';
 import {Subscription} from 'rxjs';
+import {AppConstants} from '../../../../app-constants/common-constants';
+import {TerritoryModel} from '../../../../model';
 
 
 @Component({
@@ -15,14 +16,14 @@ export class TerritoriesComponent implements OnInit, OnDestroy {
     private territoriesSubscription: Subscription;
 
     constructor(private territoryService: TerritoryService, private router: Router) {
-        this.territoryService.getTerritories();
+    }
+
+    ngOnInit() {
+        this.territoryService.getTerritoriesInCountry(AppConstants.defaultCountryId);
         this.territoriesSubscription = this.territoryService.getTerritoriesUpdateListener()
             .subscribe((territories: TerritoryModel[]) => {
                 this.territories = territories;
             });
-    }
-
-    ngOnInit() {
     }
 
     onAddTerritoryClick() {

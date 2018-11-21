@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {HubmanagerModel} from '../app-modules/hubmanager.model';
-import {TerritoryModel} from '../app-modules/territory.model';
+import {HubmanagerModel, TerritoryModel} from '../model';
 
 @Injectable({
     providedIn: 'root'

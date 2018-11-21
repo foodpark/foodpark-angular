@@ -3,9 +3,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CountryService} from '../../../app-services/country.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TerritoryService} from '../../../app-services/territory.service';
-import {TerritoryModel} from '../../../app-modules/territory.model';
-import {CountryModel} from '../../../app-modules/country.model';
 import {Subscription} from 'rxjs';
+import {CountryModel, TerritoryModel} from '../../../model';
 
 @Component({
     selector: 'app-edit-territory',

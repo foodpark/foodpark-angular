@@ -4,9 +4,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CountryService} from '../../../app-services/country.service';
 import {TerritoryService} from '../../../app-services/territory.service';
 import {MainhubService} from '../../../app-services/mainhub.service';
-import { CountryModel } from 'src/app/app-modules/country.model';
 import { Subscription } from 'rxjs';
-import { TerritoryModel } from 'src/app/app-modules/territory.model';
+import {CountryModel, TerritoryModel} from '../../../model';
 
 @Component({
     selector: 'app-main-hubs',
