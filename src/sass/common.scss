@@ -1,21 +1,28 @@
 .sub_menu_layout {
-  height: 100px;
-  background-color: $color-black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  .sub_menu_layout--actions {
-    button {
-      border: none;
-      background-color: #fff;
-      //padding: 15px;
-      height: 35px;
-      margin-right: 20px;
+    height: 100px;
+    background-color: $color-black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .sub_menu_layout--actions {
+        button {
+            border: none;
+            background-color: #fff;
+            //padding: 15px;
+            height: 35px;
+            margin-right: 20px;
+        }
     }
-  }
 }
 
 .dashboard_content_layout {
-  padding-top: 85px;
-  width: 100%;
+    padding-top: 85px;
+    width: 100%;
+}
+
+.absolute-position {
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    right: 100px
 }

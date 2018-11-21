@@ -42,13 +42,13 @@ const routes: Routes = [
                 path: 'territories', component: TerritoriesComponent, children: []
             },
             {
-                path: 'create_main_hub', component: MainHubsComponent, children: []
+                path: 'createmainhub', component: MainHubsComponent, children: []
             },
             {
-                path: 'new_main_hub_manager', component: NewHubManagerComponent, children: []
+                path: 'newmainhubmanager', component: NewHubManagerComponent, children: []
             },
             {
-                path: 'edit_territory', component: AddAndEditTerritoryComponent, children: []
+                path: 'editterritory', component: AddAndEditTerritoryComponent, children: []
             }
         ]
     },
@@ -70,20 +70,20 @@ const routes: Routes = [
     {
         path: 'hubmanager', component: HubManagerDashboardComponent, canActivate: [AuthGuard],
         children: [
-            {path: 'create_regional_hub', component: RegionalHubComponent},
+            {path: 'createregionalhub', component: RegionalHubComponent},
             {path: 'reporting', component: ReportingComponent},
             {
-                path: 'pod_applications', component: PodApplicationsComponent,
+                path: 'podapplications', component: PodApplicationsComponent,
                 children: [
                     {path: '', redirectTo: 'pods', pathMatch: 'full', canActivate: [AuthGuard]},
                     {path: 'pods', component: PodsComponent},
-                    {path: 'create-pods', component: CreatePodsComponent},
+                    {path: 'createpods', component: CreatePodsComponent},
                 ]
             },
-            {path: 'load_management', component: LoadManagementComponent},
-            {path: 'hub_pickups', component: HubPickupsComponent},
-            {path: 'hub_manager', component: HubManagerComponent},
-            {path: 'distribution_center_management', component: DistributionCenterComponent},
+            {path: 'loadmanagement', component: LoadManagementComponent},
+            {path: 'hubpickups', component: HubPickupsComponent},
+            {path: 'hubmanager', component: HubManagerComponent},
+            {path: 'distributioncentermanagement', component: DistributionCenterComponent},
         ]
     }
 ];

@@ -17,9 +17,9 @@ export class AppComponent implements OnInit {
     ngOnInit() {
         // this.router.navigate(['']);
         const app: AppComponent = this;
-        String.prototype.toLocaleString = function () {
-            return (app.dataService.localeStringsMap || {})[this] || this;
-        };
+        // String.prototype.toLocaleString = function () {
+        //     return (app.dataService.localeStringsMap || {})[this] || this;
+        // };
         if (environment.production) {
             // write logic for production env
         } else {

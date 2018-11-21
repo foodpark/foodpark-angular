@@ -15,7 +15,7 @@
            class="nav-link"
            routerLink="/hubmanager/{{item.toLowerCase()| removeSpaces}}"
            routerLinkActive="active"
-           (click)="closeNav()">{{item.toLocaleString()}}</a>
+           (click)="closeNav()">{{item}}</a>
     </ng-container>
 </div>
 <router-outlet></router-outlet>

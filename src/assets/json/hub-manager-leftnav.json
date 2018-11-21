@@ -1,9 +1,9 @@
 [
-  "CREATE_REGIONAL_HUB",
-  "POD_APPLICATIONS",
-  "DISTRIBUTION_CENTER_MANAGEMENT",
-  "HUB_PICKUPS",
-  "LOAD_MANAGEMENT",
-  "REPORTING",
-  "HUB_MANAGER"
+    "Create Regional Hub",
+    "POD Applications",
+    "Distribution Center Management",
+    "HUB Pickups",
+    "Load Management",
+    "Reporting",
+    "HUB Manager"
 ]

@@ -6,12 +6,12 @@ import {HttpClient} from '@angular/common/http';
 @Injectable({providedIn: 'root'})
 
 export class DataService {
-    localeStringsMap: any;
+    // localeStringsMap: any;
 
     constructor(private http: HttpClient) {
-        this.httpGetTranslations().subscribe(transMap => {
-            this.localeStringsMap = transMap;
-        });
+        // this.httpGetTranslations().subscribe(transMap => {
+        //     this.localeStringsMap = transMap;
+        // });
     }
 
     getJsonData(role: string): Observable<any> {
@@ -25,15 +25,15 @@ export class DataService {
             return res || {};
         }));
     }
-
-    httpGetTranslations(): Observable<any> {
-        const currentLang = navigator.language;
-        return this.http.get('assets/i18n/' + currentLang + '.json').pipe(
-            map((res: any) => {
-                return res || {};
-            })
-        );
-    }
+    //
+    // httpGetTranslations(): Observable<any> {
+    //     const currentLang = navigator.language;
+    //     return this.http.get('assets/i18n/' + currentLang + '.json').pipe(
+    //         map((res: any) => {
+    //             return res || {};
+    //         })
+    //     );
+    // }
 
     stringComparator(originalString: string, comparedString: string) {
         return this.nullCheck(originalString) && this.nullCheck(comparedString) && originalString.toLowerCase() === comparedString.toLowerCase();
