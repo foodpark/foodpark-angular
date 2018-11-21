@@ -18,11 +18,10 @@ import {FooterComponent} from './app-components/footer/footer.component';
 import {LoaderComponent} from './app-components/loader/loader.component';
 import {AppRoutingModule} from './app-routes/routing.module';
 import {MainModule} from './app-modules/main.module';
-import {RemoveSpacesPipe} from './app-pipes/removeSpaces.pipe';
 import {ErrorInterceptor} from './error-interceptor';
 import {ErrorComponent} from './error/error.component';
 import {AuthInterceptor} from './auth-interceptor';
-import { MainHubRevampedComponent } from './app-components/main-body/main-hub-revamped/main-hub-revamped.component';
+// import { MainHubRevampedComponent } from './app-components/main-body/main-hub-revamped/main-hub-revamped.component';
 
 @NgModule({
     declarations: [
@@ -31,7 +30,7 @@ import { MainHubRevampedComponent } from './app-components/main-body/main-hub-re
         FooterComponent,
         LoaderComponent,
         ErrorComponent,
-        MainHubRevampedComponent
+        // MainHubRevampedComponent
     ],
     imports: [
         BrowserModule,
