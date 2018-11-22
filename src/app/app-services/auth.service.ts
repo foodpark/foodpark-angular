@@ -60,6 +60,17 @@ export class AuthService {
         return this.userName;
     }
 
+    routeAppropriately() {
+        switch (this.userRole) {
+            case 'admin':
+                this.router.navigate(['/admin']);
+                break;
+            case 'hubmgr':
+                this.router.navigate(['/hubmanager']);
+                break;
+        }
+    }
+
     login(usrname: string, pwd: string) {
         const authData: AuthData = {username: usrname, password: pwd};
         this.http.post<{ token: string }>(environment.apiUrl + '/auth/login', authData)
@@ -75,29 +86,7 @@ export class AuthService {
                         this.userName = response['user']['username'];
                         this.id = response['user']['id'];
                         this.saveAuthData(token, this.userRole, this.userName, this.id);
-                        switch (this.userRole) {
-                            case 'admin':
-                                this.router.navigate(['/admin']);
-                                break;
-                            case 'customer':
-                                this.router.navigate(['/customer']);
-                                break;
-                            case 'owner':
-                                this.router.navigate(['/owner']);
-                                break;
-                            case 'unitmgr':
-                                this.router.navigate(['/unitmanager']);
-                                break;
-                            case 'driver':
-                                this.router.navigate(['/driver']);
-                                break;
-                            case 'foodparkmgr':
-                                this.router.navigate(['/foodparkmanager']);
-                                break;
-                            case 'hubmgr':
-                                this.router.navigate(['/hubmanager']);
-                                break;
-                        }
+                        this.routeAppropriately();
                     }
                 },
                 error => {
@@ -117,6 +106,7 @@ export class AuthService {
         this.userName = authIfnormation.username;
         this.isAuthenticated = true;
         this.authStatusListener.next(true);
+        this.routeAppropriately();
     }
 
     logout() {
