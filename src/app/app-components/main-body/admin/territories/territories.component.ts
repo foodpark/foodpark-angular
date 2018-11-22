@@ -27,7 +27,7 @@ export class TerritoriesComponent implements OnInit, OnDestroy {
     }
 
     onAddTerritoryClick() {
-        this.router.navigate(['/admin/edit_territory']);
+        this.router.navigate(['/admin/addterritory']);
     }
 
     onEditClick(index: number) {

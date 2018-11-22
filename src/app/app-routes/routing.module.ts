@@ -43,7 +43,10 @@ const routes: Routes = [
                 path: 'mainhubmanager', component: NewHubManagerComponent, children: []
             },
             {
-                path: 'editterritory', component: AddAndEditTerritoryComponent, children: []
+                path: 'edit_territory', component: AddAndEditTerritoryComponent, children: []
+            },
+            {
+                path: 'addterritory', component: AddAndEditTerritoryComponent, children: []
             },
             {
                 path: 'editmainhub', component: AddAndEditMainhubComponent, children: []

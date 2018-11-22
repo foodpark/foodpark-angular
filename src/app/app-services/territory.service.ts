@@ -41,10 +41,7 @@ export class TerritoryService {
     editTerritory(territory: TerritoryModel) {
         this.http.put<TerritoryModel>(environment.apiUrl + '/api/v1/rel/territories/' + territory['id'], territory)
             .subscribe((response) => {
-                this.territories = this.territories.filter((function (value) {
-                    return value !== response;
-                }));
-                this.territoriesUpdated.next([...this.territories]);
+                this.getTerritories();
             });
     }
 
