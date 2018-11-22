@@ -27,9 +27,9 @@ export class MainHubComponent implements OnInit, OnDestroy {
         this.countriesSubscription = this.countryService.getCountriesUpdateListener()
             .subscribe((countries: CountryModel[]) => {
                 this.countries = countries;
-                this.mainhubService.getMainhubsInCountry(countries[0]['name']).subscribe();
+                this.mainhubService.getMainhubsInCountry(countries[0]['name']);
             });
-        this.mainhubService.getMainHubInTerritory(AppConstants.defaultCountryId, AppConstants.defaultCountryName);
+        // this.mainhubService.getMainHubInTerritory(AppConstants.defaultCountryId, AppConstants.defaultCountryName);
         this.mainhubsSubscription = this.mainhubService.getMainhubsUpdateListener()
             .subscribe((res: MainhubModel[]) => {
                 this.mainhubs = res;
@@ -40,6 +40,7 @@ export class MainHubComponent implements OnInit, OnDestroy {
         const button = document.getElementById('country_button');
         button.innerText = this.countries[index]['name'];
         // this..get('country').setValue(this.countries[index]['name']);
+        this.mainhubService.getMainhubsInCountry(this.countries[index]['name']);
     }
 
     onAddMainhubClick() {

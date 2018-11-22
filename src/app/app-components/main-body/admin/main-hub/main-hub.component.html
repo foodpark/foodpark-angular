@@ -1,6 +1,8 @@
-<div class="absolute-position" style="text-align: center">
-    <div (click)="onAddMainhubClick()">
+<div class="absolute-position">
+    <div style="text-align: center">
         <h2>Main Hub</h2>
+    </div>
+    <div (click)="onAddMainhubClick()">
         <button type="button" class="btn btn-info" style="width: 100%;align-items: center">Add Main Hub
             <i class="material-icons" style="color: #fff"> add </i>
         </button>
@@ -11,7 +13,7 @@
             <button id="country_button"
                     class="btn btn-primary dropdown-toggle"
                     type="button"
-                    data-toggle="dropdown">{{territory?.country || 'Select country'}}
+                    data-toggle="dropdown">Select country
             </button>
             <ul class="dropdown-menu">
                 <li *ngFor="let item of countries; let i = index" (click)="onCountryClick(i)">
@@ -31,12 +33,12 @@
         <tbody>
         <tr *ngFor="let item of mainhubs; let i = index">
             <td>{{item.name}}</td>
-            <td>
+            <td style="text-align: center">
                 <i class="material-icons" (click)="onEditClick(i)">
                     edit
                 </i>
             </td>
-            <td>
+            <td style="text-align: center">
                 <i class="material-icons" (click)="onDeleteClick(mainhubs[i]['id'])">
                     delete
                 </i>

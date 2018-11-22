@@ -8,7 +8,7 @@ import {Subject} from 'rxjs';
     providedIn: 'root'
 })
 export class MainhubService {
-    mainhub: MainhubModel[] = [];
+    mainhubs: MainhubModel[] = [];
     private mainhubsUpdated = new Subject<MainhubModel[]>();
 
     constructor(private http: HttpClient) {
@@ -21,16 +21,16 @@ export class MainhubService {
     getMainhubs() {
         this.http.get<MainhubModel[]>(environment.apiUrl + '/api/v1/rel/food_parks')
             .subscribe((res) => {
-                this.mainhub = res;
-                this.mainhubsUpdated.next([...this.mainhub]);
+                this.mainhubs = res;
+                this.mainhubsUpdated.next([...this.mainhubs]);
             });
     }
 
     addMainhub(data: FormData) {
         return this.http.post<MainhubModel>(environment.apiUrl + '/api/v1/rel/food_parks', data)
             .subscribe((response) => {
-                this.mainhub.push(response);
-                this.mainhubsUpdated.next([...this.mainhub]);
+                this.mainhubs.push(response);
+                this.mainhubsUpdated.next([...this.mainhubs]);
             });
     }
 
@@ -41,23 +41,27 @@ export class MainhubService {
     editMainhub(mainhub: MainhubModel) {
         this.http.put<MainhubModel>(environment.apiUrl + '/api/v1/rel/food_parks/' + mainhub['id'], mainhub)
             .subscribe((response) => {
-                this.mainhub = this.mainhub.filter((function (value) {
+                this.mainhubs = this.mainhubs.filter((function (value) {
                     return value !== response;
                 }));
-                this.mainhubsUpdated.next([...this.mainhub]);
+                this.mainhubsUpdated.next([...this.mainhubs]);
             });
     }
 
     getTerritoriesInCountry(countryId: number) {
         this.http.get<MainhubModel[]>(environment.apiUrl + '/api/v1/rel/food_parks/' + countryId + '/food_parks')
             .subscribe((territoryData) => {
-                this.mainhub = territoryData;
-                this.mainhubsUpdated.next([...this.mainhub]);
+                this.mainhubs = territoryData;
+                this.mainhubsUpdated.next([...this.mainhubs]);
             });
     }
 
     getMainhubsInCountry(countryName: string) {
-        return this.http.get<MainhubModel[]>(environment.apiUrl + '/api/v1/rel/food_parks?country=' + countryName);
+        this.http.get<MainhubModel[]>(environment.apiUrl + '/api/v1/rel/food_parks?country=' + countryName)
+        .subscribe((territoryData) => {
+            this.mainhubs = territoryData;
+            this.mainhubsUpdated.next([...this.mainhubs]);
+        });
     }
 
     getMainHubInTerritory(territoryId: number, type: string) {
