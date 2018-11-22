@@ -13,7 +13,7 @@ import {CountryService} from '../../../../app-services/country.service';
 export class MainHubsListingComponent implements OnInit, OnDestroy {
     mainhubs: MainhubModel[] = [];
     private mainhubsSubscription: Subscription;
-    countries = [];
+    private countries = [];
     private countriesSubscription: Subscription;
 
     constructor(private mainhubService: MainhubService,
@@ -60,6 +60,7 @@ export class MainHubsListingComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
+        this.countriesSubscription.unsubscribe();
         this.mainhubsSubscription.unsubscribe();
     }
 }
