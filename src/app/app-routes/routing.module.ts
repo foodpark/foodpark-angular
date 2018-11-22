@@ -22,6 +22,7 @@ import { MainhubManagerListingComponent } from '../app-components/main-body/admi
 import {TerritoriesListingComponent} from '../app-components/main-body/admin/territories-listing/territories-listing.component';
 import {AddEditTerritoryComponent} from '../app-components/main-body/admin/add-edit-territory/add-edit-territory.component';
 import {AddEditMainhubComponent} from '../app-components/main-body/admin/add-edit-mainhub/add-edit-mainhub.component';
+import { AddEditMainHubManagerComponent } from '../app-components/main-body/admin/add-edit-main-hub-manager/add-edit-main-hub-manager.component';
 
 
 const routes: Routes = [
@@ -37,22 +38,25 @@ const routes: Routes = [
                 path: 'territories', component: TerritoriesListingComponent, children: []
             },
             {
-                path: 'mainhub', component: MainHubsListingComponent, children: []
-            },
-            // {
-            //     path: 'mainhubmanager', component: NewHubManagerComponent, children: []
-            // },
-            {
                 path: 'editterritory', component: AddEditTerritoryComponent, children: []
             },
             {
                 path: 'addterritory', component: AddEditTerritoryComponent, children: []
             },
             {
+                path: 'mainhub', component: MainHubsListingComponent, children: []
+            },
+            {
                 path: 'editmainhub', component: AddEditMainhubComponent, children: []
             },
             {
                 path: 'mainhubmanager', component: MainhubManagerListingComponent, children: []
+            },
+            {
+                path: 'addmainhubmanager', component: AddEditMainHubManagerComponent, children: []
+            },
+            {
+                path: 'editmainhubmanager', component: AddEditMainHubManagerComponent, children: []
             }
         ]
     },
