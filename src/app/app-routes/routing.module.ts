@@ -1,32 +1,27 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {LoginComponent} from '../app-components/main-body/login/login.component';
-import {AdminDashboardComponent} from '../app-components/main-body/admin-dashboard/admin-dashboard.component';
-import {CustomerDashboardComponent} from '../app-components/main-body/customer-dashboard/customer-dashboard.component';
-import {OwnerDashboardComponent} from '../app-components/main-body/owner-dashboard/owner-dashboard.component';
-import {UnitManagerDashboardComponent} from '../app-components/main-body/unit-manager-dashboard/unit-manager-dashboard.component';
-import {DriverDashboardComponent} from '../app-components/main-body/driver-dashboard/driver-dashboard.component';
-import {FoodparkManagerDashboardComponent} from '../app-components/main-body/foodpark-manager-dashboard/foodpark-manager-dashboard.component';
+import {AdminDashboardComponent} from '../app-components/main-body/admin/admin-dashboard/admin-dashboard.component';
 
-import {HubManagerDashboardComponent} from '../app-components/main-body/hub-manager-dashboard/hub-manager-dashboard.component';
-import {RegionalHubComponent} from '../app-components/main-body/hub-manager-dashboard/regionalhub/regionalhub.component';
-import {ReportingComponent} from '../app-components/main-body/hub-manager-dashboard/reporting/reporting.component';
-import {PodApplicationsComponent} from '../app-components/main-body/hub-manager-dashboard/pod-applications/pod-applications.component';
-import {CreatePodsComponent} from '../app-components/main-body/hub-manager-dashboard/pod-applications/create-pods/create-pods.component';
-import {PodsComponent} from '../app-components/main-body/hub-manager-dashboard/pod-applications/pods/pods.component';
+import {HubManagerDashboardComponent} from '../app-components/main-body/main-hub-manager/hub-manager-dashboard/hub-manager-dashboard.component';
+import {RegionalHubComponent} from '../app-components/main-body/main-hub-manager/regionalhub/regionalhub.component';
+import {ReportingComponent} from '../app-components/main-body/main-hub-manager/reporting/reporting.component';
+import {PodApplicationsComponent} from '../app-components/main-body/main-hub-manager/pod-applications/pod-applications.component';
+import {CreatePodsComponent} from '../app-components/main-body/main-hub-manager/pod-applications/create-pods/create-pods.component';
+import {PodsComponent} from '../app-components/main-body/main-hub-manager/pod-applications/pods/pods.component';
 
-import {LoadManagementComponent} from '../app-components/main-body/hub-manager-dashboard/load-management/load-management.component';
-import {HubPickupsComponent} from '../app-components/main-body/hub-manager-dashboard/hub-pickups/hub-pickups.component';
-import {HubManagerComponent} from '../app-components/main-body/hub-manager-dashboard/hub-manager/hub-manager.component';
-import {DistributionCenterComponent} from '../app-components/main-body/hub-manager-dashboard/distrubution-center/distrubution-center.component';
+import {LoadManagementComponent} from '../app-components/main-body/main-hub-manager/load-management/load-management.component';
+import {HubPickupsComponent} from '../app-components/main-body/main-hub-manager/hub-pickups/hub-pickups.component';
+import {HubManagerComponent} from '../app-components/main-body/main-hub-manager/hub-manager/hub-manager.component';
+import {DistributionCenterComponent} from '../app-components/main-body/main-hub-manager/distrubution-center/distrubution-center.component';
 
 
-import {NewHubManagerComponent} from '../app-components/main-body/admin-dashboard/NewHubManager/new-hub-manager.component';
-import {TerritoriesComponent} from '../app-components/main-body/admin-dashboard/territories/territories.component';
+import {NewHubManagerComponent} from '../app-components/main-body/admin/NewHubManager/new-hub-manager.component';
+import {TerritoriesComponent} from '../app-components/main-body/admin/territories/territories.component';
 import {AuthGuard} from '../app-services/auth.guard';
-import {AddAndEditTerritoryComponent} from '../app-components/main-body/add-and-edit-territory/add-and-edit-territory.component';
-import {AddAndEditMainhubComponent} from '../app-components/main-body/add-and-edit-mainhub/add-and-edit-mainhub.component';
-import {MainHubComponent} from '../app-components/main-body/main-hub/main-hub.component';
+import {AddAndEditTerritoryComponent} from '../app-components/main-body/admin/add-and-edit-territory/add-and-edit-territory.component';
+import {AddAndEditMainhubComponent} from '../app-components/main-body/admin/add-and-edit-mainhub/add-and-edit-mainhub.component';
+import {MainHubComponent} from '../app-components/main-body/admin/main-hub/main-hub.component';
 
 
 const routes: Routes = [
@@ -45,30 +40,15 @@ const routes: Routes = [
                 path: 'mainhub', component: MainHubComponent, children: []
             },
             {
-                path: 'newmainhubmanager', component: NewHubManagerComponent, children: []
+                path: 'mainhubmanager', component: NewHubManagerComponent, children: []
             },
             {
                 path: 'editterritory', component: AddAndEditTerritoryComponent, children: []
             },
             {
-                path: 'edit_mainhub', component: AddAndEditMainhubComponent, children: []
+                path: 'editmainhub', component: AddAndEditMainhubComponent, children: []
             }
         ]
-    },
-    {
-        path: 'customer', component: CustomerDashboardComponent, canActivate: [AuthGuard], children: []
-    },
-    {
-        path: 'owner', component: OwnerDashboardComponent, canActivate: [AuthGuard], children: []
-    },
-    {
-        path: 'unitmanager', component: UnitManagerDashboardComponent, canActivate: [AuthGuard], children: []
-    },
-    {
-        path: 'driver', component: DriverDashboardComponent, canActivate: [AuthGuard], children: []
-    },
-    {
-        path: 'foodparkmanager', component: FoodparkManagerDashboardComponent, canActivate: [AuthGuard], children: []
     },
     {
         path: 'hubmanager', component: HubManagerDashboardComponent, canActivate: [AuthGuard],

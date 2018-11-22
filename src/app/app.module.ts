@@ -17,10 +17,13 @@ import {HeaderComponent} from './app-components/header/header.component';
 import {FooterComponent} from './app-components/footer/footer.component';
 import {LoaderComponent} from './app-components/loader/loader.component';
 import {AppRoutingModule} from './app-routes/routing.module';
-import {MainModule} from './app-modules/main.module';
 import {ErrorInterceptor} from './error-interceptor';
 import {ErrorComponent} from './error/error.component';
 import {AuthInterceptor} from './auth-interceptor';
+import {LoginComponent} from './app-components/main-body/login/login.component';
+import {AdminModule} from './app-components/main-body/admin/admin.module';
+import {MainHubManagerModule} from './app-components/main-body/main-hub-manager/main-hub-manager.module';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
     declarations: [
@@ -29,12 +32,14 @@ import {AuthInterceptor} from './auth-interceptor';
         FooterComponent,
         LoaderComponent,
         ErrorComponent,
+        LoginComponent
     ],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
         AppRoutingModule,
-        MainModule,
+        FormsModule,
+        ReactiveFormsModule,
         HttpClientModule,
         MatInputModule,
         MatCardModule,
@@ -43,7 +48,9 @@ import {AuthInterceptor} from './auth-interceptor';
         MatExpansionModule,
         MatProgressSpinnerModule,
         MatPaginatorModule,
-        MatDialogModule
+        MatDialogModule,
+        AdminModule,
+        MainHubManagerModule
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
