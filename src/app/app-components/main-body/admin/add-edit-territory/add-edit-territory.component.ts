@@ -8,9 +8,9 @@ import {CountryModel, TerritoryModel} from '../../../../model';
 
 @Component({
     selector: 'app-edit-territory',
-    templateUrl: './add-and-edit-territory.component.html',
+    templateUrl: './add-edit-territory.component.html',
 })
-export class AddAndEditTerritoryComponent implements OnInit, OnDestroy {
+export class AddEditTerritoryComponent implements OnInit, OnDestroy {
     form: FormGroup;
     countries = [];
     territory: TerritoryModel;

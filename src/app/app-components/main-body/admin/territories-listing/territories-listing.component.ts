@@ -2,16 +2,14 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {TerritoryService} from '../../../../app-services/territory.service';
 import {Subscription} from 'rxjs';
-import {AppConstants} from '../../../../app-constants/common-constants';
 import {TerritoryModel} from '../../../../model';
 
 
 @Component({
     selector: 'app-territories',
-    templateUrl: './territories.component.html',
-    styleUrls: ['./territories.component.scss']
+    templateUrl: './territories-listing.component.html',
 })
-export class TerritoriesComponent implements OnInit, OnDestroy {
+export class TerritoriesListingComponent implements OnInit, OnDestroy {
     territories: TerritoryModel[] = [];
     private territoriesSubscription: Subscription;
 

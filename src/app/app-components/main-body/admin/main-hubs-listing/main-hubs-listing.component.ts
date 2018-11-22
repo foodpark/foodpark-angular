@@ -7,10 +7,10 @@ import {CountryService} from '../../../../app-services/country.service';
 
 @Component({
     selector: 'app-main-hub',
-    templateUrl: './main-hub.component.html',
-    styleUrls: ['./main-hub.component.scss']
+    templateUrl: './main-hubs-listing.component.html',
+    styleUrls: ['./main-hubs-listing.component.scss']
 })
-export class MainHubComponent implements OnInit, OnDestroy {
+export class MainHubsListingComponent implements OnInit, OnDestroy {
     mainhubs: MainhubModel[] = [];
     private mainhubsSubscription: Subscription;
     countries = [];

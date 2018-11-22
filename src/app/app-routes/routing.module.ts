@@ -16,13 +16,12 @@ import {HubManagerComponent} from '../app-components/main-body/main-hub-manager/
 import {DistributionCenterComponent} from '../app-components/main-body/main-hub-manager/distrubution-center/distrubution-center.component';
 
 
-import {NewHubManagerComponent} from '../app-components/main-body/admin/NewHubManager/new-hub-manager.component';
-import {TerritoriesComponent} from '../app-components/main-body/admin/territories/territories.component';
 import {AuthGuard} from '../app-services/auth.guard';
-import {AddAndEditTerritoryComponent} from '../app-components/main-body/admin/add-and-edit-territory/add-and-edit-territory.component';
-import {AddAndEditMainhubComponent} from '../app-components/main-body/admin/add-and-edit-mainhub/add-and-edit-mainhub.component';
-import {MainHubComponent} from '../app-components/main-body/admin/main-hub/main-hub.component';
+import {MainHubsListingComponent} from '../app-components/main-body/admin/main-hubs-listing/main-hubs-listing.component';
 import { MainhubManagerListingComponent } from '../app-components/main-body/admin/mainhub-manager-listing/mainhub-manager-listing.component';
+import {TerritoriesListingComponent} from '../app-components/main-body/admin/territories-listing/territories-listing.component';
+import {AddEditTerritoryComponent} from '../app-components/main-body/admin/add-edit-territory/add-edit-territory.component';
+import {AddEditMainhubComponent} from '../app-components/main-body/admin/add-edit-mainhub/add-edit-mainhub.component';
 
 
 const routes: Routes = [
@@ -35,22 +34,22 @@ const routes: Routes = [
     {
         path: 'admin', component: AdminDashboardComponent, canActivate: [AuthGuard], children: [
             {
-                path: 'territories', component: TerritoriesComponent, children: []
+                path: 'territories', component: TerritoriesListingComponent, children: []
             },
             {
-                path: 'mainhub', component: MainHubComponent, children: []
+                path: 'mainhub', component: MainHubsListingComponent, children: []
             },
             // {
             //     path: 'mainhubmanager', component: NewHubManagerComponent, children: []
             // },
             {
-                path: 'editterritory', component: AddAndEditTerritoryComponent, children: []
+                path: 'editterritory', component: AddEditTerritoryComponent, children: []
             },
             {
-                path: 'addterritory', component: AddAndEditTerritoryComponent, children: []
+                path: 'addterritory', component: AddEditTerritoryComponent, children: []
             },
             {
-                path: 'editmainhub', component: AddAndEditMainhubComponent, children: []
+                path: 'editmainhub', component: AddEditMainhubComponent, children: []
             },
             {
                 path: 'mainhubmanager', component: MainhubManagerListingComponent, children: []

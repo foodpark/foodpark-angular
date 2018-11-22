@@ -8,11 +8,10 @@ import {MainhubService} from '../../../../app-services/mainhub.service';
 import {Router} from '@angular/router';
 
 @Component({
-    selector: 'app-add-and-edit-mainhub',
-    templateUrl: './add-and-edit-mainhub.component.html',
-    styleUrls: ['./add-and-edit-mainhub.component.scss']
+    selector: 'app-add-edit-mainhub',
+    templateUrl: './add-edit-mainhub.component.html',
 })
-export class AddAndEditMainhubComponent implements OnInit, OnDestroy {
+export class AddEditMainhubComponent implements OnInit, OnDestroy {
 
     mainhubForm: FormGroup;
     countries: CountryModel[] = [];

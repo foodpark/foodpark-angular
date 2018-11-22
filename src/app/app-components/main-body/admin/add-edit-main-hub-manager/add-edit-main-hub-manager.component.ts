@@ -8,10 +8,10 @@ import {CountryModel, HubmanagerModel, TerritoryModel} from '../../../../model';
 
 @Component({
     selector: 'app-new-hub-manager-dashboard',
-    templateUrl: './new-hub-manager.component.html'
+    templateUrl: './add-edit-main-hub-manager.component.html'
 })
 
-export class NewHubManagerComponent implements OnInit, OnDestroy {
+export class AddEditMainHubManagerComponent implements OnInit, OnDestroy {
     hubmanagerForm: FormGroup;
 
     countries: CountryModel[] = [];
