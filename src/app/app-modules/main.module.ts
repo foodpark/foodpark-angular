@@ -8,7 +8,6 @@ import {AdminDashboardComponent} from '../app-components/main-body/admin-dashboa
 import {TerritoriesComponent} from '../app-components/main-body/admin-dashboard/territories/territories.component';
 import {NewHubManagerComponent} from '../app-components/main-body/admin-dashboard/NewHubManager/new-hub-manager.component';
 
-import {MainHubsComponent} from '../app-components/main-body/main-hubs/main-hubs.component';
 import {CustomerDashboardComponent} from '../app-components/main-body/customer-dashboard/customer-dashboard.component';
 import {OwnerDashboardComponent} from '../app-components/main-body/owner-dashboard/owner-dashboard.component';
 import {UnitManagerDashboardComponent} from '../app-components/main-body/unit-manager-dashboard/unit-manager-dashboard.component';
@@ -32,6 +31,8 @@ import {AddAndEditTerritoryComponent} from '../app-components/main-body/add-and-
 import {MatDatepickerModule, MatNativeDateModule} from '@angular/material';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
 import {RemoveSpacesPipe} from '../app-pipes/removeSpaces.pipe';
+import {MainHubComponent} from '../app-components/main-body/main-hub/main-hub.component';
+import {AddAndEditMainhubComponent} from '../app-components/main-body/add-and-edit-mainhub/add-and-edit-mainhub.component';
 
 @NgModule({
     imports: [
@@ -49,7 +50,8 @@ import {RemoveSpacesPipe} from '../app-pipes/removeSpaces.pipe';
         TerritoriesComponent,
         NewHubManagerComponent,
         AddAndEditTerritoryComponent,
-        MainHubsComponent,
+        MainHubComponent,
+        AddAndEditMainhubComponent,
         CustomerDashboardComponent,
         OwnerDashboardComponent,
         UnitManagerDashboardComponent,
@@ -73,7 +75,8 @@ import {RemoveSpacesPipe} from '../app-pipes/removeSpaces.pipe';
         TerritoriesComponent,
         NewHubManagerComponent,
         AddAndEditTerritoryComponent,
-        MainHubsComponent,
+        MainHubComponent,
+        AddAndEditMainhubComponent,
         CustomerDashboardComponent,
         OwnerDashboardComponent,
         UnitManagerDashboardComponent,

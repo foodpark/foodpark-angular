@@ -19,7 +19,7 @@ export class TerritoriesComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.territoryService.getTerritoriesInCountry(AppConstants.defaultCountryId);
+        this.territoryService.getTerritories();
         this.territoriesSubscription = this.territoryService.getTerritoriesUpdateListener()
             .subscribe((territories: TerritoryModel[]) => {
                 this.territories = territories;

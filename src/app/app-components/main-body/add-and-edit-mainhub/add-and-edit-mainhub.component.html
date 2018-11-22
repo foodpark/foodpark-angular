@@ -1,0 +1,71 @@
+<div class="canvas inner_wrapper pt35" style="position: absolute;top: 100px; padding: 15px;">
+    <section class="greybg center ">
+        <h2>Create Main Hub</h2>
+        <div class="container-fluid col-sm-12 menu_detail shell bg_1">
+            <form [formGroup]="mainhubForm">
+                <div class="form-group">
+                    <h4>Main Hub</h4>
+                    <input
+                        type="text"
+                        formControlName="name"
+                        class="form-control"
+                        placeholder="Main Hub Name"
+                        required>
+                </div>
+                <div class="form-group">
+                    <h4>Latitude</h4>
+                    <input
+                        type="text"
+                        formControlName="latitude"
+                        class="form-control"
+                        placeholder="ex: 5.342378">
+                </div>
+                <div class="form-group">
+                    <h4>Longitude</h4>
+                    <input
+                        type="text"
+                        formControlName="longitude"
+                        class="form-control"
+                        placeholder="ex: 78.324789"
+                        required>
+                </div>
+                <div class="form-group">
+                    <h4>Country</h4>
+                    <div class="dropdown">
+                        <button id="country_button"
+                                class="btn btn-primary dropdown-toggle"
+                                type="button"
+                                data-toggle="dropdown">Select country
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li *ngFor="let item of countries; let i = index" (click)="onCountryClick(i, item['id'])">
+                                {{item.name}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h4>Territory</h4>
+                    <div class="dropdown">
+                        <button id="territory_button"
+                                class="btn btn-primary dropdown-toggle"
+                                type="button"
+                                data-toggle="dropdown">Select territory
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li *ngFor="let item of territories; let i = index" (click)="onTerritoryClick(i)">
+                                {{item.territory}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <button
+                    type="submit"
+                    class="btn btn-default"
+                    (click)="onCreateMainHubClick()"
+                    [disabled]="!mainhubForm.valid">REGISTER
+                </button>
+            </form>
+        </div>
+    </section>
+</div>

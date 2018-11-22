@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 @Component({
   templateUrl: './error.component.html',
   selector: 'app-error',
-  styleUrls: ['./error.component.css']
+  styleUrls: ['./error.component.scss']
 })
 
 export class ErrorComponent {
