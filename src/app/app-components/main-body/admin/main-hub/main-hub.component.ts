@@ -1,7 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {Router} from '@angular/router';
-import {AppConstants} from '../../../../app-constants/common-constants';
 import {CountryModel, MainhubModel, TerritoryModel} from '../../../../model';
 import {MainhubService} from '../../../../app-services/mainhub.service';
 import {CountryService} from '../../../../app-services/country.service';

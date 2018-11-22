@@ -4,7 +4,6 @@
     </div>
     <div (click)="onAddMainhubClick()">
         <button type="button" class="btn btn-info" style="width: 100%;align-items: center">Add Main Hub
-            <i class="material-icons" style="color: #fff"> add </i>
         </button>
     </div>
     <div class="form-group">
@@ -13,7 +12,7 @@
             <button id="country_button"
                     class="btn btn-primary dropdown-toggle"
                     type="button"
-                    data-toggle="dropdown">Select country
+                    data-toggle="dropdown">Select Country
             </button>
             <ul class="dropdown-menu">
                 <li *ngFor="let item of countries; let i = index" (click)="onCountryClick(i)">
