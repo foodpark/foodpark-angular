@@ -4,10 +4,10 @@ import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-mainhub-manager-listing',
-    templateUrl: './mainhub.manager.listing.component.html'
+    templateUrl: './mainhub-manager-listing.component.html'
 })
 
-export class MainHubManagerListingComponent implements OnInit, OnDestroy {
+export class MainhubManagerListingComponent implements OnInit, OnDestroy {
 
     constructor() {}
 

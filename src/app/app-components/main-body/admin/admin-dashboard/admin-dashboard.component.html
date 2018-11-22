@@ -2,9 +2,9 @@
     <a class="closebtn" (click)="closeNav()">&times;</a>
     <div class="leftmenu-header text-center">
         <img src="assets/images/logo.png" alt="logo" style="height: 65px;object-fit: contain;">
-        <div style="color: #818181;">{{this.authService.getUserName()}}</div>
+        <div style="color: #818181;">{{userName}}</div>
         <div>
-            <a class="nav-link" style="color:#67c4ea" (click)="onLogout()">
+            <a class="nav-link" style="color:#67c4ea;cursor:pointer;" (click)="onLogout()">
                 Logout
             </a>
         </div>

@@ -22,7 +22,7 @@ import {AuthGuard} from '../app-services/auth.guard';
 import {AddAndEditTerritoryComponent} from '../app-components/main-body/admin/add-and-edit-territory/add-and-edit-territory.component';
 import {AddAndEditMainhubComponent} from '../app-components/main-body/admin/add-and-edit-mainhub/add-and-edit-mainhub.component';
 import {MainHubComponent} from '../app-components/main-body/admin/main-hub/main-hub.component';
-import { MainHubManagerListingComponent } from '../app-components/main-body/admin/mainhub-manager-listing/mainhub.manager.listing.component';
+import { MainhubManagerListingComponent } from '../app-components/main-body/admin/mainhub-manager-listing/mainhub-manager-listing.component';
 
 
 const routes: Routes = [
@@ -44,7 +44,7 @@ const routes: Routes = [
             //     path: 'mainhubmanager', component: NewHubManagerComponent, children: []
             // },
             {
-                path: 'edit_territory', component: AddAndEditTerritoryComponent, children: []
+                path: 'editterritory', component: AddAndEditTerritoryComponent, children: []
             },
             {
                 path: 'addterritory', component: AddAndEditTerritoryComponent, children: []
@@ -53,7 +53,7 @@ const routes: Routes = [
                 path: 'editmainhub', component: AddAndEditMainhubComponent, children: []
             },
             {
-                path: 'mainhubmanager', component: MainHubManagerListingComponent, children: []
+                path: 'mainhubmanager', component: MainhubManagerListingComponent, children: []
             }
         ]
     },

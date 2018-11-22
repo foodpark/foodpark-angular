@@ -27,11 +27,7 @@ export class MainhubService {
     }
 
     addMainhub(data: FormData) {
-        return this.http.post<MainhubModel>(environment.apiUrl + '/api/v1/rel/food_parks', data)
-            .subscribe((response) => {
-                this.mainhubs.push(response);
-                this.mainhubsUpdated.next([...this.mainhubs]);
-            });
+        return this.http.post<MainhubModel>(environment.apiUrl + '/api/v1/rel/food_parks', data);
     }
 
     deleteMainhub(deleteMainhubID) {

@@ -31,10 +31,10 @@ export class AddAndEditTerritoryComponent implements OnInit, OnDestroy {
             .subscribe((countries: CountryModel[]) => {
                 this.countries = countries;
             });
-        if (localStorage.getItem('edit_territory')) {
+        if (localStorage.getItem('editterritory')) {
             this.isEditTerritory = true;
             this.pageTitle = 'Edit Territory';
-            this.territory = JSON.parse(localStorage.getItem('edit_territory'));
+            this.territory = JSON.parse(localStorage.getItem('editterritory'));
             this.formBuilder(this.territory);
         } else {
             this.formBuilder();
@@ -86,7 +86,7 @@ export class AddAndEditTerritoryComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        localStorage.removeItem('edit_territory');
+        localStorage.removeItem('editterritory');
         this.countriesSubscription.unsubscribe();
     }
 }

@@ -27,10 +27,25 @@
     right: 100px
 }
 
-h2 {
-    text-align: center;
-}
-
 .title-center {
     text-align: center;
+    height: 50px;
+}
+
+table {
+    font-size: 20px;
+    margin: 15px auto;
+    td {
+        color: black;
+    }
+}
+
+.btn {
+    font-size: 20px !important;
+    height: 50px;
+}
+
+.material-icons {
+    color: #67c4ea;
+    cursor: pointer;
 }

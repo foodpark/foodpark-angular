@@ -10,6 +10,7 @@ import {MainHubComponent} from './main-hub/main-hub.component';
 import {AddAndEditMainhubComponent} from './add-and-edit-mainhub/add-and-edit-mainhub.component';
 import {RemoveSpacesPipe} from '../../../app-pipes/removeSpaces.pipe';
 import {MainHubManagerModule} from '../main-hub-manager/main-hub-manager.module';
+import {MainhubManagerListingComponent} from './mainhub-manager-listing/mainhub-manager-listing.component';
 
 
 @NgModule({
@@ -30,15 +31,9 @@ import {MainHubManagerModule} from '../main-hub-manager/main-hub-manager.module'
         AddAndEditTerritoryComponent,
         MainHubComponent,
         AddAndEditMainhubComponent,
+        MainhubManagerListingComponent
     ],
-    exports: [
-        AdminDashboardComponent,
-        TerritoriesComponent,
-        NewHubManagerComponent,
-        AddAndEditTerritoryComponent,
-        MainHubComponent,
-        AddAndEditMainhubComponent,
-    ],
+    exports: [],
 })
 export class AdminModule {
 

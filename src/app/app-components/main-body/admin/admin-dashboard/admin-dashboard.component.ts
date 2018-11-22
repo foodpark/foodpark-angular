@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
-import { DataService } from '../../../../app-services/data.service';
-import { AuthService } from '../../../../app-services/auth.service';
+import {DataService} from '../../../../app-services/data.service';
+import {AuthService} from '../../../../app-services/auth.service';
 
-import { from } from 'rxjs';
+import {from} from 'rxjs';
 
 @Component({
     selector: 'app-admin-dashboard',
@@ -11,6 +11,7 @@ import { from } from 'rxjs';
 })
 export class AdminDashboardComponent implements OnInit {
     sideNavData = [];
+    private userName: string;
 
     constructor(private dataService: DataService,
                 public authService: AuthService) {
@@ -20,6 +21,7 @@ export class AdminDashboardComponent implements OnInit {
         this.dataService.getJsonData('admin').subscribe(res => {
             this.sideNavData = res;
         });
+        this.userName = this.authService.getUserName();
     }
 
     closeNav() {

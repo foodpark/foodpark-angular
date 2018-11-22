@@ -5,6 +5,7 @@ import {Subscription} from 'rxjs';
 import {CountryService} from '../../../../app-services/country.service';
 import {TerritoryService} from '../../../../app-services/territory.service';
 import {MainhubService} from '../../../../app-services/mainhub.service';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-add-and-edit-mainhub',
@@ -22,7 +23,8 @@ export class AddAndEditMainhubComponent implements OnInit, OnDestroy {
     constructor(private formBuilder: FormBuilder,
                 private countryService: CountryService,
                 private territoryService: TerritoryService,
-                private mainhubService: MainhubService) {
+                private mainhubService: MainhubService,
+                private router: Router) {
     }
 
     ngOnInit() {
@@ -75,7 +77,12 @@ export class AddAndEditMainhubComponent implements OnInit, OnDestroy {
     }
 
     onCreateMainHubClick() {
-        this.mainhubService.addMainhub(this.mainhubForm.value);
+        this.mainhubService.addMainhub(this.mainhubForm.value).subscribe(
+            res => {
+                this.mainhubService.getMainhubs();
+                this.router.navigate(['/admin/mainhub']);
+            }
+        );
         this.mainhubForm.reset();
         const country_button = document.getElementById('country_button');
         country_button.innerText = 'Select country';
