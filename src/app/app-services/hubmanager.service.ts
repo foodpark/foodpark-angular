@@ -16,11 +16,15 @@ export class HubmanagerService {
         return this.mainhubManagersUpdated.asObservable();
     }
 
-    create(data: HubmanagerModel) {
+    createMainHubManager(data) {
         return this.http.post<HubmanagerModel>(environment.apiUrl + '/auth/register', data);
     }
 
-    delete(id: number) {
+    updateMainHubManager(data: HubmanagerModel) {
+        return  this.http.put(environment.apiUrl + '/auth/users/' + data['id'], data);
+    }
+
+    deleteMainHubManager(id: number) {
         return this.http.delete(environment.apiUrl + '/auth/users/' + id);
     }
 

@@ -19,7 +19,7 @@ export class MainhubManagerListingComponent implements OnInit, OnDestroy {
     territories: TerritoryModel[] = [];
     private territoriesSubscription: Subscription;
     mainhubManagers: HubmanagerModel[] = [];
-    private mainhubsSubscription: Subscription;
+    private mainhubsManagersSubscription: Subscription;
     private territorySelected: number;
 
     constructor(
@@ -31,7 +31,6 @@ export class MainhubManagerListingComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.countryService.getCountries();
         this.countriesSubscription = this.countryService.getCountriesUpdateListener()
             .subscribe((countries: CountryModel[]) => {
                 if (countries.length > 0) {
@@ -45,6 +44,16 @@ export class MainhubManagerListingComponent implements OnInit, OnDestroy {
                     this.dialog.open(ErrorComponent, {data: {message: 'No Countries found!!'}});
                 }
             });
+
+        this.mainhubsManagersSubscription = this.mainhubmanagerService.getMainHubManagersUpdateListener()
+        .subscribe((mainHubMgrs: HubmanagerModel[]) => {
+            if (mainHubMgrs.length > 0) {
+                this.mainhubManagers = mainHubMgrs;
+            } else {
+                this.mainhubManagers = [];
+                this.dialog.open(ErrorComponent, {data: {message: 'No Main Hub Managers available for this territory'}});
+            }
+        });
 
         this.territoriesSubscription = this.territoryService.getTerritoriesUpdateListener()
         .subscribe((territories: TerritoryModel[]) => {
@@ -61,35 +70,13 @@ export class MainhubManagerListingComponent implements OnInit, OnDestroy {
             }
         });
 
-        this.mainhubsSubscription = this.mainhubmanagerService.getMainHubManagersUpdateListener()
-        .subscribe((mainHubMgrs: HubmanagerModel[]) => {
-            this.mainhubManagers = mainHubMgrs;
-            if (this.mainhubManagers.length) {
-            } else {
-                this.dialog.open(ErrorComponent, {data: {message: 'No Main Hub Managers available for this territory'}});
-            }
-        });
+        this.countryService.getCountries();
     }
 
     onCountryClick(index: number) {
         const button = document.getElementById('country_button');
         button.innerText = this.countries[index]['name'];
         this.territoryService.getTerritoriesInCountry(this.countries[index]['id']);
-    }
-
-    onAddMainHubManagerClick() {
-        this.router.navigate(['/admin/editmainhubmanager']);
-    }
-
-    onEditClick(index: number) {
-        localStorage.setItem('editterritory', JSON.stringify(this.territories[index]));
-        this.router.navigate(['/admin/editmainhubmanager']);
-    }
-
-    onDeleteClick(id: number) {
-        this.mainhubmanagerService.delete(id).subscribe(() => {
-            this.mainhubmanagerService.getMainHubManagersInTerritory(this.territorySelected);
-        });
     }
 
     onTerritoryClick(index: number) {
@@ -99,18 +86,25 @@ export class MainhubManagerListingComponent implements OnInit, OnDestroy {
         this.mainhubmanagerService.getMainHubManagersInTerritory(this.territories[index]['id']);
     }
 
-    onAddMainhubManagerClick() {
+    onAddMainHubManagerClick() {
         this.router.navigate(['/admin/addmainhubmanager']);
     }
 
-    onEditMainHubManagerClick(index: number) {
+    onEditClick(index: number) {
+        localStorage.setItem('editterritory', JSON.stringify(this.territories[index]));
         this.router.navigate(['/admin/editmainhubmanager']);
+    }
+
+    onDeleteClick(id: number) {
+        this.mainhubmanagerService.deleteMainHubManager(id).subscribe(() => {
+            this.mainhubmanagerService.getMainHubManagersInTerritory(this.territorySelected);
+        });
     }
 
     ngOnDestroy() {
         this.countriesSubscription.unsubscribe();
         this.territoriesSubscription.unsubscribe();
-        this.mainhubsSubscription.unsubscribe();
+        this.mainhubsManagersSubscription.unsubscribe();
     }
 }
 

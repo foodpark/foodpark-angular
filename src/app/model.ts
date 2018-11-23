@@ -17,6 +17,7 @@ export interface CountryModel {
 }
 
 export interface HubmanagerModel {
+    id: number;
     role: string;
     food_park_id: string;
     email: string;

@@ -1,9 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {Router} from '@angular/router';
-import {CountryModel, MainhubModel, TerritoryModel} from '../../../../model';
+import {CountryModel, MainhubModel} from '../../../../model';
 import {MainhubService} from '../../../../app-services/mainhub.service';
 import {CountryService} from '../../../../app-services/country.service';
+import { TerritoryService } from 'src/app/app-services/territory.service';
 
 @Component({
     selector: 'app-main-hub',
@@ -15,8 +16,10 @@ export class MainHubsListingComponent implements OnInit, OnDestroy {
     private mainhubsSubscription: Subscription;
     private countries = [];
     private countriesSubscription: Subscription;
+    private selectedCountryName: string;
 
     constructor(private mainhubService: MainhubService,
+                private territoriesService: TerritoryService,
                 private router: Router,
                 private countryService: CountryService) {
     }
@@ -24,13 +27,14 @@ export class MainHubsListingComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.countryService.getCountries();
         this.countriesSubscription = this.countryService.getCountriesUpdateListener()
-            .subscribe((countries: CountryModel[]) => {
-                const countryName = countries[0]['name'];
-                const button = document.getElementById('country_button');
-                button.innerText = countryName;
-                this.countries = countries;
-                this.mainhubService.getMainhubsInCountry(countryName);
-            });
+        .subscribe((countries: CountryModel[]) => {
+            this.selectedCountryName = countries[0]['name'];
+            const button = document.getElementById('country_button');
+            button.innerText = this.selectedCountryName;
+            this.countries = countries;
+
+           this.mainhubService.getMainhubsInCountry(this.selectedCountryName);
+        });
 
         this.mainhubsSubscription = this.mainhubService.getMainhubsUpdateListener()
             .subscribe((res: MainhubModel[]) => {
@@ -39,9 +43,10 @@ export class MainHubsListingComponent implements OnInit, OnDestroy {
     }
 
     onCountryClick(index: number) {
+        this.selectedCountryName = this.countries[index]['name'];
         const button = document.getElementById('country_button');
-        button.innerText = this.countries[index]['name'];
-        this.mainhubService.getMainhubsInCountry(this.countries[index]['name']);
+        button.innerText = this.selectedCountryName;
+        this.mainhubService.getMainhubsInCountry(this.selectedCountryName);
     }
 
     onAddMainhubClick() {
@@ -55,7 +60,7 @@ export class MainHubsListingComponent implements OnInit, OnDestroy {
 
     onDeleteClick(id: number) {
         this.mainhubService.deleteMainhub(id).subscribe(() => {
-            this.mainhubService.getMainhubs();
+            this.mainhubService.getMainhubsInCountry(this.selectedCountryName);
         });
     }
 

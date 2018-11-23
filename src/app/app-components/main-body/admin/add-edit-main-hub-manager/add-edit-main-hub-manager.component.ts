@@ -5,6 +5,7 @@ import {TerritoryService} from '../../../../app-services/territory.service';
 import {HubmanagerService} from '../../../../app-services/hubmanager.service';
 import { Subscription } from 'rxjs';
 import {CountryModel, HubmanagerModel, TerritoryModel} from '../../../../model';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-new-hub-manager-dashboard',
@@ -25,7 +26,8 @@ export class AddEditMainHubManagerComponent implements OnInit, OnDestroy {
     constructor(private formBuilder: FormBuilder,
                 private countryService: CountryService,
                 private territoryService: TerritoryService,
-                private hubManagerService: HubmanagerService) {
+                private hubManagerService: HubmanagerService,
+                private router: Router) {
     }
 
     ngOnInit() {
@@ -98,7 +100,7 @@ export class AddEditMainHubManagerComponent implements OnInit, OnDestroy {
 
 
     onCreateMainHubManagerClick() {
-        const obj: HubmanagerModel = {
+        const obj = {
             'role': this.hubmanagerForm.get('role').value,
             'food_park_id': this.hubmanagerForm.get('mainhubId').value,
             'email': this.hubmanagerForm.get('email').value,
@@ -108,14 +110,11 @@ export class AddEditMainHubManagerComponent implements OnInit, OnDestroy {
             'country_id': this.hubmanagerForm.get('country_id').value,
             'territory_id': this.hubmanagerForm.get('territory_id').value,
         };
-        this.hubManagerService.create(obj).subscribe();
-        this.hubmanagerForm.reset();
-        const country_button = document.getElementById('country_button');
-        country_button.innerText = 'Select country';
-        const territory_button = document.getElementById('territory_button');
-        territory_button.innerText = 'Select territory';
-        const mainhub_button = document.getElementById('mainhub_button');
-        mainhub_button.innerText = 'Select mainhub';
+
+        this.hubManagerService.createMainHubManager(obj)
+        .subscribe((response) => {
+            this.router.navigate(['/admin/mainhubmanager']);
+        });
     }
 
     ngOnDestroy() {
