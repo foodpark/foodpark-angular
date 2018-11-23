@@ -20,6 +20,10 @@ export class HubmanagerService {
         return this.http.post<HubmanagerModel>(environment.apiUrl + '/auth/register', data);
     }
 
+    delete(id: number) {
+        return this.http.delete(environment.apiUrl + '/auth/users/' + id);
+    }
+
     getMainHubManagersInTerritory(id: number) {
         this.http.get<HubmanagerModel[]>(environment.apiUrl + '/api/v1/rel/users?territory_id=' + id)
         .subscribe((mainHubmanagerData) => {
