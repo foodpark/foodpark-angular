@@ -3,8 +3,10 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CountryService} from '../../../../app-services/country.service';
 import {TerritoryService} from '../../../../app-services/territory.service';
 import {HubmanagerService} from '../../../../app-services/hubmanager.service';
-import { Subscription } from 'rxjs';
+import {Subscription} from 'rxjs';
 import {CountryModel, HubmanagerModel, TerritoryModel} from '../../../../model';
+import {Router} from '@angular/router';
+import {DataService} from '../../../../app-services/data.service';
 
 @Component({
     selector: 'app-new-hub-manager-dashboard',
@@ -13,9 +15,10 @@ import {CountryModel, HubmanagerModel, TerritoryModel} from '../../../../model';
 
 export class AddEditMainHubManagerComponent implements OnInit, OnDestroy {
     hubmanagerForm: FormGroup;
-
     countries: CountryModel[] = [];
     territories: TerritoryModel[] = [];
+    hubmanagers: HubmanagerModel[] = [];
+    pageTitle = '';
     private countriesSubscription: Subscription;
     private territoriesSubscription: Subscription;
 
@@ -25,36 +28,61 @@ export class AddEditMainHubManagerComponent implements OnInit, OnDestroy {
     constructor(private formBuilder: FormBuilder,
                 private countryService: CountryService,
                 private territoryService: TerritoryService,
-                private hubManagerService: HubmanagerService) {
+                private hubManagerService: HubmanagerService,
+                private router: Router,
+                private dataService: DataService) {
     }
 
     ngOnInit() {
-        this.hubmanagerForm = this.buildForm();
+        this.buildForm();
         this.countryService.getCountries();
         this.countriesSubscription = this.countryService.getCountriesUpdateListener()
-        .subscribe((countries: CountryModel[]) => {
-            this.countries = countries;
-        });
+            .subscribe((countries: CountryModel[]) => {
+                this.countries = countries;
+            });
         this.territoriesSubscription = this.territoryService.getTerritoriesUpdateListener()
             .subscribe((territories: TerritoryModel[]) => {
                 this.territories = territories;
-        });
+            });
+        if (localStorage.getItem('editmainhubmanager')) {
+            this.pageTitle = 'Edit Main Hub Manager';
+            this.hubmanagers = JSON.parse(localStorage.getItem('editmainhubmanager'));
+            this.buildForm(this.hubmanagers);
+        } else {
+            this.buildForm();
+            this.pageTitle = 'Add Main Hub Manager';
+        }
     }
 
-    buildForm() {
-        const group = this.formBuilder.group({
-            firstname: ['', Validators.required],
-            lastname: ['', Validators.required],
-            email: ['', Validators.email],
-            password: ['', Validators.required],
-            repeatpassword: ['', Validators.required],
-            country_id: ['', Validators.required],
-            country: ['', Validators.required],
-            territory_id: ['', Validators.required],
-            mainhubId: ['', Validators.required],
-            role: ['HUBMGR']
-        });
-        return group;
+    buildForm(formData?) {
+        if (formData) {
+            this.hubmanagerForm = this.formBuilder.group({
+                firstname: [formData['first_name'], Validators.required],
+                lastname: [formData['last_name'], Validators.required],
+                email: [formData['username'], Validators.email],
+                password: [formData['password'], Validators.required],
+                repeatpassword: [formData['repeatpassword'], Validators.required],
+                country_id: [formData['country_id'], Validators.required],
+                country: [formData['country'], Validators.required],
+                territory_id: [formData['territory_id'], Validators.required],
+                mainhubId: [formData['mainhubId'], Validators.required],
+                role: ['HUBMGR']
+            });
+        } else {
+            this.hubmanagerForm = this.formBuilder.group({
+                firstname: ['', Validators.required],
+                lastname: ['', Validators.required],
+                email: ['', Validators.email],
+                password: ['', Validators.required],
+                repeatpassword: ['', Validators.required],
+                country_id: ['', Validators.required],
+                country: ['', Validators.required],
+                territory_id: ['', Validators.required],
+                mainhubId: ['', Validators.required],
+                role: ['HUBMGR']
+            });
+        }
+
     }
 
     get f() {
@@ -88,7 +116,7 @@ export class AddEditMainHubManagerComponent implements OnInit, OnDestroy {
     }
 
     getMainhub(id: number) {
-        this.hubManagerService.getMainHubInTerritory(id, 'MAIN').subscribe(res => {
+        this.hubManagerService.getMainHubInTerritory(id).subscribe(res => {
             this.mainHubs = [];
             Object.values(res).forEach(item => {
                 this.mainHubs.push({'name': item['name'], 'id': item['id']});
@@ -98,7 +126,7 @@ export class AddEditMainHubManagerComponent implements OnInit, OnDestroy {
 
 
     onCreateMainHubManagerClick() {
-        const obj: HubmanagerModel = {
+        const obj = {
             'role': this.hubmanagerForm.get('role').value,
             'food_park_id': this.hubmanagerForm.get('mainhubId').value,
             'email': this.hubmanagerForm.get('email').value,
@@ -108,18 +136,20 @@ export class AddEditMainHubManagerComponent implements OnInit, OnDestroy {
             'country_id': this.hubmanagerForm.get('country_id').value,
             'territory_id': this.hubmanagerForm.get('territory_id').value,
         };
-        this.hubManagerService.create(obj).subscribe();
-        this.hubmanagerForm.reset();
-        const country_button = document.getElementById('country_button');
-        country_button.innerText = 'Select country';
-        const territory_button = document.getElementById('territory_button');
-        territory_button.innerText = 'Select territory';
-        const mainhub_button = document.getElementById('mainhub_button');
-        mainhub_button.innerText = 'Select mainhub';
+
+        this.hubManagerService.createMainHubManager(obj)
+            .subscribe((response) => {
+                this.router.navigate(['/admin/mainhubmanager']);
+            });
     }
 
     ngOnDestroy() {
-        this.countriesSubscription.unsubscribe();
-        this.territoriesSubscription.unsubscribe();
+        if (this.dataService.nullCheck(this.countriesSubscription)) {
+            this.countriesSubscription.unsubscribe();
+        }
+        if (this.dataService.nullCheck(this.territoriesSubscription)) {
+            this.territoriesSubscription.unsubscribe();
+        }
+        localStorage.removeItem('editmainhubmanager');
     }
 }

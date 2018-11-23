@@ -31,8 +31,8 @@
                     data-toggle="dropdown">Select Territory
             </button>
             <ul class="dropdown-menu">
-                <li *ngFor="let item of countries; let i = index" (click)="onCountryClick(i)">
-                    {{item.name}}
+                <li *ngFor="let item of territories; let i = index" (click)="onTerritoryClick(i)">
+                    {{item.territory}}
                 </li>
             </ul>
         </div>
@@ -41,17 +41,15 @@
         <thead>
         <tr>
             <th>Name</th>
-            <th>Email</th>
-            <th>Main Hubs</th>
+            <th style="width: 30%;">Email</th>
             <th style="width: 10%;text-align: center;">Edit</th>
             <th style="width: 10%;text-align: center;">Delete</th>
         </tr>
         </thead>
-        <tbody *ngIf="dataLoaded">
+        <!-- <tbody *ngIf="dataLoaded"> -->
         <tr *ngFor="let item of mainhubManagers; let i = index">
-            <td>{{item['fname'] + item['lname']}}</td>
-            <td>{{item['email']}}</td>
-            <td>{{item.name}}</td>
+            <td>{{item['first_name'] + item['last_name']}}</td>
+            <td>{{item['username']}}</td>
             <td style="text-align: center">
                 <i class="material-icons" (click)="onEditClick(i)">
                     edit
@@ -63,7 +61,7 @@
                 </i>
             </td>
         </tr>
-        </tbody>
+        <!-- </tbody> -->
     </table>
 </div>
 <router-outlet></router-outlet>

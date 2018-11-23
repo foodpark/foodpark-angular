@@ -15,12 +15,12 @@ import {DataService} from '../../../../app-services/data.service';
 })
 
 export class MainhubManagerListingComponent implements OnInit, OnDestroy {
-    private countries = [];
+    countries = [];
     private countriesSubscription: Subscription;
-    private territories: TerritoryModel[] = [];
+    territories: TerritoryModel[] = [];
     private territoriesSubscription: Subscription;
-    private mainhubManagers: HubmanagerModel[] = [];
-    private mainhubsSubscription: Subscription;
+    mainhubManagers: HubmanagerModel[] = [];
+    private mainhubsManagersSubscription: Subscription;
     private territorySelected: number;
 
     constructor(
@@ -33,55 +33,50 @@ export class MainhubManagerListingComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.countryService.getCountries();
         this.countriesSubscription = this.countryService.getCountriesUpdateListener()
             .subscribe((countries: CountryModel[]) => {
-                const countryName = countries[0]['name'];
-                const button = document.getElementById('country_button');
-                button.innerText = countryName;
-                this.countries = countries;
+                if (countries.length > 0) {
+                    const countryName = countries[0]['name'];
+                    const button = document.getElementById('country_button');
+                    button.innerText = countryName;
+                    this.countries = countries;
 
-                this.territoryService.getTerritoriesInCountry(countries[0]['id']);
-                this.territoriesSubscription = this.territoryService.getTerritoriesUpdateListener()
-                    .subscribe((territories: TerritoryModel[]) => {
-                        this.territorySelected = 0;
-                        const territoryName = territories[0]['territory'];
-                        const territoryButton = document.getElementById('territory_button');
-                        territoryButton.innerText = territoryName;
-                        this.territories = territories;
-
-                        this.mainhubmanagerService.getMainHubManagersInTerritory(territories[0]['id']);
-                        this.mainhubsSubscription = this.mainhubmanagerService.getMainHubManagersUpdateListener()
-                            .subscribe((mainHubMgrs: HubmanagerModel[]) => {
-                                this.mainhubManagers = mainHubMgrs;
-                                if (this.mainhubManagers.length) {
-                                } else {
-                                    this.dialog.open(ErrorComponent, {data: {message: 'No Main Hub Managers available for this territory'}});
-                                }
-                            });
-                    });
+                    this.territoryService.getTerritoriesInCountry(countries[0]['id']);
+                } else {
+                    this.dialog.open(ErrorComponent, {data: {message: 'No Countries found!!'}});
+                }
             });
+
+        this.mainhubsManagersSubscription = this.mainhubmanagerService.getMainHubManagersUpdateListener()
+            .subscribe((mainHubMgrs: HubmanagerModel[]) => {
+                if (mainHubMgrs.length > 0) {
+                    this.mainhubManagers = mainHubMgrs;
+                } else {
+                    this.mainhubManagers = [];
+                    this.dialog.open(ErrorComponent, {data: {message: 'No Main Hub Managers available for this territory'}});
+                }
+            });
+
+        this.territoriesSubscription = this.territoryService.getTerritoriesUpdateListener()
+            .subscribe((territories: TerritoryModel[]) => {
+                if (territories.length > 0) {
+                    this.territorySelected = 0;
+                    const territoryName = territories[0]['territory'];
+                    const territoryButton = document.getElementById('territory_button');
+                    territoryButton.innerText = territoryName;
+                    this.territories = territories;
+                    this.mainhubmanagerService.getMainHubManagersInTerritory(territories[0]['id']);
+                } else {
+                    this.dialog.open(ErrorComponent, {data: {message: 'No Territories found for the selected country'}});
+                }
+            });
+        this.countryService.getCountries();
     }
 
     onCountryClick(index: number) {
         const button = document.getElementById('country_button');
         button.innerText = this.countries[index]['name'];
         this.territoryService.getTerritoriesInCountry(this.countries[index]['id']);
-    }
-
-    onAddMainHubManagerClick() {
-        this.router.navigate(['/admin/editmainhubmanager']);
-    }
-
-    onEditClick(index: number) {
-        localStorage.setItem('editterritory', JSON.stringify(this.territories[index]));
-        this.router.navigate(['/admin/editmainhubmanager']);
-    }
-
-    onDeleteClick(id: number) {
-        this.mainhubmanagerService.delete(id).subscribe(() => {
-            this.mainhubmanagerService.getMainHubManagersInTerritory(this.territorySelected);
-        });
     }
 
     onTerritoryClick(index: number) {
@@ -91,12 +86,19 @@ export class MainhubManagerListingComponent implements OnInit, OnDestroy {
         this.mainhubmanagerService.getMainHubManagersInTerritory(this.territories[index]['id']);
     }
 
-    onAddMainhubManagerClick() {
+    onAddMainHubManagerClick() {
         this.router.navigate(['/admin/addmainhubmanager']);
     }
 
-    onEditMainHubManagerClick(index: number) {
+    onEditClick(index: number) {
+        localStorage.setItem('editmainhubmanager', JSON.stringify(this.mainhubManagers[index]));
         this.router.navigate(['/admin/editmainhubmanager']);
+    }
+
+    onDeleteClick(id: number) {
+        this.mainhubmanagerService.deleteMainHubManager(id).subscribe(() => {
+            this.mainhubmanagerService.getMainHubManagersInTerritory(this.territorySelected);
+        });
     }
 
     ngOnDestroy() {
@@ -106,8 +108,8 @@ export class MainhubManagerListingComponent implements OnInit, OnDestroy {
         if (this.dataService.nullCheck(this.territoriesSubscription)) {
             this.territoriesSubscription.unsubscribe();
         }
-        if (this.dataService.nullCheck(this.mainhubsSubscription)) {
-            this.mainhubsSubscription.unsubscribe();
+        if (this.dataService.nullCheck(this.mainhubsManagersSubscription)) {
+            this.mainhubsManagersSubscription.unsubscribe();
         }
     }
 }
