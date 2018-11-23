@@ -47,8 +47,8 @@
             <th style="width: 10%;text-align: center;">Delete</th>
         </tr>
         </thead>
-        <tbody>
-        <tr *ngFor="let item of mainhubs; let i = index">
+        <tbody *ngIf="dataLoaded">
+        <tr *ngFor="let item of mainhubManagers; let i = index">
             <td>{{item['fname'] + item['lname']}}</td>
             <td>{{item['email']}}</td>
             <td>{{item.name}}</td>
@@ -58,7 +58,7 @@
                 </i>
             </td>
             <td style="text-align: center">
-                <i class="material-icons" (click)="onDeleteClick(mainhubs[i]['id'])">
+                <i class="material-icons" (click)="onDeleteClick(mainhubManagers[i]['id'])">
                     delete
                 </i>
             </td>

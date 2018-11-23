@@ -5,6 +5,9 @@ import {CountryService} from 'src/app/app-services/country.service';
 import {CountryModel, HubmanagerModel, TerritoryModel} from 'src/app/model';
 import {HubmanagerService} from 'src/app/app-services/hubmanager.service';
 import {TerritoryService} from 'src/app/app-services/territory.service';
+import {MatDialog} from '@angular/material';
+import {el} from '@angular/platform-browser/testing/src/browser_util';
+import {ErrorComponent} from '../../../../error/error.component';
 
 @Component({
     selector: 'app-mainhub-manager-listing',
@@ -18,12 +21,14 @@ export class MainhubManagerListingComponent implements OnInit, OnDestroy {
     private territoriesSubscription: Subscription;
     private mainhubManagers: HubmanagerModel[] = [];
     private mainhubsSubscription: Subscription;
+    dataLoaded = false;
 
     constructor(
         private mainhubmanagerService: HubmanagerService,
         private router: Router,
         private countryService: CountryService,
-        private territoryService: TerritoryService) {
+        private territoryService: TerritoryService,
+        private dialog: MatDialog) {
     }
 
     ngOnInit() {
@@ -47,6 +52,10 @@ export class MainhubManagerListingComponent implements OnInit, OnDestroy {
                         this.mainhubsSubscription = this.mainhubmanagerService.getMainHubManagersUpdateListener()
                             .subscribe((mainHubMgrs: HubmanagerModel[]) => {
                                 this.mainhubManagers = mainHubMgrs;
+                                if (this.mainhubManagers.length) {
+                                } else {
+                                    this.dialog.open(ErrorComponent, {data: {message: 'No Main Hub Managers available for this territory'}});
+                                }
                             });
                     });
             });
@@ -68,9 +77,9 @@ export class MainhubManagerListingComponent implements OnInit, OnDestroy {
     }
 
     onDeleteClick(id: number) {
-        this.mainhubmanagerService.deleteTerritory(id).subscribe(() => {
-            this.mainhubmanagerService.getTerritories();
-        });
+        // this.mainhubmanagerService.deleteTerritory(id).subscribe(() => {
+        //     this.mainhubmanagerService.getTerritories();
+        // });
     }
 
     onTerritoryClick(index: number) {
