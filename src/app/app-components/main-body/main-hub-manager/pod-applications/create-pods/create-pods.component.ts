@@ -8,7 +8,7 @@ import {CountryModel, TerritoryModel} from '../../../../../model';
 import {DataService} from '../../../../../app-services/data.service';
 
 @Component({
-    selector: 'create-pods',
+    selector: 'app-create-pods',
     templateUrl: './create-pods.component.html',
 
 })
@@ -43,7 +43,7 @@ export class CreatePodsComponent implements OnInit {
         email: '',
         password: '',
         retypepassword: '',
-        companyname: '',
+        podname: '',
         country_id: '',
         country: '',
         territory_id: '',
@@ -72,8 +72,8 @@ export class CreatePodsComponent implements OnInit {
             'required': 'Kindly enter valid retype password',
             'pattern': 'Enter a valid password'
         },
-        'companyname': {
-            'required': 'Kindly enter valid vendor name',
+        'podname': {
+            'required': 'Kindly enter valid pod name',
             'pattern': 'Enter a valid vendor name'
         },
         'country': {
@@ -114,7 +114,7 @@ export class CreatePodsComponent implements OnInit {
             email: ['', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$')]],
             password: ['', [Validators.required, Validators.pattern('([a-zA-Z0-9]{0,48})')]],
             retypepassword: ['', [Validators.required, Validators.pattern('([a-zA-Z0-9]{0,48})')]],
-            companyname: ['', [Validators.required, Validators.pattern('([a-zA-Z0-9]{0,48})')]],
+            podname: ['', [Validators.required, Validators.pattern('([a-zA-Z0-9]{0,48})')]],
             country_id: ['', Validators.required],
             country: ['', Validators.required],
             territory_id: ['', Validators.required],
@@ -237,67 +237,69 @@ export class CreatePodsComponent implements OnInit {
     }
 
     createcompany() {
+        /*
         console.log('form is working');
         console.log(this.register_company);
         this.onValueSubmit();
         this.messages.validationmessage = '';
         if (this.register_company.valid) {
             if (this.dataService.stringComparator(this.register_company.value.password, this.register_company.value.retypepassword)) {
-                let reqObject = {
-                    'company_name': this.register_company.value.companyname,
-                    'country': this.register_company.value.country,
-                    'country_id': this.register_company.value.country_id,
-                    'email': this.register_company.value.email,
-                    'first_name': this.register_company.value.firstname,
-                    'last_name': this.register_company.value.lastname,
-                    'password': this.register_company.value.password,
-                    'role': 'owner',
-                    'regional_hub_id': this.register_company.value.regionalhubId
-                };
+                // let reqObject = {
+                //     'church_name': this.register_company.value.podname,
+                //     'country': this.register_company.value.country,
+                //     'country_id': this.register_company.value.country_id,
+                //     'email': this.register_company.value.email,
+                //     'first_name': this.register_company.value.firstname,
+                //     'last_name': this.register_company.value.lastname,
+                //     'password': this.register_company.value.password,
+                //     'role': 'owner',
+                //     'regional_hub_id': this.register_company.value.regionalhubId
+                // };
 
-                this.territoryService.Apicreatepods(reqObject).subscribe(res => {
-                    console.log(res);
-                    this.vendorCreationResponse = res;
-                    this.companydetails = {};
-                    let id = (this.vendorCreationResponse && this.vendorCreationResponse.user) ? this.vendorCreationResponse.user.id : '';
-                    this.territoryService.getCompanydetails(id).subscribe(response => {
-                        console.log(response);
-                        this.companydetails = response && response[0] ? response[0] : {};
-                        if (this.companydetails.id) {
-                            this.companydetails.sponsor = this.register_company.value.sponser;
-                            this.companydetails.title = this.register_company.value.title;
-                            this.companydetails.connected_by = this.register_company.value.connectedBy;
-                            this.companydetails.type = this.register_company.value.type;
-                            this.companydetails.tags = this.register_company.value.tags;
-                            this.companydetails.description = this.register_company.value.description;
-                            this.companydetails.schedule = this.register_company.value.weekelySchedule;
-                            this.companydetails.hours = this.register_company.value.typicalHours;
-                            this.companydetails.facebook = this.register_company.value.fborweb;
-                            this.companydetails.business_address = this.register_company.value.address;
-                            this.companydetails.phone = this.register_company.value.phoneNumber;
-                            this.companydetails.photo = this.register_company.value.uploadAttachments;
-                            this.companydetails.latitude = this.register_company.value.latitude;
-                            this.companydetails.longitude = this.register_company.value.longitude;
-                            console.log('Updating Company details');
-                            console.log(this.companydetails);
-                            this.territoryService.updateCompanydetails(this.companydetails).subscribe(apires => {
-                                console.log(apires);
-                                alert('Company/Vendor created successfully');
-                                this.companydetails = {};
-                                this.ngOnInit();
-                            });
-                        } else {
-                            console.log('error occured');
-                        }
-                    });
-
-                });
+                // this.territoryService.Apicreatepods(reqObject).subscribe(res => {
+                //     console.log(res);
+                //     this.vendorCreationResponse = res;
+                //     this.companydetails = {};
+                //     let id = (this.vendorCreationResponse && this.vendorCreationResponse.user) ? this.vendorCreationResponse.user.id : '';
+                //     this.territoryService.getCompanydetails(id).subscribe(response => {
+                //         console.log(response);
+                //         this.companydetails = response && response[0] ? response[0] : {};
+                //         if (this.companydetails.id) {
+                //             this.companydetails.sponsor = this.register_company.value.sponser;
+                //             this.companydetails.title = this.register_company.value.title;
+                //             this.companydetails.connected_by = this.register_company.value.connectedBy;
+                //             this.companydetails.type = this.register_company.value.type;
+                //             this.companydetails.tags = this.register_company.value.tags;
+                //             this.companydetails.description = this.register_company.value.description;
+                //             this.companydetails.schedule = this.register_company.value.weekelySchedule;
+                //             this.companydetails.hours = this.register_company.value.typicalHours;
+                //             this.companydetails.facebook = this.register_company.value.fborweb;
+                //             this.companydetails.business_address = this.register_company.value.address;
+                //             this.companydetails.phone = this.register_company.value.phoneNumber;
+                //             this.companydetails.photo = this.register_company.value.uploadAttachments;
+                //             this.companydetails.latitude = this.register_company.value.latitude;
+                //             this.companydetails.longitude = this.register_company.value.longitude;
+                //             console.log('Updating Company details');
+                //             console.log(this.companydetails);
+                //             this.territoryService.updateCompanydetails(this.companydetails).subscribe(apires => {
+                //                 console.log(apires);
+                //                 alert('Company/Vendor created successfully');
+                //                 this.companydetails = {};
+                //                 this.ngOnInit();
+                //             });
+                //         } else {
+                //             console.log('error occured');
+                //         }
+                //     });
+                //
+                // });
             } else {
                 console.log('passwords are not matching');
                 this.messages.validationmessage = 'Password and retype password are not matching';
             }
 
         }
+        */
     }
 
 }

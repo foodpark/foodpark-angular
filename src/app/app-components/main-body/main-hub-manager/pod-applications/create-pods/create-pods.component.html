@@ -27,9 +27,9 @@
          <p *ngIf="formErrors.retypepassword">{{formErrors.retypepassword}}</p>
       </div>
       <div class="form-group">
-        <h4>Vendor Name</h4>
-        <input type="text" class="form-control" name="" value="" placeholder="Vendor Name" formControlName = "companyname">
-         <p *ngIf="formErrors.companyname">{{formErrors.companyname}}</p>
+        <h4>Pod Name</h4>
+        <input type="text" class="form-control" name="" value="" placeholder="Pod Name" formControlName = "companyname">
+         <p *ngIf="formErrors.podname">{{formErrors.podname}}</p>
       </div>
      <div class="form-group">
           <h4>Country</h4>
@@ -47,55 +47,7 @@
           </div>
           <p *ngIf="formErrors.country">{{formErrors.country}}</p>
       </div>
-      <div class="form-group">
-          <h4>Teritory</h4>
-          <div class="dropdown">
-              <button id="territory_button"
-                      class="btn btn-primary dropdown-toggle"
-                      type="button"
-                      data-toggle="dropdown">Select territory
-              </button>
-              <ul class="dropdown-menu">
-                  <li
-                      *ngFor="let item of territories; let i = index" (click)="onTerritoryClick(i)">
-                      {{item.territory}}
-                  </li>
-              </ul>
-          </div>
-          <p *ngIf="formErrors.territory_id">{{formErrors.territory_id}}</p>
-      </div>
-      <div class="form-group">
-          <h4>Main Hub</h4>
-          <div class="dropdown">
-              <button id="mainhub_button"
-                      class="btn btn-primary dropdown-toggle"
-                      type="button"
-                      data-toggle="dropdown">Select mainhub
-              </button>
-              <ul class="dropdown-menu">
-                  <li *ngFor="let item of mainHubs; let i = index" (click)="onMainhubClick(i)">
-                      {{item.name}}
-                  </li>
-              </ul>
-          </div>
-          <p *ngIf="formErrors.mainhubId">{{formErrors.mainhubId}}</p>
-      </div>
-       <div class="form-group">
-          <h4>Regional Hub</h4>
-          <div class="dropdown">
-              <button id="region_button"
-                      class="btn btn-primary dropdown-toggle"
-                      type="button"
-                      data-toggle="dropdown"> Regional Hub
-              </button>
-              <ul class="dropdown-menu">
-                <li *ngFor="let item of reginaolHubs; let i = index" (click)="onRegionhubClick(i)">
-                    {{item.name}}
-                </li>
-              </ul>
-          </div>
-          <p *ngIf="formErrors.regionalhubId">{{formErrors.regionalhubId}}</p>
-      </div>
+
     <div class="form-group">
         <h4>Sponsor</h4>
         <input type="text" class="form-control" name="" value="" placeholder="Sponsor" formControlName = "sponser">
@@ -123,46 +75,13 @@
       </div>
       <div class="form-group">
         <h4>Connected By</h4>
-        <input type="text" class="form-control" name="" value="" placeholder="Upload Attachments" formControlName = "connectedBy">
+        <input type="text" class="form-control" name="" value="" placeholder="COnnected By" formControlName = "connectedBy">
       </div>
       <div class="form-group">
         <h4>Upload Attachments</h4>
         <input type="text" class="form-control" name="" value="" placeholder="Upload Attachments" formControlName = "uploadAttachments">
       </div>
-      <div class="form-group">
-        <h4>Tags</h4>
-        <input type="text" class="form-control" name="" value="" placeholder="Tags" formControlName = "tags">
-      </div>
-      <div class="form-group">
-        <h4>Description</h4>
-        <input type="text" class="form-control" name="" value="" placeholder="Description" formControlName = "description">
-      </div>
-      <div class="form-group weekly-schedule-buttons">
-        <h4>Weekly Schedule</h4>
-        <button type="button" name="button" (click)="onClickWeeklySchedule('1')">MO</button>
-        <button type="button" name="button" (click)="onClickWeeklySchedule('2')">TU</button>
-        <button type="button" name="button" (click)="onClickWeeklySchedule('3')">WE</button>
-        <button type="button" name="button" (click)="onClickWeeklySchedule('4')">TH</button>
-        <button type="button" name="button" (click)="onClickWeeklySchedule('5')">FR</button>
-        <button type="button" name="button" (click)="onClickWeeklySchedule('6')">SA</button>
-        <button type="button" name="button" (click)="onClickWeeklySchedule('7')">SU</button>
-      </div>
-      <div class="form-group typical-hours">
-        <h4>Typical Hours</h4>
-        <input type="text" class="form-control" name="" value="" placeholder="Time" formControlName = "typicalHours">
-      </div>
-      <div class="form-group">
-        <h4>Facebook/Website</h4>
-        <input type="text" class="form-control" name="" value="" placeholder="Facebook/ Website" formControlName = "fborweb">
-      </div>
-      <div class="form-group">
-        <h4>Bussiness Address</h4>
-        <input type="text" class="form-control" name="" value="" placeholder="Bussiness Address" formControlName = "address">
-      </div>
-      <div class="form-group">
-        <h4>Phone Number</h4>
-        <input type="text" class="form-control" name="" value="" placeholder="Phone Number" formControlName = "phoneNumber">
-      </div>
+
       <div class="form-group">
         <h4>Latitude</h4>
         <input type="text" class="form-control" name="" value="" placeholder="Latitude" formControlName = "latitude">
