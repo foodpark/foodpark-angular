@@ -1,7 +1,70 @@
 <div class="absolute-position">
-    <div class="title-center">
-        <h2>Main Hub Managers</h2>
+    <div (click)="onAddMainHubManagerClick()">
+        <div class="title-center">
+            <h2>Main Hub Managers</h2>
+        </div>
+        <button type="button" class="btn btn-info"
+                style="height: 50px;align-items: center;width: 100%;">Add Main Hub Manager
+        </button>
     </div>
+    <div class="form-group">
+        <h4>Country</h4>
+        <div class="dropdown">
+            <button id="country_button"
+                    class="btn btn-primary dropdown-toggle"
+                    type="button"
+                    data-toggle="dropdown">Select Country
+            </button>
+            <ul class="dropdown-menu">
+                <li *ngFor="let item of countries; let i = index" (click)="onCountryClick(i)">
+                    {{item.name}}
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="form-group">
+        <h4>Territory</h4>
+        <div class="dropdown">
+            <button id="territory_button"
+                    class="btn btn-primary dropdown-toggle"
+                    type="button"
+                    data-toggle="dropdown">Select Territory
+            </button>
+            <ul class="dropdown-menu">
+                <li *ngFor="let item of countries; let i = index" (click)="onCountryClick(i)">
+                    {{item.name}}
+                </li>
+            </ul>
+        </div>
+    </div>
+    <table class="table table-borderless">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Main Hubs</th>
+            <th style="width: 10%;text-align: center;">Edit</th>
+            <th style="width: 10%;text-align: center;">Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of mainhubs; let i = index">
+            <td>{{item['fname'] + item['lname']}}</td>
+            <td>{{item['email']}}</td>
+            <td>{{item.name}}</td>
+            <td style="text-align: center">
+                <i class="material-icons" (click)="onEditClick(i)">
+                    edit
+                </i>
+            </td>
+            <td style="text-align: center">
+                <i class="material-icons" (click)="onDeleteClick(mainhubs[i]['id'])">
+                    delete
+                </i>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 <router-outlet></router-outlet>
 

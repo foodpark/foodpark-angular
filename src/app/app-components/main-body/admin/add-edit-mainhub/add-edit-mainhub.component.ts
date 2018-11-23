@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {CountryModel, TerritoryModel} from '../../../../model';
+import {CountryModel, MainhubModel, TerritoryModel} from '../../../../model';
 import {Subscription} from 'rxjs';
 import {CountryService} from '../../../../app-services/country.service';
 import {TerritoryService} from '../../../../app-services/territory.service';
@@ -16,8 +16,10 @@ export class AddEditMainhubComponent implements OnInit, OnDestroy {
     mainhubForm: FormGroup;
     countries: CountryModel[] = [];
     territories: TerritoryModel[] = [];
+    mainhubs: MainhubModel[] = [];
     private countriesSubscription: Subscription;
     private territoriesSubscription: Subscription;
+    pageTitle = '';
 
     constructor(private formBuilder: FormBuilder,
                 private countryService: CountryService,
@@ -28,7 +30,6 @@ export class AddEditMainhubComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.mainhubForm = this.buildForm();
-
         this.countryService.getCountries();
         this.countriesSubscription = this.countryService.getCountriesUpdateListener()
             .subscribe((countries: CountryModel[]) => {
@@ -38,19 +39,38 @@ export class AddEditMainhubComponent implements OnInit, OnDestroy {
             .subscribe((territories: TerritoryModel[]) => {
                 this.territories = territories;
             });
+
+        if (localStorage.getItem('editmainhub')) {
+            this.pageTitle = 'Edit';
+            this.mainhubs = JSON.parse(localStorage.getItem('editmainhub'));
+            this.buildForm(this.mainhubs);
+        } else {
+            this.buildForm();
+            this.pageTitle = 'Add';
+        }
     }
 
 
-    buildForm() {
-        const group = this.formBuilder.group({
-            name: ['', Validators.required],
-            latitude: ['', Validators.required],
-            longitude: ['', Validators.required],
-            country: ['', Validators.required],
-            territory_id: ['', Validators.required],
-            type: ['MAIN', Validators.required]
-        });
-        return group;
+    buildForm(formData?) {
+        if (formData) {
+            this.mainhubForm = this.formBuilder.group({
+                name: [formData['name'], Validators.required],
+                latitude: [formData['latitude'], Validators.required],
+                longitude: [formData['longitude'], Validators.required],
+                country: [formData['country'], Validators.required],
+                territory_id: [formData['territory_id'], Validators.required],
+                type: ['MAIN', Validators.required]
+            });
+        } else {
+            this.mainhubForm = this.formBuilder.group({
+                name: ['', Validators.required],
+                latitude: ['', Validators.required],
+                longitude: ['', Validators.required],
+                country: ['', Validators.required],
+                territory_id: ['', Validators.required],
+                type: ['MAIN', Validators.required]
+            });
+        }
     }
 
     get f() {
@@ -90,6 +110,7 @@ export class AddEditMainhubComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
+        localStorage.removeItem('editmainhub');
         this.countriesSubscription.unsubscribe();
         this.territoriesSubscription.unsubscribe();
     }
