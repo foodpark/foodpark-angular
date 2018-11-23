@@ -32,7 +32,7 @@
                         placeholder="email@xyz.com"
                         required>
                 </div>
-                <div class="form-group">
+                <div class="form-group" *ngIf="isCreate">
                     <h4>Password</h4>
                     <input
                         type="password"
@@ -41,7 +41,7 @@
                         placeholder="Password"
                         required>
                 </div>
-                <div class="form-group">
+                <div class="form-group" *ngIf="isCreate">
                     <h4>Repeat Password</h4>
                     <input
                         type="password"
@@ -50,7 +50,7 @@
                         placeholder="Repeat Password"
                         required>
                 </div>
-                <div class="form-group">
+                <div class="form-group" *ngIf="isCreate">
                     <h4>Country</h4>
                     <div class="dropdown">
                         <button id="country_button"
@@ -65,7 +65,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" *ngIf="isCreate">
                     <h4>Territory</h4>
                     <div class="dropdown">
                         <button id="territory_button"
@@ -81,7 +81,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" *ngIf="isCreate">
                     <h4>Main Hub</h4>
                     <div class="dropdown">
                         <button id="mainhub_button"
@@ -100,7 +100,7 @@
                     type="submit"
                     class="btn btn-default"
                     (click)="onCreateMainHubManagerClick()"
-                    [disabled]="!hubmanagerForm.valid">REGISTER
+                    [disabled]="!hubmanagerForm.valid">SAVE
                 </button>
             </form>
         </div>

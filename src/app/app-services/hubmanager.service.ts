@@ -20,7 +20,7 @@ export class HubmanagerService {
         return this.http.post<HubmanagerModel>(environment.apiUrl + '/auth/register', data);
     }
 
-    updateMainHubManager(data: HubmanagerModel) {
+    updateMainHubManager(data) {
         return  this.http.put(environment.apiUrl + '/auth/users/' + data['id'], data);
     }
 
