@@ -29,7 +29,7 @@ export class AddEditMainhubComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.mainhubForm = this.buildForm();
+         this.buildForm();
         this.countryService.getCountries();
         this.countriesSubscription = this.countryService.getCountriesUpdateListener()
             .subscribe((countries: CountryModel[]) => {

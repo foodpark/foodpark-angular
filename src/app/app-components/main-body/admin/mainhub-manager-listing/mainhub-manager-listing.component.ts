@@ -6,7 +6,6 @@ import {CountryModel, HubmanagerModel, TerritoryModel} from 'src/app/model';
 import {HubmanagerService} from 'src/app/app-services/hubmanager.service';
 import {TerritoryService} from 'src/app/app-services/territory.service';
 import {MatDialog} from '@angular/material';
-import {el} from '@angular/platform-browser/testing/src/browser_util';
 import {ErrorComponent} from '../../../../error/error.component';
 
 @Component({
@@ -21,7 +20,7 @@ export class MainhubManagerListingComponent implements OnInit, OnDestroy {
     private territoriesSubscription: Subscription;
     private mainhubManagers: HubmanagerModel[] = [];
     private mainhubsSubscription: Subscription;
-    dataLoaded = false;
+    private territorySelected: number;
 
     constructor(
         private mainhubmanagerService: HubmanagerService,
@@ -43,6 +42,7 @@ export class MainhubManagerListingComponent implements OnInit, OnDestroy {
                 this.territoryService.getTerritoriesInCountry(countries[0]['id']);
                 this.territoriesSubscription = this.territoryService.getTerritoriesUpdateListener()
                     .subscribe((territories: TerritoryModel[]) => {
+                        this.territorySelected = 0;
                         const territoryName = territories[0]['territory'];
                         const territoryButton = document.getElementById('territory_button');
                         territoryButton.innerText = territoryName;
@@ -77,12 +77,13 @@ export class MainhubManagerListingComponent implements OnInit, OnDestroy {
     }
 
     onDeleteClick(id: number) {
-        // this.mainhubmanagerService.deleteTerritory(id).subscribe(() => {
-        //     this.mainhubmanagerService.getTerritories();
-        // });
+        this.mainhubmanagerService.delete(id).subscribe(() => {
+            this.mainhubmanagerService.getMainHubManagersInTerritory(this.territorySelected);
+        });
     }
 
     onTerritoryClick(index: number) {
+        this.territorySelected = index;
         const button = document.getElementById('territory_button');
         button.innerText = this.territories[index]['territory'];
         this.mainhubmanagerService.getMainHubManagersInTerritory(this.territories[index]['id']);
