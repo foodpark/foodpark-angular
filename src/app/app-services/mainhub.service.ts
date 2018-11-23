@@ -53,14 +53,10 @@ export class MainhubService {
     }
 
     getMainhubsInCountry(countryName: string) {
-        this.http.get<MainhubModel[]>(environment.apiUrl + '/api/v1/rel/food_parks?country=' + countryName)
+        this.http.get<MainhubModel[]>(environment.apiUrl + '/api/v1/rel/food_parks?type=MAIN&country=' + countryName)
         .subscribe((territoryData) => {
             this.mainhubs = territoryData;
             this.mainhubsUpdated.next([...this.mainhubs]);
         });
-    }
-
-    getMainHubInTerritory(territoryId: number, type: string) {
-        return this.http.get<MainhubModel>(environment.apiUrl + '/api/v1/rel/territories/' + territoryId + '/food_parks?type=' + type);
     }
 }

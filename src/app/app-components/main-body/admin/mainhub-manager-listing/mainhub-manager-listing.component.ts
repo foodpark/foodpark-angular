@@ -14,11 +14,11 @@ import {ErrorComponent} from '../../../../error/error.component';
 })
 
 export class MainhubManagerListingComponent implements OnInit, OnDestroy {
-    private countries = [];
+    countries = [];
     private countriesSubscription: Subscription;
-    private territories: TerritoryModel[] = [];
+    territories: TerritoryModel[] = [];
     private territoriesSubscription: Subscription;
-    private mainhubManagers: HubmanagerModel[] = [];
+    mainhubManagers: HubmanagerModel[] = [];
     private mainhubsSubscription: Subscription;
     private territorySelected: number;
 
@@ -34,31 +34,41 @@ export class MainhubManagerListingComponent implements OnInit, OnDestroy {
         this.countryService.getCountries();
         this.countriesSubscription = this.countryService.getCountriesUpdateListener()
             .subscribe((countries: CountryModel[]) => {
-                const countryName = countries[0]['name'];
-                const button = document.getElementById('country_button');
-                button.innerText = countryName;
-                this.countries = countries;
+                if (countries.length > 0) {
+                    const countryName = countries[0]['name'];
+                    const button = document.getElementById('country_button');
+                    button.innerText = countryName;
+                    this.countries = countries;
 
-                this.territoryService.getTerritoriesInCountry(countries[0]['id']);
-                this.territoriesSubscription = this.territoryService.getTerritoriesUpdateListener()
-                    .subscribe((territories: TerritoryModel[]) => {
-                        this.territorySelected = 0;
-                        const territoryName = territories[0]['territory'];
-                        const territoryButton = document.getElementById('territory_button');
-                        territoryButton.innerText = territoryName;
-                        this.territories = territories;
-
-                        this.mainhubmanagerService.getMainHubManagersInTerritory(territories[0]['id']);
-                        this.mainhubsSubscription = this.mainhubmanagerService.getMainHubManagersUpdateListener()
-                            .subscribe((mainHubMgrs: HubmanagerModel[]) => {
-                                this.mainhubManagers = mainHubMgrs;
-                                if (this.mainhubManagers.length) {
-                                } else {
-                                    this.dialog.open(ErrorComponent, {data: {message: 'No Main Hub Managers available for this territory'}});
-                                }
-                            });
-                    });
+                    this.territoryService.getTerritoriesInCountry(countries[0]['id']);
+                } else {
+                    this.dialog.open(ErrorComponent, {data: {message: 'No Countries found!!'}});
+                }
             });
+
+        this.territoriesSubscription = this.territoryService.getTerritoriesUpdateListener()
+        .subscribe((territories: TerritoryModel[]) => {
+            if (territories.length > 0) {
+                this.territorySelected = 0;
+                const territoryName = territories[0]['territory'];
+                const territoryButton = document.getElementById('territory_button');
+                territoryButton.innerText = territoryName;
+                this.territories = territories;
+
+                this.mainhubmanagerService.getMainHubManagersInTerritory(territories[0]['id']);
+            } else {
+                this.dialog.open(ErrorComponent, {data: {message: 'No Territories found for the selected country'}});
+            }
+        });
+
+        this.mainhubsSubscription = this.mainhubmanagerService.getMainHubManagersUpdateListener()
+        .subscribe((mainHubMgrs: HubmanagerModel[]) => {
+            this.mainhubManagers = mainHubMgrs;
+            if (this.mainhubManagers.length) {
+            } else {
+                this.dialog.open(ErrorComponent, {data: {message: 'No Main Hub Managers available for this territory'}});
+            }
+        });
     }
 
     onCountryClick(index: number) {

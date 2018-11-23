@@ -88,7 +88,7 @@ export class AddEditMainHubManagerComponent implements OnInit, OnDestroy {
     }
 
     getMainhub(id: number) {
-        this.hubManagerService.getMainHubInTerritory(id, 'MAIN').subscribe(res => {
+        this.hubManagerService.getMainHubInTerritory(id).subscribe(res => {
             this.mainHubs = [];
             Object.values(res).forEach(item => {
                 this.mainHubs.push({'name': item['name'], 'id': item['id']});

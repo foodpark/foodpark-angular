@@ -31,7 +31,7 @@ export class MainHubsListingComponent implements OnInit, OnDestroy {
                 this.countries = countries;
                 this.mainhubService.getMainhubsInCountry(countryName);
             });
-        // this.mainhubService.getMainHubInTerritory(AppConstants.defaultCountryId, AppConstants.defaultCountryName);
+
         this.mainhubsSubscription = this.mainhubService.getMainhubsUpdateListener()
             .subscribe((res: MainhubModel[]) => {
                 this.mainhubs = res;

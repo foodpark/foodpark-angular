@@ -218,7 +218,7 @@ export class CreatePodsComponent implements OnInit {
     }
 
     getMainhub(id: number) {
-        this.territoryService.getMainHubInTerritory(id, 'MAIN').subscribe(res => {
+        this.territoryService.getMainHubInTerritory(id).subscribe(res => {
             this.mainHubs = [];
             Object.values(res).forEach(item => {
                 this.mainHubs.push({'name': item['name'], 'id': item['id']});

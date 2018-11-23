@@ -1,21 +1,24 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {CountryService} from '../../../../app-services/country.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {TerritoryService} from '../../../../app-services/territory.service';
 import {Subscription} from 'rxjs';
+import {ActivatedRoute, Router} from '@angular/router';
+
+import {CountryService} from '../../../../app-services/country.service';
+import {TerritoryService} from '../../../../app-services/territory.service';
 import {CountryModel, TerritoryModel} from '../../../../model';
 
 @Component({
     selector: 'app-edit-territory',
     templateUrl: './add-edit-territory.component.html',
 })
+
 export class AddEditTerritoryComponent implements OnInit, OnDestroy {
     form: FormGroup;
     countries = [];
     territory: TerritoryModel;
     isEditTerritory = false;
     pageTitle = '';
+    selectedCountryId: number;
     private countriesSubscription: Subscription;
 
     constructor(private territoryService: TerritoryService,
@@ -29,8 +32,11 @@ export class AddEditTerritoryComponent implements OnInit, OnDestroy {
         this.countryService.getCountries();
         this.countriesSubscription = this.countryService.getCountriesUpdateListener()
             .subscribe((countries: CountryModel[]) => {
-                this.countries = countries;
+                if (countries.length > 0) {
+                    this.countries = countries;
+                }
             });
+
         if (localStorage.getItem('editterritory')) {
             this.isEditTerritory = true;
             this.pageTitle = 'Edit Territory';
@@ -66,8 +72,8 @@ export class AddEditTerritoryComponent implements OnInit, OnDestroy {
     }
 
     onSaveClick(formData) {
-
         if (!this.isEditTerritory) {
+            formData['country_id'] = this.selectedCountryId;
             this.territoryService.addTerritory(formData);
         } else {
             this.territory['latitude'] = parseFloat(formData['latitude']);
@@ -82,6 +88,7 @@ export class AddEditTerritoryComponent implements OnInit, OnDestroy {
     onCountryClick(index: number) {
         const button = document.getElementById('country_button');
         button.innerText = this.countries[index]['name'];
+        this.selectedCountryId = this.countries[index]['id'];
         this.form.get('country').setValue(this.countries[index]['name']);
     }
 

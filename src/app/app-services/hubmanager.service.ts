@@ -32,8 +32,8 @@ export class HubmanagerService {
         });
     }
 
-    getMainHubInTerritory(territoryId: number, type: string) {
-        return this.http.get<TerritoryModel>(environment.apiUrl + '/api/v1/rel/territories/' + territoryId + '/food_parks?type=' + type);
+    getMainHubInTerritory(territoryId: number) {
+        return this.http.get<TerritoryModel>(environment.apiUrl + '/api/v1/rel/territories/' + territoryId + '/food_parks?type=MAIN');
     }
 }
 
