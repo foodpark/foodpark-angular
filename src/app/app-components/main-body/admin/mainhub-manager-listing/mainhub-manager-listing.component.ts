@@ -7,6 +7,7 @@ import {HubmanagerService} from 'src/app/app-services/hubmanager.service';
 import {TerritoryService} from 'src/app/app-services/territory.service';
 import {MatDialog} from '@angular/material';
 import {ErrorComponent} from '../../../../error/error.component';
+import {DataService} from '../../../../app-services/data.service';
 
 @Component({
     selector: 'app-mainhub-manager-listing',
@@ -27,7 +28,8 @@ export class MainhubManagerListingComponent implements OnInit, OnDestroy {
         private router: Router,
         private countryService: CountryService,
         private territoryService: TerritoryService,
-        private dialog: MatDialog) {
+        private dialog: MatDialog,
+        private dataService: DataService) {
     }
 
     ngOnInit() {
@@ -98,9 +100,15 @@ export class MainhubManagerListingComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.countriesSubscription.unsubscribe();
-        this.territoriesSubscription.unsubscribe();
-        this.mainhubsSubscription.unsubscribe();
+        if (this.dataService.nullCheck(this.countriesSubscription)) {
+            this.countriesSubscription.unsubscribe();
+        }
+        if (this.dataService.nullCheck(this.territoriesSubscription)) {
+            this.territoriesSubscription.unsubscribe();
+        }
+        if (this.dataService.nullCheck(this.mainhubsSubscription)) {
+            this.mainhubsSubscription.unsubscribe();
+        }
     }
 }
 
