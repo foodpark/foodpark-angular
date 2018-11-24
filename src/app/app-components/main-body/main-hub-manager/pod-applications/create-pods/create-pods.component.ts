@@ -83,11 +83,11 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
                 'sponsor': this.registerpodform.get('sponsor').value,
                 'latitude': this.registerpodform.get('latitude').value,
                 'longitude': this.registerpodform.get('longitude').value,
-                'type': this.registerpodform.get('church_type').value,
+                'type': this.registerpodform.get('type').value,
                 'approved': true
             };
 
-            this.podService.updatePod(response['id'], updatePodObj)
+            this.podService.updatePod(response['user']['church_id'], updatePodObj)
             .subscribe(() => {
                 this.route.navigate(['/hubmanager/podapplications']);
             });
