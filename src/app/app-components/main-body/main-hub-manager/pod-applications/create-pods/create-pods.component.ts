@@ -40,7 +40,8 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
             sponsor: ['', Validators.required],
             title: ['', Validators.required],
             connectedBy: ['', Validators.required],
-            uploadAttachments: ['', Validators.required]
+            uploadAttachments: ['', Validators.required],
+            type : ['', Validators.required]
         });
 
         this.countriesSubscription = this.countryService.getCountriesUpdateListener()
