@@ -20,12 +20,12 @@ export class HubmanagerService {
         return this.http.post<HubmanagerModel>(environment.apiUrl + '/auth/register', data);
     }
 
-    updateMainHubManager(data) {
-        return  this.http.put(environment.apiUrl + '/auth/users/' + data['id'], data);
+    updateMainHubManager(id: number, data) {
+        return  this.http.put(environment.apiUrl + '/api/v1/rel/users/' + id, data);
     }
 
     deleteMainHubManager(id: number) {
-        return this.http.delete(environment.apiUrl + '/auth/users/' + id);
+        return this.http.delete(environment.apiUrl + '/auth/v1/rel/users/' + id);
     }
 
     getMainHubManagersInTerritory(id: number) {

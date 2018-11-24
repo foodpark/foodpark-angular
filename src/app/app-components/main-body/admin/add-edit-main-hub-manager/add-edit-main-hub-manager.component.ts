@@ -141,13 +141,12 @@ export class AddEditMainHubManagerComponent implements OnInit, OnDestroy {
             });
         } else {
             const obj = {
-                'id': this.hubmanager['id'],
-                'email': this.hubmanagerForm.get('email').value,
+                'username': this.hubmanagerForm.get('email').value,
                 'first_name': this.hubmanagerForm.get('firstname').value,
                 'last_name': this.hubmanagerForm.get('lastname').value,
             };
 
-            this.hubManagerService.updateMainHubManager(obj)
+            this.hubManagerService.updateMainHubManager(this.hubmanager['id'], obj)
             .subscribe((response) => {
                 this.router.navigate(['/admin/mainhubmanager']);
             });
