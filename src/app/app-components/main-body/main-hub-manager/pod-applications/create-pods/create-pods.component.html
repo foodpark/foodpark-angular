@@ -1,35 +1,29 @@
 <div class="create_pods_section">
-  <form [formGroup]="register_company" (ngSubmit)="createcompany()">
+  <form [formGroup]="registerpodform" (ngSubmit)="createPod()">
     <div class="create_pods_section--first-step">
       <div class="form-group">
         <h4>First Name</h4>
         <input type="text" class="form-control" name="" value="" placeholder="First Name" formControlName = "firstname" >
-        <p *ngIf="formErrors.firstname">{{formErrors.firstname}}</p>
       </div>
       <div class="form-group">
         <h4>Last Name</h4>
         <input type="text" class="form-control" name="" value="" placeholder="Last Name" formControlName = "lastname" >
-        <p *ngIf="formErrors.lastname">{{formErrors.lastname}}</p>
       </div>
       <div class="form-group">
         <h4>Email</h4>
         <input type="text" class="form-control" name="" value="" placeholder="Email" formControlName = "email" >
-        <p *ngIf="formErrors.email">{{formErrors.email}}</p>
       </div>
       <div class="form-group">
         <h4>Password</h4>
-        <input type="text" class="form-control" name="" value="" placeholder="Password" formControlName = "password">
-         <p *ngIf="formErrors.password">{{formErrors.password}}</p>
+        <input type="password" class="form-control" name="" value="" placeholder="Password" formControlName = "password">
       </div>
       <div class="form-group">
         <h4>Retype Password</h4>
-        <input type="text" class="form-control" name="" value="" placeholder="Retype Password" formControlName = "retypepassword">
-         <p *ngIf="formErrors.retypepassword">{{formErrors.retypepassword}}</p>
+        <input type="password" class="form-control" name="" value="" placeholder="Retype Password" formControlName = "repeatpassword">
       </div>
       <div class="form-group">
         <h4>Pod Name</h4>
-        <input type="text" class="form-control" name="" value="" placeholder="Pod Name" formControlName = "companyname">
-         <p *ngIf="formErrors.podname">{{formErrors.podname}}</p>
+        <input type="text" class="form-control" name="" value="" placeholder="Pod Name" formControlName = "church_name">
       </div>
      <div class="form-group">
           <h4>Country</h4>
@@ -45,12 +39,11 @@
                   </li>
               </ul>
           </div>
-          <p *ngIf="formErrors.country">{{formErrors.country}}</p>
       </div>
 
     <div class="form-group">
         <h4>Sponsor</h4>
-        <input type="text" class="form-control" name="" value="" placeholder="Sponsor" formControlName = "sponser">
+        <input type="text" class="form-control" name="" value="" placeholder="Sponsor" formControlName = "sponsor">
       </div>
       <div class="form-group">
         <h4>Title</h4>
@@ -75,7 +68,7 @@
       </div>
       <div class="form-group">
         <h4>Connected By</h4>
-        <input type="text" class="form-control" name="" value="" placeholder="COnnected By" formControlName = "connectedBy">
+        <input type="text" class="form-control" name="" value="" placeholder="Connected By" formControlName = "connectedBy">
       </div>
       <div class="form-group">
         <h4>Upload Attachments</h4>
@@ -90,7 +83,6 @@
         <h4>Longitude</h4>
         <input type="text" class="form-control" name="" value="" placeholder="Longitude" formControlName = "longitude">
       </div>
-      <p *ngIf="messages.validationmessage">{{messages.validationmessage}}</p>
       <button type="submit" name="button" class="btn btn-default">Create Pods</button>
     </div>
   </form>

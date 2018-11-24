@@ -50,4 +50,15 @@ export interface RegionalHubModel {
     name: string;
 }
 
-
+export interface PodModel {
+    id: number;
+    name: string;
+    addendeum_file: string;
+    title: string;
+    connected_with: string;
+    sponsor: string;
+    latitude: number;
+    longitude: number;
+    approved: boolean;
+    type: string;
+}
