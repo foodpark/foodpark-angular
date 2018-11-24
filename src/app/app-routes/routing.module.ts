@@ -18,11 +18,12 @@ import {DistributionCenterComponent} from '../app-components/main-body/main-hub-
 
 import {AuthGuard} from '../app-services/auth.guard';
 import {MainHubsListingComponent} from '../app-components/main-body/admin/main-hubs-listing/main-hubs-listing.component';
-import { MainhubManagerListingComponent } from '../app-components/main-body/admin/mainhub-manager-listing/mainhub-manager-listing.component';
+import {MainhubManagerListingComponent} from '../app-components/main-body/admin/mainhub-manager-listing/mainhub-manager-listing.component';
 import {TerritoriesListingComponent} from '../app-components/main-body/admin/territories-listing/territories-listing.component';
 import {AddEditTerritoryComponent} from '../app-components/main-body/admin/add-edit-territory/add-edit-territory.component';
 import {AddEditMainhubComponent} from '../app-components/main-body/admin/add-edit-mainhub/add-edit-mainhub.component';
-import { AddEditMainHubManagerComponent } from '../app-components/main-body/admin/add-edit-main-hub-manager/add-edit-main-hub-manager.component';
+import {AddEditMainHubManagerComponent} from '../app-components/main-body/admin/add-edit-main-hub-manager/add-edit-main-hub-manager.component';
+import {AddEditRegionalHubComponent} from '../app-components/main-body/main-hub-manager/add-edit-regional-hub/add-edit-regional-hub.component';
 
 
 const routes: Routes = [
@@ -63,20 +64,44 @@ const routes: Routes = [
     {
         path: 'hubmanager', component: HubManagerDashboardComponent, canActivate: [AuthGuard],
         children: [
-            {path: 'createregionalhub', component: RegionalHubComponent},
-            {path: 'reporting', component: ReportingComponent},
+            {
+                path: 'regionalhubs', component: RegionalHubComponent
+            },
+            {
+                path: 'reporting', component: ReportingComponent
+            },
+            {
+                path: 'addregionalhub', component: AddEditRegionalHubComponent, children: []
+            },
+            {
+                path: 'editregionalhub', component: AddEditRegionalHubComponent, children: []
+            },
             {
                 path: 'podapplications', component: PodApplicationsComponent,
                 children: [
-                    {path: '', redirectTo: 'pods', pathMatch: 'full', canActivate: [AuthGuard]},
-                    {path: 'pods', component: PodsComponent},
-                    {path: 'createpods', component: CreatePodsComponent},
+                    {
+                        path: '', redirectTo: 'pods', pathMatch: 'full', canActivate: [AuthGuard]
+                    },
+                    {
+                        path: 'pods', component: PodsComponent
+                    },
+                    {
+                        path: 'createpods', component: CreatePodsComponent
+                    },
                 ]
             },
-            {path: 'loadmanagement', component: LoadManagementComponent},
-            {path: 'hubpickups', component: HubPickupsComponent},
-            {path: 'hubmanager', component: HubManagerComponent},
-            {path: 'distributioncentermanagement', component: DistributionCenterComponent},
+            {
+                path: 'loadmanagement', component: LoadManagementComponent
+            },
+            {
+                path: 'hubpickups', component: HubPickupsComponent
+            },
+            {
+                path: 'hubmanager', component: HubManagerComponent
+            },
+            {
+                path: 'distributioncentermanagement', component: DistributionCenterComponent
+            },
         ]
     }
 ];

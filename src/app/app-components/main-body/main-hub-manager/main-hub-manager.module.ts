@@ -16,6 +16,7 @@ import {HubPickupsComponent} from './hub-pickups/hub-pickups.component';
 import {HubManagerComponent} from './hub-manager/hub-manager.component';
 import {DistributionCenterComponent} from './distrubution-center/distrubution-center.component';
 import {RemoveSpacesPipe} from '../../../app-pipes/removeSpaces.pipe';
+import {AddEditRegionalHubComponent} from './add-edit-regional-hub/add-edit-regional-hub.component';
 
 @NgModule({
     imports: [
@@ -38,7 +39,8 @@ import {RemoveSpacesPipe} from '../../../app-pipes/removeSpaces.pipe';
         HubPickupsComponent,
         HubManagerComponent,
         DistributionCenterComponent,
-        RemoveSpacesPipe
+        RemoveSpacesPipe,
+        AddEditRegionalHubComponent
     ],
     exports: [
         HubManagerDashboardComponent,
@@ -51,7 +53,8 @@ import {RemoveSpacesPipe} from '../../../app-pipes/removeSpaces.pipe';
         HubPickupsComponent,
         HubManagerComponent,
         DistributionCenterComponent,
-        RemoveSpacesPipe
+        RemoveSpacesPipe,
+        AddEditRegionalHubComponent
     ],
 })
 export class MainHubManagerModule {

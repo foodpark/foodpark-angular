@@ -45,4 +45,9 @@ export interface TerritoryModel {
     longitude: number;
 }
 
+export interface RegionalHubModel {
+    id?: number;
+    name: string;
+}
+
 

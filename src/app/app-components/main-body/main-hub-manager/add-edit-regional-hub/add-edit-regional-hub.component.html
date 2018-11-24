@@ -1,0 +1,26 @@
+<div class="canvas inner_wrapper pt35" style="position: absolute;top: 100px; padding: 15px;">
+    <section class="greybg center ">
+        <div class="title-center">
+            <h2>{{pageTitle}}</h2>
+        </div>
+        <div class="container-fluid col-sm-12 menu_detail shell bg_1">
+            <form [formGroup]="regionalHubForm">
+                <div class="form-group">
+                    <h4>Name</h4>
+                    <input
+                        type="text"
+                        formControlName="name"
+                        class="form-control"
+                        placeholder="Name"
+                        required>
+                </div>
+                <button
+                    type="submit"
+                    class="btn btn-default"
+                    (click)="onCreateRegionalHubClick()"
+                    [disabled]="!regionalHubForm.valid">SAVE
+                </button>
+            </form>
+        </div>
+    </section>
+</div>
