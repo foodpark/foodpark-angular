@@ -63,6 +63,7 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
         button.innerText = type;
         this.registerpodform.get('type').setValue(type);
     }
+
     onConnectedByClick(type: string) {
         const button  = document.getElementById('connected_by');
         button.innerText = type;

@@ -67,4 +67,8 @@ export class MainhubService {
             this.mainhubsUpdated.next([...this.mainhubs]);
         });
     }
+
+    getMainhubOfLoggedInUser(id: string) {
+        return  this.http.get<MainhubModel[]>(environment.apiUrl + '/api/v1/rel/food_parks?type=MAIN&foodpark_mgr=' + id);
+    }
 }

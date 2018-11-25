@@ -121,7 +121,7 @@ export class AuthService {
         localStorage.setItem('token', token);
         localStorage.setItem('userrole', userrole);
         localStorage.setItem('username', username);
-        localStorage.setItem('id', id);
+        localStorage.setItem('user_id', id);
     }
 
     private clearAuthData() {
@@ -145,17 +145,5 @@ export class AuthService {
             userrole: role,
             id: id
         };
-    }
-
-    apiGetMainHUbDetails(parms) {
-        return this.http.get(environment.apiUrl + '/api/v1/rel/food_parks' + parms).map((response) => {
-            return response;
-        });
-    }
-
-    apiCreaateRegionHub(reqobj) {
-        return this.http.post(environment.apiUrl + '/api/v1/rel/regionalhubs', reqobj).map((response) => {
-            return response;
-        });
     }
 }
