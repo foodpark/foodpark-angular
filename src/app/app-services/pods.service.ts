@@ -43,4 +43,9 @@ export class PodsService {
     registerPodManager(data) {
         return this.http.post(environment.apiUrl + '/auth/register', data);
     }
+
+    updateRegionalHubID(podId: number, regionalHubId: number) {
+        const obj = { 'regional_hub_id': regionalHubId };
+        return this.updatePod(podId, obj);
+    }
 }
