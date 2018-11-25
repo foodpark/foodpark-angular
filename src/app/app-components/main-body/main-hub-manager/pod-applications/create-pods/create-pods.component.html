@@ -37,7 +37,7 @@
                     <button id="country_button"
                             class="btn btn-primary dropdown-toggle"
                             type="button"
-                            data-toggle="dropdown">Select country
+                            data-toggle="dropdown">Select
                     </button>
                     <ul class="dropdown-menu">
                         <li *ngFor="let item of countries; let i = index" (click)="onCountryClick(i, item['id'])">
@@ -64,7 +64,7 @@
                     <button id="church_type"
                             class="btn btn-primary dropdown-toggle"
                             type="button"
-                            data-toggle="dropdown">Select Church
+                            data-toggle="dropdown">Select
                     </button>
                     <ul class="dropdown-menu">
                         <li *ngFor="let type of churchType" (click)="onConnectedByClick(type)">{{type}}</li>
@@ -77,22 +77,17 @@
                     <button id="connected_by"
                             class="btn btn-primary dropdown-toggle"
                             type="button"
-                            data-toggle="dropdown">Select Connected By
+                            data-toggle="dropdown">Select
                     </button>
                     <ul class="dropdown-menu">
                         <li *ngFor="let item of connectedBy" (click)="onConnectedByClick(item)">{{item}}</li>
                     </ul>
                 </div>
             </div>
-            <!-- <div class="form-group">
-                <h4>Connected By</h4>
-                <input type="text" class="form-control" name="" value="" placeholder="Connected By"
-                       formControlName="connectedBy">
-            </div> -->
             <div class="form-group">
                 <h4>Upload Attachments</h4>
-                <input type="file" class="form-control" name="" value="" placeholder="Upload Attachments"
-                       formControlName="uploadAttachments">
+                <input type="file" class="form-control" name="" value="" placeholder="Upload Word Attachments"
+                accept=".docx, .doc" formControlName="uploadAttachments" (change)="onFilePicked($event)">
             </div>
 
             <div class="form-group">

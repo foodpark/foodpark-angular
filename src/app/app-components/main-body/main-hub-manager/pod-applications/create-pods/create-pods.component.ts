@@ -42,8 +42,9 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
             sponsor: ['', Validators.required],
             title: ['', Validators.required],
             connectedBy: ['', Validators.required],
-            uploadAttachments: ['', Validators.required],
-            type: ['', Validators.required]
+            uploadAttachments: [null, Validators.required],
+            type : ['', Validators.required],
+            wordFile: [null, Validators.required]
         });
 
         this.countriesSubscription = this.countryService.getCountriesUpdateListener()
@@ -100,6 +101,12 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
                         this.route.navigate(['/hubmanager/podapplications']);
                     });
             });
+    }
+
+    onFilePicked(event: Event) {
+        const file = (event.target as HTMLInputElement).files[0];
+        this.registerpodform.get('wordFile').setValue(file);
+        this.registerpodform.get('wordFile').updateValueAndValidity();
     }
 
     ngOnDestroy() {

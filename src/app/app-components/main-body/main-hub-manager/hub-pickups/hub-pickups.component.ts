@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 
 @Component({
-    selector: 'hub-pickups',
+    selector: 'app-hub-pickups',
     templateUrl: './hub-pickups.component.html',
 
 })
