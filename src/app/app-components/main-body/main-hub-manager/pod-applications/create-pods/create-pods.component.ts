@@ -4,8 +4,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 import {CountryService} from '../../../../../app-services/country.service';
 import {CountryModel} from '../../../../../model';
-import { Subscription } from 'rxjs';
-import { PodsService } from 'src/app/app-services/pods.service';
+import {Subscription} from 'rxjs';
+import {PodsService} from 'src/app/app-services/pods.service';
 
 @Component({
     selector: 'app-create-pods',
@@ -17,6 +17,8 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
     countries: CountryModel[] = [];
     private countriesSubscription: Subscription;
     private messages: any;
+    churchType = ['Church', 'Non-Profit', 'Non-Religious', 'Non-Denominational', 'Other'];
+    connectedBy = ['Church', 'Non-Profit', 'Non-Religious', 'Other'];
 
     constructor(private formBuilder: FormBuilder,
                 private route: Router,
@@ -41,13 +43,13 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
             title: ['', Validators.required],
             connectedBy: ['', Validators.required],
             uploadAttachments: ['', Validators.required],
-            type : ['', Validators.required]
+            type: ['', Validators.required]
         });
 
         this.countriesSubscription = this.countryService.getCountriesUpdateListener()
-        .subscribe((countries: CountryModel[]) => {
-            this.countries = countries;
-        });
+            .subscribe((countries: CountryModel[]) => {
+                this.countries = countries;
+            });
         this.countryService.getCountries();
     }
 
@@ -65,7 +67,7 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
     }
 
     onConnectedByClick(type: string) {
-        const button  = document.getElementById('connected_by');
+        const button = document.getElementById('connected_by');
         button.innerText = type;
         this.registerpodform.get('connectedBy').setValue(type);
     }
@@ -82,22 +84,22 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
         };
 
         this.podService.registerPodManager(obj)
-        .subscribe((response) => {
-            const updatePodObj = {
-                'title': this.registerpodform.get('title').value,
-                'connected_with': this.registerpodform.get('connectedBy').value,
-                'sponsor': this.registerpodform.get('sponsor').value,
-                'latitude': this.registerpodform.get('latitude').value,
-                'longitude': this.registerpodform.get('longitude').value,
-                'type': this.registerpodform.get('type').value,
-                'approved': true
-            };
+            .subscribe((response) => {
+                const updatePodObj = {
+                    'title': this.registerpodform.get('title').value,
+                    'connected_with': this.registerpodform.get('connectedBy').value,
+                    'sponsor': this.registerpodform.get('sponsor').value,
+                    'latitude': this.registerpodform.get('latitude').value,
+                    'longitude': this.registerpodform.get('longitude').value,
+                    'type': this.registerpodform.get('type').value,
+                    'approved': true
+                };
 
-            this.podService.updatePod(response['user']['church_id'], updatePodObj)
-            .subscribe(() => {
-                this.route.navigate(['/hubmanager/podapplications']);
+                this.podService.updatePod(response['user']['church_id'], updatePodObj)
+                    .subscribe(() => {
+                        this.route.navigate(['/hubmanager/podapplications']);
+                    });
             });
-        });
     }
 
     ngOnDestroy() {

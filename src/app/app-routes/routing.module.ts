@@ -24,6 +24,7 @@ import {AddEditTerritoryComponent} from '../app-components/main-body/admin/add-e
 import {AddEditMainhubComponent} from '../app-components/main-body/admin/add-edit-mainhub/add-edit-mainhub.component';
 import {AddEditMainHubManagerComponent} from '../app-components/main-body/admin/add-edit-main-hub-manager/add-edit-main-hub-manager.component';
 import {AddEditRegionalHubComponent} from '../app-components/main-body/main-hub-manager/add-edit-regional-hub/add-edit-regional-hub.component';
+import {AddEditPodsComponent} from '../app-components/main-body/main-hub-manager/pod-applications/add-edit-pods/add-edit-pods.component';
 
 
 const routes: Routes = [
@@ -87,6 +88,9 @@ const routes: Routes = [
                     },
                     {
                         path: 'createpods', component: CreatePodsComponent
+                    },
+                    {
+                        path: 'editpods', component: AddEditPodsComponent, children: []
                     },
                 ]
             },

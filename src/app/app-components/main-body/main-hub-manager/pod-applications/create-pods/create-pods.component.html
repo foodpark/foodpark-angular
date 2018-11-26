@@ -1,5 +1,5 @@
 <div class="create_pods_section">
-    <form [formGroup]="registerpodform" (ngSubmit)="createPod()">
+    <form [formGroup]="registerpodform">
         <div class="create_pods_section--first-step">
             <div class="form-group">
                 <h4>First Name</h4>
@@ -13,7 +13,8 @@
             </div>
             <div class="form-group">
                 <h4>Email</h4>
-                <input type="text" class="form-control" name="" value="" placeholder="Email" formControlName="email">
+                <input type="text" class="form-control" name="" value="" placeholder="Email"
+                       formControlName="email">
             </div>
             <div class="form-group">
                 <h4>Password</h4>
@@ -53,7 +54,8 @@
             </div>
             <div class="form-group">
                 <h4>Title</h4>
-                <input type="text" class="form-control" name="" value="" placeholder="Title" formControlName="title">
+                <input type="text" class="form-control" name="" value="" placeholder="Title"
+                       formControlName="title">
             </div>
 
             <div class="form-group">
@@ -65,11 +67,7 @@
                             data-toggle="dropdown">Select Church
                     </button>
                     <ul class="dropdown-menu">
-                        <li (click)="onChurchTypeClick('Church')">Church</li>
-                        <li (click)="onChurchTypeClick('Non-Profit')">Non-Profit</li>
-                        <li (click)="onChurchTypeClick('Non-Religious')">Non-Religious</li>
-                        <li (click)="onChurchTypeClick('Non-Denominational')">Non-Denominational</li>
-                        <li (click)="onChurchTypeClick('Other')">Other</li>
+                        <li *ngFor="let type of churchType" (click)="onConnectedByClick(type)">{{type}}</li>
                     </ul>
                 </div>
             </div>
@@ -82,10 +80,7 @@
                             data-toggle="dropdown">Select Connected By
                     </button>
                     <ul class="dropdown-menu">
-                        <li (click)="onConnectedByClick('Personal Referral')">Church</li>
-                        <li (click)="onConnectedByClick('Google Search')">Non-Profit</li>
-                        <li (click)="onConnectedByClick('Social Media')">Non-Religious</li>
-                        <li (click)="onConnectedByClick('Other')">Other</li>
+                        <li *ngFor="let item of connectedBy" (click)="onConnectedByClick(item)">{{item}}</li>
                     </ul>
                 </div>
             </div>
@@ -110,7 +105,11 @@
                 <input type="text" class="form-control" name="" value="" placeholder="Longitude"
                        formControlName="longitude">
             </div>
-            <button type="submit" name="button" class="btn btn-default">Create Pods</button>
+            <button type="submit"
+                    class="btn btn-default"
+                    [disabled]="!registerpodform.valid"
+                    (click)="createPod()">Create Pods
+            </button>
         </div>
     </form>
 </div>

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {Subject} from 'rxjs';
-import { PodModel } from '../model';
+import {PodModel} from '../model';
 
 @Injectable({
     providedIn: 'root'
@@ -12,9 +12,10 @@ export class PodsService {
     private pods: PodModel[] = [];
     private podsUpdated = new Subject<PodModel[]>();
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {
+    }
 
-    getTerritoriesUpdateListener() {
+    getPodsUpdateListener() {
         return this.podsUpdated.asObservable();
     }
 
@@ -31,12 +32,12 @@ export class PodsService {
     }
 
     approvePod(podId: number) {
-        const obj = { 'approved': true };
+        const obj = {'approved': true};
         return this.updatePod(podId, obj);
     }
 
     rejectPod(podId: number) {
-        const obj = { 'approved': false };
+        const obj = {'approved': false};
         return this.updatePod(podId, obj);
     }
 
@@ -45,7 +46,7 @@ export class PodsService {
     }
 
     updateRegionalHubID(podId: number, regionalHubId: number) {
-        const obj = { 'regional_hub_id': regionalHubId };
+        const obj = {'regional_hub_id': regionalHubId};
         return this.updatePod(podId, obj);
     }
 }

@@ -1,11 +1,22 @@
-<div class="dashboard_content_layout pod_applications">
-  <div class="sub_menu_layout">
-    <div class="sub_menu_layout--actions">
-      <button type="button" name="button" [routerLink]="['./pods']">Pods</button>
-      <button type="button" name="button" [routerLink]="['./createpods']" >Create Pods</button>
-    </div>
-  </div>
-  <div class="">
-    <router-outlet></router-outlet>
-  </div>
-</div>
+<!--<div class="dashboard_content_layout pod_applications">-->
+<!--<div class="sub_menu_layout">-->
+<!--<div class="sub_menu_layout&#45;&#45;actions">-->
+<!--<button type="button" name="button" [routerLink]="['./pods']">Pods</button>-->
+<!--<button type="button" name="button" [routerLink]="['./createpods']" >Create Pods</button>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="">-->
+<!--<router-outlet></router-outlet>-->
+<!--</div>-->
+<!--</div>-->
+<nav class="navbar navbar-light bg-faded" style="margin: 100px auto 0;background: black;height: 60px;font-size: 20px;">
+    <ul class="nav nav-pills">
+        <li class="nav-item">
+            <a class="nav-link" [routerLink]="['./pods']">Pods</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" [routerLink]="['./createpods']">Create Pods</a>
+        </li>
+    </ul>
+</nav>
+<router-outlet></router-outlet>

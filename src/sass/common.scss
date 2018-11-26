@@ -49,3 +49,13 @@ table {
     color: #67c4ea;
     cursor: pointer;
 }
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+    color: #555555;
+    cursor: default;
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    border-bottom: 5px solid blue !important;
+}
