@@ -17,7 +17,6 @@ import {HubManagerComponent} from './hub-manager/hub-manager.component';
 import {DistributionCenterComponent} from './distrubution-center/distrubution-center.component';
 import {RemoveSpacesPipe} from '../../../app-pipes/removeSpaces.pipe';
 import {AddEditRegionalHubComponent} from './add-edit-regional-hub/add-edit-regional-hub.component';
-import { AddEditPodsComponent } from './pod-applications/add-edit-pods/add-edit-pods.component';
 
 @NgModule({
     imports: [
@@ -42,7 +41,6 @@ import { AddEditPodsComponent } from './pod-applications/add-edit-pods/add-edit-
         DistributionCenterComponent,
         RemoveSpacesPipe,
         AddEditRegionalHubComponent,
-        AddEditPodsComponent
     ],
     exports: [
         HubManagerDashboardComponent,

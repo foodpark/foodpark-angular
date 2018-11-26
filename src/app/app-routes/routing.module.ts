@@ -6,7 +6,6 @@ import {AdminDashboardComponent} from '../app-components/main-body/admin/admin-d
 import {HubManagerDashboardComponent} from '../app-components/main-body/main-hub-manager/hub-manager-dashboard/hub-manager-dashboard.component';
 import {RegionalHubComponent} from '../app-components/main-body/main-hub-manager/regionalhub/regionalhub.component';
 import {ReportingComponent} from '../app-components/main-body/main-hub-manager/reporting/reporting.component';
-import {PodApplicationsComponent} from '../app-components/main-body/main-hub-manager/pod-applications/pod-applications.component';
 import {CreatePodsComponent} from '../app-components/main-body/main-hub-manager/create-pods/create-pods.component';
 import {PodsComponent} from '../app-components/main-body/main-hub-manager//pods/pods.component';
 
@@ -24,7 +23,6 @@ import {AddEditTerritoryComponent} from '../app-components/main-body/admin/add-e
 import {AddEditMainhubComponent} from '../app-components/main-body/admin/add-edit-mainhub/add-edit-mainhub.component';
 import {AddEditMainHubManagerComponent} from '../app-components/main-body/admin/add-edit-main-hub-manager/add-edit-main-hub-manager.component';
 import {AddEditRegionalHubComponent} from '../app-components/main-body/main-hub-manager/add-edit-regional-hub/add-edit-regional-hub.component';
-import {AddEditPodsComponent} from '../app-components/main-body/main-hub-manager/pod-applications/add-edit-pods/add-edit-pods.component';
 
 
 const routes: Routes = [
