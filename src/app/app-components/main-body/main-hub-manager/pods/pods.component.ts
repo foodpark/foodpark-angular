@@ -46,7 +46,10 @@ export class PodsComponent implements OnInit {
         button.innerText = type;
     }
 
-    onDeleteClick() {
+    onDeleteClick(index) {
+        this.podsService.deletePod(index).subscribe(() => {
+            this.podsService.getAllPods();
+        });
     }
 }
 

@@ -49,4 +49,8 @@ export class PodsService {
         const obj = {'regional_hub_id': regionalHubId};
         return this.updatePod(podId, obj);
     }
+
+    deletePod(deletePodID) {
+        return this.http.delete(environment.apiUrl + '/api/v1/rel/churches/' + deletePodID);
+    }
 }
