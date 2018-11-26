@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-import {PodsService} from '../../../../../app-services/pods.service';
-import {PodModel} from '../../../../../model';
+import {PodsService} from '../../../../app-services/pods.service';
+import {PodModel} from '../../../../model';
 import {Subscription} from 'rxjs';
 
 
 @Component({
-    selector: 'pods',
+    selector: 'app-pods-listing',
     templateUrl: './pods.component.html',
 
 })
@@ -29,7 +29,10 @@ export class PodsComponent implements OnInit {
 
     onEditClick(index: number) {
         localStorage.setItem('editpods', JSON.stringify(this.pods[index]));
-        this.router.navigate(['/admin/editpods']);
+        this.router.navigate(['/hubmanager/editpods']);
     }
 
+    onCreatePodClick() {
+        this.router.navigate(['/hubmanager/createpod']);
+    }
 }

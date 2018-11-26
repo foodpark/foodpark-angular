@@ -2,8 +2,8 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
-import {CountryService} from '../../../../../app-services/country.service';
-import {CountryModel} from '../../../../../model';
+import {CountryService} from '../../../../app-services/country.service';
+import {CountryModel} from '../../../../model';
 import {Subscription} from 'rxjs';
 import {PodsService} from 'src/app/app-services/pods.service';
 

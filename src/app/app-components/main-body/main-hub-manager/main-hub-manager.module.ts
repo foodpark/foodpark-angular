@@ -9,8 +9,8 @@ import {HubManagerDashboardComponent} from './hub-manager-dashboard/hub-manager-
 import {RegionalHubComponent} from './regionalhub/regionalhub.component';
 import {ReportingComponent} from './reporting/reporting.component';
 import {PodApplicationsComponent} from './pod-applications/pod-applications.component';
-import {PodsComponent} from './pod-applications/pods/pods.component';
-import {CreatePodsComponent} from './pod-applications/create-pods/create-pods.component';
+import {PodsComponent} from './pods/pods.component';
+import {CreatePodsComponent} from './create-pods/create-pods.component';
 import {LoadManagementComponent} from './load-management/load-management.component';
 import {HubPickupsComponent} from './hub-pickups/hub-pickups.component';
 import {HubManagerComponent} from './hub-manager/hub-manager.component';

@@ -7,8 +7,8 @@ import {HubManagerDashboardComponent} from '../app-components/main-body/main-hub
 import {RegionalHubComponent} from '../app-components/main-body/main-hub-manager/regionalhub/regionalhub.component';
 import {ReportingComponent} from '../app-components/main-body/main-hub-manager/reporting/reporting.component';
 import {PodApplicationsComponent} from '../app-components/main-body/main-hub-manager/pod-applications/pod-applications.component';
-import {CreatePodsComponent} from '../app-components/main-body/main-hub-manager/pod-applications/create-pods/create-pods.component';
-import {PodsComponent} from '../app-components/main-body/main-hub-manager/pod-applications/pods/pods.component';
+import {CreatePodsComponent} from '../app-components/main-body/main-hub-manager/create-pods/create-pods.component';
+import {PodsComponent} from '../app-components/main-body/main-hub-manager//pods/pods.component';
 
 import {LoadManagementComponent} from '../app-components/main-body/main-hub-manager/load-management/load-management.component';
 import {HubPickupsComponent} from '../app-components/main-body/main-hub-manager/hub-pickups/hub-pickups.component';
@@ -78,21 +78,24 @@ const routes: Routes = [
                 path: 'editregionalhub', component: AddEditRegionalHubComponent, children: []
             },
             {
-                path: 'podapplications', component: PodApplicationsComponent,
-                children: [
-                    {
-                        path: '', redirectTo: 'pods', pathMatch: 'full', canActivate: [AuthGuard]
-                    },
-                    {
-                        path: 'pods', component: PodsComponent
-                    },
-                    {
-                        path: 'createpods', component: CreatePodsComponent
-                    },
-                    {
-                        path: 'editpods', component: AddEditPodsComponent, children: []
-                    },
-                ]
+                path: 'podapplications', component: PodsComponent, children: []
+                // children: [
+                    // {
+                    //     path: '', redirectTo: 'pods', pathMatch: 'full', canActivate: [AuthGuard]
+                    // },
+                    // {
+                    //     path: 'pods', component: PodsComponent
+                    // },
+                    // {
+                    //     path: 'createpods', component: CreatePodsComponent
+                    // },
+                    // {
+                    //     path: 'editpods', component: AddEditPodsComponent, children: []
+                    // },
+                // ]
+            },
+            {
+                path: 'createpod', component: CreatePodsComponent
             },
             {
                 path: 'loadmanagement', component: LoadManagementComponent
