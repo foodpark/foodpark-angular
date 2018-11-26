@@ -128,6 +128,7 @@ export class AuthService {
         localStorage.removeItem('token');
         localStorage.removeItem('userrole');
         localStorage.removeItem('username');
+        localStorage.removeItem('user_id');
     }
 
     getAuthData() {
