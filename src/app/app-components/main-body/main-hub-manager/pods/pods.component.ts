@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import {Router} from '@angular/router';
 import {PodsService} from '../../../../app-services/pods.service';
 import {PodModel} from '../../../../model';
 import {Subscription} from 'rxjs';
@@ -28,11 +28,25 @@ export class PodsComponent implements OnInit {
     }
 
     onEditClick(index: number) {
-        localStorage.setItem('editpods', JSON.stringify(this.pods[index]));
-        this.router.navigate(['/hubmanager/editpods']);
+        localStorage.setItem('editpod', JSON.stringify(this.pods[index]));
+        this.router.navigate(['/hubmanager/editpod']);
     }
 
     onCreatePodClick() {
         this.router.navigate(['/hubmanager/createpod']);
     }
+
+    onOptionClick(type: string) {
+        const button = document.getElementById('status_button');
+        button.innerText = type;
+    }
+
+    onAssignHubClick(type: string) {
+        const button = document.getElementById('assign_hub');
+        button.innerText = type;
+    }
+
+    onDeleteClick() {
+    }
 }
+

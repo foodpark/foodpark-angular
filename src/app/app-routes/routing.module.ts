@@ -23,7 +23,7 @@ import {AddEditTerritoryComponent} from '../app-components/main-body/admin/add-e
 import {AddEditMainhubComponent} from '../app-components/main-body/admin/add-edit-mainhub/add-edit-mainhub.component';
 import {AddEditMainHubManagerComponent} from '../app-components/main-body/admin/add-edit-main-hub-manager/add-edit-main-hub-manager.component';
 import {AddEditRegionalHubComponent} from '../app-components/main-body/main-hub-manager/add-edit-regional-hub/add-edit-regional-hub.component';
-import { EditPodsComponent } from '../app-components/main-body/main-hub-manager/edit-pod/edit-pods.component';
+import {EditPodsComponent} from '../app-components/main-body/main-hub-manager/edit-pod/edit-pods.component';
 
 
 const routes: Routes = [
@@ -79,18 +79,18 @@ const routes: Routes = [
             {
                 path: 'podapplications', component: PodsComponent, children: []
                 // children: [
-                    // {
-                    //     path: '', redirectTo: 'pods', pathMatch: 'full', canActivate: [AuthGuard]
-                    // },
-                    // {
-                    //     path: 'pods', component: PodsComponent
-                    // },
-                    // {
-                    //     path: 'createpods', component: CreatePodsComponent
-                    // },
-                    // {
-                    //     path: 'editpods', component: AddEditPodsComponent, children: []
-                    // },
+                // {
+                //     path: '', redirectTo: 'pods', pathMatch: 'full', canActivate: [AuthGuard]
+                // },
+                // {
+                //     path: 'pods', component: PodsComponent
+                // },
+                // {
+                //     path: 'createpods', component: CreatePodsComponent
+                // },
+                // {
+                //     path: 'editpods', component: AddEditPodsComponent, children: []
+                // },
                 // ]
             },
             {

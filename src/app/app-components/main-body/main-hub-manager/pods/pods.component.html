@@ -20,10 +20,10 @@
         <tbody>
         <tr *ngFor="let item of pods; let i = index">
             <td>
-                <div>>{{item['name']}</div>
-                <div>>{{item['type']}</div>
-                <div>>{{item['sponsor']}</div>
-                <div>>{{item['title']}</div>
+                <div>{{item['name']}}</div>
+                <div>{{item['type']}}</div>
+                <div>{{item['sponsor']}}</div>
+                <div>{{item['title']}}</div>
             </td>
             <td>{{item['addendeum_file']}}</td>
             <td>
@@ -31,11 +31,11 @@
                     <button id="status_button"
                             class="btn btn-primary dropdown-toggle"
                             type="button"
-                            data-toggle="dropdown">Approve
+                            data-toggle="dropdown">Select
                     </button>
                     <div class="form-group">
                         <ul class="dropdown-menu">
-                            <li *ngFor="let option of approve; let i = index" (click)="onOptionClick(i)">
+                            <li *ngFor="let option of approve; let i = index" (click)="onOptionClick(option)">
                                 {{option}}
                             </li>
                         </ul>
@@ -44,14 +44,14 @@
             </td>
             <td>
                 <div class="dropdown">
-                    <button id="hub_button"
+                    <button id="assign_hub"
                             class="btn btn-primary dropdown-toggle"
                             type="button"
-                            data-toggle="dropdown">Approve
+                            data-toggle="dropdown">Select
                     </button>
                     <div class="form-group">
                         <ul class="dropdown-menu">
-                            <li *ngFor="let option of approve; let i = index" (click)="onOptionClick(i)">
+                            <li *ngFor="let option of approve; let i = index" (click)="onAssignHubClick(option)">
                                 {{option}}
                             </li>
                         </ul>
@@ -64,7 +64,7 @@
                 </i>
             </td>
             <td style="text-align: center;">
-                <i class="material-icons" (click)="onDeleteClick(pods[i]['id'])">
+                <i class="material-icons" (click)="onDeleteClick(pods['id'])">
                     delete
                 </i>
             </td>

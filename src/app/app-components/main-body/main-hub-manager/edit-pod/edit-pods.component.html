@@ -5,18 +5,27 @@
     <form [formGroup]="editpodform">
         <div class="form-group">
             <h4>Pod Name</h4>
-            <input type="text" class="form-control" name="" value="" placeholder="Pod Name"
-                    formControlName="church_name">
+            <input
+                type="text"
+                class="form-control"
+                placeholder="Pod Name"
+                formControlName="name">
         </div>
         <div class="form-group">
             <h4>Sponsor</h4>
-            <input type="text" class="form-control" name="" value="" placeholder="Sponsor"
-                    formControlName="sponsor">
+            <input
+                type="text"
+                class="form-control"
+                placeholder="Sponsor"
+                formControlName="sponsor">
         </div>
         <div class="form-group">
             <h4>Title</h4>
-            <input type="text" class="form-control" name="" value="" placeholder="Title"
-                    formControlName="title">
+            <input
+                type="text"
+                class="form-control"
+                placeholder="Title"
+                formControlName="title">
         </div>
 
         <div class="form-group">
@@ -28,20 +37,20 @@
                         data-toggle="dropdown">Select
                 </button>
                 <ul class="dropdown-menu">
-                    <li *ngFor="let type of churchType" (click)="onConnectedByClick(type)">{{type}}</li>
+                    <li *ngFor="let type of churchType" (click)="onChurchTypeClick(type)">{{type}}</li>
                 </ul>
             </div>
         </div>
         <div class="form-group">
-            <h4>Connected By</h4>
+            <h4>Connected With</h4>
             <div class="dropdown">
-                <button id="connected_by"
+                <button id="connected_with"
                         class="btn btn-primary dropdown-toggle"
                         type="button"
                         data-toggle="dropdown">Select
                 </button>
                 <ul class="dropdown-menu">
-                    <li *ngFor="let item of connectedBy" (click)="onConnectedByClick(item)">{{item}}</li>
+                    <li *ngFor="let item of connectedWith" (click)="onConnectedByClick(item)">{{item}}</li>
                 </ul>
             </div>
         </div>
@@ -52,18 +61,24 @@
         </div> -->
         <div class="form-group">
             <h4>Latitude</h4>
-            <input type="text" class="form-control" name="" value="" placeholder="Latitude"
-                    formControlName="latitude">
+            <input
+                type="text"
+                class="form-control"
+                placeholder="Latitude"
+                formControlName="latitude">
         </div>
         <div class="form-group">
             <h4>Longitude</h4>
-            <input type="text" class="form-control" name="" value="" placeholder="Longitude"
-                    formControlName="longitude">
+            <input
+                type="text"
+                class="form-control"
+                placeholder="Longitude"
+                formControlName="longitude">
         </div>
         <button type="submit"
                 class="btn btn-default"
                 [disabled]="!editpodform.valid"
-                (click)="createPod()">Create Pods
+                (click)="createPod()">Create Pod
         </button>
     </form>
 </div>
