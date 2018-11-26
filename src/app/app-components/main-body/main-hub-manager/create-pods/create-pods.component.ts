@@ -22,7 +22,6 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
 
     constructor(private formBuilder: FormBuilder,
                 private route: Router,
-                private fb: FormBuilder,
                 private countryService: CountryService,
                 private podService: PodsService) {
     }

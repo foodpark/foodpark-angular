@@ -1,0 +1,69 @@
+<div class="absolute-position">
+    <div class="title-center">
+        <h2>Edit Pod</h2>
+    </div>
+    <form [formGroup]="editpodform">
+        <div class="form-group">
+            <h4>Pod Name</h4>
+            <input type="text" class="form-control" name="" value="" placeholder="Pod Name"
+                    formControlName="church_name">
+        </div>
+        <div class="form-group">
+            <h4>Sponsor</h4>
+            <input type="text" class="form-control" name="" value="" placeholder="Sponsor"
+                    formControlName="sponsor">
+        </div>
+        <div class="form-group">
+            <h4>Title</h4>
+            <input type="text" class="form-control" name="" value="" placeholder="Title"
+                    formControlName="title">
+        </div>
+
+        <div class="form-group">
+            <h4>Church Type</h4>
+            <div class="dropdown">
+                <button id="church_type"
+                        class="btn btn-primary dropdown-toggle"
+                        type="button"
+                        data-toggle="dropdown">Select
+                </button>
+                <ul class="dropdown-menu">
+                    <li *ngFor="let type of churchType" (click)="onConnectedByClick(type)">{{type}}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="form-group">
+            <h4>Connected By</h4>
+            <div class="dropdown">
+                <button id="connected_by"
+                        class="btn btn-primary dropdown-toggle"
+                        type="button"
+                        data-toggle="dropdown">Select
+                </button>
+                <ul class="dropdown-menu">
+                    <li *ngFor="let item of connectedBy" (click)="onConnectedByClick(item)">{{item}}</li>
+                </ul>
+            </div>
+        </div>
+        <!-- <div class="form-group">
+            <h4>Upload Attachments</h4>
+            <input type="file" class="form-control" name="" value="" placeholder="Upload Word Attachments"
+            accept=".docx, .doc" formControlName="uploadAttachments" (change)="onFilePicked($event)">
+        </div> -->
+        <div class="form-group">
+            <h4>Latitude</h4>
+            <input type="text" class="form-control" name="" value="" placeholder="Latitude"
+                    formControlName="latitude">
+        </div>
+        <div class="form-group">
+            <h4>Longitude</h4>
+            <input type="text" class="form-control" name="" value="" placeholder="Longitude"
+                    formControlName="longitude">
+        </div>
+        <button type="submit"
+                class="btn btn-default"
+                [disabled]="!editpodform.valid"
+                (click)="createPod()">Create Pods
+        </button>
+    </form>
+</div>

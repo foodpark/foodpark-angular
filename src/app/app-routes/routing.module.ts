@@ -23,6 +23,7 @@ import {AddEditTerritoryComponent} from '../app-components/main-body/admin/add-e
 import {AddEditMainhubComponent} from '../app-components/main-body/admin/add-edit-mainhub/add-edit-mainhub.component';
 import {AddEditMainHubManagerComponent} from '../app-components/main-body/admin/add-edit-main-hub-manager/add-edit-main-hub-manager.component';
 import {AddEditRegionalHubComponent} from '../app-components/main-body/main-hub-manager/add-edit-regional-hub/add-edit-regional-hub.component';
+import { EditPodsComponent } from '../app-components/main-body/main-hub-manager/edit-pod/edit-pods.component';
 
 
 const routes: Routes = [
@@ -30,7 +31,7 @@ const routes: Routes = [
         path: '', redirectTo: '/dashboard', pathMatch: 'full'
     },
     {
-        path: 'dashboard', component: LoginComponent, children: []
+        path: 'dashboard', component: LoginComponent
     },
     {
         path: 'admin', component: AdminDashboardComponent, canActivate: [AuthGuard], children: [
@@ -91,6 +92,9 @@ const routes: Routes = [
                     //     path: 'editpods', component: AddEditPodsComponent, children: []
                     // },
                 // ]
+            },
+            {
+                path: 'editpod', component: EditPodsComponent
             },
             {
                 path: 'createpod', component: CreatePodsComponent
