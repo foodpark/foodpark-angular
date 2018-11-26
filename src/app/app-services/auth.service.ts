@@ -134,7 +134,7 @@ export class AuthService {
         const token = localStorage.getItem('token');
         const role = localStorage.getItem('userrole');
         const name = localStorage.getItem('username');
-        const id = localStorage.getItem('id');
+        const id = localStorage.getItem('user_id');
         if (!token || !role || !name) {
             return;
         }
