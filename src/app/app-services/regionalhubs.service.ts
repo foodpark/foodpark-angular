@@ -43,4 +43,12 @@ export class RegionalhubsService {
                 this.getRegionalHubs();
             });
     }
+
+    getRegionalHubsInMainhub(mainHubId: number) {
+        this.http.get<RegionalHubModel[]>(environment.apiUrl + '/api/v1/rel/food_parks/' + mainHubId + '/regionalhubs')
+            .subscribe((regionalHubData) => {
+                this.regionalHubs = regionalHubData;
+                this.regionalUpdated.next([...this.regionalHubs]);
+            });
+    }
 }

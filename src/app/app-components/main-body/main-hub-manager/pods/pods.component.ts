@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {PodsService} from '../../../../app-services/pods.service';
-import {PodModel} from '../../../../model';
+import {MainhubModel, PodModel, RegionalHubModel} from '../../../../model';
 import {Subscription} from 'rxjs';
+import {MainhubService} from '../../../../app-services/mainhub.service';
+import {RegionalhubsService} from '../../../../app-services/regionalhubs.service';
 
 
 @Component({
@@ -13,14 +15,26 @@ import {Subscription} from 'rxjs';
 export class PodsComponent implements OnInit {
     pods: PodModel[] = [];
     approve = ['Approve', 'Disapprove'];
+    mainHub: MainhubModel;
+    regionalHubs: RegionalHubModel[] = [];
     private podsSubscription: Subscription;
 
     constructor(private podsService: PodsService,
-                private router: Router) {
+                private router: Router,
+                private mainhubService: MainhubService,
+                private regionalHubService: RegionalhubsService) {
     }
 
     ngOnInit() {
         this.podsService.getAllPods();
+        this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
+            .subscribe((response) => {
+                this.mainHub = response[0];
+                this.regionalHubService.getRegionalHubsInMainhub(this.mainHub['id']);
+                this.regionalHubService.getRegionalHubsUpdateListener().subscribe(res => {
+                    this.regionalHubs = res;
+                });
+            });
         this.podsSubscription = this.podsService.getPodsUpdateListener()
             .subscribe((pods: PodModel[]) => {
                 this.pods = pods;
@@ -41,9 +55,10 @@ export class PodsComponent implements OnInit {
         button.innerText = type;
     }
 
-    onAssignHubClick(type: string) {
+    onAssignHubClick(index: number) {
         const button = document.getElementById('assign_hub');
-        button.innerText = type;
+        button.innerText = this.regionalHubs[index]['name'];
+        this.podsService.updateRegionalHubID(this.pods[index]['id'], this.regionalHubs[index]['id']);
     }
 
     onDeleteClick(index) {

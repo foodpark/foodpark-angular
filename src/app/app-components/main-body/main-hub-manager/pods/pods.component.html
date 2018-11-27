@@ -35,7 +35,7 @@
                     </button>
                     <div class="form-group">
                         <ul class="dropdown-menu">
-                            <li *ngFor="let option of approve; let i = index" (click)="onOptionClick(option)">
+                            <li *ngFor="let option of approve;" (click)="onOptionClick(option)">
                                 {{option}}
                             </li>
                         </ul>
@@ -51,8 +51,8 @@
                     </button>
                     <div class="form-group">
                         <ul class="dropdown-menu">
-                            <li *ngFor="let option of approve; let i = index" (click)="onAssignHubClick(option)">
-                                {{option}}
+                            <li *ngFor="let option of regionalHubs;" (click)="onAssignHubClick(i)">
+                                {{option['name']}}
                             </li>
                         </ul>
                     </div>
