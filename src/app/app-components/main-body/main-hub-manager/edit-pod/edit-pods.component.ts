@@ -21,7 +21,6 @@ export class EditPodsComponent implements OnInit, OnDestroy {
 
     constructor(private formBuilder: FormBuilder,
                 private route: Router,
-                private countryService: CountryService,
                 private podService: PodsService) {
     }
 
@@ -29,16 +28,16 @@ export class EditPodsComponent implements OnInit, OnDestroy {
         this.pods = JSON.parse(localStorage.getItem('editpod'));
         this.editpodform = this.formBuilder.group({
             name: [this.pods['name'], Validators.required],
-            church_name: [this.pods['type'], Validators.required],
             latitude: [this.pods['latitude'], Validators.required],
             longitude: [this.pods['longitude'], Validators.required],
             sponsor: [this.pods['sponsor'], Validators.required],
             title: [this.pods['title'], Validators.required],
             connected_with: [this.pods['connected_with'], Validators.required],
             // uploadAttachments: [null, Validators.required],
-            type: ['', Validators.required],
+            type: [this.pods['type'], Validators.required],
             // wordFile: [null, Validators.required]
         });
+        this.podId = this.pods['id'];
     }
 
     onChurchTypeClick(type: string) {
@@ -53,8 +52,9 @@ export class EditPodsComponent implements OnInit, OnDestroy {
         this.editpodform.get('connected_with').setValue(type);
     }
 
-    createPod() {
+    savePod() {
         const updatePodObj = {
+            'name': this.editpodform.get('name').value,
             'title': this.editpodform.get('title').value,
             'connected_with': this.editpodform.get('connected_with').value,
             'sponsor': this.editpodform.get('sponsor').value,
@@ -65,9 +65,9 @@ export class EditPodsComponent implements OnInit, OnDestroy {
         };
 
         this.podService.updatePod(this.podId, updatePodObj)
-            .subscribe(() => {
-                this.route.navigate(['/hubmanager/podapplications']);
-            });
+        .subscribe(() => {
+            this.route.navigate(['/hubmanager/podapplications']);
+        });
     }
 
     onFilePicked(event: Event) {
