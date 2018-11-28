@@ -19,6 +19,8 @@ import {AddEditRegionalHubComponent} from './add-edit-regional-hub/add-edit-regi
 import {EditPodsComponent} from './edit-pod/edit-pods.component';
 import {MaterialModule} from '../../../app-modules/material.module';
 import {PodManagersListingComponent} from './pod-managers/pod-managers-listing/pod-managers-listing.component';
+import { HubPickupListingComponent } from './hub-pickup-listing/hub-pickup-listing.component';
+import { EditHubpickupComponent } from './edit-hubpickup/edit-hubpickup.component';
 
 @NgModule({
     imports: [
@@ -43,7 +45,9 @@ import {PodManagersListingComponent} from './pod-managers/pod-managers-listing/p
         RemoveSpacesPipe,
         AddEditRegionalHubComponent,
         EditPodsComponent,
-        PodManagersListingComponent
+        PodManagersListingComponent,
+        HubPickupListingComponent,
+        EditHubpickupComponent
     ],
     exports: [
         HubManagerDashboardComponent,

@@ -1,0 +1,142 @@
+<div class="absolute-position">
+    <section class="greybg center ">
+        <h2 class="page-header" style="margin: 10px 80px;height: 50px;">{{pageTitle}}</h2>
+        <div class="container-fluid col-sm-12 menu_detail shell bg_1">
+            <form [formGroup]="hubPickupForm">
+                <div class="form-group">
+                    <h4>Event Name</h4>
+                    <input
+                        type="text"
+                        formControlName="event_name"
+                        class="form-control"
+                        placeholder="Event Name">
+                </div>
+                <div class="form-group">
+                    <h4>Event Description</h4>
+                    <input
+                        type="text"
+                        formControlName="event_description"
+                        class="form-control"
+                        placeholder="Event Description">
+                </div>
+                <div class="form-group">
+                    <h4>Event Image</h4>
+                    <input
+                        type="file"
+                        id="file"
+                        name="event_image"
+                        formControlName="event_image"
+                        accept="image/*"
+                        alt="Event Image">
+                </div>
+                <div class="form-group">
+                    <h4>Select Hub</h4>
+                    <div class="dropdown">
+                        <button id="hub_button"
+                                class="btn btn-primary dropdown-toggle"
+                                type="button"
+                                data-toggle="dropdown">Select
+
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li
+                                (click)="onHubClick()">
+                                {{mainHub?.name}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <h4>Sponsor</h4>
+                <div style="display: flex;">
+                    <div style="padding-right: 20px">
+                        <div class="form-group">
+                            <h4>Sponsor Image</h4>
+                            <input
+                                type="file"
+                                id="sponsor1_image"
+                                formControlName="sponsor1_image"
+                                accept=".png, .jpg, .jpeg"
+                                (onchange)="onImageUpload('sponsor1_image')"
+                                alt="Sponsor Image">
+                        </div>
+                        <div class="form-group">
+                            <input
+                                type="text"
+                                formControlName="sponsor_name"
+                                class="form-control"
+                                placeholder="Sponsor Name">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            <h4>Sponsor Image</h4>
+                            <input
+                                type="file"
+                                id="sponsor2_image"
+                                formControlName="sponsor2_image"
+                                accept=".png, .jpg, .jpeg"
+                                (onchange)="onImageUpload('sponsor2_image')"
+                                alt="Sponsor Image">
+                        </div>
+                        <div class="form-group">
+                            <input
+                                type="text"
+                                formControlName="sponsor_name"
+                                class="form-control"
+                                placeholder="Sponsor Name">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h4>Add Sponsor Name</h4>
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Sponsor Name">
+                </div>
+                <div style="display: flex;">
+                    <div class="form-group" style="padding-right: 20px;">
+                        <h4>Start Date</h4>
+                        <mat-form-field>
+                            <input matInput [matDatepicker]="picker1" placeholder="Choose a date" id="start_date">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                        <h4>End Date</h4>
+                        <mat-form-field>
+                            <input matInput [matDatepicker]="picker2" placeholder="Choose a date" id="end_date">
+                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div style="display: flex;">
+                    <div class="form-group" style="padding-right: 20px;">
+                        <h4>Start Time</h4>
+                        <input
+                            id="start_time"
+                            type="text"
+                            formControlName="start_time"
+                            class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <h4>End Time</h4>
+                        <input
+                            id="end_time"
+                            type="text"
+                            formControlName="end_time"
+                            class="form-control">
+                    </div>
+                </div>
+                <button
+                    type="submit"
+                    class="btn btn-default"
+                    (click)="onSaveClick()">SAVE
+                </button>
+            </form>
+        </div>
+    </section>
+</div>
+

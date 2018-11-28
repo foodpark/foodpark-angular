@@ -62,3 +62,7 @@ export interface PodModel {
     approved: boolean;
     type: string;
 }
+
+export interface HubPickupModel {
+    id: number;
+}

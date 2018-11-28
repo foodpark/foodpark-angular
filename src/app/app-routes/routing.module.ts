@@ -25,7 +25,9 @@ import {AddEditMainhubComponent} from '../app-components/main-body/admin/add-edi
 import {AddEditMainHubManagerComponent} from '../app-components/main-body/admin/add-edit-main-hub-manager/add-edit-main-hub-manager.component';
 import {AddEditRegionalHubComponent} from '../app-components/main-body/main-hub-manager/add-edit-regional-hub/add-edit-regional-hub.component';
 import {EditPodsComponent} from '../app-components/main-body/main-hub-manager/edit-pod/edit-pods.component';
-import { PodManagersListingComponent } from '../app-components/main-body/main-hub-manager/pod-managers/pod-managers-listing/pod-managers-listing.component';
+import {PodManagersListingComponent} from '../app-components/main-body/main-hub-manager/pod-managers/pod-managers-listing/pod-managers-listing.component';
+import {EditHubpickupComponent} from '../app-components/main-body/main-hub-manager/edit-hubpickup/edit-hubpickup.component';
+import {HubPickupListingComponent} from '../app-components/main-body/main-hub-manager/hub-pickup-listing/hub-pickup-listing.component';
 
 
 const routes: Routes = [
@@ -105,7 +107,13 @@ const routes: Routes = [
                 path: 'loadmanagement', component: LoadManagementComponent
             },
             {
-                path: 'hubpickups', component: HubPickupsComponent
+                path: 'hubpickups', component: HubPickupListingComponent
+            },
+            {
+                path: 'edithubpickup', component: EditHubpickupComponent
+            },
+            {
+                path: 'addhubpickup', component: HubPickupsComponent
             },
             {
                 path: 'hubmanager', component: HubManagerComponent
@@ -113,7 +121,7 @@ const routes: Routes = [
             {
                 path: 'distributioncentermanagement', component: DistributionCenterComponent,
                 children: [
-                  {path: 'volunteers', component: VolunteersComponent}
+                    {path: 'volunteers', component: VolunteersComponent}
                 ]
             },
             {
