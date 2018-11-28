@@ -3,11 +3,11 @@ import {Router} from '@angular/router';
 
 
 @Component({
-  selector: 'distribution-ceneter',
-  templateUrl: './distrubution-center.component.html',
+  selector: 'Volunteers',
+  templateUrl: './volunteers.component.html',
 
 })
-export class DistributionCenterComponent implements OnInit {
+export class VolunteersComponent implements OnInit {
 
   constructor() { }
 

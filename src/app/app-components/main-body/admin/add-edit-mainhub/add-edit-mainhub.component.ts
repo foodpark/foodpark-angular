@@ -19,7 +19,7 @@ export class AddEditMainhubComponent implements OnInit, OnDestroy {
     mainhubs: MainhubModel[] = [];
     private countriesSubscription: Subscription;
     private territoriesSubscription: Subscription;
-    pageTitle = '';
+    isEdit = false;
 
     constructor(private formBuilder: FormBuilder,
                 private countryService: CountryService,
@@ -29,24 +29,26 @@ export class AddEditMainhubComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-         this.buildForm();
-        this.countryService.getCountries();
+        this.buildForm();
         this.countriesSubscription = this.countryService.getCountriesUpdateListener()
-            .subscribe((countries: CountryModel[]) => {
-                this.countries = countries;
-            });
+        .subscribe((countries: CountryModel[]) => {
+            this.countries = countries;
+        });
+
         this.territoriesSubscription = this.territoryService.getTerritoriesUpdateListener()
-            .subscribe((territories: TerritoryModel[]) => {
-                this.territories = territories;
-            });
+        .subscribe((territories: TerritoryModel[]) => {
+            this.territories = territories;
+        });
+
+        this.countryService.getCountries();
 
         if (localStorage.getItem('editmainhub')) {
-            this.pageTitle = 'Edit';
+            this.isEdit = true;
             this.mainhubs = JSON.parse(localStorage.getItem('editmainhub'));
             this.buildForm(this.mainhubs);
         } else {
+            this.isEdit = false;
             this.buildForm();
-            this.pageTitle = 'Add';
         }
     }
 
@@ -99,7 +101,7 @@ export class AddEditMainhubComponent implements OnInit, OnDestroy {
         this.mainhubService.addMainhub(this.mainhubForm.value).subscribe(
             res => {
                 this.mainhubService.getMainhubs();
-                this.router.navigate(['/admin/mainhub']);
+                this.router.navigate(['/admin/mainhubs']);
             }
         );
         this.mainhubForm.reset();

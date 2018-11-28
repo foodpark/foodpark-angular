@@ -137,7 +137,7 @@ export class AddEditMainHubManagerComponent implements OnInit, OnDestroy {
 
             this.hubManagerService.createMainHubManager(obj)
             .subscribe((response) => {
-                this.router.navigate(['/admin/mainhubmanager']);
+                this.router.navigate(['/admin/mainhubmanagers']);
             });
         } else {
             const obj = {
@@ -148,7 +148,7 @@ export class AddEditMainHubManagerComponent implements OnInit, OnDestroy {
 
             this.hubManagerService.updateMainHubManager(this.hubmanager['id'], obj)
             .subscribe((response) => {
-                this.router.navigate(['/admin/mainhubmanager']);
+                this.router.navigate(['/admin/mainhubmanagers']);
             });
         }
     }

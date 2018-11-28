@@ -60,21 +60,99 @@ table {
     border-bottom: 5px solid blue !important;
 }
 
-input[type=file] {
-    display: inline-block;
-    width: 100%;
-    padding: 120px 0 0 0;
-    height: 100px;
-    overflow: hidden;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    background: url('https://cdn1.iconfinder.com/data/icons/hawcons/32/698394-icon-130-cloud-upload-512.png') center center no-repeat #e4e4e4;
-    border-radius: 20px;
-    background-size: 60px 60px;
-}
+// input[type=file] {
+//     display: inline-block;
+//     width: 100%;
+//     padding: 120px 0 0 0;
+//     height: 100px;
+//     overflow: hidden;
+//     -webkit-box-sizing: border-box;
+//     -moz-box-sizing: border-box;
+//     box-sizing: border-box;
+//     background: url('https://cdn1.iconfinder.com/data/icons/hawcons/32/698394-icon-130-cloud-upload-512.png') center center no-repeat #e4e4e4;
+//     border-radius: 20px;
+//     background-size: 60px 60px;
+// }
 
 .mat-form-field {
-    font-size: 20px;
-    padding: 10px 0 0;
+  font-size: 20px;
+  padding: 10px 0 0;
+}
+
+// -- vars
+
+$height: 30 / 16 * 1em;
+$width: 72 / 16 * 1em;
+
+$color-white: #fefefe;
+$color-clouds: #ecf0f1;
+$color-silver: #bdc3c7;
+$color-peter-river: #3498db;
+$color-carrot: #e67e22;
+
+$transition-default: 0.25s ease-out 0.10s;
+
+// -- selectors
+
+
+.button-switch {
+    font-size: 1.5em;
+    height: 40px;
+    margin-bottom: 10 / 16 * 1em;
+    position: relative;
+    width: 108px;;
+
+    .switch {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        // --
+        height: 0;
+        font-size: 1em;
+        left: 0;
+        line-height: 0;
+        outline: none;
+        position: absolute;
+        top: 0;
+        width: 0;
+
+        &:before, &:after {
+            content: '';
+            font-size: 1em;
+            position: absolute;
+        }
+
+        &:before {
+            border-radius: 20 / 16 * 1em;
+            background: $color-silver;
+            height: $height;
+            height: 35px;
+            left: -2px;
+            top: -2px;
+            transition: background-color 0.25s ease-out 0.10s;;
+            width: 111px;
+        }
+
+        &:after {
+            box-shadow: 0 .0625em .375em 0 #666;
+            border-radius: 50%;
+            background: $color-white;
+            height: 30px;
+            transform: translate(0, 0);
+            transition: transform $transition-default;
+            width: 30px;
+        }
+
+        &:checked {
+            &:after {
+                transform: translate(40 / 16 * 1em, 0);
+            }
+        }
+
+        &#switch-blue {
+            &:checked:before {
+                background: #67c4ea;
+            }
+        }
+    }
 }
