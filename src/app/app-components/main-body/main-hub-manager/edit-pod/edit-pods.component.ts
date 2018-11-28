@@ -2,9 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
-import {CountryService} from '../../../../app-services/country.service';
-import {CountryModel, PodModel} from '../../../../model';
-import {Subscription} from 'rxjs';
+import {PodModel} from '../../../../model';
 import {PodsService} from 'src/app/app-services/pods.service';
 
 @Component({
@@ -33,7 +31,6 @@ export class EditPodsComponent implements OnInit, OnDestroy {
             sponsor: [this.pods['sponsor'], Validators.required],
             title: [this.pods['title'], Validators.required],
             connected_with: [this.pods['connected_with'], Validators.required],
-            // uploadAttachments: [null, Validators.required],
             type: [this.pods['type'], Validators.required],
             // wordFile: [null, Validators.required]
         });
