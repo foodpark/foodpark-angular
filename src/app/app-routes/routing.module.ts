@@ -25,6 +25,7 @@ import {AddEditMainhubComponent} from '../app-components/main-body/admin/add-edi
 import {AddEditMainHubManagerComponent} from '../app-components/main-body/admin/add-edit-main-hub-manager/add-edit-main-hub-manager.component';
 import {AddEditRegionalHubComponent} from '../app-components/main-body/main-hub-manager/add-edit-regional-hub/add-edit-regional-hub.component';
 import {EditPodsComponent} from '../app-components/main-body/main-hub-manager/edit-pod/edit-pods.component';
+import { PodManagersListingComponent } from '../app-components/main-body/main-hub-manager/pod-managers/pod-managers-listing/pod-managers-listing.component';
 
 
 const routes: Routes = [
@@ -111,10 +112,13 @@ const routes: Routes = [
             },
             {
                 path: 'distributioncentermanagement', component: DistributionCenterComponent,
-                children:[
-                  {path:'volunteers', component:VolunteersComponent}
+                children: [
+                  {path: 'volunteers', component: VolunteersComponent}
                 ]
             },
+            {
+                path: 'podmanagers', component: PodManagersListingComponent
+            }
         ]
     }
 ];

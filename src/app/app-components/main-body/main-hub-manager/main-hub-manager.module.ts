@@ -18,6 +18,7 @@ import {RemoveSpacesPipe} from '../../../app-pipes/removeSpaces.pipe';
 import {AddEditRegionalHubComponent} from './add-edit-regional-hub/add-edit-regional-hub.component';
 import {EditPodsComponent} from './edit-pod/edit-pods.component';
 import {MaterialModule} from '../../../app-modules/material.module';
+import { PodManagersListingComponent } from './pod-managers/pod-managers-listing/pod-managers-listing.component';
 // import { CalendarComponent } from './calendar/calendar.component';
 
 @NgModule({
@@ -44,6 +45,7 @@ import {MaterialModule} from '../../../app-modules/material.module';
         AddEditRegionalHubComponent,
         EditPodsComponent,
         // CalendarComponent
+        PodManagersListingComponent
     ],
     exports: [
         HubManagerDashboardComponent,
