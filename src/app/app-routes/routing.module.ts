@@ -13,6 +13,7 @@ import {LoadManagementComponent} from '../app-components/main-body/main-hub-mana
 import {HubPickupsComponent} from '../app-components/main-body/main-hub-manager/hub-pickups/hub-pickups.component';
 import {HubManagerComponent} from '../app-components/main-body/main-hub-manager/hub-manager/hub-manager.component';
 import {DistributionCenterComponent} from '../app-components/main-body/main-hub-manager/distrubution-center/distrubution-center.component';
+import {VolunteersComponent} from '../app-components/main-body/main-hub-manager/distrubution-center/volunteers/volunteers.component';
 
 
 import {AuthGuard} from '../app-services/auth.guard';
@@ -109,7 +110,10 @@ const routes: Routes = [
                 path: 'hubmanager', component: HubManagerComponent
             },
             {
-                path: 'distributioncentermanagement', component: DistributionCenterComponent
+                path: 'distributioncentermanagement', component: DistributionCenterComponent,
+                children:[
+                  {path:'volunteers', component:VolunteersComponent}
+                ]
             },
         ]
     }
