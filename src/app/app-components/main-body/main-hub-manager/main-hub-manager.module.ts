@@ -3,8 +3,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {RouterModule} from '@angular/router';
 
-import {MatDatepickerModule, MatNativeDateModule} from '@angular/material';
-import {MatMomentDateModule} from '@angular/material-moment-adapter';
 import {HubManagerDashboardComponent} from './hub-manager-dashboard/hub-manager-dashboard.component';
 import {RegionalHubComponent} from './regionalhub/regionalhub.component';
 import {ReportingComponent} from './reporting/reporting.component';
@@ -15,9 +13,12 @@ import {LoadManagementComponent} from './load-management/load-management.compone
 import {HubPickupsComponent} from './hub-pickups/hub-pickups.component';
 import {HubManagerComponent} from './hub-manager/hub-manager.component';
 import {DistributionCenterComponent} from './distrubution-center/distrubution-center.component';
+import {VolunteersComponent} from './distrubution-center/volunteers/volunteers.component';
 import {RemoveSpacesPipe} from '../../../app-pipes/removeSpaces.pipe';
 import {AddEditRegionalHubComponent} from './add-edit-regional-hub/add-edit-regional-hub.component';
-import { EditPodsComponent } from './edit-pod/edit-pods.component';
+import {EditPodsComponent} from './edit-pod/edit-pods.component';
+import {MaterialModule} from '../../../app-modules/material.module';
+import { CalendarComponent } from './calendar/calendar.component';
 
 @NgModule({
     imports: [
@@ -25,9 +26,7 @@ import { EditPodsComponent } from './edit-pod/edit-pods.component';
         ReactiveFormsModule,
         BrowserModule,
         RouterModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatMomentDateModule
+        MaterialModule
     ],
     declarations: [
         HubManagerDashboardComponent,
@@ -40,9 +39,11 @@ import { EditPodsComponent } from './edit-pod/edit-pods.component';
         HubPickupsComponent,
         HubManagerComponent,
         DistributionCenterComponent,
+        VolunteersComponent,
         RemoveSpacesPipe,
         AddEditRegionalHubComponent,
-        EditPodsComponent
+        EditPodsComponent,
+        CalendarComponent
     ],
     exports: [
         HubManagerDashboardComponent,
@@ -55,6 +56,7 @@ import { EditPodsComponent } from './edit-pod/edit-pods.component';
         HubPickupsComponent,
         HubManagerComponent,
         DistributionCenterComponent,
+        VolunteersComponent,
         RemoveSpacesPipe,
         AddEditRegionalHubComponent
     ],

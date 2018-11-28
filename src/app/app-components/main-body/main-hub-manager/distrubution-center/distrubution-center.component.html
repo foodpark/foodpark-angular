@@ -1,1 +1,13 @@
-<p style="padding-top:100px;display:flex;justify-content:center;width:100%;">this is distrubtion mangaer hub</p>
+<div class="dashboard_content_layout pod_applications">
+  <div class="sub_menu_layout">
+    <div class="sub_menu_layout&#45;&#45;actions">
+      <!-- <button type="button" name="button" [routerLink]="['./pods']">Pickup/Delivery</button> -->
+      <button type="button" name="button" >Pickup/Delivery</button>
+      <button type="button" name="button" [routerLink]="['./volunteers']">Volunteers</button>
+      <button type="button" name="button">Vendors</button>
+    </div>
+  </div>
+  <div class="">
+    <router-outlet></router-outlet>
+  </div>
+</div>
