@@ -2,17 +2,8 @@ import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgModule} from '@angular/core';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
-import {
-    MatInputModule,
-    MatCardModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatExpansionModule,
-    MatProgressSpinnerModule,
-    MatPaginatorModule,
-    MatDialogModule
-} from '@angular/material';
-import {AppComponent} from './app.component';
+
+
 import {HeaderComponent} from './app-components/header/header.component';
 import {FooterComponent} from './app-components/footer/footer.component';
 import {LoaderComponent} from './app-components/loader/loader.component';
@@ -24,6 +15,8 @@ import {LoginComponent} from './app-components/main-body/login/login.component';
 import {AdminModule} from './app-components/main-body/admin/admin.module';
 import {MainHubManagerModule} from './app-components/main-body/main-hub-manager/main-hub-manager.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {AppComponent} from './app.component';
+import {MaterialModule} from './app-modules/material.module';
 
 @NgModule({
     declarations: [
@@ -41,14 +34,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
-        MatInputModule,
-        MatCardModule,
-        MatButtonModule,
-        MatToolbarModule,
-        MatExpansionModule,
-        MatProgressSpinnerModule,
-        MatPaginatorModule,
-        MatDialogModule,
         AdminModule,
         MainHubManagerModule
     ],

@@ -32,7 +32,7 @@
                 <div class="form-group">
                     <h4>Select Hub</h4>
                     <div class="dropdown">
-                        <button id="country_button"
+                        <button id="hub_button"
                                 class="btn btn-primary dropdown-toggle"
                                 type="button"
                                 data-toggle="dropdown">Select
@@ -40,7 +40,7 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li
-                                (click)="onHubClick(i)">
+                                (click)="onHubClick()">
                                 {{mainHub?.name}}
                             </li>
                         </ul>
@@ -53,10 +53,10 @@
                             <h4>Sponsor Image</h4>
                             <input
                                 type="file"
-                                id="image"
-                                name="sponsor_image"
-                                formControlName="sponsor_image"
-                                accept="image/*"
+                                id="sponsor1_image"
+                                formControlName="sponsor1_image"
+                                accept=".png, .jpg, .jpeg"
+                                (onchange)="onImageUpload('sponsor1_image')"
                                 alt="Sponsor Image">
                         </div>
                         <div class="form-group">
@@ -72,10 +72,10 @@
                             <h4>Sponsor Image</h4>
                             <input
                                 type="file"
-                                id="image2"
-                                name="sponsor_image"
-                                formControlName="sponsor_image"
-                                accept="image/*"
+                                id="sponsor2_image"
+                                formControlName="sponsor2_image"
+                                accept=".png, .jpg, .jpeg"
+                                (onchange)="onImageUpload('sponsor2_image')"
                                 alt="Sponsor Image">
                         </div>
                         <div class="form-group">
@@ -96,27 +96,37 @@
                 </div>
                 <div class="form-group">
                     <h4>Start Date</h4>
-
+                    <mat-form-field>
+                        <input matInput [matDatepicker]="picker1" placeholder="Choose a date" id="start_date">
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
                 </div>
                 <div class="form-group">
                     <h4>End Date</h4>
-
+                    <mat-form-field>
+                        <input matInput [matDatepicker]="picker2" placeholder="Choose a date" id="end_date">
+                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                    </mat-form-field>
                 </div>
                 <div class="form-group">
                     <h4>Start Time</h4>
                     <input
+                        id="start_time"
                         type="text"
                         formControlName="start_time"
                         class="form-control"
-                        placeholder="Start Time">
+                        placeholder="10:10">
                 </div>
                 <div class="form-group">
                     <h4>End Time</h4>
                     <input
+                        id="end_time"
                         type="text"
                         formControlName="end_time"
                         class="form-control"
-                        placeholder="End Time">
+                        placeholder="11:11">
                 </div>
                 <button
                     type="submit"
