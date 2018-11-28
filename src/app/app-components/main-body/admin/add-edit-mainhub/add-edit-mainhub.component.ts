@@ -101,7 +101,7 @@ export class AddEditMainhubComponent implements OnInit, OnDestroy {
         this.mainhubService.addMainhub(this.mainhubForm.value).subscribe(
             res => {
                 this.mainhubService.getMainhubs();
-                this.router.navigate(['/admin/mainhub']);
+                this.router.navigate(['/admin/mainhubs']);
             }
         );
         this.mainhubForm.reset();

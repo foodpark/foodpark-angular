@@ -47,13 +47,13 @@ const routes: Routes = [
                 path: 'addterritory', component: AddEditTerritoryComponent, children: []
             },
             {
-                path: 'mainhub', component: MainHubsListingComponent, children: []
+                path: 'mainhubs', component: MainHubsListingComponent, children: []
             },
             {
                 path: 'editmainhub', component: AddEditMainhubComponent, children: []
             },
             {
-                path: 'mainhubmanager', component: MainhubManagerListingComponent, children: []
+                path: 'mainhubmanagers', component: MainhubManagerListingComponent, children: []
             },
             {
                 path: 'addmainhubmanager', component: AddEditMainHubManagerComponent, children: []
