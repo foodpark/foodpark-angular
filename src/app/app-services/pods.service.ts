@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {Subject} from 'rxjs';
-import {PodModel} from '../model';
+import {PodModel, PodmanagerModel} from '../model';
 
 @Injectable({
     providedIn: 'root'
@@ -11,12 +11,17 @@ import {PodModel} from '../model';
 export class PodsService {
     private pods: PodModel[] = [];
     private podsUpdated = new Subject<PodModel[]>();
+    private podManagers: PodmanagerModel[] = [];
+    private podmanagersUpdated = new Subject<PodmanagerModel[]>();
 
-    constructor(private http: HttpClient) {
-    }
+    constructor(private http: HttpClient) {}
 
     getPodsUpdateListener() {
         return this.podsUpdated.asObservable();
+    }
+
+    getPodmanagersUpdateListener() {
+    return  this.podmanagersUpdated.asObservable();
     }
 
     getAllPods() {
@@ -52,5 +57,13 @@ export class PodsService {
 
     deletePod(deletePodID) {
         return this.http.delete(environment.apiUrl + '/api/v1/rel/churches/' + deletePodID);
+    }
+
+    getPodManagers() {
+        return this.http.get<PodmanagerModel[]>(environment.apiUrl + '/api/v1/rel/users?role=PODMGR')
+        .subscribe((podmanagersData) => {
+            this.podManagers = podmanagersData;
+            this.podmanagersUpdated.next([...this.podManagers]);
+        });
     }
 }
