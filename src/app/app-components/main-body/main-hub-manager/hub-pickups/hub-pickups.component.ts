@@ -35,9 +35,9 @@ export class HubPickupsComponent implements OnInit {
             longitude: ['', Validators.required],
         });
         this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
-        .subscribe((response) => {
-            this.mainHub = response[0];
-        });
+            .subscribe((response) => {
+                this.mainHub = response[0];
+            });
     }
 
     onHubClick() {
