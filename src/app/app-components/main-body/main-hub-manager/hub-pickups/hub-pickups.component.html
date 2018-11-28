@@ -1,29 +1,33 @@
 <div class="absolute-position">
     <section class="greybg center ">
-        <h2 class="page-header" style="margin: 10px 80px;">{{pageTitle}}</h2>
+        <h2 class="page-header" style="margin: 10px 80px;height: 50px;">{{pageTitle}}</h2>
         <div class="container-fluid col-sm-12 menu_detail shell bg_1">
-            <form [formGroup]="form">
+            <form [formGroup]="hubPickupForm">
                 <div class="form-group">
-                    <h4>Name</h4>
+                    <h4>Event Name</h4>
                     <input
                         type="text"
-                        formControlName="territory"
+                        formControlName="event_name"
                         class="form-control"
-                        placeholder="Main Hub Name"
-                        value="{{territory?.territory || ''}}">
+                        placeholder="Event Name">
                 </div>
                 <div class="form-group">
-                    <h4>Description</h4>
-
-                </div>
-                <div class="form-group">
-                    <h4>Image</h4>
+                    <h4>Event Description</h4>
                     <input
                         type="text"
-                        formControlName="latitude"
+                        formControlName="event_description"
                         class="form-control"
-                        placeholder="ex: 5.342378"
-                        value="{{territory?.latitude || ''}}">
+                        placeholder="Event Description">
+                </div>
+                <div class="form-group">
+                    <h4>Event Image</h4>
+                    <input
+                        type="file"
+                        id="file"
+                        name="event_image"
+                        formControlName="event_image"
+                        accept="image/*"
+                        alt="Event Image">
                 </div>
                 <div class="form-group">
                     <h4>Select Hub</h4>
@@ -31,62 +35,92 @@
                         <button id="country_button"
                                 class="btn btn-primary dropdown-toggle"
                                 type="button"
-                                data-toggle="dropdown">{{territory?.country || 'Select country'}}
+                                data-toggle="dropdown">Select
                         </button>
                         <ul class="dropdown-menu">
-                            <li *ngFor="let item of countries; let i = index" (click)="onCountryClick(i)">
-                                {{item.name}}
+                            <li
+                                (click)="onHubClick(i)">
+                                {{mainHub?.name}}
                             </li>
                         </ul>
                     </div>
                 </div>
-                <div class="form-group">
-                    <h4>Latitude</h4>
-                    <label></label>
+                <h4>Sponsor</h4>
+                <div style="display: flex;justify-content: space-between;">
+                    <div>
+                        <div class="form-group">
+                            <h4>Sponsor Image</h4>
+                            <input
+                                type="file"
+                                id="image"
+                                name="sponsor_image"
+                                formControlName="sponsor_image"
+                                accept="image/*"
+                                alt="Sponsor Image">
+                        </div>
+                        <div class="form-group">
+                            <input
+                                type="text"
+                                formControlName="sponsor_name"
+                                class="form-control"
+                                placeholder="Sponsor Name">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            <h4>Sponsor Image</h4>
+                            <input
+                                type="file"
+                                id="image2"
+                                name="sponsor_image"
+                                formControlName="sponsor_image"
+                                accept="image/*"
+                                alt="Sponsor Image">
+                        </div>
+                        <div class="form-group">
+                            <input
+                                type="text"
+                                formControlName="sponsor_name"
+                                class="form-control"
+                                placeholder="Sponsor Name">
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <h4>Longitude</h4>
-                    <label></label>
+                    <h4>Add Sponsor Name</h4>
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Sponsor Name">
                 </div>
                 <div class="form-group">
                     <h4>Start Date</h4>
-                    <!--<mat-form-field>-->
-                        <!--<input matInput [matDatepicker]="picker3" placeholder="Value binding" [value]="date.value">-->
-                        <!--<mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>-->
-                        <!--<mat-datepicker #picker3></mat-datepicker>-->
-                    <!--</mat-form-field>-->
+
                 </div>
                 <div class="form-group">
                     <h4>End Date</h4>
-                    <input
-                        type="text"
-                        formControlName="latitude"
-                        class="form-control"
-                        placeholder="ex: 5.342378"
-                        value="{{territory?.latitude || ''}}">
+
                 </div>
                 <div class="form-group">
                     <h4>Start Time</h4>
                     <input
                         type="text"
-                        formControlName="longitude"
+                        formControlName="start_time"
                         class="form-control"
-                        placeholder="ex: 78.324789"
-                        value="{{territory?.longitude || ''}}">
+                        placeholder="Start Time">
                 </div>
                 <div class="form-group">
                     <h4>End Time</h4>
                     <input
                         type="text"
-                        formControlName="latitude"
+                        formControlName="end_time"
                         class="form-control"
-                        placeholder="ex: 5.342378"
-                        value="{{territory?.latitude || ''}}">
+                        placeholder="End Time">
                 </div>
                 <button
                     type="submit"
                     class="btn btn-default"
-                    (click)="onSaveClick(form.value)">SAVE
+                    (click)="onSaveClick()">SAVE
                 </button>
             </form>
         </div>
