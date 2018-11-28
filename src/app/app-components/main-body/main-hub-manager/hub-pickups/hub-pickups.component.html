@@ -31,7 +31,7 @@
                         <button id="country_button"
                                 class="btn btn-primary dropdown-toggle"
                                 type="button"
-                                data-toggle="dropdown">{{territory?.country || 'Select country'}}
+                                data-toggle="dropdown">{{territory?.country || 'Select'}}
                         </button>
                         <ul class="dropdown-menu">
                             <li *ngFor="let item of countries; let i = index" (click)="onCountryClick(i)">
