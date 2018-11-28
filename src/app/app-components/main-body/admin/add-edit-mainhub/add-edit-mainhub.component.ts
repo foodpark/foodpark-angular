@@ -104,9 +104,9 @@ export class AddEditMainhubComponent implements OnInit, OnDestroy {
         );
         this.mainhubForm.reset();
         const country_button = document.getElementById('country_button');
-        country_button.innerText = 'Select country';
+        country_button.innerText = 'Select';
         const territory_button = document.getElementById('territory_button');
-        territory_button.innerText = 'Select territory';
+        territory_button.innerText = 'Select';
     }
 
     ngOnDestroy() {
