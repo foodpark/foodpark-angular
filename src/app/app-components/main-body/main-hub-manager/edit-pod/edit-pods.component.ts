@@ -17,7 +17,7 @@ export class EditPodsComponent implements OnInit, OnDestroy {
     podId: number;
     pods: PodModel[] = [];
     churchType = ['Church', 'Non-Profit', 'Non-Religious', 'Non-Denominational', 'Other'];
-    connectedWith = ['Church', 'Non-Profit', 'Non-Religious', 'Other'];
+    connectedBy = ['Personal Referral', 'Google Search', 'Social Media', 'Other'];
 
     constructor(private formBuilder: FormBuilder,
                 private route: Router,
@@ -34,7 +34,7 @@ export class EditPodsComponent implements OnInit, OnDestroy {
             longitude: [this.pods['longitude'], Validators.required],
             sponsor: [this.pods['sponsor'], Validators.required],
             title: [this.pods['title'], Validators.required],
-            connected_with: ['connected_with', Validators.required],
+            connected_with: [this.pods['connected_with'], Validators.required],
             // uploadAttachments: [null, Validators.required],
             type: ['', Validators.required],
             // wordFile: [null, Validators.required]

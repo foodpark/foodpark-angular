@@ -16,9 +16,8 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
     registerpodform: FormGroup;
     countries: CountryModel[] = [];
     private countriesSubscription: Subscription;
-    private messages: any;
     churchType = ['Church', 'Non-Profit', 'Non-Religious', 'Non-Denominational', 'Other'];
-    connectedBy = ['Church', 'Non-Profit', 'Non-Religious', 'Other'];
+    connectedBy = ['Personal Referral', 'Google Search', 'Social Media', 'Other'];
 
     constructor(private formBuilder: FormBuilder,
                 private route: Router,
@@ -74,7 +73,7 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
 
     createPod() {
         const obj = {
-            'role': 'OWNER',
+            'role': 'PODMGR',
             'email': this.registerpodform.get('email').value,
             'first_name': this.registerpodform.get('firstname').value,
             'last_name': this.registerpodform.get('lastname').value,
@@ -85,20 +84,32 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
 
         this.podService.registerPodManager(obj)
             .subscribe((response) => {
-                const updatePodObj = {
-                    'title': this.registerpodform.get('title').value,
-                    'connected_with': this.registerpodform.get('connectedBy').value,
-                    'sponsor': this.registerpodform.get('sponsor').value,
-                    'latitude': this.registerpodform.get('latitude').value,
-                    'longitude': this.registerpodform.get('longitude').value,
-                    'type': this.registerpodform.get('type').value,
-                    'approved': true
-                };
+                const updatePodData = new FormData();
+                const title = this.registerpodform.get('title').value;
+                updatePodData.append('id', response['user']['church_id']);
+                updatePodData.append('title', title);
+                updatePodData.append('connected_with', this.registerpodform.get('connectedBy').value);
+                updatePodData.append('sponsor', this.registerpodform.get('sponsor').value);
+                updatePodData.append('latitude', this.registerpodform.get('latitude').value);
+                updatePodData.append('longitude', this.registerpodform.get('longitude').value);
+                updatePodData.append('type', this.registerpodform.get('type').value);
+                // updatePodData.append('file', this.registerpodform.get('wordFile'), title);
+                updatePodData.append('approved', 'true');
 
-                this.podService.updatePod(response['user']['church_id'], updatePodObj)
-                    .subscribe(() => {
-                        this.route.navigate(['/hubmanager/podapplications']);
-                    });
+                // const updatePodObj = {
+                //     'title': this.registerpodform.get('title').value,
+                //     'connected_with': this.registerpodform.get('connectedBy').value,
+                //     'sponsor': this.registerpodform.get('sponsor').value,
+                //     'latitude': this.registerpodform.get('latitude').value,
+                //     'longitude': this.registerpodform.get('longitude').value,
+                //     'type': this.registerpodform.get('type').value,
+                //     'approved': true
+                // };
+
+                this.podService.updatePod(response['user']['church_id'], updatePodData)
+                .subscribe(() => {
+                    this.route.navigate(['/hubmanager/podapplications']);
+                });
             });
     }
 

@@ -14,7 +14,7 @@ import { TerritoryService } from 'src/app/app-services/territory.service';
 export class MainHubsListingComponent implements OnInit, OnDestroy {
     mainhubs: MainhubModel[] = [];
     private mainhubsSubscription: Subscription;
-    private countries = [];
+    countries = [];
     private countriesSubscription: Subscription;
     private selectedCountryName: string;
 
