@@ -6,19 +6,21 @@ import { MainhubService } from 'src/app/app-services/mainhub.service';
 
 
 @Component({
-  selector: 'Volunteers',
+  selector: 'app-volunteers',
   templateUrl: './volunteers.component.html',
 
 })
 export class VolunteersComponent implements OnInit {
   allvolunters: any;
-  mainHub : any;
-  mainhubId : any;
-  constructor(private PodsService:PodsService, private mainhubService:MainhubService) {
-    this.getmainhubid();
+  mainHub: any;
+  mainhubId: any;
 
+  constructor(private podsService: PodsService,
+                private mainhubService: MainhubService) {
+    this.getmainhubid();
   }
-  getmainhubid(){
+
+  getmainhubid() {
     this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
     .subscribe((response) => {
         this.mainHub = response[0];
@@ -26,13 +28,13 @@ export class VolunteersComponent implements OnInit {
         console.log(this.mainHub.id);
         this.getAllVolunteers();
     });
-
   }
-  getAllVolunteers(){
-    this.PodsService.apiGetVolunteers(this.mainhubId).subscribe((response)=>{
+
+  getAllVolunteers() {
+    this.podsService.apiGetVolunteers(this.mainhubId).subscribe((response) => {
       this.allvolunters = response;
-      console.log('this is all users',this.allvolunters)
-    }, (error)=>{
+      console.log('this is all users', this.allvolunters);
+    }, (error) => {
 
     });
   }

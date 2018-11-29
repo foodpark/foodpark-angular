@@ -1,4 +1,4 @@
-<div class="canvas inner_wrapper pt35" style="position: absolute;top: 100px;">
+<!-- <div class="canvas inner_wrapper pt35" style="position: absolute;top: 100px;">
     <section class="greybg center ">
         <div class="container-fluid col-sm-12 menu_detail shell bg_1">
             <form [formGroup]="loginForm">
@@ -27,7 +27,38 @@
             </form>
         </div>
     </section>
+</div> -->
+
+
+<div class="canvas inner_wrapper pt35" style="position: absolute;top: 100px;">
+    <section class="greybg center ">
+        <div class="container-fluid col-sm-12 menu_detail shell bg_1">
+            <form [formGroup]="loginForm">
+                <div class="form-group">
+                    <input
+                        type="email"
+                        formControlName="username"
+                        class="form-control"
+                        placeholder="User Name"
+                        required>
+                        <p class="" *ngIf="formErrors.username">{{formErrors.username}}</p>
+                </div>
+                <div class="form-group">
+                    <input
+                        type="password"
+                        formControlName="password"
+                        class="form-control"
+                        placeholder="Password"
+                        required>
+                        <p class="" *ngIf="formErrors.password">{{formErrors.password}}</p>
+                </div>
+                <button
+                    type="submit"
+                    class="btn btn-default"
+                    (click)="onLoginClick()"
+                    [disabled]=!loginForm.valid>Login
+                </button>
+            </form>
+        </div>
+    </section>
 </div>
-
-
-

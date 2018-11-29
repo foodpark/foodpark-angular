@@ -19,23 +19,79 @@ export class LoginComponent implements OnInit, OnDestroy {
     constructor(private formBuilder: FormBuilder,
                 public authService: AuthService) {}
 
+    formErrors = {
+        'username': '',
+        'password': ''
+      };
+    // Form Error Object
+    validationMessages = {
+     'username': {
+       'required': 'username  required',
+       'pattern' : 'Enter a valid username'
+     },
+     'password': {
+       'required': 'Password required',
+       'minlength' : 'Enter valid password'
+     }
+    };
+
     ngOnInit() {
         this.loginForm = this.formBuilder.group({
             username: ['', Validators.required],
             password: ['', Validators.required]
         });
+
         this.authStatusSubscription = this.authService.getAuthStatusListener().subscribe(
             authStatus => {
                 this.isLoading = false;
             }
         );
+
+        this.loginForm.valueChanges
+          .subscribe(data => this.onValueChanged(data));
+        this.onValueChanged(); // (re)set validation messages now
     }
+
+    onValueChanged(data?: any) {
+        if (!this.loginForm) { return; }
+        const form = this.loginForm;
+        for (const field in this.formErrors) {
+          // clear previous error message (if any)
+          this.formErrors[field] = '';
+          const control = form.get(field);
+          if (control && control.dirty && !control.valid) {
+            const messages = this.validationMessages[field];
+            for (const key in control.errors) {
+              this.formErrors[field] += messages[key] + ' ';
+            }
+          }
+
+        }
+
+      }
 
     get f() {
         return this.loginForm.controls;
     }
 
     onLoginClick() {
+        if(!this.loginForm.valid){
+           console.log("Form Is not Valid-------->");
+           if (!this.loginForm) { return; }
+           const form = this. loginForm;
+           for (const field in this.formErrors) {
+             // clear previous error message (if any)
+             this.formErrors[field] = '';
+             const control = form.get(field);
+             if (control && !control.valid) {
+               const messages = this.validationMessages[field];
+               for (const key in control.errors) {
+                 this.formErrors[field] += messages[key] + ' ';
+               }
+             }
+           }
+         }
+
         if (this.loginForm.invalid) {
             return;
         }

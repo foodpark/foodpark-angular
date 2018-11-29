@@ -51,6 +51,16 @@ export class HubPickupsComponent implements OnInit {
     }
 
     onSaveClick() {
+        // const start_date = document.getElementById('start_date');
+        // const end_date = document.getElementById('end_date');
+        // this.hubPickupForm.get('start_date').setValue(start_date.value);
+        // this.hubPickupForm.get('end_date').setValue(end_date.value);
+        // const obj = {
+        //     latitude: this.mainHub['latitude'],
+        //     longitude: this.mainHub['longitude']
+        // };
+        // this.hubPickupForm.patchValue(obj);
+        // this.http.post(environment.apiUrl + 'api/v1/rel/events', this.hubPickupForm.value);
         const start_date = document.getElementById('start_date');
         const end_date = document.getElementById('end_date');
         this.hubPickupForm.get('start_date').setValue(start_date);
