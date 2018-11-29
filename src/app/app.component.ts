@@ -22,8 +22,6 @@ export class AppComponent implements OnInit {
         this.authService.autoAuthUser();
         this.router.events
             .subscribe((event) => {
-              console.log('it enters here');
-
                 if(event instanceof NavigationStart) {
                   document.getElementById('loader').classList.remove('hide1');
                 }

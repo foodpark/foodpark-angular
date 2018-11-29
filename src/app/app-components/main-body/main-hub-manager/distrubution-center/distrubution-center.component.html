@@ -1,10 +1,10 @@
 <div class="dashboard_content_layout pod_applications">
   <div class="sub_menu_layout">
-    <div class="sub_menu_layout&#45;&#45;actions">
-      <!-- <button type="button" name="button" [routerLink]="['./pods']">Pickup/Delivery</button> -->
-      <button type="button" name="button" >Pickup/Delivery</button>
-      <button type="button" name="button" [routerLink]="['./volunteers']">Volunteers</button>
-      <button type="button" name="button">Vendors</button>
+    <div class="sub_menu_layout_actions distribution_menu">
+      <!-- <button type="button" name="button" [routerLink]="['./pods']" [routerLink]="['./volunteers']">Pickup/Delivery</button> -->
+      <p>Pickup/Delivery</p>
+      <p [ngClass]="{active: currentpage.name == 'VOLUNTEERS'}"  (click)="currentpage.name = 'VOLUNTEERS'" [routerLink]="['./volunteers']">Volunteers</p>
+      <p>Vendors</p>
     </div>
   </div>
   <div class="">

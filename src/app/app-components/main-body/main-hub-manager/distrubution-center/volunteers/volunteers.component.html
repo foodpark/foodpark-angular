@@ -1,34 +1,36 @@
 <table class="table table-borderless">
     <thead>
-    <tr>
+      <tr>
         <th>Name</th>
         <th>Avilablity</th>
         <th>Phone</th>
         <th style="width: 5%;text-align: center;">Delete</th>
-    </tr>
+      </tr>
     </thead>
     <tbody>
-    <tr>
-      <td>
-        hjnvng
-      </td>
-      <td>
-        <div class="button-switch">
-          <input type="checkbox" id="switch-blue" class="switch" checked />
-          <!-- <label for="switch-blue" class="lbl-off"></label>
-          <label for="switch-blue" class="lbl-on"></label> -->
-        </div>
-      </td>
-      <td>
-        jhk,hjh
-      </td>
-      <td style="text-align: center;">
-          <i class="material-icons" (click)="onDeleteClick(item['id'])">
-              delete
-          </i>
-      </td>
-      <td>
-      </td>
-    </tr>
+      <tr *ngFor="let item of allvolunters">
+        <td>
+        {{item.name}}
+        </td>
+        <td>
+          <div class="button-switch">
+            <input type="checkbox" id="switch-blue" class="switch" checked *ngIf="item.available == true"/>
+            <input type="checkbox" id="switch-blue" class="switch"  *ngIf="item.available == false"/>
+            <!-- <label for="switch-blue" class="lbl-off"></label>
+            <label for="switch-blue" class="lbl-on"></label> -->
+          </div>
+        </td>
+        <td>
+          {{item.phone}}
+        </td>
+        <td style="text-align: center;">
+            <i class="material-icons" (click)="onDeleteClick(item['id'])">
+                delete
+            </i>
+        </td>
+        <td>
+        </td>
+      </tr>
+      <button type="button" name="button">New Volunteer</button>
     </tbody>
 </table>
