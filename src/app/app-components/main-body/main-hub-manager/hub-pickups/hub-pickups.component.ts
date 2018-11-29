@@ -8,6 +8,7 @@ import {environment} from '../../../../../environments/environment.prod';
 @Component({
     selector: 'app-hub-pickups',
     templateUrl: './hub-pickups.component.html',
+
 })
 export class HubPickupsComponent implements OnInit {
     pageTitle = 'Hub Pickups';
@@ -38,6 +39,7 @@ export class HubPickupsComponent implements OnInit {
             .subscribe((response) => {
                 this.mainHub = response[0];
             });
+
     }
 
     onHubClick() {
@@ -51,8 +53,8 @@ export class HubPickupsComponent implements OnInit {
     onSaveClick() {
         const start_date = document.getElementById('start_date');
         const end_date = document.getElementById('end_date');
-        this.hubPickupForm.get('start_date').setValue(start_date.value);
-        this.hubPickupForm.get('end_date').setValue(end_date.value);
+        this.hubPickupForm.get('start_date').setValue(start_date);
+        this.hubPickupForm.get('end_date').setValue(end_date);
         const obj = {
             latitude: this.mainHub['latitude'],
             longitude: this.mainHub['longitude']

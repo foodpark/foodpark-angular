@@ -30,5 +30,3 @@ export class PodManagersListingComponent implements OnInit, OnDestroy {
         this.podmanagerSubscription.unsubscribe();
     }
 }
-
-
