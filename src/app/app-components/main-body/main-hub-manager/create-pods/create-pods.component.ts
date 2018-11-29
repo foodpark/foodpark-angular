@@ -35,13 +35,12 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
             church_name: ['', Validators.required],
             country_id: ['', Validators.required],
             country: ['', Validators.required],
-            latitude: ['', Validators.required],
-            longitude: ['', Validators.required],
             sponsor: ['', Validators.required],
             title: ['', Validators.required],
-            connectedBy: ['', Validators.required],
-            uploadAttachments: [null, Validators.required],
             type : ['', Validators.required],
+            connectedBy: ['', Validators.required],
+            latitude: ['', Validators.required],
+            longitude: ['', Validators.required],
             wordFile: [null, Validators.required]
         });
 
@@ -86,15 +85,15 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
             .subscribe((response) => {
                 const updatePodData = new FormData();
                 const title = this.registerpodform.get('title').value;
-                updatePodData.append('name', this.registerpodform.get('church_name').value);
+                updatePodData.append('name', this.registerpodform.value.church_name);
                 updatePodData.append('id', response['user']['church_id']);
                 updatePodData.append('title', title);
-                updatePodData.append('connected_with', this.registerpodform.get('connectedBy').value);
-                updatePodData.append('sponsor', this.registerpodform.get('sponsor').value);
-                updatePodData.append('latitude', this.registerpodform.get('latitude').value);
-                updatePodData.append('longitude', this.registerpodform.get('longitude').value);
-                updatePodData.append('type', this.registerpodform.get('type').value);
-                // updatePodData.append('file', this.registerpodform.get('wordFile'), title);
+                updatePodData.append('connected_with', this.registerpodform.value.connectedBy);
+                updatePodData.append('sponsor', this.registerpodform.value.sponsor);
+                updatePodData.append('latitude', this.registerpodform.value.latitude);
+                updatePodData.append('longitude', this.registerpodform.value.longitude);
+                updatePodData.append('type', this.registerpodform.value.type);
+                // updatePodData.append('file', this.registerpodform.value.wordFile, title);
                 updatePodData.append('approved', 'true');
 
                 // const updatePodObj = {

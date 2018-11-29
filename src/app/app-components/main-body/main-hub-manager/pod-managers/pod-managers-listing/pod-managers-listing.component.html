@@ -1,0 +1,24 @@
+<div class="absolute-position">
+    <div class="title-center">
+        <h2>Pod Managers</h2>
+    </div>
+    <table class="table table-borderless">
+        <thead>
+            <tr>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>email</th>
+                <th style="width: 5%;text-align: center;">Edit</th>
+                <th style="width: 5%;text-align: center;">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of podManagers; let i = index">
+                <td>{{item['first_name']}</td>
+                <td>{{item['last_name']}</td>
+                <td>{{item['email']}</td>
+            </tr>
+        </tbody>
+    </table>
+    <router-outlet></router-outlet>
+</div>

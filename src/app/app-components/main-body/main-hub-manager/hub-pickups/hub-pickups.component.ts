@@ -8,7 +8,6 @@ import {environment} from '../../../../../environments/environment.prod';
 @Component({
     selector: 'app-hub-pickups',
     templateUrl: './hub-pickups.component.html',
-
 })
 export class HubPickupsComponent implements OnInit {
     pageTitle = 'Hub Pickups';
@@ -39,7 +38,6 @@ export class HubPickupsComponent implements OnInit {
             .subscribe((response) => {
                 this.mainHub = response[0];
             });
-
     }
 
     onHubClick() {

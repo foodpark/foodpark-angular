@@ -16,6 +16,14 @@ export interface CountryModel {
     country_code: string;
 }
 
+export interface PodmanagerModel {
+    id: number;
+    first_name: string;
+    last_name: string;
+    email: string;
+    country_id: number;
+}
+
 export interface HubmanagerModel {
     id: number;
     role: string;
@@ -61,4 +69,8 @@ export interface PodModel {
     longitude: number;
     approved: boolean;
     type: string;
+}
+
+export interface HubPickupModel {
+    id: number;
 }

@@ -75,8 +75,8 @@ input[type=file] {
 }
 
 .mat-form-field {
-  font-size: 20px;
-  padding: 10px 0 0;
+    font-size: 20px;
+    padding: 10px 0 0;
 }
 
 // -- vars
@@ -94,68 +94,66 @@ $transition-default: 0.25s ease-out 0.10s;
 
 // -- selectors
 
-
 .button-switch {
-  font-size: 1.5em;
-  height: 40px;
-  margin-bottom: 10 / 16 * 1em;
-  position: relative;
-  width: 108px;;
+    font-size: 1.5em;
+    height: 40px;
+    margin-bottom: 10 / 16 * 1em;
+    position: relative;
+    width: 108px;;
 
-  .switch {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    // --
-    height: 0;
-    font-size: 1em;
-    left: 0;
-    line-height: 0;
-    outline: none;
-    position: absolute;
-    top: 0;
-    width: 0;
+    .switch {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        // --
+        height: 0;
+        font-size: 1em;
+        left: 0;
+        line-height: 0;
+        outline: none;
+        position: absolute;
+        top: 0;
+        width: 0;
 
-    &:before,
-    &:after {
-      content: '';
-      font-size: 1em;
-      position: absolute;
+        &:before, &:after {
+            content: '';
+            font-size: 1em;
+            position: absolute;
+        }
+
+        &:before {
+            border-radius: 20 / 16 * 1em;
+            background: $color-silver;
+            height: $height;
+            height: 35px;
+            left: -2px;
+            top: -2px;
+            transition: background-color 0.25s ease-out 0.10s;;
+            width: 111px;
+        }
+
+        &:after {
+            box-shadow: 0 .0625em .375em 0 #666;
+            border-radius: 50%;
+            background: $color-white;
+            height: 30px;
+            transform: translate(0, 0);
+            transition: transform $transition-default;
+            width: 30px;
+        }
+
+        &:checked {
+            &:after {
+                transform: translate(40 / 16 * 1em, 0);
+            }
+        }
+
+        &#switch-blue {
+            &:checked:before {
+                background: #67c4ea;
+            }
+        }
     }
-
-    &:before {
-      border-radius: 20 / 16 * 1em;
-      background: $color-silver;
-      height: $height;
-      height: 35px;
-      left: -2px;
-      top: -2px;
-      transition: background-color 0.25s ease-out 0.10s;;
-      width: 111px;
-    }
-
-    &:after {
-      box-shadow: 0 .0625em .375em 0 #666;
-      border-radius: 50%;
-      background: $color-white;
-      height: 30px;
-      transform: translate(0, 0);
-      transition: transform $transition-default;
-      width: 30px;
-    }
-
-    &:checked {
-      &:after {
-        transform: translate(40 / 16 * 1em, 0);
-      }
-    }
-
-    &#switch-blue {
-      &:checked:before {
-        background: #67c4ea;
-      }
-    }
-  }
 }
 
 
