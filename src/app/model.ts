@@ -37,6 +37,7 @@ export interface HubmanagerModel {
 }
 
 export interface MainhubModel {
+    id: number;
     name: string;
     territory_id: number;
     country: string;

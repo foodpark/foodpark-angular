@@ -25,6 +25,14 @@ export class RegionalhubsService {
             });
     }
 
+    getRegionalHubsInMainHub(mainHubId: number) {
+        this.http.get<RegionalHubModel[]>(environment.apiUrl + '/api/v1/rel/regionalhubs?food_park_id=' + mainHubId)
+            .subscribe((regionalHubData) => {
+                this.regionalHubs = regionalHubData;
+                this.regionalUpdated.next([...this.regionalHubs]);
+            });
+    }
+
     addRegionalHub(data) {
         return this.http.post<RegionalHubModel>(environment.apiUrl + '/api/v1/rel/regionalhubs', data)
             .subscribe((response) => {
