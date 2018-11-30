@@ -21,7 +21,7 @@ import {MaterialModule} from '../../../app-modules/material.module';
 import {PodManagersListingComponent} from './pod-managers/pod-managers-listing/pod-managers-listing.component';
 import { HubPickupListingComponent } from './hub-pickup-listing/hub-pickup-listing.component';
 import { EditHubpickupComponent } from './edit-hubpickup/edit-hubpickup.component';
-import { AddEditPodManagerComponent } from './pod-managers/add-edit-pod-manager/add-edit-pod-manager.component';
+import { EditPodManagerComponent } from './pod-managers/edit-pod-manager/edit-pod-manager.component';
 
 @NgModule({
     imports: [
@@ -47,7 +47,7 @@ import { AddEditPodManagerComponent } from './pod-managers/add-edit-pod-manager/
         AddEditRegionalHubComponent,
         EditPodsComponent,
         PodManagersListingComponent,
-        AddEditPodManagerComponent,
+        EditPodManagerComponent,
         HubPickupListingComponent,
         EditHubpickupComponent
     ],

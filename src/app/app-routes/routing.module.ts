@@ -28,6 +28,7 @@ import {EditPodsComponent} from '../app-components/main-body/main-hub-manager/ed
 import {PodManagersListingComponent} from '../app-components/main-body/main-hub-manager/pod-managers/pod-managers-listing/pod-managers-listing.component';
 import {EditHubpickupComponent} from '../app-components/main-body/main-hub-manager/edit-hubpickup/edit-hubpickup.component';
 import {HubPickupListingComponent} from '../app-components/main-body/main-hub-manager/hub-pickup-listing/hub-pickup-listing.component';
+import { EditPodManagerComponent } from '../app-components/main-body/main-hub-manager/pod-managers/edit-pod-manager/edit-pod-manager.component';
 
 
 const routes: Routes = [
@@ -126,6 +127,9 @@ const routes: Routes = [
             },
             {
                 path: 'podmanagers', component: PodManagersListingComponent
+            },
+            {
+                path: 'editpodmanager', component: EditPodManagerComponent
             }
         ]
     }

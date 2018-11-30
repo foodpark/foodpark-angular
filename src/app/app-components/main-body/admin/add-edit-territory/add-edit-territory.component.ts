@@ -29,13 +29,13 @@ export class AddEditTerritoryComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.countryService.getCountries();
         this.countriesSubscription = this.countryService.getCountriesUpdateListener()
-            .subscribe((countries: CountryModel[]) => {
-                if (countries.length > 0) {
-                    this.countries = countries;
-                }
-            });
+        .subscribe((countries: CountryModel[]) => {
+            if (countries.length > 0) {
+                this.countries = countries;
+            }
+        });
+        this.countryService.getCountries();
 
         if (localStorage.getItem('editterritory')) {
             this.isEditTerritory = true;
