@@ -24,6 +24,7 @@ import { EditHubpickupComponent } from './edit-hubpickup/edit-hubpickup.componen
 import { EditPodManagerComponent } from './pod-managers/edit-pod-manager/edit-pod-manager.component';
 
 import {PodManagerDashboardComponent} from './pod-manager-dashboard/pod-manager-dashboard.component';
+import { GIKDonationsComponent } from './distrubution-center/gikdonations/gik-donations.component';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import {PodManagerDashboardComponent} from './pod-manager-dashboard/pod-manager-
         HubManagerComponent,
         DistributionCenterComponent,
         VolunteersComponent,
+        GIKDonationsComponent,
         RemoveSpacesPipe,
         AddEditRegionalHubComponent,
         EditPodsComponent,
@@ -68,9 +70,9 @@ import {PodManagerDashboardComponent} from './pod-manager-dashboard/pod-manager-
         HubManagerComponent,
         DistributionCenterComponent,
         VolunteersComponent,
+        GIKDonationsComponent,
         RemoveSpacesPipe,
         AddEditRegionalHubComponent,
-        
         PodManagerDashboardComponent
     ],
 })
