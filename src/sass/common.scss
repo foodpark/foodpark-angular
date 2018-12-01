@@ -174,3 +174,13 @@ $transition-default: 0.25s ease-out 0.10s;
     background-color: transparent !important;
   }
 }
+.new_volunteer_fields {
+  border-bottom: 1px solid;
+  width: 300px;
+  margin: 18px auto;
+  input {
+    width: 100%;
+    background: none;
+    border: none;
+  }
+}
