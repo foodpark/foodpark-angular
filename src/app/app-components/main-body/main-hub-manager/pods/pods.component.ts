@@ -26,19 +26,21 @@ export class PodsComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.podsService.getAllPods();
         this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
-            .subscribe((response) => {
-                this.mainHub = response[0];
-                this.regionalHubService.getRegionalHubsInMainhub(this.mainHub['id']);
-                this.regionalHubService.getRegionalHubsUpdateListener().subscribe(res => {
-                    this.regionalHubs = res;
-                });
+        .subscribe((response) => {
+            this.mainHub = response[0];
+            this.regionalHubService.getRegionalHubsInMainhub(this.mainHub['id']);
+            this.regionalHubService.getRegionalHubsUpdateListener().subscribe(res => {
+                this.regionalHubs = res;
             });
+        });
+
         this.podsSubscription = this.podsService.getPodsUpdateListener()
-            .subscribe((pods: PodModel[]) => {
-                this.pods = pods;
-            });
+        .subscribe((pods: PodModel[]) => {
+            this.pods = pods;
+        });
+
+        this.podsService.getAllPods();
     }
 
     onEditClick(index: number) {

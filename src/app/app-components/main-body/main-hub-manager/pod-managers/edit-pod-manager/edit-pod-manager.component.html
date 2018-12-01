@@ -1,0 +1,56 @@
+<div class="absolute-position">
+    <div class="title-center">
+        <h2>Edit Pod Managers</h2>
+    </div>
+    <form [formGroup]="editpodmanagerform">
+        <div class="create_pods_section--first-step">
+            <div class="form-group">
+                <h4>First Name</h4>
+                <input type="text" class="form-control" name="" value={{podManager.firstname}} placeholder="First Name"
+                       formControlName="firstname">
+            </div>
+
+
+            <div class="form-group">
+                <h4>Last Name</h4>
+                <input type="text" class="form-control" name="" value="" placeholder="Last Name"
+                       formControlName="lastname">
+            </div>
+            <div class="form-group">
+                <h4>Email</h4>
+                <input type="text" class="form-control" name="" value="" placeholder="Email"
+                       formControlName="email">
+            </div>
+            <div class="form-group">
+                <h4>Password</h4>
+                <input type="password" class="form-control" name="" value="" placeholder="Password"
+                       formControlName="password">
+            </div>
+            <div class="form-group">
+                <h4>Retype Password</h4>
+                <input type="password" class="form-control" name="" value="" placeholder="Retype Password"
+                       formControlName="repeatpassword">
+            </div>
+            <div class="form-group">
+                <h4>Country</h4>
+                <div class="dropdown">
+                    <button id="country_button"
+                            class="btn btn-primary dropdown-toggle"
+                            type="button"
+                            data-toggle="dropdown">Select
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li *ngFor="let item of countries; let i = index" (click)="onCountryClick(i, item['id'])">
+                            {{item.name}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <button type="submit"
+                    class="btn btn-default"
+                    [disabled]="!editpodmanagerform.valid"
+                    (click)="updatePodManager()">Create Pods
+            </button>
+        </div>
+    </form>
+</div>

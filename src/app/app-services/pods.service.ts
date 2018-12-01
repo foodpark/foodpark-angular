@@ -66,6 +66,15 @@ export class PodsService {
             this.podmanagersUpdated.next([...this.podManagers]);
         });
     }
+
+    getPodManager(id: string) {
+        return this.http.get<PodmanagerModel>(environment.apiUrl + '/api/v1/rel/users/' + id);
+    }
+
+    updatePodManager(id: string, data: any) {
+        return this.http.put(environment.apiUrl + '/api/v1/rel/users/' + id, data);
+    }
+
     // apiGetVolunteers(){
     //   return this.http.get(environment.apiUrl + '/api/v1/rel/drivers');
     // }
