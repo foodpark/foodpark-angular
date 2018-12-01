@@ -134,7 +134,7 @@ const routes: Routes = [
                 path: 'editpodmanager', component: EditPodManagerComponent
             }
         ]
-    }
+    },
     {path:'podmanager', component:PodManagerDashboardComponent, canActivate: [AuthGuard]}
 ];
 
