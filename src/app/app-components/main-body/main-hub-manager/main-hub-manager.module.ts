@@ -23,6 +23,9 @@ import { HubPickupListingComponent } from './hub-pickup-listing/hub-pickup-listi
 import { EditHubpickupComponent } from './edit-hubpickup/edit-hubpickup.component';
 import { AddEditPodManagerComponent } from './pod-managers/add-edit-pod-manager/add-edit-pod-manager.component';
 
+import {PodManagerDashboardComponent} from './pod-manager-dashboard/pod-manager-dashboard.component';
+
+
 @NgModule({
     imports: [
         FormsModule,
@@ -49,7 +52,9 @@ import { AddEditPodManagerComponent } from './pod-managers/add-edit-pod-manager/
         PodManagersListingComponent,
         AddEditPodManagerComponent,
         HubPickupListingComponent,
-        EditHubpickupComponent
+        EditHubpickupComponent,
+
+        PodManagerDashboardComponent
     ],
     exports: [
         HubManagerDashboardComponent,
@@ -64,7 +69,9 @@ import { AddEditPodManagerComponent } from './pod-managers/add-edit-pod-manager/
         DistributionCenterComponent,
         VolunteersComponent,
         RemoveSpacesPipe,
-        AddEditRegionalHubComponent
+        AddEditRegionalHubComponent,
+        
+        PodManagerDashboardComponent
     ],
 })
 export class MainHubManagerModule {

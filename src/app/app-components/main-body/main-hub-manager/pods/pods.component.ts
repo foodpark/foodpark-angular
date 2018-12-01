@@ -43,6 +43,9 @@ export class PodsComponent implements OnInit {
 
     onEditClick(index: number) {
         localStorage.setItem('editpod', JSON.stringify(this.pods[index]));
+
+        console.log('this is mainHub',this.mainHub);
+        console.log('this is pods',this.pods);
         this.router.navigate(['/hubmanager/editpod']);
     }
 
@@ -67,4 +70,3 @@ export class PodsComponent implements OnInit {
         });
     }
 }
-
