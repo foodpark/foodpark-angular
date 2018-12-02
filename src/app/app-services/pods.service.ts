@@ -9,7 +9,6 @@ import {PodModel, PodmanagerModel} from '../model';
 })
 
 export class PodsService {
-    private pods: PodModel[] = [];
     private podsUpdated = new Subject<PodModel[]>();
     private podManagers: PodmanagerModel[] = [];
     private podmanagersUpdated = new Subject<PodmanagerModel[]>();
@@ -64,11 +63,20 @@ export class PodsService {
             });
     }
 
-    // apiGetVolunteers(){
-    //   return this.http.get(environment.apiUrl + '/api/v1/rel/drivers');
-    // }
+    getPodManager(id: string) {
+        return this.http.get<PodmanagerModel>(environment.apiUrl + '/api/v1/rel/users/' + id);
+    }
+
+    updatePodManager(id: string, data: any) {
+        return this.http.put(environment.apiUrl + '/api/v1/rel/users/' + id, data);
+    }
+
     apiGetVolunteers(mainHubId) {
         return this.http.get(environment.apiUrl + '/api/v1/rel/food_parks/' + mainHubId + '/drivers');
+    }
+
+    Apicreatevolunteers(data) {
+        return this.http.post(environment.apiUrl + '/auth/register ', data);
     }
 
 }

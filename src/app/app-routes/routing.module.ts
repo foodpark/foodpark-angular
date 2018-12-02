@@ -28,6 +28,10 @@ import {EditPodsComponent} from '../app-components/main-body/main-hub-manager/ed
 import {PodManagersListingComponent} from '../app-components/main-body/main-hub-manager/pod-managers/pod-managers-listing/pod-managers-listing.component';
 import {EditHubpickupComponent} from '../app-components/main-body/main-hub-manager/edit-hubpickup/edit-hubpickup.component';
 import {HubPickupListingComponent} from '../app-components/main-body/main-hub-manager/hub-pickup-listing/hub-pickup-listing.component';
+import { EditPodManagerComponent } from '../app-components/main-body/main-hub-manager/pod-managers/edit-pod-manager/edit-pod-manager.component';
+import {PodManagerDashboardComponent} from '../app-components/main-body/main-hub-manager/pod-manager-dashboard/pod-manager-dashboard.component';
+import { GIKDonationsComponent } from '../app-components/main-body/main-hub-manager/distrubution-center/gikdonations/gik-donations.component';
+
 
 
 const routes: Routes = [
@@ -82,20 +86,6 @@ const routes: Routes = [
             },
             {
                 path: 'podapplications', component: PodsComponent, children: []
-                // children: [
-                // {
-                //     path: '', redirectTo: 'pods', pathMatch: 'full', canActivate: [AuthGuard]
-                // },
-                // {
-                //     path: 'pods', component: PodsComponent
-                // },
-                // {
-                //     path: 'createpods', component: CreatePodsComponent
-                // },
-                // {
-                //     path: 'editpods', component: AddEditPodsComponent, children: []
-                // },
-                // ]
             },
             {
                 path: 'editpod', component: EditPodsComponent
@@ -121,13 +111,24 @@ const routes: Routes = [
             {
                 path: 'distributioncentermanagement', component: DistributionCenterComponent,
                 children: [
-                    {path: 'volunteers', component: VolunteersComponent}
+                    {
+                        path: 'gikdonations', component: GIKDonationsComponent
+                    },
+                    {
+                        path: 'volunteers', component: VolunteersComponent
+                    }
                 ]
             },
             {
                 path: 'podmanagers', component: PodManagersListingComponent
+            },
+            {
+                path: 'editpodmanager', component: EditPodManagerComponent
             }
         ]
+    },
+    {
+        path: 'podmanager', component: PodManagerDashboardComponent, canActivate: [AuthGuard]
     }
 ];
 

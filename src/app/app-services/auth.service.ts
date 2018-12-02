@@ -68,6 +68,9 @@ export class AuthService {
             case 'hubmgr':
                 this.router.navigate(['/hubmanager']);
                 break;
+            case 'podmgr':
+                this.router.navigate(['/podmanager']);
+                break;
         }
     }
 

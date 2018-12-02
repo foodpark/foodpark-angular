@@ -31,6 +31,42 @@
         <td>
         </td>
       </tr>
-      <button type="button" name="button">New Volunteer</button>
+
     </tbody>
 </table>
+<button type="button" name="button" class="btn btn-default new_btn" data-toggle="modal" data-target="#exampleModal" (click)="newvolunterpopup = true">New Volunteer</button>
+
+
+<div class="modal" id="exampleModal" tabindex="-1" role="dialog"  aria-hidden="true" *ngIf="newvolunterpopup" style="display: block">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New Volunteer</h5>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="newvolunteersform">
+          <div class="new_volunteer_fields">
+            <input formControlName="firstname" type="text" name="" value="" placeholder="First Name">
+          </div>
+          <div class="new_volunteer_fields">
+            <input formControlName="lastname" type="text" name="" value="" placeholder="Last Name">
+          </div>
+          <div class="new_volunteer_fields">
+            <input formControlName="contact" type="text" name="" value="" placeholder="Conatact">
+          </div>
+          <div class="new_volunteer_fields">
+            <input formControlName="username" type="text" name="" value="" placeholder="Username">
+          </div>
+          <div class="new_volunteer_fields">
+            <input formControlName="password" type="text" name="" value="" placeholder="Password">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="createVolunteers()">Save</button>
+        <button type="button" class="btn btn-secondary" (click)="newvolunterpopup = false">Cancel</button>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -21,7 +21,11 @@ import {MaterialModule} from '../../../app-modules/material.module';
 import {PodManagersListingComponent} from './pod-managers/pod-managers-listing/pod-managers-listing.component';
 import { HubPickupListingComponent } from './hub-pickup-listing/hub-pickup-listing.component';
 import { EditHubpickupComponent } from './edit-hubpickup/edit-hubpickup.component';
-import { AddEditPodManagerComponent } from './pod-managers/add-edit-pod-manager/add-edit-pod-manager.component';
+import { EditPodManagerComponent } from './pod-managers/edit-pod-manager/edit-pod-manager.component';
+
+import {PodManagerDashboardComponent} from './pod-manager-dashboard/pod-manager-dashboard.component';
+import { GIKDonationsComponent } from './distrubution-center/gikdonations/gik-donations.component';
+
 
 @NgModule({
     imports: [
@@ -43,13 +47,16 @@ import { AddEditPodManagerComponent } from './pod-managers/add-edit-pod-manager/
         HubManagerComponent,
         DistributionCenterComponent,
         VolunteersComponent,
+        GIKDonationsComponent,
         RemoveSpacesPipe,
         AddEditRegionalHubComponent,
         EditPodsComponent,
         PodManagersListingComponent,
-        AddEditPodManagerComponent,
+        EditPodManagerComponent,
         HubPickupListingComponent,
-        EditHubpickupComponent
+        EditHubpickupComponent,
+
+        PodManagerDashboardComponent
     ],
     exports: [
         HubManagerDashboardComponent,
@@ -63,8 +70,10 @@ import { AddEditPodManagerComponent } from './pod-managers/add-edit-pod-manager/
         HubManagerComponent,
         DistributionCenterComponent,
         VolunteersComponent,
+        GIKDonationsComponent,
         RemoveSpacesPipe,
-        AddEditRegionalHubComponent
+        AddEditRegionalHubComponent,
+        PodManagerDashboardComponent
     ],
 })
 export class MainHubManagerModule {
