@@ -14,8 +14,9 @@ import {RegionalhubsService} from '../../../../app-services/regionalhubs.service
 })
 export class PodsComponent implements OnInit {
     pods: PodModel[] = [];
-    approve = ['Approve', 'Disapprove'];
+    approve = ['Approved', 'Disapproved'];
     mainHub: MainhubModel;
+    approvedStatus: string;
     regionalHubs: RegionalHubModel[] = [];
     private podsSubscription: Subscription;
 
@@ -26,7 +27,11 @@ export class PodsComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.podsService.getAllPods();
+        this.podsService.getAllPods()
+            .subscribe((podsData) => {
+                this.pods = podsData;
+                this.approvedStatus = this.pods[0]['approved'] ? 'Approved' : 'Disapproved';
+            });
         this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
             .subscribe((response) => {
                 this.mainHub = response[0];

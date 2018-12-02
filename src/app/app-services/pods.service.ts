@@ -14,22 +14,19 @@ export class PodsService {
     private podManagers: PodmanagerModel[] = [];
     private podmanagersUpdated = new Subject<PodmanagerModel[]>();
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {
+    }
 
     getPodsUpdateListener() {
         return this.podsUpdated.asObservable();
     }
 
     getPodmanagersUpdateListener() {
-    return  this.podmanagersUpdated.asObservable();
+        return this.podmanagersUpdated.asObservable();
     }
 
     getAllPods() {
-        this.http.get<PodModel[]>(environment.apiUrl + '/api/v1/rel/churches')
-            .subscribe((territoryData) => {
-                this.pods = territoryData;
-                this.podsUpdated.next([...this.pods]);
-            });
+        return this.http.get<PodModel[]>(environment.apiUrl + '/api/v1/rel/churches');
     }
 
     updatePod(podId: number, obj: any) {
@@ -61,16 +58,17 @@ export class PodsService {
 
     getPodManagers() {
         return this.http.get<PodmanagerModel[]>(environment.apiUrl + '/api/v1/rel/users?role=PODMGR')
-        .subscribe((podmanagersData) => {
-            this.podManagers = podmanagersData;
-            this.podmanagersUpdated.next([...this.podManagers]);
-        });
+            .subscribe((podmanagersData) => {
+                this.podManagers = podmanagersData;
+                this.podmanagersUpdated.next([...this.podManagers]);
+            });
     }
+
     // apiGetVolunteers(){
     //   return this.http.get(environment.apiUrl + '/api/v1/rel/drivers');
     // }
     apiGetVolunteers(mainHubId) {
-      return this.http.get(environment.apiUrl + '/api/v1/rel/food_parks/' + mainHubId + '/drivers');
+        return this.http.get(environment.apiUrl + '/api/v1/rel/food_parks/' + mainHubId + '/drivers');
     }
 
 }
