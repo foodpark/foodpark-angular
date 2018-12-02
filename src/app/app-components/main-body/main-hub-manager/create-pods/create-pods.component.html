@@ -96,7 +96,7 @@
                     placeholder="Upload Word Attachments"
                     accept=".docx, .doc"
                     formControlName="select_file"
-                    (change)="onFilePicked($event)">
+                    (change)="onFilePicked($event.target.files)">
             </div>
 
             <div class="form-group">
