@@ -18,6 +18,10 @@ export class AuthInterceptor implements HttpInterceptor {
         // return next.handle(request);
         return next.handle(req);
     } else {
+        if  (req.headers.get('Authorization')) {
+            return  next.handle(req);
+        }
+
         const request = req.clone({
             headers: req.headers.set('Authorization', authToken)
           });

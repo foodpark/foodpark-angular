@@ -75,3 +75,11 @@ export interface PodModel {
 export interface HubPickupModel {
     id: number;
 }
+
+export interface MoltinAccess {
+    expires: number;
+    identifier: string;
+    expires_in: number;
+    access_token: string;
+    token_type: string;
+}

@@ -45,7 +45,8 @@ export class VolunteersComponent implements OnInit {
   }
 
   getAllVolunteers() {
-    this.podsService.apiGetVolunteers(this.mainhubId).subscribe((response) => {
+    this.podsService.apiGetVolunteers(this.mainhubId)
+    .subscribe((response) => {
       this.allvolunters = response;
       console.log('this is all users', this.allvolunters);
     }, (error) => {
