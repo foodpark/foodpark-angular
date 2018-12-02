@@ -76,7 +76,7 @@ export interface HubPickupModel {
     id: number;
 }
 
-export interface MoltinAccess {
+export interface MoltinAccessCode {
     expires: number;
     identifier: string;
     expires_in: number;
