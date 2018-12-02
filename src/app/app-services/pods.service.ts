@@ -82,4 +82,8 @@ export class PodsService {
       return this.http.get(environment.apiUrl + '/api/v1/rel/food_parks/' + mainHubId + '/drivers');
     }
 
+    Apicreatevolunteers(data) {
+        return this.http.post(environment.apiUrl + '/auth/register ', data);
+    }
+
 }
