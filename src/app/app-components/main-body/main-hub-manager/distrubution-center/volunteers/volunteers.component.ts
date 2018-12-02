@@ -5,27 +5,25 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {PodsService} from '../../../../../app-services/pods.service';
 import { MainhubService } from 'src/app/app-services/mainhub.service';
 
-
-
 @Component({
   selector: 'app-volunteers',
   templateUrl: './volunteers.component.html',
-
 })
+
 export class VolunteersComponent implements OnInit {
   allvolunters: any;
   mainHub: any;
-  mainhubId: any;
-  newvolunterpopup : any;
+  mainhubId: number;
+  territoryid: number;
+  newvolunterpopup: any;
+  newvolunteersform: FormGroup;
 
   constructor(private podsService: PodsService,
-                private mainhubService: MainhubService,private formBuilder: FormBuilder) {
-    this.getmainhubid();
-    this.volunteerInitform();
-    this.newvolunterpopup = false;
+                private mainhubService: MainhubService,
+                private formBuilder: FormBuilder) {
   }
 
-  volunteerInitform(){
+  volunteerInitform() {
     this.newvolunteersform = this.formBuilder.group({
         firstname: ['', Validators.required],
         lastname: ['', Validators.required],
@@ -55,9 +53,9 @@ export class VolunteersComponent implements OnInit {
     });
   }
 
-  createVolunteers(){
+  createVolunteers() {
     const reqobj = {
-      'role': "DRIVER"
+      'role': 'DRIVER',
       'first_name': this.newvolunteersform.get('firstname').value,
       'last_name': this.newvolunteersform.get('lastname').value,
       'phone': this.newvolunteersform.get('contact').value,
@@ -66,17 +64,19 @@ export class VolunteersComponent implements OnInit {
       'territory_id': this.territoryid,
       'food_park_id': this.mainhubId,
     };
-    this.podsService.Apicreatevolunteers(reqobj).subscribe((response)=>{
-      console.log('this is new volunter',reponse);
+
+    this.podsService.Apicreatevolunteers(reqobj).subscribe((response) => {
+      console.log('this is new volunter', response);
       this.newvolunterpopup = false;
       this.getAllVolunteers();
-    },(error)=>{
+    }, (error) => {
 
     });
   }
 
   ngOnInit() {
-
+    this.getmainhubid();
+    this.volunteerInitform();
+    this.newvolunterpopup = false;
   }
-
 }
