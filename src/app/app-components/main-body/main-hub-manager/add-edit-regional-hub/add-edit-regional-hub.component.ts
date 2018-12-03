@@ -14,10 +14,10 @@ import {MainhubService} from 'src/app/app-services/mainhub.service';
 export class AddEditRegionalHubComponent implements OnInit, OnDestroy {
     mainHub: MainhubModel;
     regionalHubForm: FormGroup;
-    regionalHubs: RegionalHubModel[];
+    regionalHubs;
     pageTitle = '';
     isCreate = false;
-    regionalHubId: number;
+    regionalHubId;
     private regionalHubsSubscription: Subscription;
 
     constructor(private formBuilder: FormBuilder,
@@ -29,6 +29,9 @@ export class AddEditRegionalHubComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.regionalHubForm = this.formBuilder.group({
+            name: ['', Validators.required],
+        });
         this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
             .subscribe((response) => {
                 this.mainHub = response[0];
@@ -39,16 +42,14 @@ export class AddEditRegionalHubComponent implements OnInit, OnDestroy {
                 this.regionalHubs = regionalHubs;
             });
 
-        this.regionalService.getRegionalHubs();
         this.route.paramMap.subscribe((paramMap: ParamMap) => {
-            if (paramMap.has('regionalHubs')) {
+            if (paramMap.has('regionalHubId')) {
                 this.isCreate = false;
                 this.pageTitle = 'Edit Regional Hub';
-                this.regionalHubId = JSON.parse(paramMap['params']['regionalHubs'])['id'];
+                this.regionalHubId = paramMap.get('regionalHubId');
                 this.regionalService.getRegionalHubFromId(this.regionalHubId).subscribe(res => {
-                    this.regionalHubForm = this.formBuilder.group({
-                        name: [res['name'], Validators.required]
-                    });
+                    this.regionalHubs = res;
+                    this.regionalHubForm.get('name').setValue(this.regionalHubs['name'], {emitEvent: false});
                 });
             } else {
                 this.isCreate = true;
@@ -83,6 +84,5 @@ export class AddEditRegionalHubComponent implements OnInit, OnDestroy {
         if (this.dataService.nullCheck(this.regionalHubsSubscription)) {
             this.regionalHubsSubscription.unsubscribe();
         }
-        localStorage.removeItem('regionalhub');
     }
 }
