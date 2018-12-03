@@ -1,0 +1,58 @@
+<div class="dashboard_content_layout pod_applications">
+  <button type="button" name="button" class="btn btn-default new_btn" data-toggle="modal" data-target="#exampleModal" (click)="popup1 = false">Create Pod Request</button>
+  <table class="table table-borderless">
+      <thead>
+        <tr>
+          <th>Request Name</th>
+          <th>Date</th>
+          <th >Add/Edit</th>
+          <th style="width: 5%;text-align: center;">Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let loaddata of loadrequests ">
+          <td>
+            {{loaddata.name}}
+          </td>
+          <td>
+            {{loaddata.created_at | date}}
+          </td>
+          <td >
+            <i class="material-icons">
+                edit
+            </i>
+          </td>
+          <td style="text-align: center;">
+              <i class="material-icons">
+                  delete
+              </i>
+          </td>
+          <td>
+          </td>
+        </tr>
+
+      </tbody>
+  </table>
+</div>
+
+
+<div class="modal_popup" id="exampleModal" role="dialog" data-backdrop="false"  aria-hidden="true"  *ngIf="!popup1">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New Volunteer</h5>
+      </div>
+      <div class="modal-body">
+       <form [formGroup]="newloadrequestform">
+          <div class="new_volunteer_fields">
+            <input formControlName="name" type="text" name="" value="" placeholder="First Name">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="createrequest()">Save</button>
+        <button type="button" class="btn btn-secondary" (click)="popup1 = false">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -5,7 +5,7 @@ import {Subscription} from 'rxjs';
 import {CountryService} from '../../../../app-services/country.service';
 import {TerritoryService} from '../../../../app-services/territory.service';
 import {MainhubService} from '../../../../app-services/mainhub.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 
 @Component({
     selector: 'app-add-edit-mainhub',
@@ -17,6 +17,7 @@ export class AddEditMainhubComponent implements OnInit, OnDestroy {
     countries: CountryModel[] = [];
     territories: TerritoryModel[] = [];
     mainhubs: MainhubModel[] = [];
+    mainHubId: number;
     private countriesSubscription: Subscription;
     private territoriesSubscription: Subscription;
     isEdit = false;
@@ -25,23 +26,42 @@ export class AddEditMainhubComponent implements OnInit, OnDestroy {
                 private countryService: CountryService,
                 private territoryService: TerritoryService,
                 private mainhubService: MainhubService,
-                private router: Router) {
+                private router: Router,
+                private route: ActivatedRoute) {
     }
 
     ngOnInit() {
-        this.buildForm();
+        this.countryService.getCountries();
         this.countriesSubscription = this.countryService.getCountriesUpdateListener()
-        .subscribe((countries: CountryModel[]) => {
-            this.countries = countries;
-        });
+            .subscribe((countries: CountryModel[]) => {
+                this.countries = countries;
+            });
 
         this.territoriesSubscription = this.territoryService.getTerritoriesUpdateListener()
-        .subscribe((territories: TerritoryModel[]) => {
-            this.territories = territories;
+            .subscribe((territories: TerritoryModel[]) => {
+                this.territories = territories;
+            });
+
+
+        this.route.paramMap.subscribe((paramMap: ParamMap) => {
+            if (paramMap.has('mainhubs')) {
+                this.mainHubId = JSON.parse(paramMap['params']['mainhubs'])['id'];
+                // this.mainhubService.getPodFromPodId(this.mainHubId).subscribe(res => {
+                //     this.mainhubForm = this.formBuilder.group({
+                //         name: [res['name'], Validators.required],
+                //         latitude: [res['latitude'], Validators.required],
+                //         longitude: [res['longitude'], Validators.required],
+                //         sponsor: [res['sponsor'], Validators.required],
+                //         title: [res['title'], Validators.required],
+                //         connected_with: [res['connected_with'], Validators.required],
+                //         type: [res['type'], Validators.required],
+                //         // wordFile: [null, Validators.required]
+                //     });
+                //     // document.getElementById('church_type').innerText = this.editpodform.get('type').value;
+                //     // document.getElementById('connected_with').innerText = this.editpodform.get('connected_with').value;
+                // });
+            }
         });
-
-        this.countryService.getCountries();
-
         if (localStorage.getItem('editmainhub')) {
             this.isEdit = true;
             this.mainhubs = JSON.parse(localStorage.getItem('editmainhub'));
@@ -63,6 +83,7 @@ export class AddEditMainhubComponent implements OnInit, OnDestroy {
                 territory_id: [formData['territory_id'], Validators.required],
                 type: ['MAIN', Validators.required]
             });
+            document.getElementById('country_button').innerText = this.mainhubForm.get('country').value;
         } else {
             this.mainhubForm = this.formBuilder.group({
                 name: ['', Validators.required],

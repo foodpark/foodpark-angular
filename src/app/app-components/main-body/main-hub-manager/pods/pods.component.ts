@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import {ParamMap, Router} from '@angular/router';
 import {PodsService} from '../../../../app-services/pods.service';
 import {MainhubModel, PodModel, RegionalHubModel} from '../../../../model';
 import {Subscription} from 'rxjs';
@@ -14,8 +14,9 @@ import {RegionalhubsService} from '../../../../app-services/regionalhubs.service
 })
 export class PodsComponent implements OnInit {
     pods: PodModel[] = [];
-    approve = ['Approve', 'Disapprove'];
+    approve = ['Approved', 'Disapproved'];
     mainHub: MainhubModel;
+    approvedStatus = [];
     regionalHubs: RegionalHubModel[] = [];
     private podsSubscription: Subscription;
 
@@ -26,29 +27,30 @@ export class PodsComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
-        .subscribe((response) => {
-            this.mainHub = response[0];
-            this.regionalHubService.getRegionalHubsInMainhub(this.mainHub['id']);
-            this.regionalHubService.getRegionalHubsUpdateListener().subscribe(res => {
-                this.regionalHubs = res;
+        this.podsService.getAllPods()
+            .subscribe((podsData) => {
+                this.pods = podsData;
+                this.pods.forEach(pod => {
+                    this.approvedStatus.push(pod['approved'] ? 'Approved' : 'Disapproved');
+                });
             });
-        });
+        this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
+            .subscribe((response) => {
+                this.mainHub = response[0];
+                this.regionalHubService.getRegionalHubsInMainhub(this.mainHub['id']);
+                this.regionalHubService.getRegionalHubsUpdateListener().subscribe(res => {
+                    this.regionalHubs = res;
+                });
+            });
 
         this.podsSubscription = this.podsService.getPodsUpdateListener()
-        .subscribe((pods: PodModel[]) => {
-            this.pods = pods;
-        });
-
-        this.podsService.getAllPods();
+            .subscribe((pods: PodModel[]) => {
+                this.pods = pods;
+            });
     }
 
     onEditClick(index: number) {
-        localStorage.setItem('editpod', JSON.stringify(this.pods[index]));
-
-        console.log('this is mainHub',this.mainHub);
-        console.log('this is pods',this.pods);
-        this.router.navigate(['/hubmanager/editpod']);
+        this.router.navigate(['/hubmanager/editpod', {pods: JSON.stringify(this.pods[index]['id'])}]);
     }
 
     onCreatePodClick() {

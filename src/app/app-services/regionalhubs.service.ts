@@ -41,6 +41,10 @@ export class RegionalhubsService {
             });
     }
 
+    getRegionalHubFromId(regionalHubID) {
+        return this.http.get(environment.apiUrl + '/api/v1/rel/regionalhubs/' + regionalHubID);
+    }
+
     deleteRegionalHub(deleteRegionalHubID) {
         return this.http.delete(environment.apiUrl + '/api/v1/rel/regionalhubs/' + deleteRegionalHubID);
     }

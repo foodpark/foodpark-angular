@@ -8,10 +8,16 @@
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
   } */
 
-  .mat-dialog-container {
-      background-color: white;
-      z-index: 1000000;
-      box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
-      overflow-y: hidden;
-      width: 100%;
-  }
+.mat-dialog-container {
+    background-color: white;
+    z-index: 1000000;
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    overflow-y: hidden;
+    width: 100%;
+}
+
+.cdk-overlay-container {
+    &.remove-error-dialog {
+        display: none !important;
+    }
+}

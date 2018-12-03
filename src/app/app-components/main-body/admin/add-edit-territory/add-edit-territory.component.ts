@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Subscription} from 'rxjs';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 
 import {CountryService} from '../../../../app-services/country.service';
 import {TerritoryService} from '../../../../app-services/territory.service';
@@ -16,6 +16,7 @@ export class AddEditTerritoryComponent implements OnInit, OnDestroy {
     form: FormGroup;
     countries = [];
     territory: TerritoryModel;
+    territoryId: number;
     isEditTerritory = false;
     pageTitle = '';
     selectedCountryId: number;
@@ -30,41 +31,36 @@ export class AddEditTerritoryComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.countriesSubscription = this.countryService.getCountriesUpdateListener()
-        .subscribe((countries: CountryModel[]) => {
-            if (countries.length > 0) {
-                this.countries = countries;
-            }
-        });
+            .subscribe((countries: CountryModel[]) => {
+                if (countries.length > 0) {
+                    this.countries = countries;
+                }
+            });
         this.countryService.getCountries();
 
-        if (localStorage.getItem('editterritory')) {
-            this.isEditTerritory = true;
-            this.pageTitle = 'Edit Territory';
-            this.territory = JSON.parse(localStorage.getItem('editterritory'));
-            this.formBuilder(this.territory);
-        } else {
-            this.formBuilder();
-            this.pageTitle = 'Add Territory';
-        }
-    }
-
-    formBuilder(formObj?: any) {
-        if (formObj) {
-            this.form = this.fb.group({
-                territory: [formObj['territory'], Validators.required],
-                latitude: [formObj['latitude'], Validators.required],
-                longitude: [formObj['longitude'], Validators.required],
-                country: [formObj['country'], Validators.required]
-            });
-        } else {
-            this.form = this.fb.group({
-                territory: ['', Validators.required],
-                latitude: ['', Validators.required],
-                longitude: ['', Validators.required],
-                country: ['', Validators.required]
-            });
-        }
-
+        this.dataRoute.paramMap.subscribe((paramMap: ParamMap) => {
+            if (paramMap.has('territories')) {
+                this.territoryId = JSON.parse(paramMap['params']['pods'])['id'];
+                this.territoryService.getTerritoriesFromId(this.territoryId).subscribe(res => {
+                    this.form = this.fb.group({
+                        territory: [res['territory'], Validators.required],
+                        latitude: [res['latitude'], Validators.required],
+                        longitude: [res['longitude'], Validators.required],
+                        country: [res['country'], Validators.required]
+                    });
+                });
+                this.isEditTerritory = true;
+                this.pageTitle = 'Edit Territory';
+            } else {
+                this.pageTitle = 'Add Territory';
+                this.form = this.fb.group({
+                    territory: ['', Validators.required],
+                    latitude: ['', Validators.required],
+                    longitude: ['', Validators.required],
+                    country: ['', Validators.required]
+                });
+            }
+        });
     }
 
     get f() {
@@ -93,7 +89,6 @@ export class AddEditTerritoryComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        localStorage.removeItem('editterritory');
         this.countriesSubscription.unsubscribe();
     }
 }

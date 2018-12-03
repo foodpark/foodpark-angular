@@ -10,12 +10,12 @@
     <tbody>
       <tr *ngFor="let item of allvolunters">
         <td>
-        {{item.name}}
+        {{item.first_name}}.{{item.last_name}}
         </td>
         <td>
           <div class="button-switch">
-            <input type="checkbox" id="switch-blue" class="switch" checked *ngIf="item.available == true"/>
-            <input type="checkbox" id="switch-blue" class="switch"  *ngIf="item.available == false"/>
+            <input type="checkbox" id="switch-blue" class="switch" checked *ngIf="item.is_deleted == true"/>
+            <input type="checkbox" id="switch-blue" class="switch"  *ngIf="item.is_deleted == false"/>
             <!-- <label for="switch-blue" class="lbl-off"></label>
             <label for="switch-blue" class="lbl-on"></label> -->
           </div>
@@ -65,7 +65,6 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="createVolunteers()">Save</button>
         <button type="button" class="btn btn-secondary" (click)="newvolunterpopup = false">Cancel</button>
-
       </div>
     </div>
   </div>

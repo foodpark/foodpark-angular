@@ -26,6 +26,10 @@ export class TerritoryService {
             });
     }
 
+    getTerritoriesFromId(territoryId) {
+        return this.http.get<TerritoryModel[]>(environment.apiUrl + '/api/v1/rel/territories/' + territoryId);
+    }
+
     addTerritory(data: FormData) {
         return this.http.post<TerritoryModel>(environment.apiUrl + '/api/v1/rel/territories', data)
             .subscribe((response) => {

@@ -5,7 +5,7 @@ import {RegionalHubModel, MainhubModel} from '../../../../model';
 import {RegionalhubsService} from '../../../../app-services/regionalhubs.service';
 import {Subscription} from 'rxjs';
 import {Router} from '@angular/router';
-import { MainhubService } from 'src/app/app-services/mainhub.service';
+import {MainhubService} from 'src/app/app-services/mainhub.service';
 
 
 @Component({
@@ -25,15 +25,15 @@ export class RegionalHubComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.regionalHubSubscription = this.regionalHubService.getRegionalHubsUpdateListener()
-        .subscribe((regionalHubs: RegionalHubModel[]) => {
-            this.regionalHubs = regionalHubs;
-        });
+            .subscribe((regionalHubs: RegionalHubModel[]) => {
+                this.regionalHubs = regionalHubs;
+            });
 
         this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
-        .subscribe((response) => {
-            this.mainHub = response[0];
-            this.regionalHubService.getRegionalHubsInMainHub(this.mainHub.id);
-        });
+            .subscribe((response) => {
+                this.mainHub = response[0];
+                this.regionalHubService.getRegionalHubsInMainHub(this.mainHub.id);
+            });
     }
 
     onAddRegionalHubClick() {
@@ -41,8 +41,7 @@ export class RegionalHubComponent implements OnInit, OnDestroy {
     }
 
     onEditClick(index: number) {
-        localStorage.setItem('regionalhub', JSON.stringify(this.regionalHubs[index]));
-        this.router.navigate(['/hubmanager/editregionalhub']);
+        this.router.navigate(['/hubmanager/editregionalhub', {regionalHubs: JSON.stringify(this.regionalHubs[index]['id'])}]);
     }
 
     onDeleteClick(id: number) {

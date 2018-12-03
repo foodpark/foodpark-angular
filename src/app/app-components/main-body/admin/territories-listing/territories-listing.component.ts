@@ -29,8 +29,7 @@ export class TerritoriesListingComponent implements OnInit, OnDestroy {
     }
 
     onEditClick(index: number) {
-        localStorage.setItem('editterritory', JSON.stringify(this.territories[index]));
-        this.router.navigate(['/admin/editterritory']);
+        this.router.navigate(['/admin/editterritory', {territories: JSON.stringify(this.territories[index]['id'])}]);
     }
 
     onDeleteClick(id: number) {

@@ -9,27 +9,27 @@ import {PodModel, PodmanagerModel} from '../model';
 })
 
 export class PodsService {
-    private pods: PodModel[] = [];
     private podsUpdated = new Subject<PodModel[]>();
     private podManagers: PodmanagerModel[] = [];
     private podmanagersUpdated = new Subject<PodmanagerModel[]>();
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {
+    }
 
     getPodsUpdateListener() {
         return this.podsUpdated.asObservable();
     }
 
     getPodmanagersUpdateListener() {
-    return  this.podmanagersUpdated.asObservable();
+        return this.podmanagersUpdated.asObservable();
     }
 
     getAllPods() {
-        this.http.get<PodModel[]>(environment.apiUrl + '/api/v1/rel/churches')
-            .subscribe((territoryData) => {
-                this.pods = territoryData;
-                this.podsUpdated.next([...this.pods]);
-            });
+        return this.http.get<PodModel[]>(environment.apiUrl + '/api/v1/rel/churches');
+    }
+
+    getPodFromPodId(podId: number) {
+        return this.http.get(environment.apiUrl + '/api/v1/rel/churches/' + podId);
     }
 
     updatePod(podId: number, obj: any) {
@@ -61,10 +61,10 @@ export class PodsService {
 
     getPodManagers() {
         return this.http.get<PodmanagerModel[]>(environment.apiUrl + '/api/v1/rel/users?role=PODMGR')
-        .subscribe((podmanagersData) => {
-            this.podManagers = podmanagersData;
-            this.podmanagersUpdated.next([...this.podManagers]);
-        });
+            .subscribe((podmanagersData) => {
+                this.podManagers = podmanagersData;
+                this.podmanagersUpdated.next([...this.podManagers]);
+            });
     }
 
     getPodManager(id: string) {
@@ -75,11 +75,9 @@ export class PodsService {
         return this.http.put(environment.apiUrl + '/api/v1/rel/users/' + id, data);
     }
 
-    // apiGetVolunteers(){
-    //   return this.http.get(environment.apiUrl + '/api/v1/rel/drivers');
-    // }
+
     apiGetVolunteers(mainHubId) {
-      return this.http.get(environment.apiUrl + '/api/v1/rel/food_parks/' + mainHubId + '/drivers');
+        return this.http.get(environment.apiUrl + '/api/v1/rel/food_parks/' + mainHubId + '/drivers');
     }
 
     Apicreatevolunteers(data) {
