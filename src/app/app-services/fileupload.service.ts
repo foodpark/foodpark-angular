@@ -50,4 +50,27 @@ export class FileUploadService {
             });
         });
     }
+
+    uploadFileAndGetActualResponse(file: File) {
+        const fileData  = new FormData();
+        fileData.append('file', file, file.name);
+
+        this.fetchMoltinToken().subscribe( (authToken) => {
+            console.log(authToken);
+            const httpOptions = {
+                headers: new HttpHeaders({
+                    'Authorization': authToken['token_type'] + ' ' + authToken['access_token']
+                })
+              };
+
+            return  this.http.post(this.moltin_file_url, fileData, httpOptions);
+        });
+    }
+
+    parseResponseAndGetURL(response: any) {
+        const data = response['data'];
+        const link = data['link'];
+
+        return link['href'];
+    }
 }

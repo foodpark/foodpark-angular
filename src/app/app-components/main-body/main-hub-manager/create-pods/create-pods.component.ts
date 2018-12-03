@@ -18,6 +18,9 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
     countries: CountryModel[] = [];
     private countriesSubscription: Subscription;
     private fileUploadSubscription: Subscription;
+    private church_id: number;
+    private wordfileURL: string;
+
     churchType = ['Church', 'Non-Profit', 'Non-Religious', 'Non-Denominational', 'Other'];
     connectedBy = ['Personal Referral', 'Google Search', 'Social Media', 'Other'];
 
@@ -78,6 +81,12 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
         this.registerpodform.get('connectedBy').setValue(type);
     }
 
+    onFilePicked(files: FileList) {
+        const fileToUpload = files.item(0);
+        this.registerpodform.get('wordFile').setValue(fileToUpload);
+        this.registerpodform.get('wordFile').updateValueAndValidity();
+    }
+
     createPod() {
         const obj = {
             'role': 'PODMGR',
@@ -91,33 +100,34 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
 
         this.podService.registerPodManager(obj)
             .subscribe((response) => {
-                const updatePodData = new FormData();
-                const title = this.registerpodform.get('title').value;
-                updatePodData.append('name', this.registerpodform.value.church_name);
-                updatePodData.append('id', response['user']['church_id']);
-                updatePodData.append('title', title);
-                updatePodData.append('connected_with', this.registerpodform.value.connectedBy);
-                updatePodData.append('sponsor', this.registerpodform.value.sponsor);
-                updatePodData.append('latitude', this.registerpodform.value.latitude);
-                updatePodData.append('longitude', this.registerpodform.value.longitude);
-                updatePodData.append('type', this.registerpodform.value.type);
-                updatePodData.append('approved', 'true');
-
-                this.podService.updatePod(response['user']['church_id'], updatePodData)
-                .subscribe(() => {
-                    this.route.navigate(['/hubmanager/podapplications']);
-                });
+                this.church_id = response['user']['church_id'];
+                this.wordfileURL = this.fileUploadService.parseResponseAndGetURL(response);
+                this.sendPodData();
             });
     }
 
-    onFilePicked(files: FileList) {
-        const fileToUpload = files.item(0);
-        this.registerpodform.get('wordFile').setValue(fileToUpload);
-        this.registerpodform.get('wordFile').updateValueAndValidity();
-        // this.fileUploadService.uploadFile(fileToUpload);
+    sendPodData() {
+        const updatePodData = new FormData();
+            const title = this.registerpodform.get('title').value;
+            updatePodData.append('name', this.registerpodform.value.church_name);
+            updatePodData.append('id', this.church_id.toString());
+            updatePodData.append('title', title);
+            updatePodData.append('connected_with', this.registerpodform.value.connectedBy);
+            updatePodData.append('sponsor', this.registerpodform.value.sponsor);
+            updatePodData.append('latitude', this.registerpodform.value.latitude);
+            updatePodData.append('longitude', this.registerpodform.value.longitude);
+            updatePodData.append('type', this.registerpodform.value.type);
+            updatePodData.append('approved', 'true');
+
+            this.podService.updatePod(this.church_id, updatePodData)
+            .subscribe(() => {
+                this.route.navigate(['/hubmanager/podapplications']);
+            });
     }
+
 
     ngOnDestroy() {
         this.countriesSubscription.unsubscribe();
+        this.fileUploadSubscription.unsubscribe();
     }
 }
