@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HubPickupModel, TerritoryModel} from '../model';
+import {HubPickupModel} from '../model';
 import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Subject} from 'rxjs';
@@ -34,8 +34,12 @@ export class HubPickupService {
             });
     }
 
-    editHubPickup(hubPickup: TerritoryModel) {
-        this.http.put<TerritoryModel>(environment.apiUrl + '/api/v1/rel/events/' + hubPickup['id'], hubPickup)
+    getHubPickupsFromId(hubPickupId: number) {
+        return this.http.get<HubPickupModel[]>(environment.apiUrl + '/api/v1/rel/events/' + hubPickupId);
+    }
+
+    editHubPickup(hubPickup: HubPickupModel) {
+        this.http.put<HubPickupModel>(environment.apiUrl + '/api/v1/rel/events/' + hubPickup['id'], hubPickup)
             .subscribe((response) => {
                 this.getHubPickups();
             });

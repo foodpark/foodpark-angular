@@ -1,8 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {HubPickupModel} from '../../../../model';
+import {HubPickupModel, MainhubModel} from '../../../../model';
 import {Subscription} from 'rxjs';
 import {Router} from '@angular/router';
 import {HubPickupService} from '../../../../app-services/hub-pickup.service';
+import {MainhubService} from '../../../../app-services/mainhub.service';
 
 @Component({
     selector: 'app-hub-pickup-listing',
@@ -11,8 +12,11 @@ import {HubPickupService} from '../../../../app-services/hub-pickup.service';
 export class HubPickupListingComponent implements OnInit, OnDestroy {
     hubPickups: HubPickupModel[] = [];
     private hubPickupsSubscription: Subscription;
+    mainHub: MainhubModel;
+    sponsors = [];
 
     constructor(private hubPickupService: HubPickupService,
+                private mainhubService: MainhubService,
                 private router: Router) {
     }
 
@@ -22,15 +26,22 @@ export class HubPickupListingComponent implements OnInit, OnDestroy {
             .subscribe((hubPickups: HubPickupModel[]) => {
                 this.hubPickups = hubPickups;
             });
+
+        this.hubPickups.forEach(hubpickup => {
+            this.sponsors.push(hubpickup['sponsors']);
+        });
+        this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
+            .subscribe((response) => {
+                this.mainHub = response[0];
+            });
     }
 
     onAddPickupClick() {
-        this.router.navigate(['/admin/addHubPickup']);
+        this.router.navigate(['/hubmanager/addhubpickup']);
     }
 
     onEditClick(index: number) {
-        localStorage.setItem('hubPickup', JSON.stringify(this.hubPickups[index]));
-        this.router.navigate(['/admin/editHubPickup']);
+        this.router.navigate(['/hubmanager/edithubpickup', {hubPickups: JSON.stringify(this.hubPickups[index])}]);
     }
 
     onDeleteClick(index: number) {

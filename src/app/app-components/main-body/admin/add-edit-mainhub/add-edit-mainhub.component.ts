@@ -31,14 +31,15 @@ export class AddEditMainhubComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.buildForm();
         this.countriesSubscription = this.countryService.getCountriesUpdateListener()
-        .subscribe((countries: CountryModel[]) => {
-            this.countries = countries;
-        });
+            .subscribe((countries: CountryModel[]) => {
+                this.countries = countries;
+            });
 
         this.territoriesSubscription = this.territoryService.getTerritoriesUpdateListener()
-        .subscribe((territories: TerritoryModel[]) => {
-            this.territories = territories;
-        });
+            .subscribe((territories: TerritoryModel[]) => {
+                this.territories = territories;
+                console.log(this.territories);
+            });
 
         this.countryService.getCountries();
 
@@ -63,6 +64,7 @@ export class AddEditMainhubComponent implements OnInit, OnDestroy {
                 territory_id: [formData['territory_id'], Validators.required],
                 type: ['MAIN', Validators.required]
             });
+            document.getElementById('country_button').innerText = this.mainhubForm.get('country').value;
         } else {
             this.mainhubForm = this.formBuilder.group({
                 name: ['', Validators.required],

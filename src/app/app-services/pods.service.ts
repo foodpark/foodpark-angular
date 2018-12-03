@@ -28,6 +28,10 @@ export class PodsService {
         return this.http.get<PodModel[]>(environment.apiUrl + '/api/v1/rel/churches');
     }
 
+    getPodFromPodId(podId: number) {
+        return this.http.get(environment.apiUrl + '/api/v1/rel/churches/' + podId);
+    }
+
     updatePod(podId: number, obj: any) {
         return this.http.put(environment.apiUrl + '/api/v1/rel/churches/' + podId, obj);
     }
