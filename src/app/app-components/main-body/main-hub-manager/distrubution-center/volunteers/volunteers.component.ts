@@ -13,17 +13,10 @@ import { MainhubService } from 'src/app/app-services/mainhub.service';
 export class VolunteersComponent implements OnInit {
   allvolunters: any;
   mainHub: any;
-<<<<<<< HEAD
   mainhubId: any;
   newvolunterpopup : any;
   newvolunteersform : any;
   territoryid: any;
-=======
-  mainhubId: number;
-  territoryid: number;
-  newvolunterpopup: any;
-  newvolunteersform: FormGroup;
->>>>>>> c258424d761461d1723d9d99b89f807ef02782e3
 
   constructor(private podsService: PodsService,
                 private mainhubService: MainhubService,
