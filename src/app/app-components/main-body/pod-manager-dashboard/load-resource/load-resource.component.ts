@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {MaterialModule} from '../../../../app-modules/material.module';
+
 
 import {PodsService} from '../../../../app-services/pods.service';
 import {PodsManagerService} from '../../../../app-services/pod-manager.service';
@@ -20,12 +22,19 @@ export class LoadResourceComponent implements OnInit {
   newvolunterpopup : any;
   territoryid: any;
   loadrequests:any;
+  newloadrequestform: any;
+  popup1 : any;
 
   constructor(private podsService: PodsService, private PodsManagerService: PodsManagerService,
                 private mainhubService: MainhubService,private formBuilder: FormBuilder) {
     this.getmainhubid();
     this.getLoadRequests();
     //this.newvolunterpopup = false;
+  }
+  requestInitform() {
+    this.newloadrequestform = this.formBuilder.group({
+      name: ['', Validators.required],
+    });
   }
 
   getmainhubid() {
@@ -42,11 +51,28 @@ export class LoadResourceComponent implements OnInit {
     .subscribe((response) => {
         this.loadrequests = response;
         console.log('this is load requests',this.loadrequests);
+    },(error)=>{
+
+    });
+  }
+
+  createrequest(){
+    const reqobj = {
+      'name': this.newloadrequestform.get('name').value,
+    };
+    this.PodsManagerService.apicreateLoadRequests(reqobj)
+    .subscribe((response) => {
+        this.popup1 = true;
+        this.getLoadRequests();
+    },(error)=>{
+      this.popup1 = false;
+
     });
   }
 
   ngOnInit() {
     this.getLoadRequests();
+    this.requestInitform();
   }
 
 }

@@ -13,6 +13,9 @@ export class PodsManagerService {
 
 
     apigetLoadRequests() {
-        return this.http.get(environment.apiUrl + 'api/v1/rel/loads');
+        return this.http.get(environment.apiUrl + '/api/v1/rel/loads');
+    }
+    apicreateLoadRequests(data) {
+        return this.http.post(environment.apiUrl + '/api/v1/rel/loads',data);
     }
 }

@@ -1,6 +1,5 @@
 <div class="dashboard_content_layout pod_applications">
-  <button type="button" name="button" class="btn btn-default new_btn">Create Pod Request</button>
-
+  <button type="button" name="button" class="btn btn-default new_btn" data-toggle="modal" data-target="#exampleModal" (click)="popup1 = false">Create Pod Request</button>
   <table class="table table-borderless">
       <thead>
         <tr>
@@ -11,12 +10,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr *ngFor="let loaddata of loadrequests ">
           <td>
-            LOad 1
+            {{loaddata.name}}
           </td>
           <td>
-            12/10/18
+            {{loaddata.created_at | date}}
           </td>
           <td >
             <i class="material-icons">
@@ -37,34 +36,22 @@
 </div>
 
 
-<div class="modal" id="exampleModal" tabindex="-1" role="dialog"  aria-hidden="true" >
+<div class="modal_popup" id="exampleModal" role="dialog" data-backdrop="false"  aria-hidden="true"  *ngIf="!popup1">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">New Volunteer</h5>
       </div>
       <div class="modal-body">
-        <!-- <form [formGroup]="newvolunteersform">
+       <form [formGroup]="newloadrequestform">
           <div class="new_volunteer_fields">
-            <input formControlName="firstname" type="text" name="" value="" placeholder="First Name">
+            <input formControlName="name" type="text" name="" value="" placeholder="First Name">
           </div>
-          <div class="new_volunteer_fields">
-            <input formControlName="lastname" type="text" name="" value="" placeholder="Last Name">
-          </div>
-          <div class="new_volunteer_fields">
-            <input formControlName="contact" type="text" name="" value="" placeholder="Conatact">
-          </div>
-          <div class="new_volunteer_fields">
-            <input formControlName="username" type="text" name="" value="" placeholder="Username">
-          </div>
-          <div class="new_volunteer_fields">
-            <input formControlName="password" type="text" name="" value="" placeholder="Password">
-          </div>
-        </form> -->
+        </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="createVolunteers()">Save</button>
-        <button type="button" class="btn btn-secondary" (click)="newvolunterpopup = false">Cancel</button>
+        <button type="button" class="btn btn-secondary" (click)="createrequest()">Save</button>
+        <button type="button" class="btn btn-secondary" (click)="popup1 = false">Cancel</button>
       </div>
     </div>
   </div>
