@@ -18,6 +18,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppComponent} from './app.component';
 import {MaterialModule} from './app-modules/material.module';
 
+import {PodManagerModule} from './app-components/main-body/pod-manager-dashboard/pod-manager.module';
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -25,7 +27,9 @@ import {MaterialModule} from './app-modules/material.module';
         FooterComponent,
         LoaderComponent,
         ErrorComponent,
-        LoginComponent
+        LoginComponent,
+
+
     ],
     imports: [
         BrowserModule,
@@ -35,7 +39,9 @@ import {MaterialModule} from './app-modules/material.module';
         ReactiveFormsModule,
         HttpClientModule,
         AdminModule,
-        MainHubManagerModule
+        MainHubManagerModule,
+        PodManagerModule
+
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
