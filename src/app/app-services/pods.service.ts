@@ -78,8 +78,11 @@ export class PodsService {
     // apiGetVolunteers(){
     //   return this.http.get(environment.apiUrl + '/api/v1/rel/drivers');
     // }
-    apiGetVolunteers(mainHubId) {
-      return this.http.get(environment.apiUrl + '/api/v1/rel/food_parks/' + mainHubId + '/drivers');
+    // apiGetVolunteers(mainHubId) {
+    //   return this.http.get(environment.apiUrl + '/api/v1/rel/food_parks/' + mainHubId + '/drivers');
+    // }
+    apiGetVolunteers(Id) {
+      return this.http.get(environment.apiUrl + '/api/v1/rel/territories/' + Id + '/users?role=DRIVER');
     }
 
     Apicreatevolunteers(data) {

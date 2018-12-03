@@ -17,6 +17,8 @@ export class VolunteersComponent implements OnInit {
   mainHub: any;
   mainhubId: any;
   newvolunterpopup : any;
+  newvolunteersform : any;
+  territoryid: any;
 
   constructor(private podsService: PodsService,
                 private mainhubService: MainhubService,private formBuilder: FormBuilder) {
@@ -47,7 +49,7 @@ export class VolunteersComponent implements OnInit {
   }
 
   getAllVolunteers() {
-    this.podsService.apiGetVolunteers(this.mainhubId).subscribe((response) => {
+    this.podsService.apiGetVolunteers(this.territoryid).subscribe((response) => {
       this.allvolunters = response;
       console.log('this is all users', this.allvolunters);
     }, (error) => {
@@ -57,7 +59,7 @@ export class VolunteersComponent implements OnInit {
 
   createVolunteers(){
     const reqobj = {
-      'role': "DRIVER"
+      'role': "DRIVER",
       'first_name': this.newvolunteersform.get('firstname').value,
       'last_name': this.newvolunteersform.get('lastname').value,
       'phone': this.newvolunteersform.get('contact').value,
@@ -67,7 +69,7 @@ export class VolunteersComponent implements OnInit {
       'food_park_id': this.mainhubId,
     };
     this.podsService.Apicreatevolunteers(reqobj).subscribe((response)=>{
-      console.log('this is new volunter',reponse);
+      console.log('this is new volunter',response);
       this.newvolunterpopup = false;
       this.getAllVolunteers();
     },(error)=>{

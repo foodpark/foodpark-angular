@@ -29,8 +29,10 @@ import {PodManagersListingComponent} from '../app-components/main-body/main-hub-
 import {EditHubpickupComponent} from '../app-components/main-body/main-hub-manager/edit-hubpickup/edit-hubpickup.component';
 import {HubPickupListingComponent} from '../app-components/main-body/main-hub-manager/hub-pickup-listing/hub-pickup-listing.component';
 import { EditPodManagerComponent } from '../app-components/main-body/main-hub-manager/pod-managers/edit-pod-manager/edit-pod-manager.component';
-import {PodManagerDashboardComponent} from '../app-components/main-body/main-hub-manager/pod-manager-dashboard/pod-manager-dashboard.component';
 import { GIKDonationsComponent } from '../app-components/main-body/main-hub-manager/distrubution-center/gikdonations/gik-donations.component';
+
+import {PodManagerDashboardComponent} from '../app-components/main-body/pod-manager-dashboard/pod-manager-dashboard.component';
+import {LoadResourceComponent} from '../app-components/main-body/pod-manager-dashboard/load-resource/load-resource.component';
 
 
 
@@ -128,7 +130,10 @@ const routes: Routes = [
         ]
     },
     {
-        path: 'podmanager', component: PodManagerDashboardComponent, canActivate: [AuthGuard]
+      path: 'podmanager', component: PodManagerDashboardComponent, canActivate: [AuthGuard],
+        children:[
+          {path:'loadresource', component:LoadResourceComponent}
+        ]
     }
 ];
 
