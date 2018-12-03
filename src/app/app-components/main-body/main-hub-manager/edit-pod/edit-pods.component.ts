@@ -13,7 +13,7 @@ import {PodsService} from 'src/app/app-services/pods.service';
 export class EditPodsComponent implements OnInit, OnDestroy {
     editpodform: FormGroup;
     podId;
-    pods: PodModel[] = [];
+    pods;
     churchType = ['Church', 'Non-Profit', 'Non-Religious', 'Non-Denominational', 'Other'];
     connectedBy = ['Personal Referral', 'Google Search', 'Social Media', 'Other'];
 
@@ -24,20 +24,28 @@ export class EditPodsComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.editpodform = this.formBuilder.group({
+            name: ['', Validators.required],
+            latitude: ['', Validators.required],
+            longitude: ['', Validators.required],
+            sponsor: ['', Validators.required],
+            title: ['', Validators.required],
+            connected_with: ['', Validators.required],
+            type: ['', Validators.required],
+            // wordFile: [null, Validators.required]
+        });
         this.route.paramMap.subscribe((paramMap: ParamMap) => {
-            if (paramMap.has('pods')) {
-                this.podId = JSON.parse(paramMap['params']['pods'])['id'];
+            if (paramMap.has('podId')) {
+                this.podId = paramMap.get('podId');
                 this.podService.getPodFromPodId(this.podId).subscribe(res => {
-                    this.editpodform = this.formBuilder.group({
-                        name: [res['name'], Validators.required],
-                        latitude: [res['latitude'], Validators.required],
-                        longitude: [res['longitude'], Validators.required],
-                        sponsor: [res['sponsor'], Validators.required],
-                        title: [res['title'], Validators.required],
-                        connected_with: [res['connected_with'], Validators.required],
-                        type: [res['type'], Validators.required],
-                        // wordFile: [null, Validators.required]
-                    });
+                    this.pods = res;
+                    this.editpodform.get('name').setValue(this.pods['name'], {emitEvent: false});
+                    this.editpodform.get('latitude').setValue(this.pods['latitude'], {emitEvent: false});
+                    this.editpodform.get('longitude').setValue(this.pods['longitude'], {emitEvent: false});
+                    this.editpodform.get('sponsor').setValue(this.pods['sponsor'], {emitEvent: false});
+                    this.editpodform.get('title').setValue(this.pods['title'], {emitEvent: false});
+                    this.editpodform.get('connected_with').setValue(this.pods['connected_with'], {emitEvent: false});
+                    this.editpodform.get('type').setValue(this.pods['type'], {emitEvent: false});
                     document.getElementById('church_type').innerText = this.editpodform.get('type').value;
                     document.getElementById('connected_with').innerText = this.editpodform.get('connected_with').value;
                 });
