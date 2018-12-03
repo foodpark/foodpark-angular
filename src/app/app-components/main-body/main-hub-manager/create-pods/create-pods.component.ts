@@ -106,7 +106,7 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
             });
     }
 
-    sendPodData() {
+    private sendPodData() {
         const updatePodData = new FormData();
             const title = this.registerpodform.get('title').value;
             updatePodData.append('name', this.registerpodform.value.church_name);
