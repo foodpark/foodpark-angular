@@ -101,18 +101,7 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
                 updatePodData.append('latitude', this.registerpodform.value.latitude);
                 updatePodData.append('longitude', this.registerpodform.value.longitude);
                 updatePodData.append('type', this.registerpodform.value.type);
-                // updatePodData.append('file', this.registerpodform.value.wordFile, title);
                 updatePodData.append('approved', 'true');
-
-                // const updatePodObj = {
-                //     'title': this.registerpodform.get('title').value,
-                //     'connected_with': this.registerpodform.get('connectedBy').value,
-                //     'sponsor': this.registerpodform.get('sponsor').value,
-                //     'latitude': this.registerpodform.get('latitude').value,
-                //     'longitude': this.registerpodform.get('longitude').value,
-                //     'type': this.registerpodform.get('type').value,
-                //     'approved': true
-                // };
 
                 this.podService.updatePod(response['user']['church_id'], updatePodData)
                 .subscribe(() => {
@@ -122,12 +111,10 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
     }
 
     onFilePicked(files: FileList) {
-        const fileToUpload = files.item(0); // (event.target as HTMLInputElement).files[0];
+        const fileToUpload = files.item(0);
         this.registerpodform.get('wordFile').setValue(fileToUpload);
         this.registerpodform.get('wordFile').updateValueAndValidity();
-        const formData  = new FormData();
-        formData.append('file', fileToUpload, fileToUpload.name);
-        this.fileUploadService.uploadFile(formData);
+        // this.fileUploadService.uploadFile(fileToUpload);
     }
 
     ngOnDestroy() {

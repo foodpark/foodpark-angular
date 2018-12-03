@@ -29,7 +29,10 @@ export class FileUploadService {
         return this.http.post<MoltinAccessCode>(this.moltin_access_url, data);
     }
 
-    uploadFile(fileData: FormData) {
+    uploadFile(file: File) {
+        const fileData  = new FormData();
+        fileData.append('file', file, file.name);
+
         this.fetchMoltinToken().subscribe( (authToken) => {
             console.log(authToken);
             const httpOptions = {
