@@ -6,6 +6,7 @@ import {CountryService} from '../../../../app-services/country.service';
 import {CountryModel} from '../../../../model';
 import {Subscription} from 'rxjs';
 import {PodsService} from 'src/app/app-services/pods.service';
+import { FileUploadService } from 'src/app/app-services/fileupload.service';
 
 @Component({
     selector: 'app-create-pods',
@@ -16,13 +17,15 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
     registerpodform: FormGroup;
     countries: CountryModel[] = [];
     private countriesSubscription: Subscription;
+    private fileUploadSubscription: Subscription;
     churchType = ['Church', 'Non-Profit', 'Non-Religious', 'Non-Denominational', 'Other'];
     connectedBy = ['Personal Referral', 'Google Search', 'Social Media', 'Other'];
 
     constructor(private formBuilder: FormBuilder,
                 private route: Router,
                 private countryService: CountryService,
-                private podService: PodsService) {
+                private podService: PodsService,
+                private fileUploadService: FileUploadService) {
     }
 
     ngOnInit() {
@@ -43,6 +46,11 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
             longitude: ['', Validators.required],
             wordFile: [null, Validators.required]
         });
+
+        this.fileUploadSubscription = this.fileUploadService.getFileUploadListener()
+            .subscribe((fileURL) => {
+                console.log('File Uploaded: ' + fileURL);
+            });
 
         this.countriesSubscription = this.countryService.getCountriesUpdateListener()
             .subscribe((countries: CountryModel[]) => {
@@ -93,18 +101,7 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
                 updatePodData.append('latitude', this.registerpodform.value.latitude);
                 updatePodData.append('longitude', this.registerpodform.value.longitude);
                 updatePodData.append('type', this.registerpodform.value.type);
-                // updatePodData.append('file', this.registerpodform.value.wordFile, title);
                 updatePodData.append('approved', 'true');
-
-                // const updatePodObj = {
-                //     'title': this.registerpodform.get('title').value,
-                //     'connected_with': this.registerpodform.get('connectedBy').value,
-                //     'sponsor': this.registerpodform.get('sponsor').value,
-                //     'latitude': this.registerpodform.get('latitude').value,
-                //     'longitude': this.registerpodform.get('longitude').value,
-                //     'type': this.registerpodform.get('type').value,
-                //     'approved': true
-                // };
 
                 this.podService.updatePod(response['user']['church_id'], updatePodData)
                 .subscribe(() => {
@@ -113,10 +110,11 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
             });
     }
 
-    onFilePicked(event: Event) {
-        const file = (event.target as HTMLInputElement).files[0];
-        this.registerpodform.get('wordFile').setValue(file);
+    onFilePicked(files: FileList) {
+        const fileToUpload = files.item(0);
+        this.registerpodform.get('wordFile').setValue(fileToUpload);
         this.registerpodform.get('wordFile').updateValueAndValidity();
+        // this.fileUploadService.uploadFile(fileToUpload);
     }
 
     ngOnDestroy() {

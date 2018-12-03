@@ -12,6 +12,10 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
+    if  (req.url.includes('api.moltin.com')) {
+        return  next.handle(req);
+    }
+
     const authToken = this.authService.getToken();
     if (authToken === '') {
        // const request = req.clone({});

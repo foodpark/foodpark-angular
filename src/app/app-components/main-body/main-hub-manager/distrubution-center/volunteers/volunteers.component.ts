@@ -5,29 +5,32 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {PodsService} from '../../../../../app-services/pods.service';
 import { MainhubService } from 'src/app/app-services/mainhub.service';
 
-
-
 @Component({
   selector: 'app-volunteers',
   templateUrl: './volunteers.component.html',
-
 })
+
 export class VolunteersComponent implements OnInit {
   allvolunters: any;
   mainHub: any;
+<<<<<<< HEAD
   mainhubId: any;
   newvolunterpopup : any;
   newvolunteersform : any;
   territoryid: any;
+=======
+  mainhubId: number;
+  territoryid: number;
+  newvolunterpopup: any;
+  newvolunteersform: FormGroup;
+>>>>>>> c258424d761461d1723d9d99b89f807ef02782e3
 
   constructor(private podsService: PodsService,
-                private mainhubService: MainhubService,private formBuilder: FormBuilder) {
-    this.getmainhubid();
-    this.volunteerInitform();
-    this.newvolunterpopup = false;
+                private mainhubService: MainhubService,
+                private formBuilder: FormBuilder) {
   }
 
-  volunteerInitform(){
+  volunteerInitform() {
     this.newvolunteersform = this.formBuilder.group({
         firstname: ['', Validators.required],
         lastname: ['', Validators.required],
@@ -57,7 +60,7 @@ export class VolunteersComponent implements OnInit {
     });
   }
 
-  createVolunteers(){
+  createVolunteers() {
     const reqobj = {
       'role': "DRIVER",
       'first_name': this.newvolunteersform.get('firstname').value,
@@ -72,13 +75,14 @@ export class VolunteersComponent implements OnInit {
       console.log('this is new volunter',response);
       this.newvolunterpopup = false;
       this.getAllVolunteers();
-    },(error)=>{
+    }, (error) => {
 
     });
   }
 
   ngOnInit() {
-
+    this.getmainhubid();
+    this.volunteerInitform();
+    this.newvolunterpopup = false;
   }
-
 }
