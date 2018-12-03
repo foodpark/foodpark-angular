@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {HubPickupModel, MainhubModel} from '../../../../model';
-import {ParamMap, Router, ParamMap, ActivatedRoute} from '@angular/router';
+import {ParamMap, Router, ActivatedRoute} from '@angular/router';
 import {HubPickupService} from '../../../../app-services/hub-pickup.service';
 
 @Component({

@@ -71,7 +71,7 @@ export class EditPodsComponent implements OnInit, OnDestroy {
 
         this.podService.updatePod(this.podId, updatePodObj)
             .subscribe(() => {
-                this.route.navigate(['/hubmanager/podapplications']);
+                this.router.navigate(['/hubmanager/podapplications']);
             });
     }
 

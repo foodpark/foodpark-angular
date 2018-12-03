@@ -41,7 +41,7 @@ export class HubPickupListingComponent implements OnInit, OnDestroy {
     }
 
     onEditClick(index: number) {
-        this.router.navigate(['/hubmanager/edithubpickup', {hubPickups: JSON.stringify(this.hubPickups[index])}]);
+        this.router.navigate(['/hubmanager/edithubpickup', {hubPickups: JSON.stringify(this.hubPickups[index]['id'])}]);
     }
 
     onDeleteClick(index: number) {

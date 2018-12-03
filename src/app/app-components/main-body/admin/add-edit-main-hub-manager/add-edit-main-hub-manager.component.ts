@@ -5,7 +5,7 @@ import {TerritoryService} from '../../../../app-services/territory.service';
 import {HubmanagerService} from '../../../../app-services/hubmanager.service';
 import {Subscription} from 'rxjs';
 import {CountryModel, HubmanagerModel, TerritoryModel} from '../../../../model';
-import {Router} from '@angular/router';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {DataService} from '../../../../app-services/data.service';
 
 @Component({
@@ -18,6 +18,7 @@ export class AddEditMainHubManagerComponent implements OnInit, OnDestroy {
     countries: CountryModel[] = [];
     territories: TerritoryModel[] = [];
     hubmanager: HubmanagerModel;
+    hubmanagerId: number;
     pageTitle = '';
     isCreate = false;
     private countriesSubscription: Subscription;
@@ -31,11 +32,11 @@ export class AddEditMainHubManagerComponent implements OnInit, OnDestroy {
                 private territoryService: TerritoryService,
                 private hubManagerService: HubmanagerService,
                 private router: Router,
+                private route: ActivatedRoute,
                 private dataService: DataService) {
     }
 
     ngOnInit() {
-        this.buildForm();
         this.countryService.getCountries();
         this.countriesSubscription = this.countryService.getCountriesUpdateListener()
             .subscribe((countries: CountryModel[]) => {
@@ -45,40 +46,36 @@ export class AddEditMainHubManagerComponent implements OnInit, OnDestroy {
             .subscribe((territories: TerritoryModel[]) => {
                 this.territories = territories;
             });
-        if (localStorage.getItem('editmainhubmanager')) {
-            this.isCreate = false;
-            this.pageTitle = 'Edit Main Hub Manager';
-            this.hubmanager = JSON.parse(localStorage.getItem('editmainhubmanager'));
-            this.buildForm(this.hubmanager);
-        } else {
-            this.isCreate = true;
-            this.buildForm();
-            this.pageTitle = 'Add Main Hub Manager';
-        }
-    }
-
-    buildForm(formData?) {
-        if (formData) {
-            this.hubmanagerForm = this.formBuilder.group({
-                firstname: [formData['first_name'], Validators.required],
-                lastname: [formData['last_name'], Validators.required],
-                email: [formData['username'], Validators.email]
-            });
-        } else {
-            this.hubmanagerForm = this.formBuilder.group({
-                firstname: ['', Validators.required],
-                lastname: ['', Validators.required],
-                email: ['', Validators.email],
-                password: ['', Validators.required],
-                repeatpassword: ['', Validators.required],
-                country_id: ['', Validators.required],
-                country: ['', Validators.required],
-                territory_id: ['', Validators.required],
-                mainhubId: ['', Validators.required],
-                role: ['HUBMGR']
-            });
-        }
-
+        this.route.paramMap.subscribe((paramMap: ParamMap) => {
+            if (paramMap.has('mainhubmanager')) {
+                this.hubmanagerId = JSON.parse(paramMap['params']['mainhubmanager'])['id'];
+                this.hubManagerService.getMainHubManagersInTerritory(this.hubmanagerId);
+                this.hubManagerService.getMainHubManagersUpdateListener().subscribe(res => {
+                    this.hubmanagerForm = this.formBuilder.group({
+                        firstname: [res['first_name'], Validators.required],
+                        lastname: [res['last_name'], Validators.required],
+                        email: [res['username'], Validators.email]
+                    });
+                });
+                this.isCreate = false;
+                this.pageTitle = 'Edit Main Hub Manager';
+            } else {
+                this.isCreate = true;
+                this.pageTitle = 'Add Main Hub Manager';
+                this.hubmanagerForm = this.formBuilder.group({
+                    firstname: ['', Validators.required],
+                    lastname: ['', Validators.required],
+                    email: ['', Validators.email],
+                    password: ['', Validators.required],
+                    repeatpassword: ['', Validators.required],
+                    country_id: ['', Validators.required],
+                    country: ['', Validators.required],
+                    territory_id: ['', Validators.required],
+                    mainhubId: ['', Validators.required],
+                    role: ['HUBMGR']
+                });
+            }
+        });
     }
 
     get f() {
@@ -120,10 +117,8 @@ export class AddEditMainHubManagerComponent implements OnInit, OnDestroy {
         });
     }
 
-
     onCreateMainHubManagerClick() {
         if (this.isCreate) {
-
             const obj = {
                 'role': this.hubmanagerForm.get('role').value,
                 'food_park_id': this.hubmanagerForm.get('mainhubId').value,
@@ -134,11 +129,10 @@ export class AddEditMainHubManagerComponent implements OnInit, OnDestroy {
                 'country_id': this.hubmanagerForm.get('country_id').value,
                 'territory_id': this.hubmanagerForm.get('territory_id').value,
             };
-
             this.hubManagerService.createMainHubManager(obj)
-            .subscribe((response) => {
-                this.router.navigate(['/admin/mainhubmanagers']);
-            });
+                .subscribe((response) => {
+                    this.router.navigate(['/admin/mainhubmanagers']);
+                });
         } else {
             const obj = {
                 'username': this.hubmanagerForm.get('email').value,
@@ -147,9 +141,9 @@ export class AddEditMainHubManagerComponent implements OnInit, OnDestroy {
             };
 
             this.hubManagerService.updateMainHubManager(this.hubmanager['id'], obj)
-            .subscribe((response) => {
-                this.router.navigate(['/admin/mainhubmanagers']);
-            });
+                .subscribe((response) => {
+                    this.router.navigate(['/admin/mainhubmanagers']);
+                });
         }
     }
 
@@ -160,6 +154,5 @@ export class AddEditMainHubManagerComponent implements OnInit, OnDestroy {
         if (this.dataService.nullCheck(this.territoriesSubscription)) {
             this.territoriesSubscription.unsubscribe();
         }
-        localStorage.removeItem('editmainhubmanager');
     }
 }
