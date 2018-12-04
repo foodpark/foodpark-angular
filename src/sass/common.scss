@@ -175,8 +175,8 @@ $transition-default: 0.25s ease-out 0.10s;
   }
 }
 .new_volunteer_fields {
-  border-bottom: 1px solid;
-  width: 300px;
+  border-bottom: 1px solid rgba(0,0,0,0.12);;
+  //width: 300px;
   margin: 18px auto;
   input {
     width: 100%;
@@ -185,6 +185,11 @@ $transition-default: 0.25s ease-out 0.10s;
   }
 }
 
+.modal__header {
+  background-color: #67c4ea;
+  font-family: 'Raleway', sans-serif;
+  color: #000;
+}
 .formErrors {
   color: red;
 }

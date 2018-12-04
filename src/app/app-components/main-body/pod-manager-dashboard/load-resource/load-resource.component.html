@@ -39,8 +39,8 @@
 <div class="modal_popup" id="exampleModal" role="dialog" data-backdrop="false"  aria-hidden="true"  *ngIf="!popup1">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New Volunteer</h5>
+      <div class="modal-header modal__header">
+        <h5 class="modal-title" id="exampleModalLabel">New Resource</h5>
       </div>
       <div class="modal-body">
        <form [formGroup]="newloadrequestform">
@@ -51,7 +51,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="createrequest()">Save</button>
-        <button type="button" class="btn btn-secondary" (click)="popup1 = false">Cancel</button>
+        <button type="button" class="btn btn-secondary" (click)="popup1 = true">Cancel</button>
       </div>
     </div>
   </div>
