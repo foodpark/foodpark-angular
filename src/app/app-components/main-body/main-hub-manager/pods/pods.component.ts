@@ -60,7 +60,7 @@ export class PodsComponent implements OnInit, OnDestroy {
         this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
             .subscribe((response) => {
                 this.mainHub = response[0];
-                this.regionalHubService.getRegionalHubsInMainHub(this.mainHub.id);
+                this.regionalHubService.getRegionalHubsInMainHub(this.mainHub['id']);
             });
     }
 
