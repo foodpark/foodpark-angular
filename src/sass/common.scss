@@ -185,6 +185,13 @@ $transition-default: 0.25s ease-out 0.10s;
   }
 }
 
+.formErrors {
+  color: red;
+}
+
+.loadtype_dropdown {
+  margin-bottom: 10px;
+}
 
 .modal_popup {
   background: rgba(73, 73, 73, 0.78);

@@ -18,7 +18,7 @@
             {{loaddata.created_at | date}}
           </td>
           <td >
-            <i class="material-icons">
+            <i class="material-icons" (click)="clickAddEdit(loaddata.id)">
                 edit
             </i>
           </td>
@@ -56,3 +56,4 @@
     </div>
   </div>
 </div>
+<router-outlet></router-outlet>
