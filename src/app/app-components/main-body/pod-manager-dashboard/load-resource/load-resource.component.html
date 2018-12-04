@@ -1,38 +1,47 @@
-<div class="dashboard_content_layout pod_applications">
-  <button type="button" name="button" class="btn btn-default new_btn" data-toggle="modal" data-target="#exampleModal" (click)="popup1 = false">Create Pod Request</button>
-  <table class="table table-borderless">
-      <thead>
-        <tr>
-          <th>Request Name</th>
-          <th>Date</th>
-          <th >Add/Edit</th>
-          <th style="width: 5%;text-align: center;">Delete</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let loaddata of loadrequests ">
-          <td>
-            {{loaddata.name}}
-          </td>
-          <td>
-            {{loaddata.created_at | date}}
-          </td>
-          <td >
-            <i class="material-icons" (click)="clickAddEdit(loaddata.id)">
-                edit
-            </i>
-          </td>
-          <td style="text-align: center;">
-              <i class="material-icons">
-                  delete
-              </i>
-          </td>
-          <td>
-          </td>
-        </tr>
+<div class="absolute-position">
+    <div>
+        <div class="title-center"><h2>Load Resources</h2></div>
+        <button
+            type="button"
+            name="button"
+            class="btn btn-default new_btn"
+            style="height: 50px;align-items: center;width: 100%;"
+            data-toggle="modal"
+            data-target="#exampleModal"
+            (click)="popup1 = false"
+        >
+            Create Load Resource
+        </button>
+    </div>
 
-      </tbody>
-  </table>
+    <table class="table table-borderless">
+        <thead>
+            <tr>
+                <th>Request Name</th>
+                <th>Date</th>
+                <th style="width: 5%;text-align: center;">Add/Edit</th>
+                <th style="width: 5%;text-align: center;">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let loaddata of loadrequests">
+                <td>{{ loaddata.name }}</td>
+                <td>{{ loaddata.created_at | date }}</td>
+                <td style="text-align: center;">
+                    <i
+                        class="material-icons"
+                        (click)="clickAddEdit(loaddata.id)"
+                    >
+                        edit
+                    </i>
+                </td>
+                <td style="text-align: center;">
+                    <i class="material-icons"> delete </i>
+                </td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 
 
@@ -54,6 +63,5 @@
         <button type="button" class="btn btn-secondary" (click)="popup1 = true">Cancel</button>
       </div>
     </div>
-  </div>
 </div>
 <router-outlet></router-outlet>

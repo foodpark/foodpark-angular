@@ -14,17 +14,12 @@ export class DataService {
         // });
     }
 
-    getJsonData(role: string): Observable<any> {
-        return this.http.get('assets/json/' + role + '-leftnav.json').pipe(map(res => {
+    getJsonData(jsonfile: string): Observable<any> {
+        return this.http.get('assets/json/' + jsonfile).pipe(map(res => {
             return res || {};
         }));
     }
 
-    getHubManagerJsonData(role: string): Observable<any> {
-        return this.http.get('assets/json/' + role + '-manager-leftnav.json').pipe(map(res => {
-            return res || {};
-        }));
-    }
     //
     // httpGetTranslations(): Observable<any> {
     //     const currentLang = navigator.language;

@@ -1,8 +1,6 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Router, ParamMap, ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-
-import {PodModel} from '../../../../model';
 import {PodsService} from 'src/app/app-services/pods.service';
 
 @Component({

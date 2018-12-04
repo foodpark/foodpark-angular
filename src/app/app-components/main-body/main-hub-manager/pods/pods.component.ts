@@ -17,6 +17,7 @@ export class PodsComponent implements OnInit, OnDestroy {
     approve = ['Approved', 'Disapproved'];
     mainHub: MainhubModel;
     regionalHubs: RegionalHubModel[] = [];
+    selectedRegionalHubNames: string[] = [];
     private podsSubscription: Subscription;
     private regionalHubSubscription: Subscription;
 
@@ -27,26 +28,40 @@ export class PodsComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        // Register for regional hubs service. Get all Pods after getting regional hubs
         this.regionalHubSubscription = this.regionalHubService.getRegionalHubsUpdateListener()
-        .subscribe((regionalHubs: RegionalHubModel[]) => {
-            this.regionalHubs = regionalHubs;
-        });
+            .subscribe((regionalHubs: RegionalHubModel[]) => {
+                this.regionalHubs = regionalHubs;
+                this.podsService.getAllPods();
+            });
 
         this.podsSubscription = this.podsService.getPodsUpdateListener()
-        .subscribe((pods: PodModel[]) => {
-            this.pods = pods;
-        });
+            .subscribe((pods: PodModel[]) => {
+                this.pods = pods;
+                this.pods.forEach(element => {
+                    const regID = element['regional_hub_id'];
 
-        this.podsService.getAllPods()
-        .subscribe((podsData) => {
-            this.pods = podsData;
-        });
+                    function search(obj: RegionalHubModel) {
+                        return obj['id'] === regID;
+                    }
 
+                    if (regID === null) {
+                        this.selectedRegionalHubNames.push('');
+                    } else {
+                        const srchIndex = this.regionalHubs.findIndex(search);
+                        this.selectedRegionalHubNames.push(this.regionalHubs[srchIndex]['name']);
+                    }
+                });
+            });
+        this.fetchData();
+    }
+
+    fetchData() {
         this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
-        .subscribe((response) => {
-            this.mainHub = response[0];
-            this.regionalHubService.getRegionalHubsInMainhub(this.mainHub['id']);
-        });
+            .subscribe((response) => {
+                this.mainHub = response[0];
+                this.regionalHubService.getRegionalHubsInMainHub(this.mainHub['id']);
+            });
     }
 
     onEditClick(index: number) {
@@ -57,15 +72,26 @@ export class PodsComponent implements OnInit, OnDestroy {
         this.router.navigate(['/hubmanager/createpod']);
     }
 
-    onOptionClick(type: string) {
-        const button = document.getElementById('status_button');
+    onStatusChangeClick(index: number, type: string) {
+        const button = document.getElementById('status' + index);
         button.innerText = type;
+        if (type === this.approve[0]) {
+            this.podsService.approvePod(this.pods[index]['id']).subscribe(res => {
+                this.fetchData();
+            });
+        } else {
+            this.podsService.rejectPod(this.pods[index]['id']).subscribe(res => {
+                this.fetchData();
+            });
+        }
     }
 
-    onAssignHubClick(index: number) {
-        const button = document.getElementById('assign_hub');
-        button.innerText = this.regionalHubs[index]['name'];
-        this.podsService.updateRegionalHubID(this.pods[index]['id'], this.regionalHubs[index]['id']);
+    onAssignRegionalHubClick(rowindex: number, regionalhubId: number) {
+        const button = document.getElementById('assignhub' + rowindex);
+        // button.innerText = this.regionalHubs[index]['name'];
+        this.podsService.updateRegionalHubID(this.pods[rowindex]['id'], regionalhubId).subscribe(res => {
+            this.fetchData();
+        });
     }
 
     onDeleteClick(index) {

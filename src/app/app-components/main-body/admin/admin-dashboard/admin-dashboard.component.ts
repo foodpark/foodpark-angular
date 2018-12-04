@@ -18,7 +18,7 @@ export class AdminDashboardComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.dataService.getJsonData('admin').subscribe(res => {
+        this.dataService.getJsonData('admin-leftnav.json').subscribe(res => {
             this.sideNavData = res;
         });
         this.userName = this.authService.getUserName();

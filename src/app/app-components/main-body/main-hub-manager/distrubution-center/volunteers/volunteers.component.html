@@ -1,41 +1,64 @@
-<table class="table table-borderless">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Avilablity</th>
-        <th>Phone</th>
-        <th style="width: 5%;text-align: center;">Delete</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of allvolunters">
-        <td>
-        {{item.first_name}}.{{item.last_name}}
-        </td>
-        <td>
-          <div class="button-switch">
-            <input type="checkbox" id="switch-blue" class="switch" checked *ngIf="item.is_deleted == true"/>
-            <input type="checkbox" id="switch-blue" class="switch"  *ngIf="item.is_deleted == false"/>
-            <!-- <label for="switch-blue" class="lbl-off"></label>
-            <label for="switch-blue" class="lbl-on"></label> -->
-          </div>
-        </td>
-        <td>
-          {{item.phone}}
-        </td>
-        <td style="text-align: center;">
-            <i class="material-icons" (click)="onDeleteClick(item['id'])">
-                delete
-            </i>
-        </td>
-        <td>
-        </td>
-      </tr>
+<div class="tab-absolute-position">
+    <div>
+        <button
+            type="button"
+            name="button"
+            class="btn btn-default new_btn"
+            data-toggle="modal"
+            data-target="#exampleModal"
+            style="height: 50px;align-items: center;width: 100%;"
+            (click)="newvolunterpopup = true"
+        >
+            New Volunteer
+        </button>
+    </div>
 
-    </tbody>
-</table>
-<button type="button" name="button" class="btn btn-default new_btn" data-toggle="modal" data-target="#exampleModal" (click)="newvolunterpopup = true">New Volunteer</button>
-
+    <table class="table table-borderless">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Avilablity</th>
+                <th>Phone</th>
+                <th style="width: 5%;text-align: center;">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of allvolunters">
+                <td>{{ item.first_name }}.{{ item.last_name }}</td>
+                <td>
+                    <div class="button-switch">
+                        <input
+                            type="checkbox"
+                            id="switch-blue"
+                            class="switch"
+                            checked
+                            *ngIf="item.is_deleted == true"
+                        />
+                        <input
+                            type="checkbox"
+                            id="switch-blue"
+                            class="switch"
+                            *ngIf="item.is_deleted == false"
+                        />
+                        <!--
+                            <label for="switch-blue" class="lbl-off"></label>
+                            <label for="switch-blue" class="lbl-on"></label>
+                        -->
+                    </div>
+                </td>
+                <td>{{ item.phone }}</td>
+                <td style="text-align: center;">
+                    <i
+                        class="material-icons"
+                        (click)="onDeleteClick(item['id'])"
+                    >
+                        delete
+                    </i>
+                </td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
 
 <div class="modal" id="exampleModal" tabindex="-1" role="dialog"  aria-hidden="true" *ngIf="newvolunterpopup" style="display: block">
   <div class="modal-dialog" role="document">
@@ -67,5 +90,4 @@
         <button type="button" class="btn btn-secondary" (click)="newvolunterpopup = false">Cancel</button>
       </div>
     </div>
-  </div>
 </div>

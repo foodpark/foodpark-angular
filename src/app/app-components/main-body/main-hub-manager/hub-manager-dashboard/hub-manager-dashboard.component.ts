@@ -18,7 +18,7 @@ export class HubManagerDashboardComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.dataService.getHubManagerJsonData('hub').subscribe(res => {
+        this.dataService.getJsonData('hub-manager-leftnav.json').subscribe(res => {
             this.sideNavData = res;
         });
     }

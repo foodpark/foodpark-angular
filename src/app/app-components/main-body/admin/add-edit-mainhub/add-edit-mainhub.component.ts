@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {CountryModel, MainhubModel, TerritoryModel} from '../../../../model';
+import {CountryModel, TerritoryModel} from '../../../../model';
 import {Subscription} from 'rxjs';
 import {CountryService} from '../../../../app-services/country.service';
 import {TerritoryService} from '../../../../app-services/territory.service';

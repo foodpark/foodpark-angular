@@ -132,9 +132,13 @@ const routes: Routes = [
     },
     {
       path: 'podmanager', component: PodManagerDashboardComponent, canActivate: [AuthGuard],
-        children:[
-          {path:'loadresource', component:LoadResourceComponent},
-          {path:'add-edit/:id', component:AddEditResourceComponent}
+        children: [
+            {
+                path: 'loadresources', component: LoadResourceComponent
+            },
+            {
+                path: 'add-edit/:id', component: AddEditResourceComponent
+            }
         ]
     }
 ];
