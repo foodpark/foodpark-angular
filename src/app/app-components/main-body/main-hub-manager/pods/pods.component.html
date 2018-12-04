@@ -28,7 +28,7 @@
             <td>{{item['addendeum_file']}}</td>
             <td>
                 <div class="dropdown">
-                    <button id="status_button"
+                    <button id="{{'status'+i}}"
                             class="btn btn-primary dropdown-toggle"
                             type="button"
                             data-toggle="dropdown">{{ pods[i]['approved'] == true ? 'Approved' : 'DisApproved' }}
@@ -44,14 +44,15 @@
             </td>
             <td>
                 <div class="dropdown">
-                    <button id="assign_hub"
+                    <button id="{{'assignhub'+i}}"
                             class="btn btn-primary dropdown-toggle"
                             type="button"
-                            data-toggle="dropdown">{{ selectedRegionalHubNames[i] === '' ? 'Select' : selectedRegionalHubNames[i] }}
+                            data-toggle="dropdown">{{ selectedRegionalHubNames[i] === '' ? 'Select' :
+                        selectedRegionalHubNames[i] }}
                     </button>
                     <div class="form-group">
                         <ul class="dropdown-menu">
-                            <li *ngFor="let option of regionalHubs;" (click)="onAssignRegionalHubClick(i)">
+                            <li *ngFor="let option of regionalHubs;" (click)="onAssignRegionalHubClick(i,option['id'])">
                                 {{option['name']}}
                             </li>
                         </ul>

@@ -5,7 +5,6 @@ import {MainhubModel, PodModel, RegionalHubModel} from '../../../../model';
 import {Subscription} from 'rxjs';
 import {MainhubService} from '../../../../app-services/mainhub.service';
 import {RegionalhubsService} from '../../../../app-services/regionalhubs.service';
-import { forEach } from '@angular/router/src/utils/collection';
 
 
 @Component({
@@ -31,35 +30,38 @@ export class PodsComponent implements OnInit, OnDestroy {
     ngOnInit() {
         // Register for regional hubs service. Get all Pods after getting regional hubs
         this.regionalHubSubscription = this.regionalHubService.getRegionalHubsUpdateListener()
-        .subscribe((regionalHubs: RegionalHubModel[]) => {
-            this.regionalHubs = regionalHubs;
-            this.podsService.getAllPods();
-        });
+            .subscribe((regionalHubs: RegionalHubModel[]) => {
+                this.regionalHubs = regionalHubs;
+                this.podsService.getAllPods();
+            });
 
         this.podsSubscription = this.podsService.getPodsUpdateListener()
-        .subscribe((pods: PodModel[]) => {
-            this.pods = pods;
+            .subscribe((pods: PodModel[]) => {
+                this.pods = pods;
+                this.pods.forEach(element => {
+                    const regID = element['regional_hub_id'];
 
-            this.pods.forEach(element => {
-                const regID = element['regional_hub_id'];
-                function search(obj: RegionalHubModel) {
-                    return obj['id'] === regID;
-                }
+                    function search(obj: RegionalHubModel) {
+                        return obj['id'] === regID;
+                    }
 
-                if (regID === null) {
-                    this.selectedRegionalHubNames.push('');
-                } else {
-                    const srchIndex  = this.regionalHubs.findIndex(search);
-                    this.selectedRegionalHubNames.push(this.regionalHubs[srchIndex]['name']);
-                }
+                    if (regID === null) {
+                        this.selectedRegionalHubNames.push('');
+                    } else {
+                        const srchIndex = this.regionalHubs.findIndex(search);
+                        this.selectedRegionalHubNames.push(this.regionalHubs[srchIndex]['name']);
+                    }
+                });
             });
-        });
+        this.fetchData();
+    }
 
+    fetchData() {
         this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
-        .subscribe((response) => {
-            this.mainHub = response[0];
-            this.regionalHubService.getRegionalHubsInMainHub(this.mainHub.id);
-        });
+            .subscribe((response) => {
+                this.mainHub = response[0];
+                this.regionalHubService.getRegionalHubsInMainHub(this.mainHub.id);
+            });
     }
 
     onEditClick(index: number) {
@@ -71,19 +73,25 @@ export class PodsComponent implements OnInit, OnDestroy {
     }
 
     onStatusChangeClick(index: number, type: string) {
-        const button = document.getElementById('status_button');
+        const button = document.getElementById('status' + index);
         button.innerText = type;
         if (type === this.approve[0]) {
-            this.podsService.approvePod(this.pods[index]['id']);
+            this.podsService.approvePod(this.pods[index]['id']).subscribe(res => {
+                this.fetchData();
+            });
         } else {
-            this.podsService.rejectPod(this.pods[index]['id']);
+            this.podsService.rejectPod(this.pods[index]['id']).subscribe(res => {
+                this.fetchData();
+            });
         }
     }
 
-    onAssignRegionalHubClick(index: number) {
-        const button = document.getElementById('assign_hub');
-        button.innerText = this.regionalHubs[index]['name'];
-        this.podsService.updateRegionalHubID(this.pods[index]['id'], this.regionalHubs[index]['id']);
+    onAssignRegionalHubClick(rowindex: number, regionalhubId: number) {
+        const button = document.getElementById('assignhub' + rowindex);
+        // button.innerText = this.regionalHubs[index]['name'];
+        this.podsService.updateRegionalHubID(this.pods[rowindex]['id'], regionalhubId).subscribe(res => {
+            this.fetchData();
+        });
     }
 
     onDeleteClick(index) {
