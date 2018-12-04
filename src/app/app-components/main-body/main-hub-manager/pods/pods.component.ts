@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ParamMap, Router} from '@angular/router';
 import {PodsService} from '../../../../app-services/pods.service';
 import {MainhubModel, PodModel, RegionalHubModel} from '../../../../model';
@@ -12,13 +12,13 @@ import {RegionalhubsService} from '../../../../app-services/regionalhubs.service
     templateUrl: './pods.component.html',
 
 })
-export class PodsComponent implements OnInit {
+export class PodsComponent implements OnInit, OnDestroy {
     pods: PodModel[] = [];
     approve = ['Approved', 'Disapproved'];
     mainHub: MainhubModel;
-    approvedStatus = [];
     regionalHubs: RegionalHubModel[] = [];
     private podsSubscription: Subscription;
+    private regionalHubSubscription: Subscription;
 
     constructor(private podsService: PodsService,
                 private router: Router,
@@ -27,26 +27,26 @@ export class PodsComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.podsService.getAllPods()
-            .subscribe((podsData) => {
-                this.pods = podsData;
-                this.pods.forEach(pod => {
-                    this.approvedStatus.push(pod['approved'] ? 'Approved' : 'Disapproved');
-                });
-            });
-        this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
-            .subscribe((response) => {
-                this.mainHub = response[0];
-                this.regionalHubService.getRegionalHubsInMainhub(this.mainHub['id']);
-                this.regionalHubService.getRegionalHubsUpdateListener().subscribe(res => {
-                    this.regionalHubs = res;
-                });
-            });
+        this.regionalHubSubscription = this.regionalHubService.getRegionalHubsUpdateListener()
+        .subscribe((regionalHubs: RegionalHubModel[]) => {
+            this.regionalHubs = regionalHubs;
+        });
 
         this.podsSubscription = this.podsService.getPodsUpdateListener()
-            .subscribe((pods: PodModel[]) => {
-                this.pods = pods;
-            });
+        .subscribe((pods: PodModel[]) => {
+            this.pods = pods;
+        });
+
+        this.podsService.getAllPods()
+        .subscribe((podsData) => {
+            this.pods = podsData;
+        });
+
+        this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
+        .subscribe((response) => {
+            this.mainHub = response[0];
+            this.regionalHubService.getRegionalHubsInMainhub(this.mainHub['id']);
+        });
     }
 
     onEditClick(index: number) {
@@ -72,5 +72,10 @@ export class PodsComponent implements OnInit {
         this.podsService.deletePod(index).subscribe(() => {
             this.podsService.getAllPods();
         });
+    }
+
+    ngOnDestroy() {
+        this.podsSubscription.unsubscribe();
+        this.regionalHubSubscription.unsubscribe();
     }
 }
