@@ -18,7 +18,9 @@ export class PodManagerDashboardComponent implements OnInit {
     }
 
     ngOnInit() {
-
+        this.dataService.getJsonData('pod-manager-leftnav.json').subscribe(res => {
+            this.sideNavData = res;
+        });
     }
 
     closeNav() {
