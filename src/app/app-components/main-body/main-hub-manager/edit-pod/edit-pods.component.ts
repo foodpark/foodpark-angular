@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import {Router, ParamMap, ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 import {PodModel} from '../../../../model';
@@ -12,29 +12,45 @@ import {PodsService} from 'src/app/app-services/pods.service';
 
 export class EditPodsComponent implements OnInit, OnDestroy {
     editpodform: FormGroup;
-    podId: number;
-    pods: PodModel[] = [];
+    podId;
+    pods;
     churchType = ['Church', 'Non-Profit', 'Non-Religious', 'Non-Denominational', 'Other'];
     connectedBy = ['Personal Referral', 'Google Search', 'Social Media', 'Other'];
 
     constructor(private formBuilder: FormBuilder,
-                private route: Router,
+                private route: ActivatedRoute,
+                private router: Router,
                 private podService: PodsService) {
     }
 
     ngOnInit() {
-        this.pods = JSON.parse(localStorage.getItem('editpod'));
         this.editpodform = this.formBuilder.group({
-            name: [this.pods['name'], Validators.required],
-            latitude: [this.pods['latitude'], Validators.required],
-            longitude: [this.pods['longitude'], Validators.required],
-            sponsor: [this.pods['sponsor'], Validators.required],
-            title: [this.pods['title'], Validators.required],
-            connected_with: [this.pods['connected_with'], Validators.required],
-            type: [this.pods['type'], Validators.required],
+            name: ['', Validators.required],
+            latitude: ['', Validators.required],
+            longitude: ['', Validators.required],
+            sponsor: ['', Validators.required],
+            title: ['', Validators.required],
+            connected_with: ['', Validators.required],
+            type: ['', Validators.required],
             // wordFile: [null, Validators.required]
         });
-        this.podId = this.pods['id'];
+        this.route.paramMap.subscribe((paramMap: ParamMap) => {
+            if (paramMap.has('podId')) {
+                this.podId = paramMap.get('podId');
+                this.podService.getPodFromPodId(this.podId).subscribe(res => {
+                    this.pods = res;
+                    this.editpodform.get('name').setValue(this.pods['name'], {emitEvent: false});
+                    this.editpodform.get('latitude').setValue(this.pods['latitude'], {emitEvent: false});
+                    this.editpodform.get('longitude').setValue(this.pods['longitude'], {emitEvent: false});
+                    this.editpodform.get('sponsor').setValue(this.pods['sponsor'], {emitEvent: false});
+                    this.editpodform.get('title').setValue(this.pods['title'], {emitEvent: false});
+                    this.editpodform.get('connected_with').setValue(this.pods['connected_with'], {emitEvent: false});
+                    this.editpodform.get('type').setValue(this.pods['type'], {emitEvent: false});
+                    document.getElementById('church_type').innerText = this.editpodform.get('type').value;
+                    document.getElementById('connected_with').innerText = this.editpodform.get('connected_with').value;
+                });
+            }
+        });
     }
 
     onChurchTypeClick(type: string) {
@@ -62,9 +78,9 @@ export class EditPodsComponent implements OnInit, OnDestroy {
         };
 
         this.podService.updatePod(this.podId, updatePodObj)
-        .subscribe(() => {
-            this.route.navigate(['/hubmanager/podapplications']);
-        });
+            .subscribe(() => {
+                this.router.navigate(['/hubmanager/podapplications']);
+            });
     }
 
     onFilePicked(event: Event) {
@@ -74,6 +90,5 @@ export class EditPodsComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        localStorage.removeItem('editpod');
     }
 }

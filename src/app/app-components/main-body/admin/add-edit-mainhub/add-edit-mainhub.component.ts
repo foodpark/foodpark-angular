@@ -5,7 +5,7 @@ import {Subscription} from 'rxjs';
 import {CountryService} from '../../../../app-services/country.service';
 import {TerritoryService} from '../../../../app-services/territory.service';
 import {MainhubService} from '../../../../app-services/mainhub.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 
 @Component({
     selector: 'app-add-edit-mainhub',
@@ -16,7 +16,8 @@ export class AddEditMainhubComponent implements OnInit, OnDestroy {
     mainhubForm: FormGroup;
     countries: CountryModel[] = [];
     territories: TerritoryModel[] = [];
-    mainhubs: MainhubModel[] = [];
+    mainhubs;
+    mainHubId;
     private countriesSubscription: Subscription;
     private territoriesSubscription: Subscription;
     isEdit = false;
@@ -25,55 +26,49 @@ export class AddEditMainhubComponent implements OnInit, OnDestroy {
                 private countryService: CountryService,
                 private territoryService: TerritoryService,
                 private mainhubService: MainhubService,
-                private router: Router) {
+                private router: Router,
+                private route: ActivatedRoute) {
     }
 
     ngOnInit() {
-        this.buildForm();
-        this.countriesSubscription = this.countryService.getCountriesUpdateListener()
-        .subscribe((countries: CountryModel[]) => {
-            this.countries = countries;
+        this.mainhubForm = this.formBuilder.group({
+            name: ['', Validators.required],
+            latitude: ['', Validators.required],
+            longitude: ['', Validators.required],
+            country: ['', Validators.required],
+            territory_id: ['', Validators.required],
+            type: ['MAIN', Validators.required]
         });
+        this.countryService.getCountries();
+        this.countriesSubscription = this.countryService.getCountriesUpdateListener()
+            .subscribe((countries: CountryModel[]) => {
+                this.countries = countries;
+            });
 
         this.territoriesSubscription = this.territoryService.getTerritoriesUpdateListener()
-        .subscribe((territories: TerritoryModel[]) => {
-            this.territories = territories;
+            .subscribe((territories: TerritoryModel[]) => {
+                this.territories = territories;
+            });
+
+        this.route.paramMap.subscribe((paramMap: ParamMap) => {
+            if (paramMap.has('mainhubId')) {
+                this.isEdit = true;
+                this.mainHubId = paramMap.get('mainhubId');
+                this.mainhubService.getMainhubFromId(this.mainHubId).subscribe(res => {
+                    this.mainhubs = res;
+                    this.mainhubForm.get('name').setValue(this.mainhubs['name'], {emitEvent: false});
+                    this.mainhubForm.get('latitude').setValue(this.mainhubs['latitude'], {emitEvent: false});
+                    this.mainhubForm.get('longitude').setValue(this.mainhubs['longitude'], {emitEvent: false});
+                    this.mainhubForm.get('country').setValue(this.mainhubs['country'], {emitEvent: false});
+                    document.getElementById('country_button').innerText = this.mainhubForm.get('country').value;
+                    this.territoryService.getTerritoriesFromId(this.mainhubs['territory_id']).subscribe(res => {
+                        document.getElementById('territory_button').innerText = res['territory'];
+                    });
+                });
+            }
         });
-
-        this.countryService.getCountries();
-
-        if (localStorage.getItem('editmainhub')) {
-            this.isEdit = true;
-            this.mainhubs = JSON.parse(localStorage.getItem('editmainhub'));
-            this.buildForm(this.mainhubs);
-        } else {
-            this.isEdit = false;
-            this.buildForm();
-        }
     }
 
-
-    buildForm(formData?) {
-        if (formData) {
-            this.mainhubForm = this.formBuilder.group({
-                name: [formData['name'], Validators.required],
-                latitude: [formData['latitude'], Validators.required],
-                longitude: [formData['longitude'], Validators.required],
-                country: [formData['country'], Validators.required],
-                territory_id: [formData['territory_id'], Validators.required],
-                type: ['MAIN', Validators.required]
-            });
-        } else {
-            this.mainhubForm = this.formBuilder.group({
-                name: ['', Validators.required],
-                latitude: ['', Validators.required],
-                longitude: ['', Validators.required],
-                country: ['', Validators.required],
-                territory_id: ['', Validators.required],
-                type: ['MAIN', Validators.required]
-            });
-        }
-    }
 
     get f() {
         return this.mainhubForm.controls;
@@ -94,7 +89,6 @@ export class AddEditMainhubComponent implements OnInit, OnDestroy {
         const button = document.getElementById('territory_button');
         button.innerText = this.territories[index]['territory'];
         this.mainhubForm.get('territory_id').setValue(this.territories[index]['id']);
-        console.log(this.mainhubForm);
     }
 
     onCreateMainHubClick() {
@@ -112,7 +106,6 @@ export class AddEditMainhubComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        localStorage.removeItem('editmainhub');
         this.countriesSubscription.unsubscribe();
         this.territoriesSubscription.unsubscribe();
     }

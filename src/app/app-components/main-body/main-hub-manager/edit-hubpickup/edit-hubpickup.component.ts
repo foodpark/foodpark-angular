@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {HubPickupModel, MainhubModel} from '../../../../model';
-import {Router} from '@angular/router';
+import {ParamMap, Router, ActivatedRoute} from '@angular/router';
 import {HubPickupService} from '../../../../app-services/hub-pickup.service';
 
 @Component({
@@ -15,25 +15,33 @@ export class EditHubpickupComponent implements OnInit {
     mainHub: MainhubModel;
 
     constructor(private fb: FormBuilder,
-                private route: Router,
+                private router: Router,
+                private route: ActivatedRoute,
                 private hubPickupService: HubPickupService) {
     }
 
     ngOnInit() {
-        this.hubPickups = JSON.parse('hubPickup');
-        this.hubPickupForm = this.fb.group({
-            event_name: [this.hubPickups['event_name'], Validators.required],
-            event_description: [this.hubPickups['event_description'], Validators.required],
-            event_image: [this.hubPickups['event_image'], Validators.required],
-            sponsor_name: [this.hubPickups['sponsor_name'], Validators.required],
-            sponsor1_image: [this.hubPickups['sponsor1_image'], Validators.required],
-            sponsor2_image: [this.hubPickups['sponsor2_image'], Validators.required],
-            start_date: [this.hubPickups['start_date'], Validators.required],
-            end_date: [this.hubPickups['end_date'], Validators.required],
-            start_time: [this.hubPickups['start_time'], Validators.required],
-            end_time: [this.hubPickups['end_time'], Validators.required],
-            latitude: [this.hubPickups['latitude'], Validators.required],
-            longitude: [this.hubPickups['longitude'], Validators.required],
+        this.route.paramMap.subscribe((paramMap: ParamMap) => {
+            if (paramMap.has('hubPickups')) {
+                this.hubPickupId = JSON.parse(paramMap['params']['hubPickups'])['id'];
+                this.hubPickupService.getHubPickupsFromId(this.hubPickupId).subscribe(res => {
+                    this.hubPickupForm = this.fb.group({
+                        event_name: [res['event_name'], Validators.required],
+                        event_description: [res['event_description'], Validators.required],
+                        event_image: [res['event_image'], Validators.required],
+                        sponsor_name: [res['sponsor_name'], Validators.required],
+                        sponsor1_image: [res['sponsor1_image'], Validators.required],
+                        sponsor2_image: [res['sponsor2_image'], Validators.required],
+                        start_date: [res['start_date'], Validators.required],
+                        end_date: [res['end_date'], Validators.required],
+                        start_time: [res['start_time'], Validators.required],
+                        end_time: [res['end_time'], Validators.required],
+                        latitude: [res['latitude'], Validators.required],
+                        longitude: [res['longitude'], Validators.required],
+                    });
+                    document.getElementById('connected_with').innerText = this.hubPickupForm.get('connected_with').value;
+                });
+            }
         });
     }
 

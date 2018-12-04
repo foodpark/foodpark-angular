@@ -2,10 +2,10 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {RegionalHubModel, MainhubModel} from '../../../../model';
 import {Subscription} from 'rxjs';
-import {Router} from '@angular/router';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {DataService} from '../../../../app-services/data.service';
 import {RegionalhubsService} from '../../../../app-services/regionalhubs.service';
-import { MainhubService } from 'src/app/app-services/mainhub.service';
+import {MainhubService} from 'src/app/app-services/mainhub.service';
 
 @Component({
     selector: 'app-add-edit-regional-hub',
@@ -14,57 +14,50 @@ import { MainhubService } from 'src/app/app-services/mainhub.service';
 export class AddEditRegionalHubComponent implements OnInit, OnDestroy {
     mainHub: MainhubModel;
     regionalHubForm: FormGroup;
-    regionalHubs: RegionalHubModel[];
+    regionalHubs;
     pageTitle = '';
     isCreate = false;
+    regionalHubId;
     private regionalHubsSubscription: Subscription;
 
     constructor(private formBuilder: FormBuilder,
                 private regionalService: RegionalhubsService,
                 private router: Router,
+                private route: ActivatedRoute,
                 private dataService: DataService,
                 private mainhubService: MainhubService) {
     }
 
     ngOnInit() {
-        this.buildForm();
-
-        this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
-        .subscribe((response) => {
-            this.mainHub = response[0];
+        this.regionalHubForm = this.formBuilder.group({
+            name: ['', Validators.required],
         });
+        this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
+            .subscribe((response) => {
+                this.mainHub = response[0];
+            });
 
         this.regionalHubsSubscription = this.regionalService.getRegionalHubsUpdateListener()
-        .subscribe((regionalHubs: RegionalHubModel[]) => {
-            this.regionalHubs = regionalHubs;
+            .subscribe((regionalHubs: RegionalHubModel[]) => {
+                this.regionalHubs = regionalHubs;
+            });
+
+        this.route.paramMap.subscribe((paramMap: ParamMap) => {
+            if (paramMap.has('regionalHubId')) {
+                this.isCreate = false;
+                this.pageTitle = 'Edit Regional Hub';
+                this.regionalHubId = paramMap.get('regionalHubId');
+                this.regionalService.getRegionalHubFromId(this.regionalHubId).subscribe(res => {
+                    this.regionalHubs = res;
+                    this.regionalHubForm.get('name').setValue(this.regionalHubs['name'], {emitEvent: false});
+                });
+            } else {
+                this.isCreate = true;
+                this.pageTitle = 'Add Regional Hub';
+            }
         });
-
-        this.regionalService.getRegionalHubs();
-        if (localStorage.getItem('regionalhub')) {
-            this.isCreate = false;
-            this.pageTitle = 'Edit Regional Hub';
-            this.regionalHubs = JSON.parse(localStorage.getItem('regionalhub'));
-            this.buildForm(this.regionalHubs);
-        } else {
-            this.isCreate = true;
-            this.buildForm();
-            this.pageTitle = 'Add Regional Hub';
-        }
     }
 
-    buildForm(formData?) {
-        if (formData) {
-            this.regionalHubForm = this.formBuilder.group({
-                name: [formData['name'], Validators.required]
-            });
-        } else {
-            this.regionalHubForm = this.formBuilder.group({
-                name: ['', Validators.required],
-                role: ['HUBMGR']
-            });
-        }
-
-    }
 
     get f() {
         return this.regionalHubForm.controls;
@@ -91,6 +84,5 @@ export class AddEditRegionalHubComponent implements OnInit, OnDestroy {
         if (this.dataService.nullCheck(this.regionalHubsSubscription)) {
             this.regionalHubsSubscription.unsubscribe();
         }
-        localStorage.removeItem('regionalhub');
     }
 }

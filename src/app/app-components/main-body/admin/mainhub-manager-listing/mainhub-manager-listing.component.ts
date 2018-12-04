@@ -91,8 +91,7 @@ export class MainhubManagerListingComponent implements OnInit, OnDestroy {
     }
 
     onEditClick(index: number) {
-        localStorage.setItem('editmainhubmanager', JSON.stringify(this.mainhubManagers[index]));
-        this.router.navigate(['/admin/editmainhubmanager']);
+        this.router.navigate(['/admin/editmainhubmanager', {territoriesId: this.territories[index]['id']}]);
     }
 
     onDeleteClick(id: number) {

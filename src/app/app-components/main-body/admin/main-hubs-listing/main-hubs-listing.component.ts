@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 import {CountryModel, MainhubModel} from '../../../../model';
 import {MainhubService} from '../../../../app-services/mainhub.service';
 import {CountryService} from '../../../../app-services/country.service';
-import { TerritoryService } from 'src/app/app-services/territory.service';
+import {TerritoryService} from 'src/app/app-services/territory.service';
 
 @Component({
     selector: 'app-main-hub',
@@ -27,14 +27,14 @@ export class MainHubsListingComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.countryService.getCountries();
         this.countriesSubscription = this.countryService.getCountriesUpdateListener()
-        .subscribe((countries: CountryModel[]) => {
-            this.selectedCountryName = countries[0]['name'];
-            const button = document.getElementById('country_button');
-            button.innerText = this.selectedCountryName;
-            this.countries = countries;
+            .subscribe((countries: CountryModel[]) => {
+                this.selectedCountryName = countries[0]['name'];
+                const button = document.getElementById('country_button');
+                button.innerText = this.selectedCountryName;
+                this.countries = countries;
 
-           this.mainhubService.getMainhubsInCountry(this.selectedCountryName);
-        });
+                this.mainhubService.getMainhubsInCountry(this.selectedCountryName);
+            });
 
         this.mainhubsSubscription = this.mainhubService.getMainhubsUpdateListener()
             .subscribe((res: MainhubModel[]) => {
@@ -54,8 +54,7 @@ export class MainHubsListingComponent implements OnInit, OnDestroy {
     }
 
     onEditClick(index: number) {
-        localStorage.setItem('editmainhub', JSON.stringify(this.mainhubs[index]));
-        this.router.navigate(['/admin/editmainhub']);
+        this.router.navigate(['/admin/editmainhub', {mainhubId: this.mainhubs[index]['id']}]);
     }
 
     onDeleteClick(id: number) {
