@@ -33,6 +33,7 @@ import { GIKDonationsComponent } from '../app-components/main-body/main-hub-mana
 
 import {PodManagerDashboardComponent} from '../app-components/main-body/pod-manager-dashboard/pod-manager-dashboard.component';
 import {LoadResourceComponent} from '../app-components/main-body/pod-manager-dashboard/load-resource/load-resource.component';
+import {AddEditResourceComponent} from '../app-components/main-body/pod-manager-dashboard/add-edit-resource/add-edit-resource.component';
 
 
 
@@ -132,7 +133,8 @@ const routes: Routes = [
     {
       path: 'podmanager', component: PodManagerDashboardComponent, canActivate: [AuthGuard],
         children:[
-          {path:'loadresource', component:LoadResourceComponent}
+          {path:'loadresource', component:LoadResourceComponent},
+          {path:'add-edit/:id', component:AddEditResourceComponent}
         ]
     }
 ];

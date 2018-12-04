@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router';
+import { RouterModule, Routes, Router } from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MaterialModule} from '../../../../app-modules/material.module';
-
 
 import {PodsService} from '../../../../app-services/pods.service';
 import {PodsManagerService} from '../../../../app-services/pod-manager.service';
@@ -26,7 +25,7 @@ export class LoadResourceComponent implements OnInit {
   popup1 : any;
 
   constructor(private podsService: PodsService, private PodsManagerService: PodsManagerService,
-                private mainhubService: MainhubService,private formBuilder: FormBuilder) {
+                private mainhubService: MainhubService,private route : Router,private formBuilder: FormBuilder) {
     this.getmainhubid();
     this.getLoadRequests();
     //this.newvolunterpopup = false;
@@ -70,8 +69,11 @@ export class LoadResourceComponent implements OnInit {
     });
   }
 
+  clickAddEdit(id){
+    this.route.navigate(['podmanager','add-edit',id]);
+  }
+
   ngOnInit() {
-    this.getLoadRequests();
     this.requestInitform();
   }
 

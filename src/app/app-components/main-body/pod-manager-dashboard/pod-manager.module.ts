@@ -6,6 +6,7 @@ import {MaterialModule} from '../../../app-modules/material.module';
 
 import {PodManagerDashboardComponent} from './pod-manager-dashboard.component';
 import {LoadResourceComponent} from './load-resource/load-resource.component';
+import {AddEditResourceComponent} from './add-edit-resource/add-edit-resource.component';
 
 @NgModule({
     imports: [
@@ -17,11 +18,13 @@ import {LoadResourceComponent} from './load-resource/load-resource.component';
     ],
     declarations: [
       PodManagerDashboardComponent,
-      LoadResourceComponent
+      LoadResourceComponent,
+      AddEditResourceComponent
     ],
     exports: [
       PodManagerDashboardComponent,
-      LoadResourceComponent
+      LoadResourceComponent,
+      AddEditResourceComponent
     ],
 })
 export class PodManagerModule {

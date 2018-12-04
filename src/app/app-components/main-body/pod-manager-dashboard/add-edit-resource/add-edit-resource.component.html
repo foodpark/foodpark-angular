@@ -1,0 +1,68 @@
+<div class="dashboard_content_layout pod_applications">
+  <button type="button" name="button" class="btn btn-default new_btn" data-toggle="modal" data-target="#exampleModal" (click)="popup1 = false">ADD PALLET</button>
+  <table class="table table-borderless">
+      <thead>
+        <tr>
+          <th>Load Type</th>
+          <th>Category</th>
+          <th>Quantity</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let list of loadrequests">
+          <td>{{list.load_type}}</td>
+          <td>{{list.category_name}}</td>
+          <td>{{list.quantity}}</td>
+          <td>{{list.description}}</td>
+        </tr>
+      </tbody>
+  </table>
+</div>
+
+
+<div class="modal_popup" id="exampleModal" role="dialog" data-backdrop="false"  aria-hidden="true"  *ngIf="!popup1">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New Volunteer</h5>
+      </div>
+      <form [formGroup]="adddeatilsform">
+        <div class="modal-body">
+          <div class="dropdown loadtype_dropdown">
+              <button id="loadtype" class="btn btn-primary dropdown-toggle" type="button"data-toggle="dropdown">Load Type</button>
+              <ul class="dropdown-menu">
+                  <li *ngFor="let type of loadtypes; let i = index" (click)="onloadtypeClick(i, type['id'])">
+                      {{type.loadtype}}
+                  </li>
+              </ul>
+          </div>
+          <p class="formErrors" *ngIf="formErrors.quantity">{{formErrors.load_type}}</p>
+
+          <div class="dropdown loadtype_dropdown">
+              <button id="category" class="btn btn-primary dropdown-toggle" type="button"data-toggle="dropdown">Category Name</button>
+              <ul class="dropdown-menu">
+                  <li *ngFor="let item of categories; let i = index" (click)="onCategoryClick(i, item['id'])">
+                      {{item.category}}
+                  </li>
+              </ul>
+          </div>
+          <p class="formErrors" *ngIf="formErrors.quantity">{{formErrors.category_name}}</p>
+          <div class="new_volunteer_fields">
+            <input formControlName="quantity"  type="text" name="" value="" placeholder="Quantity">
+          </div>
+          <p class="formErrors" *ngIf="formErrors.quantity">{{formErrors.quantity}}</p>
+
+          <div class="new_volunteer_fields">
+            <input formControlName="description"  type="text" name="" value="" placeholder="Description">
+          </div>
+          <p class="formErrors" *ngIf="formErrors.description">{{formErrors.description}}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="onSubmitform()">Save</button>
+          <button type="button" class="btn btn-secondary" (click)="popup1 = true">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
