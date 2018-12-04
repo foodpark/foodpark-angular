@@ -16,8 +16,8 @@ export class AddEditMainhubComponent implements OnInit, OnDestroy {
     mainhubForm: FormGroup;
     countries: CountryModel[] = [];
     territories: TerritoryModel[] = [];
-    mainhubs: MainhubModel[] = [];
-    mainHubId: number;
+    mainhubs;
+    mainHubId;
     private countriesSubscription: Subscription;
     private territoriesSubscription: Subscription;
     isEdit = false;
@@ -31,6 +31,14 @@ export class AddEditMainhubComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.mainhubForm = this.formBuilder.group({
+            name: ['', Validators.required],
+            latitude: ['', Validators.required],
+            longitude: ['', Validators.required],
+            country: ['', Validators.required],
+            territory_id: ['', Validators.required],
+            type: ['MAIN', Validators.required]
+        });
         this.countryService.getCountries();
         this.countriesSubscription = this.countryService.getCountriesUpdateListener()
             .subscribe((countries: CountryModel[]) => {
@@ -42,59 +50,25 @@ export class AddEditMainhubComponent implements OnInit, OnDestroy {
                 this.territories = territories;
             });
 
-
         this.route.paramMap.subscribe((paramMap: ParamMap) => {
-            if (paramMap.has('mainhubs')) {
-                this.mainHubId = JSON.parse(paramMap['params']['mainhubs'])['id'];
-                // this.mainhubService.getPodFromPodId(this.mainHubId).subscribe(res => {
-                //     this.mainhubForm = this.formBuilder.group({
-                //         name: [res['name'], Validators.required],
-                //         latitude: [res['latitude'], Validators.required],
-                //         longitude: [res['longitude'], Validators.required],
-                //         sponsor: [res['sponsor'], Validators.required],
-                //         title: [res['title'], Validators.required],
-                //         connected_with: [res['connected_with'], Validators.required],
-                //         type: [res['type'], Validators.required],
-                //         // wordFile: [null, Validators.required]
-                //     });
-                //     // document.getElementById('church_type').innerText = this.editpodform.get('type').value;
-                //     // document.getElementById('connected_with').innerText = this.editpodform.get('connected_with').value;
-                // });
+            if (paramMap.has('mainhubId')) {
+                this.isEdit = true;
+                this.mainHubId = paramMap.get('mainhubId');
+                this.mainhubService.getMainhubFromId(this.mainHubId).subscribe(res => {
+                    this.mainhubs = res;
+                    this.mainhubForm.get('name').setValue(this.mainhubs['name'], {emitEvent: false});
+                    this.mainhubForm.get('latitude').setValue(this.mainhubs['latitude'], {emitEvent: false});
+                    this.mainhubForm.get('longitude').setValue(this.mainhubs['longitude'], {emitEvent: false});
+                    this.mainhubForm.get('country').setValue(this.mainhubs['country'], {emitEvent: false});
+                    document.getElementById('country_button').innerText = this.mainhubForm.get('country').value;
+                    this.territoryService.getTerritoriesFromId(this.mainhubs['territory_id']).subscribe(res => {
+                        document.getElementById('territory_button').innerText = res['territory'];
+                    });
+                });
             }
         });
-        if (localStorage.getItem('editmainhub')) {
-            this.isEdit = true;
-            this.mainhubs = JSON.parse(localStorage.getItem('editmainhub'));
-            this.buildForm(this.mainhubs);
-        } else {
-            this.isEdit = false;
-            this.buildForm();
-        }
     }
 
-
-    buildForm(formData?) {
-        if (formData) {
-            this.mainhubForm = this.formBuilder.group({
-                name: [formData['name'], Validators.required],
-                latitude: [formData['latitude'], Validators.required],
-                longitude: [formData['longitude'], Validators.required],
-                country: [formData['country'], Validators.required],
-                territory_id: [formData['territory_id'], Validators.required],
-                type: ['MAIN', Validators.required]
-            });
-            document.getElementById('country_button').innerText = this.mainhubForm.get('country').value;
-        } else {
-            this.mainhubForm = this.formBuilder.group({
-                name: ['', Validators.required],
-                latitude: ['', Validators.required],
-                longitude: ['', Validators.required],
-                country: ['', Validators.required],
-                territory_id: ['', Validators.required],
-                type: ['MAIN', Validators.required]
-            });
-        }
-    }
 
     get f() {
         return this.mainhubForm.controls;
@@ -115,7 +89,6 @@ export class AddEditMainhubComponent implements OnInit, OnDestroy {
         const button = document.getElementById('territory_button');
         button.innerText = this.territories[index]['territory'];
         this.mainhubForm.get('territory_id').setValue(this.territories[index]['id']);
-        console.log(this.mainhubForm);
     }
 
     onCreateMainHubClick() {
@@ -133,7 +106,6 @@ export class AddEditMainhubComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        localStorage.removeItem('editmainhub');
         this.countriesSubscription.unsubscribe();
         this.territoriesSubscription.unsubscribe();
     }

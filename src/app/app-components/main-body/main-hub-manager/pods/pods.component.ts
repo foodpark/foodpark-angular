@@ -50,7 +50,7 @@ export class PodsComponent implements OnInit {
     }
 
     onEditClick(index: number) {
-        this.router.navigate(['/hubmanager/editpod', {podId: JSON.stringify(this.pods[index]['id'])}]);
+        this.router.navigate(['/hubmanager/editpod', {podId: this.pods[index]['id']}]);
     }
 
     onCreatePodClick() {

@@ -15,8 +15,8 @@ import {CountryModel, TerritoryModel} from '../../../../model';
 export class AddEditTerritoryComponent implements OnInit, OnDestroy {
     form: FormGroup;
     countries = [];
-    territory: TerritoryModel;
-    territoryId: number;
+    territory;
+    territoryId;
     isEditTerritory = false;
     pageTitle = '';
     selectedCountryId: number;
@@ -30,6 +30,12 @@ export class AddEditTerritoryComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.form = this.fb.group({
+            territory: ['', Validators.required],
+            latitude: ['', Validators.required],
+            longitude: ['', Validators.required],
+            country: ['', Validators.required]
+        });
         this.countriesSubscription = this.countryService.getCountriesUpdateListener()
             .subscribe((countries: CountryModel[]) => {
                 if (countries.length > 0) {
@@ -39,15 +45,14 @@ export class AddEditTerritoryComponent implements OnInit, OnDestroy {
         this.countryService.getCountries();
 
         this.dataRoute.paramMap.subscribe((paramMap: ParamMap) => {
-            if (paramMap.has('territories')) {
-                this.territoryId = JSON.parse(paramMap['params']['pods'])['id'];
+            if (paramMap.has('territoriesId')) {
+                this.territoryId = paramMap.get('territoriesId');
                 this.territoryService.getTerritoriesFromId(this.territoryId).subscribe(res => {
-                    this.form = this.fb.group({
-                        territory: [res['territory'], Validators.required],
-                        latitude: [res['latitude'], Validators.required],
-                        longitude: [res['longitude'], Validators.required],
-                        country: [res['country'], Validators.required]
-                    });
+                    this.territory = res;
+                    this.form.get('territory').setValue(this.territory['territory'], {emitEvent: false});
+                    this.form.get('latitude').setValue(this.territory['latitude'], {emitEvent: false});
+                    this.form.get('longitude').setValue(this.territory['longitude'], {emitEvent: false});
+                    this.form.get('country').setValue(this.territory['country'], {emitEvent: false});
                 });
                 this.isEditTerritory = true;
                 this.pageTitle = 'Edit Territory';

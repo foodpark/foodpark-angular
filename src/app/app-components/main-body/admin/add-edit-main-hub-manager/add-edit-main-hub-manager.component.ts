@@ -18,7 +18,8 @@ export class AddEditMainHubManagerComponent implements OnInit, OnDestroy {
     countries: CountryModel[] = [];
     territories: TerritoryModel[] = [];
     hubmanager: HubmanagerModel;
-    hubmanagerId: number;
+    hubmanagerId;
+    territoriesId;
     pageTitle = '';
     isCreate = false;
     private countriesSubscription: Subscription;
@@ -37,6 +38,18 @@ export class AddEditMainHubManagerComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.hubmanagerForm = this.formBuilder.group({
+            firstname: ['', Validators.required],
+            lastname: ['', Validators.required],
+            email: ['', Validators.email],
+            password: ['', Validators.required],
+            repeatpassword: ['', Validators.required],
+            country_id: ['', Validators.required],
+            country: ['', Validators.required],
+            territory_id: ['', Validators.required],
+            mainhubId: ['', Validators.required],
+            role: ['HUBMGR']
+        });
         this.countryService.getCountries();
         this.countriesSubscription = this.countryService.getCountriesUpdateListener()
             .subscribe((countries: CountryModel[]) => {
@@ -47,33 +60,20 @@ export class AddEditMainHubManagerComponent implements OnInit, OnDestroy {
                 this.territories = territories;
             });
         this.route.paramMap.subscribe((paramMap: ParamMap) => {
-            if (paramMap.has('mainhubmanager')) {
-                this.hubmanagerId = JSON.parse(paramMap['params']['mainhubmanager'])['id'];
-                this.hubManagerService.getMainHubManagersInTerritory(this.hubmanagerId);
+            if (paramMap.has('territoriesId')) {
+                this.territoriesId = paramMap.get('territoriesId');
+                this.hubManagerService.getMainHubManagersInTerritory(this.territoriesId);
                 this.hubManagerService.getMainHubManagersUpdateListener().subscribe(res => {
-                    this.hubmanagerForm = this.formBuilder.group({
-                        firstname: [res['first_name'], Validators.required],
-                        lastname: [res['last_name'], Validators.required],
-                        email: [res['username'], Validators.email]
-                    });
+                    this.hubmanagerForm.get('firstname').setValue(res[0]['first_name']);
+                    this.hubmanagerForm.get('lastname').setValue(res[0]['last_name']);
+                    this.hubmanagerForm.get('email').setValue(res[0]['username']);
                 });
                 this.isCreate = false;
                 this.pageTitle = 'Edit Main Hub Manager';
             } else {
                 this.isCreate = true;
                 this.pageTitle = 'Add Main Hub Manager';
-                this.hubmanagerForm = this.formBuilder.group({
-                    firstname: ['', Validators.required],
-                    lastname: ['', Validators.required],
-                    email: ['', Validators.email],
-                    password: ['', Validators.required],
-                    repeatpassword: ['', Validators.required],
-                    country_id: ['', Validators.required],
-                    country: ['', Validators.required],
-                    territory_id: ['', Validators.required],
-                    mainhubId: ['', Validators.required],
-                    role: ['HUBMGR']
-                });
+
             }
         });
     }

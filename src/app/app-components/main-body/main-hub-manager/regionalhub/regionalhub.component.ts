@@ -41,7 +41,7 @@ export class RegionalHubComponent implements OnInit, OnDestroy {
     }
 
     onEditClick(index: number) {
-        this.router.navigate(['/hubmanager/editregionalhub', {regionalHubId: JSON.stringify(this.regionalHubs[index]['id'])}]);
+        this.router.navigate(['/hubmanager/editregionalhub', {regionalHubId: this.regionalHubs[index]['id']}]);
     }
 
     onDeleteClick(id: number) {
