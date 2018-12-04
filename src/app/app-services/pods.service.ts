@@ -9,6 +9,7 @@ import {PodModel, PodmanagerModel} from '../model';
 })
 
 export class PodsService {
+    private pods: PodModel[] = [];
     private podsUpdated = new Subject<PodModel[]>();
     private podManagers: PodmanagerModel[] = [];
     private podmanagersUpdated = new Subject<PodmanagerModel[]>();
@@ -25,7 +26,11 @@ export class PodsService {
     }
 
     getAllPods() {
-        return this.http.get<PodModel[]>(environment.apiUrl + '/api/v1/rel/churches');
+        this.http.get<PodModel[]>(environment.apiUrl + '/api/v1/rel/churches')
+        .subscribe((response) => {
+            this.pods = response;
+            this.podsUpdated.next([...this.pods]);
+        });
     }
 
     getPodFromPodId(podId: number) {

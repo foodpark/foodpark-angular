@@ -67,6 +67,7 @@ export class AddEditRegionalHubComponent implements OnInit, OnDestroy {
         if (this.isCreate) {
             const obj = {
                 'name': this.regionalHubForm.get('name').value,
+                'food_park_id': this.mainHub.id
             };
             this.regionalService.addRegionalHub(obj);
             this.router.navigate(['/hubmanager/regionalhubs']);
