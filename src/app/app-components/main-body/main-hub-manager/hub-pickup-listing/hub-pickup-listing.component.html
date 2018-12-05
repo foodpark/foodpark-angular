@@ -21,7 +21,8 @@
         <tr *ngFor="let item of hubPickups; let i = index">
             <td>{{item['name']}}</td>
             <td>{{mainHub?.name}}</td>
-            <td>{{sponsors[i]['name']}}<img src="{{sponsors[i]['image']}}" alt="Sponsor Image"></td>
+            <td>{{sponsors[i]}}<img src="{{sponsors[i]}}" alt="Sponsor Image"></td>
+            {{hubPickups[i]['sponsors'] | json}}
             <td style="text-align: center;">
                 <i class="material-icons" (click)="onEditClick(i)">
                     edit

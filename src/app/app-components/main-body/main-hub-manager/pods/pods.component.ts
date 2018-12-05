@@ -14,7 +14,7 @@ import {RegionalhubsService} from '../../../../app-services/regionalhubs.service
 })
 export class PodsComponent implements OnInit, OnDestroy {
     pods: PodModel[] = [];
-    approve = ['Approved', 'Disapproved'];
+    approve = ['Approve', 'Reject'];
     mainHub: MainhubModel;
     regionalHubs: RegionalHubModel[] = [];
     selectedRegionalHubNames: string[] = [];

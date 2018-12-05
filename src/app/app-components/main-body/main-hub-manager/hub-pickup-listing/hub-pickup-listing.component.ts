@@ -14,6 +14,8 @@ export class HubPickupListingComponent implements OnInit, OnDestroy {
     private hubPickupsSubscription: Subscription;
     mainHub: MainhubModel;
     sponsors = [];
+    sponsorName = {};
+    sposorImages = [];
 
     constructor(private hubPickupService: HubPickupService,
                 private mainhubService: MainhubService,
@@ -25,11 +27,13 @@ export class HubPickupListingComponent implements OnInit, OnDestroy {
         this.hubPickupsSubscription = this.hubPickupService.getHubPickupUpdateListener()
             .subscribe((hubPickups: HubPickupModel[]) => {
                 this.hubPickups = hubPickups;
-                this.hubPickups.forEach(hubpickup => {
-                    this.sponsors.push(hubpickup['sponsors']);
-                });
             });
-
+        this.hubPickups.forEach(hubpickup => {
+            this.sponsors.push(hubpickup['sponsors']);
+        });
+        console.log(this.sponsors);
+        // this.sponsors.forEach(res => {
+        // });
         this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
             .subscribe((response) => {
                 this.mainHub = response[0];

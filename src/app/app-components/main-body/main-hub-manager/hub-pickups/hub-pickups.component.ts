@@ -4,6 +4,7 @@ import {MainhubModel} from '../../../../model';
 import {MainhubService} from '../../../../app-services/mainhub.service';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../../../environments/environment.prod';
+import {FileUploadService} from '../../../../app-services/fileupload.service';
 
 @Component({
     selector: 'app-hub-pickups',
@@ -17,7 +18,8 @@ export class HubPickupsComponent implements OnInit {
 
     constructor(private fb: FormBuilder,
                 private mainhubService: MainhubService,
-                private http: HttpClient) {
+                private http: HttpClient,
+                private fileService: FileUploadService) {
     }
 
     ngOnInit() {
@@ -51,6 +53,7 @@ export class HubPickupsComponent implements OnInit {
     }
 
     onSaveClick() {
+        this.fileService.uploadFileAndGetActualResponse(this.hubPickupForm.get('event_image').value);
         // const start_date = document.getElementById('start_date');
         // const end_date = document.getElementById('end_date');
         // this.hubPickupForm.get('start_date').setValue(start_date.value);
