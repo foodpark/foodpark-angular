@@ -20,6 +20,7 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
     private fileUploadSubscription: Subscription;
     private church_id: number;
     private wordfileURL: string;
+    private wordFileToUpload: File;
 
     churchType = ['Church', 'Non-Profit', 'Non-Religious', 'Non-Denominational', 'Other'];
     connectedBy = ['Personal Referral', 'Google Search', 'Social Media', 'Other'];
@@ -53,6 +54,8 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
         this.fileUploadSubscription = this.fileUploadService.getFileUploadListener()
             .subscribe((fileURL) => {
                 console.log('File Uploaded: ' + fileURL);
+                this.wordfileURL = fileURL;
+                this.createPodManager();
             });
 
         this.countriesSubscription = this.countryService.getCountriesUpdateListener()
@@ -82,12 +85,15 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
     }
 
     onFilePicked(files: FileList) {
-        const fileToUpload = files.item(0);
-        this.registerpodform.get('wordFile').setValue(fileToUpload);
-        this.registerpodform.get('wordFile').updateValueAndValidity();
+        this.wordFileToUpload = files.item(0);
+        this.registerpodform.get('wordFile').setValue(this.wordFileToUpload);
     }
 
     createPod() {
+        this.fileUploadService.uploadFile(this.wordFileToUpload);
+    }
+
+    private createPodManager() {
         const obj = {
             'role': 'PODMGR',
             'email': this.registerpodform.get('email').value,
@@ -100,29 +106,35 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
 
         this.podService.registerPodManager(obj)
             .subscribe((response) => {
+                console.log('Created pod manager');
                 this.church_id = response['user']['church_id'];
-                this.wordfileURL = this.fileUploadService.parseResponseAndGetURL(response);
                 this.sendPodData();
             });
     }
 
     private sendPodData() {
-        const updatePodData = new FormData();
-            const title = this.registerpodform.get('title').value;
-            updatePodData.append('name', this.registerpodform.value.church_name);
-            updatePodData.append('id', this.church_id.toString());
-            updatePodData.append('title', title);
-            updatePodData.append('connected_with', this.registerpodform.value.connectedBy);
-            updatePodData.append('sponsor', this.registerpodform.value.sponsor);
-            updatePodData.append('latitude', this.registerpodform.value.latitude);
-            updatePodData.append('longitude', this.registerpodform.value.longitude);
-            updatePodData.append('type', this.registerpodform.value.type);
-            updatePodData.append('approved', 'true');
+        console.log('updating  pod data');
+        // updatePodData.append('id', this.church_id.toString());
+        const title = this.registerpodform.get('title').value;
+        const updatePodData = {
+            'name': this.registerpodform.value.church_name,
+            'title': title,
+            'connected_with': this.registerpodform.value.connectedBy,
+            'sponsor': this.registerpodform.value.sponsor,
+            'latitude': this.registerpodform.value.latitude,
+            'longitude': this.registerpodform.value.longitude,
+            'type': this.registerpodform.value.type,
+            'approved': 'true',
+            'wordfile': this.wordfileURL
+        };
 
-            this.podService.updatePod(this.church_id, updatePodData)
-            .subscribe(() => {
-                this.route.navigate(['/hubmanager/podapplications']);
-            });
+        this.podService.updatePod(this.church_id, updatePodData)
+        .subscribe(() => {
+            console.log('received response from churches update');
+            this.route.navigate(['/hubmanager/podapplications']);
+        }, error =>  {
+            console.log(error);
+        });
     }
 
 
