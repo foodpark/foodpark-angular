@@ -28,12 +28,6 @@ export class HubPickupListingComponent implements OnInit, OnDestroy {
             .subscribe((hubPickups: HubPickupModel[]) => {
                 this.hubPickups = hubPickups;
             });
-        this.hubPickups.forEach(hubpickup => {
-            this.sponsors.push(hubpickup['sponsors']);
-        });
-        console.log(this.sponsors);
-        // this.sponsors.forEach(res => {
-        // });
         this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
             .subscribe((response) => {
                 this.mainHub = response[0];
@@ -45,7 +39,7 @@ export class HubPickupListingComponent implements OnInit, OnDestroy {
     }
 
     onEditClick(index: number) {
-        this.router.navigate(['/hubmanager/edithubpickup', {hubPickups: JSON.stringify(this.hubPickups[index]['id'])}]);
+        this.router.navigate(['/hubmanager/edithubpickup', {hubPickups: this.hubPickups[index]['id']}]);
     }
 
     onDeleteClick(index: number) {
