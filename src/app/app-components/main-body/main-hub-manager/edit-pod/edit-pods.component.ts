@@ -1,10 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, ParamMap, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PodsService } from 'src/app/app-services/pods.service';
-import { FileUploadService } from 'src/app/app-services/fileupload.service';
-import { Subscription } from 'rxjs';
-import { PodModel } from 'src/app/model';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Router, ParamMap, ActivatedRoute} from '@angular/router';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {PodsService} from 'src/app/app-services/pods.service';
+import {FileUploadService} from 'src/app/app-services/fileupload.service';
+import {Subscription} from 'rxjs';
+import {PodModel} from 'src/app/model';
 
 @Component({
     selector: 'app-edit-pods',
@@ -39,18 +39,19 @@ export class EditPodsComponent implements OnInit, OnDestroy {
         private router: Router,
         private podService: PodsService,
         private fileUploadService: FileUploadService
-    ) {}
+    ) {
+    }
 
     ngOnInit() {
         this.editpodform = this.formBuilder.group({
-            church_name: ['', Validators.required],
+            pod_name: ['', Validators.required],
             latitude: ['', Validators.required],
             longitude: ['', Validators.required],
             sponsor: ['', Validators.required],
             title: ['', Validators.required],
             connected_with: ['', Validators.required],
             type: ['', Validators.required],
-            wordFile: [null, Validators.required]
+            wordFile: [null, Validators.required],
         });
 
         this.route.paramMap.subscribe((paramMap: ParamMap) => {
@@ -58,44 +59,24 @@ export class EditPodsComponent implements OnInit, OnDestroy {
                 this.podId = paramMap.get('podId');
                 this.podService.getPodFromPodId(parseInt(this.podId, 10)).subscribe(res => {
                     this.pod = res;
-                    this.editpodform
-                        .get('name')
-                        .setValue(this.pod['name'], { emitEvent: false });
-                    this.editpodform
-                        .get('latitude')
-                        .setValue(this.pod['latitude'], { emitEvent: false });
-                    this.editpodform
-                        .get('longitude')
-                        .setValue(this.pod['longitude'], { emitEvent: false });
-                    this.editpodform
-                        .get('sponsor')
-                        .setValue(this.pod['sponsor'], { emitEvent: false });
-                    this.editpodform
-                        .get('title')
-                        .setValue(this.pod['title'], { emitEvent: false });
-                    this.editpodform
-                        .get('connected_with')
-                        .setValue(this.pod['connected_with'], {
-                            emitEvent: false
-                        });
-                    this.editpodform
-                        .get('type')
-                        .setValue(this.pod['type'], { emitEvent: false });
-                    document.getElementById(
-                        'church_type'
-                    ).innerText = this.editpodform.get('type').value;
-                    document.getElementById(
-                        'connected_with'
-                    ).innerText = this.editpodform.get('connected_with').value;
+                    this.editpodform.get('pod_name').setValue(this.pod['name'], {emitEvent: false});
+                    this.editpodform.get('latitude').setValue(this.pod['latitude'], {emitEvent: false});
+                    this.editpodform.get('longitude').setValue(this.pod['longitude'], {emitEvent: false});
+                    this.editpodform.get('sponsor').setValue(this.pod['sponsor'], {emitEvent: false});
+                    this.editpodform.get('title').setValue(this.pod['title'], {emitEvent: false});
+                    this.editpodform.get('connected_with').setValue(this.pod['connected_with'], {emitEvent: false});
+                    this.editpodform.get('type').setValue(this.pod['type'], {emitEvent: false});
+                    document.getElementById('church_type').innerText = this.editpodform.get('type').value;
+                    document.getElementById('connected_with').innerText = this.editpodform.get('connected_with').value;
                 });
             }
         });
 
         this.fileUploadSubscription = this.fileUploadService.getFileUploadListener()
-        .subscribe((fileURL) => {
-            this.wordfileURL = fileURL;
-            this.uploadPod();
-        });
+            .subscribe((fileURL) => {
+                this.wordfileURL = fileURL;
+                this.uploadPod();
+            });
     }
 
     onChurchTypeClick(type: string) {
@@ -110,12 +91,12 @@ export class EditPodsComponent implements OnInit, OnDestroy {
 
     onFilePicked(files: FileList) {
         this.wordFileToUpload = files.item(0);
-        this.editpodform.get('wordFile').setValue(this.wordFileToUpload);
-        document.getElementById('wordfile_name').innerText = this.wordFileToUpload.name;
+        // this.editpodform.get('wordFile').setValue(this.wordFileToUpload);
+        // document.getElementById('wordfile_name').innerText = this.wordFileToUpload.name;
     }
 
     savePod() {
-        if (this.wordFileToUpload == null) {
+        if (this.wordFileToUpload === null) {
             this.uploadPod();
         } else {
             this.fileUploadService.uploadFile(this.wordFileToUpload);
@@ -124,7 +105,7 @@ export class EditPodsComponent implements OnInit, OnDestroy {
 
     uploadPod() {
         const updatePodData = {
-            'name': this.editpodform.value.church_name,
+            'name': this.editpodform.value.pod_name,
             'title': this.editpodform.value.title,
             'connected_with': this.editpodform.value.connectedBy,
             'sponsor': this.editpodform.value.sponsor,
@@ -135,10 +116,11 @@ export class EditPodsComponent implements OnInit, OnDestroy {
         };
 
         this.podService.updatePod(parseInt(this.podId, 10), updatePodData)
-        .subscribe(() => {
-            this.router.navigate(['/hubmanager/podapplications']);
-        });
+            .subscribe(() => {
+                this.router.navigate(['/hubmanager/podapplications']);
+            });
     }
 
-    ngOnDestroy() {}
+    ngOnDestroy() {
+    }
 }
