@@ -1,7 +1,5 @@
 <div class="absolute-position">
-    <div class="title-center">
-        <h2>Edit Pod</h2>
-    </div>
+    <div class="title-center"><h2>Edit Pod</h2></div>
     <form [formGroup]="editpodform">
         <div class="form-group">
             <h4>Pod Name</h4>
@@ -9,7 +7,8 @@
                 type="text"
                 class="form-control"
                 placeholder="Pod Name"
-                formControlName="name">
+                formControlName="church_name"
+            />
         </div>
         <div class="form-group">
             <h4>Sponsor</h4>
@@ -17,7 +16,8 @@
                 type="text"
                 class="form-control"
                 placeholder="Sponsor"
-                formControlName="sponsor">
+                formControlName="sponsor"
+            />
         </div>
         <div class="form-group">
             <h4>Title</h4>
@@ -25,47 +25,75 @@
                 type="text"
                 class="form-control"
                 placeholder="Title"
-                formControlName="title">
+                formControlName="title"
+            />
         </div>
 
         <div class="form-group">
             <h4>Church Type</h4>
             <div class="dropdown">
-                <button id="church_type"
-                        class="btn btn-primary dropdown-toggle"
-                        type="button"
-                        data-toggle="dropdown">Select
+                <button
+                    id="church_type"
+                    class="btn btn-primary dropdown-toggle"
+                    type="button"
+                    data-toggle="dropdown"
+                >
+                    Select
                 </button>
                 <ul class="dropdown-menu">
-                    <li *ngFor="let type of churchType" (click)="onChurchTypeClick(type)">{{type}}</li>
+                    <li
+                        *ngFor="let type of churchType"
+                        (click)="onChurchTypeClick(type)"
+                    >
+                        {{ type }}
+                    </li>
                 </ul>
             </div>
         </div>
         <div class="form-group">
             <h4>Connected With</h4>
             <div class="dropdown">
-                <button id="connected_with"
-                        class="btn btn-primary dropdown-toggle"
-                        type="button"
-                        data-toggle="dropdown">Select
+                <button
+                    id="connected_with"
+                    class="btn btn-primary dropdown-toggle"
+                    type="button"
+                    data-toggle="dropdown"
+                >
+                    Select
                 </button>
                 <ul class="dropdown-menu">
-                    <li *ngFor="let item of connectedBy" (click)="onConnectedByClick(item)">{{item}}</li>
+                    <li
+                        *ngFor="let item of connectedBy"
+                        (click)="onConnectedByClick(item)"
+                    >
+                        {{ item }}
+                    </li>
                 </ul>
             </div>
         </div>
-        <!-- <div class="form-group">
+        <div class="form-group">
             <h4>Upload Attachments</h4>
-            <input type="file" class="form-control" name="" value="" placeholder="Upload Word Attachments"
-            accept=".docx, .doc" formControlName="uploadAttachments" (change)="onFilePicked($event)">
-        </div> -->
+            <input
+                type="file"
+                class="form-control"
+                name=""
+                value=""
+                placeholder="Upload Word Attachments"
+                accept=".docx, .doc"
+                formControlName="uploadAttachments"
+                (change)="onFilePicked($event.target.files)"
+            />
+            <h4>File:</h4>
+            <label formControlName="wordfile_name">-</label>
+        </div>
         <div class="form-group">
             <h4>Latitude</h4>
             <input
                 type="text"
                 class="form-control"
                 placeholder="Latitude"
-                formControlName="latitude">
+                formControlName="latitude"
+            />
         </div>
         <div class="form-group">
             <h4>Longitude</h4>
@@ -73,12 +101,16 @@
                 type="text"
                 class="form-control"
                 placeholder="Longitude"
-                formControlName="longitude">
+                formControlName="longitude"
+            />
         </div>
-        <button type="submit"
-                class="btn btn-default"
-                [disabled]="!editpodform.valid"
-                (click)="savePod()">Save
+        <button
+            type="submit"
+            class="btn btn-default"
+            [disabled]="!editpodform.valid"
+            (click)="savePod()"
+        >
+            Save
         </button>
     </form>
 </div>
