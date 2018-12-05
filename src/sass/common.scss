@@ -181,6 +181,15 @@ $transition-default: 0.25s ease-out 0.10s;
     background-color: transparent !important;
   }
 }
+
+.pods_left_menu {
+  padding: 8px 8px 8px 20px;
+  text-decoration: none;
+  font-size: 18px;
+  color: #000000;
+  display: block;
+  transition: 0.3s;
+}
 .new_volunteer_fields {
   border-bottom: 1px solid rgba(0,0,0,0.12);;
   //width: 300px;
