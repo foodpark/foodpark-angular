@@ -62,7 +62,7 @@ export interface RegionalHubModel {
 export interface PodModel {
     id: number;
     name: string;
-    addendeum_file: string;
+    wordfile: string;
     title: string;
     connected_with: string;
     sponsor: string;

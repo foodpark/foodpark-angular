@@ -20,6 +20,13 @@
     width: 100%;
 }
 
+.tab-absolute-position {
+    position: absolute;
+    top: 200px;
+    left: 100px;
+    right: 100px
+}
+
 .absolute-position {
     position: absolute;
     top: 110px;
@@ -174,9 +181,18 @@ $transition-default: 0.25s ease-out 0.10s;
     background-color: transparent !important;
   }
 }
+
+.pods_left_menu {
+  padding: 8px 8px 8px 20px;
+  text-decoration: none;
+  font-size: 18px;
+  color: #000000;
+  display: block;
+  transition: 0.3s;
+}
 .new_volunteer_fields {
-  border-bottom: 1px solid;
-  width: 300px;
+  border-bottom: 1px solid rgba(0,0,0,0.12);;
+  //width: 300px;
   margin: 18px auto;
   input {
     width: 100%;
@@ -185,6 +201,11 @@ $transition-default: 0.25s ease-out 0.10s;
   }
 }
 
+.modal__header {
+  background-color: #67c4ea;
+  font-family: 'Raleway', sans-serif;
+  color: #000;
+}
 .formErrors {
   color: red;
 }

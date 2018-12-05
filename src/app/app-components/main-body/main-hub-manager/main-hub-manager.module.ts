@@ -7,7 +7,6 @@ import {MaterialModule} from '../../../app-modules/material.module';
 import {HubManagerDashboardComponent} from './hub-manager-dashboard/hub-manager-dashboard.component';
 import {RegionalHubComponent} from './regionalhub/regionalhub.component';
 import {ReportingComponent} from './reporting/reporting.component';
-import {PodApplicationsComponent} from './pod-applications/pod-applications.component';
 import {PodsComponent} from './pods/pods.component';
 import {CreatePodsComponent} from './create-pods/create-pods.component';
 import {LoadManagementComponent} from './load-management/load-management.component';
@@ -39,7 +38,6 @@ import { GIKDonationsComponent } from './distrubution-center/gikdonations/gik-do
         HubManagerDashboardComponent,
         RegionalHubComponent,
         ReportingComponent,
-        PodApplicationsComponent,
         PodsComponent,
         CreatePodsComponent,
         LoadManagementComponent,
@@ -62,7 +60,6 @@ import { GIKDonationsComponent } from './distrubution-center/gikdonations/gik-do
         HubManagerDashboardComponent,
         RegionalHubComponent,
         ReportingComponent,
-        PodApplicationsComponent,
         PodsComponent,
         CreatePodsComponent,
         LoadManagementComponent,
