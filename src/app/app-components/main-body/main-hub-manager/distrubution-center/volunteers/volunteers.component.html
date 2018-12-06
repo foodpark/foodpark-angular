@@ -1,18 +1,4 @@
 <div class="tab-absolute-position">
-    <div>
-        <button
-            type="button"
-            name="button"
-            class="btn btn-default new_btn"
-            data-toggle="modal"
-            data-target="#exampleModal"
-            style="height: 50px;align-items: center;width: 100%;"
-            (click)="newvolunterpopup = true"
-        >
-            New Volunteer
-        </button>
-    </div>
-
     <table class="table table-borderless">
         <thead>
             <tr>
@@ -59,6 +45,43 @@
             </tr>
         </tbody>
     </table>
+    <div>
+        <button
+            type="button"
+            name="button"
+            class="btn btn-default new_btn"
+            data-toggle="modal"
+            data-target="#exampleModal"
+            style="height: 50px;align-items: center;width: 100%;"
+            (click)="newvolunterpopup = true">
+            New Volunteer
+        </button>
+    </div>
+
+<div class="">
+  <table class="table table-borderless">
+      <!-- <thead>
+          <tr>
+              <th>Name</th>
+              <th>Avilablity</th>
+              <th>Phone</th>
+              <th style="width: 5%;text-align: center;">Delete</th>
+          </tr>
+      </thead> -->
+      <tbody>
+          <tr *ngFor="let item of allregisteredvolunters">
+              <td>{{ item.first_name }}.{{ item.last_name }}</td>
+              <td>{{ item.phone }}</td>
+              <td style="text-align: center;">
+                  <!-- <i  class="material-icons"(click)="Addvolunter(item)">
+                      delete
+                  </i> -->
+                  <button type="button" name="button" (click)="Addvolunter(item)">Add Driver</button>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+</div>
 
 <div class="modal" id="exampleModal" tabindex="-1" role="dialog"  aria-hidden="true" *ngIf="newvolunterpopup" style="display: block">
   <div class="modal-dialog" role="document">
@@ -90,4 +113,5 @@
         <button type="button" class="btn btn-secondary" (click)="newvolunterpopup = false">Cancel</button>
       </div>
     </div>
+  </div>
 </div>

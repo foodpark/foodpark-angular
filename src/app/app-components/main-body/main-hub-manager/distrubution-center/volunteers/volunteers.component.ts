@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { PodsService } from '../../../../../app-services/pods.service';
+import { DistributionService } from '../../../../../app-services/distribution-center.service';
 import { MainhubService } from 'src/app/app-services/mainhub.service';
 
 @Component({
@@ -17,12 +18,13 @@ export class VolunteersComponent implements OnInit {
     newvolunterpopup: any;
     newvolunteersform: any;
     territoryid: any;
+    allregisteredvolunters:any;
+    objresponse : any
 
-    constructor(
-        private podsService: PodsService,
-        private mainhubService: MainhubService,
-        private formBuilder: FormBuilder
-    ) {}
+
+    constructor(private distributionservice: DistributionService,private mainhubService: MainhubService,private formBuilder: FormBuilder) {
+
+    }
 
     volunteerInitform() {
         this.newvolunteersform = this.formBuilder.group({
@@ -44,14 +46,25 @@ export class VolunteersComponent implements OnInit {
                     this.territoryid = this.mainHub.territory_id;
                     console.log(this.mainHub);
                     this.getAllVolunteers();
+                    this.getRegisteredVolunteers();
                 }
             });
     }
 
     getAllVolunteers() {
-        this.podsService.apiGetVolunteers(this.territoryid).subscribe(
+        this.distributionservice.apiGetVolunteers(this.mainhubId).subscribe(
             response => {
                 this.allvolunters = response;
+                console.log('this is all users', this.allvolunters);
+            },
+            error => {}
+        );
+    }
+
+    getRegisteredVolunteers() {
+        this.distributionservice.apiGetRegisteredVolunteers(this.territoryid).subscribe(
+            response => {
+                this.allregisteredvolunters = response;
                 console.log('this is all users', this.allvolunters);
             },
             error => {}
@@ -69,7 +82,7 @@ export class VolunteersComponent implements OnInit {
             territory_id: this.territoryid,
             food_park_id: this.mainhubId
         };
-        this.podsService.Apicreatevolunteers(reqobj).subscribe(
+        this.distributionservice.Apicreatevolunteers(reqobj).subscribe(
             response => {
                 console.log('this is new volunter', response);
                 this.newvolunterpopup = false;
@@ -77,6 +90,23 @@ export class VolunteersComponent implements OnInit {
             },
             error => {}
         );
+    }
+
+    Addvolunter(data){
+      this.objresponse = data;
+      console.log('this.objresponse',this.objresponse);
+      const obj = {
+        name: this.objresponse.first_name,
+        phone: this.objresponse.phone,
+        user_id: this.objresponse.id
+      }
+      this.distributionservice.apiAddVolunteers(this.mainhubId,obj).subscribe(
+        response => {
+          console.log('this is all users', response);
+          this.getAllVolunteers();
+        },
+        error => {}
+      );
     }
 
     ngOnInit() {

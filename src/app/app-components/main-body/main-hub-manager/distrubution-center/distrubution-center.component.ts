@@ -12,7 +12,7 @@ export class DistributionCenterComponent implements OnInit {
     constructor(private activateroute: ActivatedRoute, private route: Router) {
         this.activatedroute = this.activateroute;
         this.currentpage = {};
-        this.currentpage.name = 'VOLUNTEERS';
+        this.currentpage.name = '';
         this.setSalestabActive();
     }
 
