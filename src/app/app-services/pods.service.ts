@@ -27,10 +27,10 @@ export class PodsService {
 
     getAllPods() {
         this.http.get<PodModel[]>(environment.apiUrl + '/api/v1/rel/churches')
-        .subscribe((response) => {
-            this.pods = response;
-            this.podsUpdated.next([...this.pods]);
-        });
+            .subscribe((response) => {
+                this.pods = response;
+                this.podsUpdated.next([...this.pods]);
+            });
     }
 
     getPodFromPodId(podId: number) {
@@ -84,13 +84,15 @@ export class PodsService {
     apiGetVolunteers(mainHubId) {
         return this.http.get(environment.apiUrl + '/api/v1/rel/food_parks/' + mainHubId + '/drivers');
     }
+
     apiGetRegisteredVolunteers(mainHubId) {
-        return this.http.get(environment.apiUrl + '/api/v1/rel/territories/'+ mainHubId +'/users?role=DRIVER');
+        return this.http.get(environment.apiUrl + '/api/v1/rel/territories/' + mainHubId + '/users?role=DRIVER');
     }
 
     apiAddVolunteers(volunterId, data) {
         return this.http.post(environment.apiUrl + '/api/v1/rel/food_parks/' + volunterId + '/drivers', data);
     }
+
     Apicreatevolunteers(data) {
         return this.http.post(environment.apiUrl + '/auth/register ', data);
     }
