@@ -9,15 +9,15 @@ import {PodModel, PodmanagerModel} from '../model';
 })
 
 export class DistributionService {
-  
+
     constructor(private http: HttpClient) {
     }
 
     apiGetVolunteers(mainHubId) {
         return this.http.get(environment.apiUrl + '/api/v1/rel/food_parks/' + mainHubId + '/drivers');
     }
-    apiGetRegisteredVolunteers(mainHubId) {
-        return this.http.get(environment.apiUrl + '/api/v1/rel/territories/'+ mainHubId +'/users?role=DRIVER');
+    apiGetRegisteredVolunteers(territoryid) {
+        return this.http.get(environment.apiUrl + '/api/v1/rel/territories/'+ territoryid +'/users?role=DRIVER');
     }
 
     apiAddVolunteers(volunterId, data) {
@@ -25,6 +25,12 @@ export class DistributionService {
     }
     Apicreatevolunteers(data) {
         return this.http.post(environment.apiUrl + '/auth/register ', data);
+    }
+    Apideletevolunteers(foodid, userid) {
+        return this.http.delete(environment.apiUrl + '/api/v1/rel/food_parks/'+ foodid +'/drivers/'+ userid);
+    }
+    Apiavilablitydata(mainid, id, data) {
+        return this.http.post(environment.apiUrl + '/api/v1/rel/food_parks/'+ mainid +'/drivers/'+ id, data);
     }
 
 }

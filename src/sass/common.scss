@@ -190,6 +190,22 @@ $transition-default: 0.25s ease-out 0.10s;
     transition: 0.3s;
 }
 
+.add_button,
+.remove_button {
+    width: 135px;
+    font-size: 17px;
+    color: #fff !important;
+    border: none;
+}
+
+.add_button {
+    background-color: #67c4ea;
+}
+
+.remove_button {
+    background-color: #9f1f63;
+}
+
 .new_volunteer_fields {
     border-bottom: 1px solid rgba(0, 0, 0, 0.12);;
     //width: 300px;

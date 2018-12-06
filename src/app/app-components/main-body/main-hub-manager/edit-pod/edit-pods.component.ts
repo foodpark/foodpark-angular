@@ -14,7 +14,7 @@ import {PodModel} from 'src/app/model';
 export class EditPodsComponent implements OnInit, OnDestroy {
     editpodform: FormGroup;
     podId: string;
-    pod: PodModel;
+    pod: any; //PodModel;
     churchType = [
         'Church',
         'Non-Profit',
