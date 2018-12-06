@@ -1,5 +1,7 @@
 <div class="absolute-position">
-    <div class="title-center"><h2>Edit Pod</h2></div>
+    <div class="title-center">
+        <h2>Edit Pod</h2>
+    </div>
     <form [formGroup]="editpodform">
         <div class="form-group">
             <h4>Pod Name</h4>
@@ -7,8 +9,7 @@
                 type="text"
                 class="form-control"
                 placeholder="Pod Name"
-                formControlName="pod_name"
-            />
+                formControlName="pod_name"/>
         </div>
         <div class="form-group">
             <h4>Sponsor</h4>
@@ -16,8 +17,7 @@
                 type="text"
                 class="form-control"
                 placeholder="Sponsor"
-                formControlName="sponsor"
-            />
+                formControlName="sponsor"/>
         </div>
         <div class="form-group">
             <h4>Title</h4>
@@ -25,8 +25,7 @@
                 type="text"
                 class="form-control"
                 placeholder="Title"
-                formControlName="title"
-            />
+                formControlName="title"/>
         </div>
 
         <div class="form-group">
@@ -79,7 +78,9 @@
                 formControlName="wordFile"
                 (change)="onFilePicked($event.target.files)"/>
         </div>
-        <h5 formControlName="wordfile_name">{{wordFileToUpload != null ? wordFileToUpload.name : wordfileURL ? wordfileURL :'File URL' }}</h5>
+        <h5 style="height: 30px;font-size: 20px;" id="wordfile_name">{{wordFileToUpload != null ?
+            wordFileToUpload.name : wordfileURL ? wordfileURL :'File URL' }}
+        </h5>
         <div class="form-group">
             <h4>Latitude</h4>
             <input

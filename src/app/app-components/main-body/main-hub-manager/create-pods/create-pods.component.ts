@@ -6,7 +6,7 @@ import {CountryService} from '../../../../app-services/country.service';
 import {CountryModel} from '../../../../model';
 import {Subscription} from 'rxjs';
 import {PodsService} from 'src/app/app-services/pods.service';
-import { FileUploadService } from 'src/app/app-services/fileupload.service';
+import {FileUploadService} from 'src/app/app-services/fileupload.service';
 
 @Component({
     selector: 'app-create-pods',
@@ -44,7 +44,7 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
             country: ['', Validators.required],
             sponsor: ['', Validators.required],
             title: ['', Validators.required],
-            type : ['', Validators.required],
+            type: ['', Validators.required],
             connectedBy: ['', Validators.required],
             latitude: ['', Validators.required],
             longitude: ['', Validators.required],
@@ -87,6 +87,7 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
     onFilePicked(files: FileList) {
         this.wordFileToUpload = files.item(0);
         this.registerpodform.get('wordFile').setValue(this.wordFileToUpload);
+        document.getElementById('wordfile_name').innerText = this.wordFileToUpload.name;
     }
 
     createPod() {
@@ -127,10 +128,10 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
         };
 
         this.podService.updatePod(this.church_id, updatePodData)
-        .subscribe(() => {
-            console.log('received response from churches update');
-            this.route.navigate(['/hubmanager/podapplications']);
-        });
+            .subscribe(() => {
+                console.log('received response from churches update');
+                this.route.navigate(['/hubmanager/podapplications']);
+            });
     }
 
 
