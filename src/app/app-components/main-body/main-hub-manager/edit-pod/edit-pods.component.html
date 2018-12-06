@@ -70,6 +70,7 @@
         <div class="form-group">
             <h4>Upload Attachments</h4>
             <input
+                style="width: 150px"
                 type="file"
                 id="file"
                 class="form-control"
@@ -78,7 +79,7 @@
                 formControlName="wordFile"
                 (change)="onFilePicked($event.target.files)"/>
         </div>
-        <input type="text"><span>{{wordFileToUpload?.name || wordfileURL ? wordfileURL :'File URL' }}</span>
+        <h5 formControlName="wordfile_name">{{wordFileToUpload != null ? wordFileToUpload.name : wordfileURL ? wordfileURL :'File URL' }}</h5>
         <div class="form-group">
             <h4>Latitude</h4>
             <input
