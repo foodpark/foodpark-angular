@@ -13,31 +13,17 @@
                 <td>{{ item.first_name }}.{{ item.last_name }}</td>
                 <td>
                     <div class="button-switch">
-                        <input
-                            type="checkbox"
-                            id="switch-blue"
-                            class="switch"
-                            checked
-                            *ngIf="item.is_deleted == true"
-                        />
-                        <input
-                            type="checkbox"
-                            id="switch-blue"
-                            class="switch"
-                            *ngIf="item.is_deleted == false"
-                        />
-                        <!--
-                            <label for="switch-blue" class="lbl-off"></label>
-                            <label for="switch-blue" class="lbl-on"></label>
+                      <input type="checkbox" id="switch-blue" class="switch"  checked  *ngIf="item.available == true"  />
+                      <input type="checkbox" id="switch-blue" class="switch"  *ngIf="item.available == false"/>
+                      <!--
+                          <label for="switch-blue" class="lbl-off"></label>
+                          <label for="switch-blue" class="lbl-on"></label>
                         -->
                     </div>
                 </td>
                 <td>{{ item.phone }}</td>
                 <td style="text-align: center;">
-                    <i
-                        class="material-icons"
-                        (click)="onDeleteClick(item['id'])"
-                    >
+                    <i class="material-icons" (click)="deletevolunteer(item['id'])">
                         delete
                     </i>
                 </td>
@@ -73,10 +59,8 @@
               <td>{{ item.first_name }}.{{ item.last_name }}</td>
               <td>{{ item.phone }}</td>
               <td style="text-align: center;">
-                  <!-- <i  class="material-icons"(click)="Addvolunter(item)">
-                      delete
-                  </i> -->
-                  <button type="button" name="button" (click)="Addvolunter(item)">Add Driver</button>
+                  <button class="add_button" type="button" name="button" (click)="Addvolunter(item)" *ngIf="!item.selected">Add Driver</button>
+                  <button class="remove_button" type="button" name="button" *ngIf="item.selected">Remove Driver</button>
               </td>
           </tr>
       </tbody>

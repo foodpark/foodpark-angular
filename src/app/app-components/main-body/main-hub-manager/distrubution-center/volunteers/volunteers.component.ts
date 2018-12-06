@@ -20,10 +20,13 @@ export class VolunteersComponent implements OnInit {
     territoryid: any;
     allregisteredvolunters:any;
     objresponse : any
+    userid : any;
+    registereduserid: any;
 
 
     constructor(private distributionservice: DistributionService,private mainhubService: MainhubService,private formBuilder: FormBuilder) {
-
+      this.getmainhubid();
+      this.volunteerInitform();
     }
 
     volunteerInitform() {
@@ -55,6 +58,7 @@ export class VolunteersComponent implements OnInit {
         this.distributionservice.apiGetVolunteers(this.mainhubId).subscribe(
             response => {
                 this.allvolunters = response;
+
                 console.log('this is all users', this.allvolunters);
             },
             error => {}
@@ -65,7 +69,13 @@ export class VolunteersComponent implements OnInit {
         this.distributionservice.apiGetRegisteredVolunteers(this.territoryid).subscribe(
             response => {
                 this.allregisteredvolunters = response;
-                console.log('this is all users', this.allvolunters);
+                for(let i=0;i<this.allregisteredvolunters.length;i++){
+                  for(let j=0;j<this.allvolunters.length;j++){
+                    if(this.allregisteredvolunters[i].id == this.allvolunters[j].id){
+                      this.allregisteredvolunters[i].selected=true;
+                    }
+                  }
+                }
             },
             error => {}
         );
@@ -102,16 +112,39 @@ export class VolunteersComponent implements OnInit {
       }
       this.distributionservice.apiAddVolunteers(this.mainhubId,obj).subscribe(
         response => {
-          console.log('this is all users', response);
           this.getAllVolunteers();
+          this.getRegisteredVolunteers();
+        },
+        error => {}
+      );
+    }
+
+    // avilablityuser(avilableid) {
+    //   const avilData = {
+    //     available : true
+    //   }
+    //   this.distributionservice.Apiavilablitydata(this.mainhubId, avilableid).subscribe(
+    //     response => {
+    //       this.getAllVolunteers();
+    //       this.getRegisteredVolunteers();
+    //     },
+    //     error => {}
+    //   );
+    // }
+
+    deletevolunteer(deleteid) {
+      this.distributionservice.Apideletevolunteers(this.mainhubId, deleteid).subscribe(
+        response => {
+          this.getAllVolunteers();
+          this.getRegisteredVolunteers();
         },
         error => {}
       );
     }
 
     ngOnInit() {
-        this.getmainhubid();
-        this.volunteerInitform();
+
+
         this.newvolunterpopup = false;
     }
 }
