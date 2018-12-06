@@ -11,7 +11,7 @@
     </div>
 
     <ng-container>
-        <p class="pods_left_menu" [routerLink]="['./loadresources']">Load Resource</p>
+        <a class="nav-link" routerLink='./loadresources' (click)="closeNav()">Load Resource</a>
     </ng-container>
 </div>
 <router-outlet></router-outlet>

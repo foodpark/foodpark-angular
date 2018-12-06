@@ -29,8 +29,8 @@ export class EditPodsComponent implements OnInit, OnDestroy {
         'Social Media',
         'Other'
     ];
-    private wordfileURL: string;
-    private wordFileToUpload: File;
+    wordfileURL: string;
+    wordFileToUpload: File;
     private fileUploadSubscription: Subscription;
 
     constructor(
@@ -57,8 +57,10 @@ export class EditPodsComponent implements OnInit, OnDestroy {
         this.route.paramMap.subscribe((paramMap: ParamMap) => {
             if (paramMap.has('podId')) {
                 this.podId = paramMap.get('podId');
-                this.podService.getPodFromPodId(parseInt(this.podId, 10)).subscribe(res => {
+                this.podService.getPodFromPodId(parseInt(this.podId, 10))
+                .subscribe(res => {
                     this.pod = res;
+                    this.wordfileURL = this.pod.wordfile;
                     this.editpodform.get('pod_name').setValue(this.pod['name'], {emitEvent: false});
                     this.editpodform.get('latitude').setValue(this.pod['latitude'], {emitEvent: false});
                     this.editpodform.get('longitude').setValue(this.pod['longitude'], {emitEvent: false});
@@ -91,8 +93,8 @@ export class EditPodsComponent implements OnInit, OnDestroy {
 
     onFilePicked(files: FileList) {
         this.wordFileToUpload = files.item(0);
-        // this.editpodform.get('wordFile').setValue(this.wordFileToUpload);
-        // document.getElementById('wordfile_name').innerText = this.wordFileToUpload.name;
+        this.editpodform.get('wordFile').setValue(this.wordFileToUpload);
+        document.getElementById('wordfile_name').innerText = this.wordFileToUpload.name;
     }
 
     savePod() {

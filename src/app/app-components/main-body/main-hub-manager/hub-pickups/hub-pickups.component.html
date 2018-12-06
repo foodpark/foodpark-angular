@@ -91,7 +91,7 @@
                     <div class="form-group" style="padding-right: 20px;">
                         <h4>Start Date</h4>
                         <mat-form-field>
-                            <input matInput [matDatepicker]="picker1" placeholder="Choose a date" id="start_date">
+                            <input matInput [matDatepicker]="picker1" placeholder="Choose a date" formControlName="start_date" id="start_date">
                             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                             <mat-datepicker #picker1></mat-datepicker>
                         </mat-form-field>
@@ -99,7 +99,7 @@
                     <div class="form-group">
                         <h4>End Date</h4>
                         <mat-form-field>
-                            <input matInput [matDatepicker]="picker2" placeholder="Choose a date" id="end_date">
+                            <input matInput [matDatepicker]="picker2" placeholder="Choose a date" formControlName="end_date" id="end_date">
                             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                             <mat-datepicker #picker2></mat-datepicker>
                         </mat-form-field>
