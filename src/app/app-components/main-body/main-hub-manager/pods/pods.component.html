@@ -25,13 +25,17 @@
                 <div>{{item['sponsor']}}</div>
                 <div>{{item['title']}}</div>
             </td>
-            <td>{{item['addendeum_file']}}</td>
+            <td style="text-align: center;">
+                <a href="{{item['wordfile']}}">
+                    View
+                </a>
+            </td>
             <td>
                 <div class="dropdown">
                     <button id="{{'status'+i}}"
                             class="btn btn-primary dropdown-toggle"
                             type="button"
-                            data-toggle="dropdown">{{ pods[i]['approved'] == true ? 'Approved' : 'DisApproved' }}
+                            data-toggle="dropdown">{{ pods[i]['approved'] == true ? 'Approve' : 'Reject' }}
                     </button>
                     <div class="form-group">
                         <ul class="dropdown-menu">

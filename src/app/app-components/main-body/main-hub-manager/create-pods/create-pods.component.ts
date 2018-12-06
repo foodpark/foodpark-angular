@@ -113,8 +113,6 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
     }
 
     private sendPodData() {
-        console.log('updating  pod data');
-        // updatePodData.append('id', this.church_id.toString());
         const title = this.registerpodform.get('title').value;
         const updatePodData = {
             'name': this.registerpodform.value.church_name,
@@ -132,8 +130,6 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
         .subscribe(() => {
             console.log('received response from churches update');
             this.route.navigate(['/hubmanager/podapplications']);
-        }, error =>  {
-            console.log(error);
         });
     }
 

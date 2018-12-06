@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { MoltinAccessCode } from '../model';
-import { Subject } from 'rxjs';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {MoltinAccessCode} from '../model';
+import {Subject} from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class FileUploadService {
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {
+    }
 
     private fileURL: string;
     private fileUploaded = new Subject<string>();
@@ -30,40 +31,39 @@ export class FileUploadService {
     }
 
     uploadFile(file: File) {
-        const fileData  = new FormData();
+        const fileData = new FormData();
         fileData.append('file', file, file.name);
 
-        this.fetchMoltinToken().subscribe( (authToken) => {
+        this.fetchMoltinToken().subscribe((authToken) => {
             console.log(authToken);
             const httpOptions = {
                 headers: new HttpHeaders({
                     'Authorization': authToken['token_type'] + ' ' + authToken['access_token']
                 })
-              };
+            };
 
             this.http.post(this.moltin_file_url, fileData, httpOptions)
-            .subscribe( (response) => {
-                const data = response['data'];
-                const link = data['link'];
-                this.fileURL = link['href'];
-                this.fileUploaded.next(this.fileURL);
-            });
+                .subscribe((response) => {
+                    const data = response['data'];
+                    const link = data['link'];
+                    this.fileURL = link['href'];
+                    this.fileUploaded.next(this.fileURL);
+                });
         });
     }
 
     uploadFileAndGetActualResponse(file: File) {
-        const fileData  = new FormData();
+        const fileData = new FormData();
         fileData.append('file', file, file.name);
 
-        this.fetchMoltinToken().subscribe( (authToken) => {
+        this.fetchMoltinToken().subscribe((authToken) => {
             console.log(authToken);
             const httpOptions = {
                 headers: new HttpHeaders({
                     'Authorization': authToken['token_type'] + ' ' + authToken['access_token']
                 })
-              };
-
-            return  this.http.post(this.moltin_file_url, fileData, httpOptions);
+            };
+            return this.http.post(this.moltin_file_url, fileData, httpOptions);
         });
     }
 

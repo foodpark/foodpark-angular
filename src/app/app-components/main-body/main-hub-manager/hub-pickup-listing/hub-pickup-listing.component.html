@@ -6,13 +6,16 @@
         <button type="button" class="btn btn-info"
                 style="height: 50px;align-items: center;width: 100%;">Add Hub Pickup
         </button>
+        <div class="title-center">
+            <h4>Main Hub: <i>{{mainHub?.name}}</i></h4>
+        </div>
     </div>
     <table class="table table-borderless">
         <thead>
         <tr>
             <th>Event Name</th>
-            <th>Hub Name</th>
-            <th>Sponsor</th>
+            <th>Start Time</th>
+            <th>End Time</th>
             <th style="width: 10%;text-align: center;">Edit</th>
             <th style="width: 10%;text-align: center;">Delete</th>
         </tr>
@@ -20,8 +23,8 @@
         <tbody>
         <tr *ngFor="let item of hubPickups; let i = index">
             <td>{{item['name']}}</td>
-            <td>{{mainHub?.name}}</td>
-            <td>{{sponsors[i]['name']}}<img src="{{sponsors[i]['image']}}" alt="Sponsor Image"></td>
+            <td></td>
+            <td></td>
             <td style="text-align: center;">
                 <i class="material-icons" (click)="onEditClick(i)">
                     edit
