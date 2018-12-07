@@ -30,7 +30,7 @@ export class DistributionService {
         return this.http.delete(environment.apiUrl + '/api/v1/rel/food_parks/'+ foodid +'/drivers/'+ userid);
     }
     Apiavilablitydata(mainid, id, data) {
-        return this.http.post(environment.apiUrl + '/api/v1/rel/food_parks/'+ mainid +'/drivers/'+ id, data);
+        return this.http.put(environment.apiUrl + '/api/v1/rel/food_parks/'+ mainid +'/drivers/'+ id, data);
     }
 
 }
