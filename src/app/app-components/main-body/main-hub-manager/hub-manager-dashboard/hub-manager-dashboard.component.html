@@ -10,12 +10,14 @@
         </div>
     </div>
 
-    <ng-container *ngIf="sideNavData.length">
-        <a *ngFor="let item of sideNavData"
-           class="nav-link"
-           routerLink="/hubmanager/{{item.toLowerCase()| removeSpaces}}"
-           routerLinkActive="active"
-           (click)="closeNav()">{{item}}</a>
+    <ng-container>
+        <a class="nav-link" routerLink='./regionalhubs' (click)="closeNav()">Regional Hubs</a>
+        <a class="nav-link" routerLink='./podapplications' (click)="closeNav()">Pod Applications</a>
+        <a class="nav-link" routerLink='./podmanagers' (click)="closeNav()">Pod Managers</a>
+        <a class="nav-link" routerLink='./distributioncentermanagement' (click)="closeNav()">Distribution Center Management</a>
+        <a class="nav-link" routerLink='./hubpickups' (click)="closeNav()">Hub Pickups</a>
+        <a class="nav-link" routerLink='./loadmanagement' (click)="closeNav()">Load Management</a>
+        <a class="nav-link" routerLink='./reporting' (click)="closeNav()">Reporting</a>
     </ng-container>
 </div>
 <router-outlet></router-outlet>
