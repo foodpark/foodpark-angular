@@ -90,15 +90,15 @@
             <div class="form-group">
                 <h4>Upload Attachments</h4>
                 <input type="file"
-                    class="form-control"
-                    name=""
-                    value=""
-                    placeholder="Upload Word Attachments"
-                    accept=".docx, .doc"
-                    formControlName="select_file"
-                    (change)="onFilePicked($event.target.files)">
+                       class="form-control"
+                       placeholder="Upload Word Attachments"
+                       accept=".docx, .doc"
+                       formControlName="wordFile"
+                       (change)="onFilePicked($event.target.files)">
             </div>
-
+            <h5 style="height: 30px;font-size: 20px;" id="wordfile_name">{{wordFileToUpload != null ? wordFileToUpload.name :
+                wordfileURL ? wordfileURL :'File URL' }}
+            </h5>
             <div class="form-group">
                 <h4>Latitude</h4>
                 <input type="text" class="form-control" name="" value="" placeholder="Latitude"

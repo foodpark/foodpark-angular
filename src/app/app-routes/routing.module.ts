@@ -28,13 +28,14 @@ import {EditPodsComponent} from '../app-components/main-body/main-hub-manager/ed
 import {PodManagersListingComponent} from '../app-components/main-body/main-hub-manager/pod-managers/pod-managers-listing/pod-managers-listing.component';
 import {EditHubpickupComponent} from '../app-components/main-body/main-hub-manager/edit-hubpickup/edit-hubpickup.component';
 import {HubPickupListingComponent} from '../app-components/main-body/main-hub-manager/hub-pickup-listing/hub-pickup-listing.component';
-import { EditPodManagerComponent } from '../app-components/main-body/main-hub-manager/pod-managers/edit-pod-manager/edit-pod-manager.component';
-import { GIKDonationsComponent } from '../app-components/main-body/main-hub-manager/distrubution-center/gikdonations/gik-donations.component';
+import {EditPodManagerComponent} from '../app-components/main-body/main-hub-manager/pod-managers/edit-pod-manager/edit-pod-manager.component';
+import {GIKDonationsComponent} from '../app-components/main-body/main-hub-manager/distrubution-center/gikdonations/gik-donations.component';
 
 import {PodManagerDashboardComponent} from '../app-components/main-body/pod-manager-dashboard/pod-manager-dashboard.component';
 import {LoadResourceComponent} from '../app-components/main-body/pod-manager-dashboard/load-resource/load-resource.component';
 import {AddEditResourceComponent} from '../app-components/main-body/pod-manager-dashboard/add-edit-resource/add-edit-resource.component';
-
+import {CreateMasterComponent} from '../app-components/main-body/main-hub-manager/create-master/create-master.component';
+import {CreateDonationOrderComponent} from '../app-components/main-body/main-hub-manager/create-donation-order/create-donation-order.component';
 
 
 const routes: Routes = [
@@ -127,11 +128,17 @@ const routes: Routes = [
             },
             {
                 path: 'editpodmanager', component: EditPodManagerComponent
+            },
+            {
+                path: 'createmaster', component: CreateMasterComponent, children: []
+            },
+            {
+                path: 'createdonationorder', component: CreateDonationOrderComponent, children: []
             }
         ]
     },
     {
-      path: 'podmanager', component: PodManagerDashboardComponent, canActivate: [AuthGuard],
+        path: 'podmanager', component: PodManagerDashboardComponent, canActivate: [AuthGuard],
         children: [
             {
                 path: 'loadresources', component: LoadResourceComponent

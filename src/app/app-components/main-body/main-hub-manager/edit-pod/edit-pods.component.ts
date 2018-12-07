@@ -14,7 +14,7 @@ import {PodModel} from 'src/app/model';
 export class EditPodsComponent implements OnInit, OnDestroy {
     editpodform: FormGroup;
     podId: string;
-    pod: PodModel;
+    pod: any; //PodModel;
     churchType = [
         'Church',
         'Non-Profit',
@@ -58,19 +58,19 @@ export class EditPodsComponent implements OnInit, OnDestroy {
             if (paramMap.has('podId')) {
                 this.podId = paramMap.get('podId');
                 this.podService.getPodFromPodId(parseInt(this.podId, 10))
-                .subscribe(res => {
-                    this.pod = res;
-                    this.wordfileURL = this.pod.wordfile;
-                    this.editpodform.get('pod_name').setValue(this.pod['name'], {emitEvent: false});
-                    this.editpodform.get('latitude').setValue(this.pod['latitude'], {emitEvent: false});
-                    this.editpodform.get('longitude').setValue(this.pod['longitude'], {emitEvent: false});
-                    this.editpodform.get('sponsor').setValue(this.pod['sponsor'], {emitEvent: false});
-                    this.editpodform.get('title').setValue(this.pod['title'], {emitEvent: false});
-                    this.editpodform.get('connected_with').setValue(this.pod['connected_with'], {emitEvent: false});
-                    this.editpodform.get('type').setValue(this.pod['type'], {emitEvent: false});
-                    document.getElementById('church_type').innerText = this.editpodform.get('type').value;
-                    document.getElementById('connected_with').innerText = this.editpodform.get('connected_with').value;
-                });
+                    .subscribe(res => {
+                        this.pod = res;
+                        this.wordfileURL = this.pod.wordfile;
+                        this.editpodform.get('pod_name').setValue(this.pod['name'], {emitEvent: false});
+                        this.editpodform.get('latitude').setValue(this.pod['latitude'], {emitEvent: false});
+                        this.editpodform.get('longitude').setValue(this.pod['longitude'], {emitEvent: false});
+                        this.editpodform.get('sponsor').setValue(this.pod['sponsor'], {emitEvent: false});
+                        this.editpodform.get('title').setValue(this.pod['title'], {emitEvent: false});
+                        this.editpodform.get('connected_with').setValue(this.pod['connected_with'], {emitEvent: false});
+                        this.editpodform.get('type').setValue(this.pod['type'], {emitEvent: false});
+                        document.getElementById('church_type').innerText = this.editpodform.get('type').value;
+                        document.getElementById('connected_with').innerText = this.editpodform.get('connected_with').value;
+                    });
             }
         });
 

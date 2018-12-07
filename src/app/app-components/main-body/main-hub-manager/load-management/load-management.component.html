@@ -1,1 +1,29 @@
-<p style="padding-top:100px;display:flex;justify-content:center;width:100%;">this is load-mamangement hub</p>
+<div class="absolute-position">
+    <div class="title-center">
+        <h2>MASTER LOADS</h2>
+    </div>
+    <div (click)="onCreateLoadMasterClick()">
+        <button type="button" class="btn btn-info primary-button">Create Master
+        </button>
+    </div>
+    <table class="table table-borderless">
+        <thead>
+        <tr>
+            <th style="width: 33%;">Name</th>
+            <th style="width: 33%;">Date</th>
+            <th style="width: 33%;">POD Loads</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        </tr>
+        </tbody>
+    </table>
+    <router-outlet></router-outlet>
+    <div (click)="onCreateDonationClick()">
+        <button type="button" class="btn btn-info primary-button">Create Donation Order
+        </button>
+    </div>
+</div>
+
+

@@ -78,13 +78,13 @@ export class EditPodManagerComponent implements OnInit, OnDestroy {
     updatePodManager() {
         const obj = {
             'email': this.editpodmanagerform.get('email').value,
-            'first_name': this.editpodmanagerform.get('first_name').value,
+            'first_name': this.editpodmanagerform.get('firstname').value,
             'last_name': this.editpodmanagerform.get('lastname').value,
             'password': this.editpodmanagerform.get('password').value,
             'country_id': this.editpodmanagerform.get('country_id').value,
         };
 
-        this.podService.updatePodManager(this.podManagerID, obj);
+        this.podService.updatePodManager(this.podManagerID, obj).subscribe();
     }
 
     ngOnDestroy() {

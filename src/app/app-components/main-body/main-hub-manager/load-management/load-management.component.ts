@@ -1,15 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
-  selector: 'load-management',
-  templateUrl: './load-management.component.html',
+    selector: 'app-load-management',
+    templateUrl: './load-management.component.html',
 
 })
 export class LoadManagementComponent implements OnInit {
 
-  constructor() { }
+    constructor(private router: Router) {
+    }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
+    onCreateLoadMasterClick() {
+        this.router.navigate(['/hubmanager/createmaster']);
+    }
+
+    onCreateDonationClick() {
+        this.router.navigate(['/hubmanager/createdonationorder']);
+    }
 }
