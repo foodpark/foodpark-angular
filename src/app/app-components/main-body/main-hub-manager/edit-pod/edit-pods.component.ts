@@ -50,7 +50,8 @@ export class EditPodsComponent implements OnInit, OnDestroy {
             sponsor: ['', Validators.required],
             title: ['', Validators.required],
             connected_with: ['', Validators.required],
-            type: ['', Validators.required]
+            type: ['', Validators.required],
+            wordFile: ['']
         });
 
         this.route.paramMap.subscribe((paramMap: ParamMap) => {
