@@ -83,3 +83,15 @@ export interface MoltinAccessCode {
     access_token: string;
     token_type: string;
 }
+
+export interface MasterLoadModel {
+    load_name: string;
+    excelfile: string;
+}
+
+export interface DonationOrderModel {
+    master_load_id: number;
+    regional_hub_id: number;
+    load_id: number;
+    load_name: string;
+}

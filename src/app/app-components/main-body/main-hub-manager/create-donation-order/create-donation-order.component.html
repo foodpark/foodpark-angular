@@ -14,7 +14,8 @@
                     Select
                 </button>
                 <ul class="dropdown-menu">
-                    <li>
+                    <li *ngFor="let masterLoad of masterLoads"
+                        (click)="onMainLoadClick(masterLoad['name'])">{{masterLoad['name']}}
                     </li>
                 </ul>
             </div>
@@ -31,8 +32,8 @@
                 </button>
                 <ul class="dropdown-menu">
                     <li
-                        *ngFor="let type of churchType"
-                        (click)="onChurchTypeClick(type)">
+                        *ngFor="let regionalHub of regionalHubs"
+                        (click)="onRegionalHubClick(regionalHub['name'])">{{regionalHub['name']}}
                         {{ type }}
                     </li>
                 </ul>

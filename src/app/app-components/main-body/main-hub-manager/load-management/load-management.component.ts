@@ -1,17 +1,28 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
+import {MasterLoadService} from '../../../../app-services/master-load.service';
+import {Subscription} from 'rxjs';
+import {MasterLoadModel} from '../../../../model';
 
 @Component({
     selector: 'app-load-management',
     templateUrl: './load-management.component.html',
 
 })
-export class LoadManagementComponent implements OnInit {
+export class LoadManagementComponent implements OnInit, OnDestroy {
+    masterLoadSubscription: Subscription;
+    masterLoads: MasterLoadModel[] = [];
 
-    constructor(private router: Router) {
+    constructor(private router: Router,
+                private masterLoadService: MasterLoadService) {
     }
 
     ngOnInit() {
+        this.masterLoadService.getAllMasterLoads();
+        this.masterLoadSubscription = this.masterLoadService.getMasterUpdateListener()
+            .subscribe(res => {
+                this.masterLoads = res;
+            });
     }
 
     onCreateLoadMasterClick() {
@@ -20,5 +31,9 @@ export class LoadManagementComponent implements OnInit {
 
     onCreateDonationClick() {
         this.router.navigate(['/hubmanager/createdonationorder']);
+    }
+
+    ngOnDestroy() {
+        this.masterLoadSubscription.unsubscribe();
     }
 }
