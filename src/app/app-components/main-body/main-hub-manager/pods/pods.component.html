@@ -51,12 +51,13 @@
                     <button id="{{'assignhub'+i}}"
                             class="btn btn-primary dropdown-toggle"
                             type="button"
-                            data-toggle="dropdown">{{ selectedRegionalHubNames[i] === '' ? 'Select' :
-                        selectedRegionalHubNames[i] }}
+                            data-toggle="dropdown">
+                        {{ selectedRegionalHubNames[i] === '' ? 'Select' : selectedRegionalHubNames[i] }}
                     </button>
                     <div class="form-group">
                         <ul class="dropdown-menu">
-                            <li *ngFor="let option of regionalHubs;" (click)="onAssignRegionalHubClick(i,option['id'])">
+                            <li *ngFor="let option of regionalHubs;let index = index"
+                                (click)="onAssignRegionalHubClick(i,index,option['id'])">
                                 {{option['name']}}
                             </li>
                         </ul>
