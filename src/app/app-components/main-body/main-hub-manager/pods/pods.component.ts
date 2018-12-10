@@ -54,7 +54,6 @@ export class PodsComponent implements OnInit, OnDestroy {
                         this.selectedRegionalHubNames.push(this.regionalHubs[srchIndex]['name']);
                     }
                 });
-                console.log(this.selectedRegionalHubNames);
             });
     }
 
