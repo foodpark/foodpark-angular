@@ -11,16 +11,12 @@ import { from } from 'rxjs';
     templateUrl: './hub-manager-dashboard.component.html'
 })
 export class HubManagerDashboardComponent implements OnInit {
-    sideNavData = [];
 
     constructor(private dataService: DataService,
                 public authService: AuthService) {
     }
 
     ngOnInit() {
-        this.dataService.getJsonData('hub-manager-leftnav.json').subscribe(res => {
-            this.sideNavData = res;
-        });
     }
 
     closeNav() {

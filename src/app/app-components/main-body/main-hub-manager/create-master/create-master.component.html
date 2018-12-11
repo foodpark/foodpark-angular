@@ -1,6 +1,6 @@
 <div class="absolute-position">
     <div class="title-center">
-        <h2>LOADS</h2>
+        <h2>Create Master Load</h2>
     </div>
     <form [formGroup]="createMasterForm">
         <div class="form-group">
@@ -9,7 +9,25 @@
                 type="text"
                 class="form-control"
                 placeholder="Load Name"
-                formControlName="load_name"/>
+                formControlName="name"/>
         </div>
+        <div class="form-group">
+            <h4>Upload Attachments</h4>
+            <input type="file"
+                   class="form-control"
+                   placeholder="Upload Word Attachments"
+                   accept=".docx, .doc"
+                   formControlName="excelfile"
+                   (change)="onFilePicked($event.target.files)">
+        </div>
+        <h5 style="height: 30px;font-size: 20px;" id="wordfile_name">{{wordFileToUpload != null ? wordFileToUpload.name
+            :
+            wordfileURL ? wordfileURL :'File URL' }}
+        </h5>
+        <button type="submit"
+                class="btn btn-default"
+                [disabled]="!createMasterForm.valid"
+                (click)="createMaster()">Create Pods
+        </button>
     </form>
 </div>

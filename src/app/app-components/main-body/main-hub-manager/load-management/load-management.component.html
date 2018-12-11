@@ -12,10 +12,25 @@
             <th style="width: 33%;">Name</th>
             <th style="width: 33%;">Date</th>
             <th style="width: 33%;">POD Loads</th>
+            <th style="width: 5%;text-align: center;">Edit</th>
+            <th style="width: 5%;text-align: center;">Delete</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr *ngFor="let masterLoad of masterLoads;">
+            <td>{{masterLoad['name']}}</td>
+            <td></td>
+            <td></td>
+            <td style="text-align: center;">
+                <i class="material-icons" (click)="onEditClick(i)">
+                    edit
+                </i>
+            </td>
+            <td style="text-align: center;">
+                <i class="material-icons" (click)="onDeleteClick(item['id'])">
+                    delete
+                </i>
+            </td>
         </tr>
         </tbody>
     </table>

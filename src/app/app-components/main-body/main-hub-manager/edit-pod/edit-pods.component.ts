@@ -14,7 +14,7 @@ import {PodModel} from 'src/app/model';
 export class EditPodsComponent implements OnInit, OnDestroy {
     editpodform: FormGroup;
     podId: string;
-    pod: any; //PodModel;
+    pod: any; // PodModel;
     churchType = [
         'Church',
         'Non-Profit',
@@ -51,7 +51,7 @@ export class EditPodsComponent implements OnInit, OnDestroy {
             title: ['', Validators.required],
             connected_with: ['', Validators.required],
             type: ['', Validators.required],
-            wordFile: [null, Validators.required],
+            wordFile: ['']
         });
 
         this.route.paramMap.subscribe((paramMap: ParamMap) => {
@@ -98,7 +98,7 @@ export class EditPodsComponent implements OnInit, OnDestroy {
     }
 
     savePod() {
-        if (this.wordFileToUpload === null) {
+        if (this.wordFileToUpload === null || this.wordFileToUpload === undefined) {
             this.uploadPod();
         } else {
             this.fileUploadService.uploadFile(this.wordFileToUpload);
@@ -124,5 +124,6 @@ export class EditPodsComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
+        this.fileUploadSubscription.unsubscribe();
     }
 }

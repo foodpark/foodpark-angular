@@ -10,17 +10,13 @@ import {from} from 'rxjs';
     templateUrl: './admin-dashboard.component.html',
 })
 export class AdminDashboardComponent implements OnInit {
-    sideNavData = [];
-    private userName: string;
+    userName: string;
 
     constructor(private dataService: DataService,
                 public authService: AuthService) {
     }
 
     ngOnInit() {
-        this.dataService.getJsonData('admin-leftnav.json').subscribe(res => {
-            this.sideNavData = res;
-        });
         this.userName = this.authService.getUserName();
     }
 
