@@ -24,33 +24,54 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let list of loadrequests">
+            <tr *ngFor="let list of loaditems">
                 <td style="width: 15%;">{{ list.load_type }}</td>
                 <td style="width: 15%;">{{ list.category_name }}</td>
-                <td style="width: 10%;text-align: center;">{{ list.quantity }}</td>
+                <td style="width: 10%;text-align: center;">
+                    {{ list.quantity }}
+                </td>
                 <td>{{ list.description }}</td>
             </tr>
         </tbody>
     </table>
 </div>
 
-<div class="modal_popup" id="exampleModal" role="dialog" data-backdrop="false"  aria-hidden="true"  *ngIf="!popup1">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header modal__header">
-        <h5 class="modal-title" id="exampleModalLabel">Add New Item</h5>
-      </div>
-      <form [formGroup]="adddeatilsform">
-        <div class="modal-body">
-          <div class="dropdown loadtype_dropdown">
-              <button id="loadtype" class="btn btn-primary dropdown-toggle" type="button"data-toggle="dropdown">Load Type</button>
-              <ul class="dropdown-menu">
-                  <li *ngFor="let type of loadtypes; let i = index" (click)="onloadtypeClick(i, type['id'])">
-                      {{type.loadtype}}
-                  </li>
-              </ul>
-          </div>
-          <p class="formErrors" *ngIf="formErrors.quantity">{{formErrors.load_type}}</p>
+<div
+    class="modal_popup"
+    id="exampleModal"
+    role="dialog"
+    data-backdrop="false"
+    aria-hidden="true"
+    *ngIf="!popup1"
+>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header modal__header">
+                <h5 class="modal-title" id="exampleModalLabel">Add New Item</h5>
+            </div>
+            <form [formGroup]="adddeatilsform">
+                <div class="modal-body">
+                    <div class="dropdown loadtype_dropdown">
+                        <button
+                            id="loadtype"
+                            class="btn btn-primary dropdown-toggle"
+                            type="button"
+                            data-toggle="dropdown"
+                        >
+                            Load Type
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li
+                                *ngFor="let type of loadtypes; let i = index"
+                                (click)="onloadtypeClick(i, type['id'])"
+                            >
+                                {{ type.loadtype }}
+                            </li>
+                        </ul>
+                    </div>
+                    <p class="formErrors" *ngIf="formErrors.quantity">
+                        {{ formErrors.load_type }}
+                    </p>
 
                     <div class="dropdown loadtype_dropdown">
                         <button
@@ -63,7 +84,7 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li
-                                *ngFor="let item of categories; let i = index"
+                                *ngFor="let item of displayCategories; let i = index"
                                 (click)="onCategoryClick(i, item['id'])"
                             >
                                 {{ item.category }}

@@ -13,7 +13,7 @@ export class PodsManagerService {
     constructor(private http: HttpClient) {}
 
     apigetcategories() {
-      return this.http.get<[CategoryModel]>(environment.apiUrl + '/api/v1/rel/categories');
+      return this.http.get<CategoryModel[]>(environment.apiUrl + '/api/v1/rel/categories');
     }
 
     apigetLoadRequests() {
@@ -25,7 +25,7 @@ export class PodsManagerService {
     }
 
     apigetLoadItems(id) {
-      return this.http.get<[LoadItemModel]>(environment.apiUrl + '/api/v1/rel/load_items?load_id=' + id);
+      return this.http.get<LoadItemModel[]>(environment.apiUrl + '/api/v1/rel/load_items?load_id=' + id);
     }
 
     apicreateLoadItems(data) {
