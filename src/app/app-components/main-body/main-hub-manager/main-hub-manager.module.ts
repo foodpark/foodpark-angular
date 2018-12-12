@@ -18,14 +18,16 @@ import {RemoveSpacesPipe} from '../../../app-pipes/removeSpaces.pipe';
 import {AddEditRegionalHubComponent} from './add-edit-regional-hub/add-edit-regional-hub.component';
 import {EditPodsComponent} from './edit-pod/edit-pods.component';
 import {PodManagersListingComponent} from './pod-managers/pod-managers-listing/pod-managers-listing.component';
-import { HubPickupListingComponent } from './hub-pickup-listing/hub-pickup-listing.component';
-import { EditHubpickupComponent } from './edit-hubpickup/edit-hubpickup.component';
-import { EditPodManagerComponent } from './pod-managers/edit-pod-manager/edit-pod-manager.component';
+import {HubPickupListingComponent} from './hub-pickup-listing/hub-pickup-listing.component';
+import {EditHubpickupComponent} from './edit-hubpickup/edit-hubpickup.component';
+import {EditPodManagerComponent} from './pod-managers/edit-pod-manager/edit-pod-manager.component';
 
 // import {PodManagerDashboardComponent} from './pod-manager-dashboard/pod-manager-dashboard.component';
-import { GIKDonationsComponent } from './distrubution-center/gikdonations/gik-donations.component';
-import { CreateMasterComponent } from './create-master/create-master.component';
-import { CreateDonationOrderComponent } from './create-donation-order/create-donation-order.component';
+import {GIKDonationsComponent} from './distrubution-center/gikdonations/gik-donations.component';
+import {CreateMasterComponent} from './create-master/create-master.component';
+import {CreateDonationOrderComponent} from './create-donation-order/create-donation-order.component';
+import {EditMasterLoadComponent} from './edit-master-load/edit-master-load.component';
+import {CreateMasterLoadComponent} from './create-master-load/create-master-load.component';
 
 
 @NgModule({
@@ -55,8 +57,10 @@ import { CreateDonationOrderComponent } from './create-donation-order/create-don
         EditPodManagerComponent,
         HubPickupListingComponent,
         EditHubpickupComponent,
-        CreateMasterComponent,
-        CreateDonationOrderComponent
+        CreateMasterLoadComponent,
+        EditMasterLoadComponent,
+        CreateDonationOrderComponent,
+        EditMasterLoadComponent
 
         // PodManagerDashboardComponent
     ],
@@ -73,7 +77,9 @@ import { CreateDonationOrderComponent } from './create-donation-order/create-don
         VolunteersComponent,
         GIKDonationsComponent,
         RemoveSpacesPipe,
-        AddEditRegionalHubComponent
+        AddEditRegionalHubComponent,
+        CreateMasterLoadComponent,
+        EditMasterLoadComponent,
         // PodManagerDashboardComponent
     ],
 })

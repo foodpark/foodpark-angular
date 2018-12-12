@@ -1,24 +1,25 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {FileUploadService} from '../../../../app-services/fileupload.service';
 import {Subscription} from 'rxjs';
+import {DataService} from '../../../../app-services/data.service';
+import {FileUploadService} from '../../../../app-services/fileupload.service';
 import {MasterLoadService} from '../../../../app-services/master-load.service';
 import {MainhubService} from '../../../../app-services/mainhub.service';
-import {MainhubModel} from '../../../../model';
-import {Router} from '@angular/router';
-import {DataService} from '../../../../app-services/data.service';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 
 @Component({
-    selector: 'app-create-master',
-    templateUrl: './create-master.component.html',
+    selector: 'app-edit-master-load',
+    templateUrl: './edit-master-load.component.html',
 })
-export class CreateMasterComponent implements OnInit {
-    createMasterForm: FormGroup;
-    private wordfileURL: string;
+export class EditMasterLoadComponent implements OnInit {
+
+    editMasterForm: FormGroup;
+    private fileURL: string;
     private wordFileToUpload: File;
     mainHubId: number;
     hideFileContainer = false;
-
+    masterLoadId;
+    masterLoads;
     private fileUploadSubscription: Subscription;
 
     constructor(private fb: FormBuilder,
@@ -26,24 +27,30 @@ export class CreateMasterComponent implements OnInit {
                 private fileUploadService: FileUploadService,
                 private masterLoadService: MasterLoadService,
                 private mainhubService: MainhubService,
-                private router: Router) {
+                private router: Router,
+                private route: ActivatedRoute) {
     }
 
     ngOnInit() {
-        this.createMasterForm = this.fb.group({
+        this.editMasterForm = this.fb.group({
             name: ['', Validators.required],
             excelfile: ['']
         });
 
+        this.route.paramMap.subscribe((paramMap: ParamMap) => {
+            if (paramMap.has('masterLoadId')) {
+                this.masterLoadId = paramMap.get('masterLoadId');
+                this.masterLoadService.getMasterLoadFromId(this.masterLoadId).subscribe(masterLoad => {
+                    this.masterLoads = masterLoad;
+                    this.fileURL = this.masterLoads['excelfile'];
+                    this.editMasterForm.get('name').setValue(this.masterLoads['name'], {emitEvent: false});
+                });
+            }
+        });
         this.fileUploadSubscription = this.fileUploadService.getFileUploadListener()
             .subscribe((fileURL) => {
                 console.log('File Uploaded: ' + fileURL);
-                this.wordfileURL = fileURL;
-            });
-
-        this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
-            .subscribe((response) => {
-                this.mainHubId = response[0]['id'];
+                this.fileURL = fileURL;
             });
     }
 
@@ -51,15 +58,16 @@ export class CreateMasterComponent implements OnInit {
     onFilePicked(files: FileList) {
         this.wordFileToUpload = files.item(0);
         this.hideFileContainer = this.dataService.nullCheck(this.wordFileToUpload);
-        document.getElementById('wordfile_name').innerText = this.wordFileToUpload.name;
+        this.fileURL = this.wordFileToUpload['name'];
     }
 
-    createMaster() {
+    editMaster() {
         const obj = {
-            ...this.createMasterForm.value,
+            ...this.editMasterForm.value,
             main_hub_id: this.mainHubId
         };
         this.masterLoadService.addMasterLoad(obj).subscribe();
+        this.fileUploadService.uploadFile(this.wordFileToUpload);
         this.router.navigate(['/hubmanager/loadmanagement']);
     }
 

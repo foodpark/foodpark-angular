@@ -134,7 +134,6 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
 
         this.podService.updatePod(this.church_id, updatePodData)
             .subscribe(() => {
-                console.log('received response from churches update');
                 this.route.navigate(['/hubmanager/podapplications']);
             });
     }

@@ -26,15 +26,20 @@ export class MasterLoadService {
             });
     }
 
+
+    getMasterLoadFromId(masterLoadId: number) {
+        return this.http.get(environment.apiUrl + '/api/v1/rel/master_loads/' + masterLoadId);
+    }
+
     addMasterLoad(obj: any) {
         return this.http.post(environment.apiUrl + '/api/v1/rel/master_loads', obj);
     }
 
     updateMasterLoad(masterLoadId: number, obj: any) {
-        return this.http.put(environment.apiUrl + '/api/v1/rel/master_loads' + masterLoadId, obj);
+        return this.http.put(environment.apiUrl + '/api/v1/rel/master_loads/' + masterLoadId, obj);
     }
 
     deleteMasterLoad(deleteMasterLoadId) {
-        return this.http.delete(environment.apiUrl + '/api/v1/rel/master_loads' + deleteMasterLoadId);
+        return this.http.delete(environment.apiUrl + '/api/v1/rel/master_loads/' + deleteMasterLoadId);
     }
 }

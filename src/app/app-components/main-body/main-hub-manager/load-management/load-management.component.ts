@@ -35,7 +35,7 @@ export class LoadManagementComponent implements OnInit, OnDestroy {
 
 
     onEditClick(index: number) {
-        this.router.navigate(['/hubmanager/edithubpickup', {masterLoad: this.masterLoads[index]['id']}]);
+        this.router.navigate(['/hubmanager/editmasterload', {masterLoadId: this.masterLoads[index]['id']}]);
     }
 
     onDeleteClick(index: number) {

@@ -7,7 +7,7 @@ import {HubManagerDashboardComponent} from '../app-components/main-body/main-hub
 import {RegionalHubComponent} from '../app-components/main-body/main-hub-manager/regionalhub/regionalhub.component';
 import {ReportingComponent} from '../app-components/main-body/main-hub-manager/reporting/reporting.component';
 import {CreatePodsComponent} from '../app-components/main-body/main-hub-manager/create-pods/create-pods.component';
-import {PodsComponent} from '../app-components/main-body/main-hub-manager//pods/pods.component';
+import {PodsComponent} from '../app-components/main-body/main-hub-manager/pods/pods.component';
 
 import {LoadManagementComponent} from '../app-components/main-body/main-hub-manager/load-management/load-management.component';
 import {HubPickupsComponent} from '../app-components/main-body/main-hub-manager/hub-pickups/hub-pickups.component';
@@ -34,8 +34,9 @@ import {GIKDonationsComponent} from '../app-components/main-body/main-hub-manage
 import {PodManagerDashboardComponent} from '../app-components/main-body/pod-manager-dashboard/pod-manager-dashboard.component';
 import {LoadResourceComponent} from '../app-components/main-body/pod-manager-dashboard/load-resource/load-resource.component';
 import {AddEditResourceComponent} from '../app-components/main-body/pod-manager-dashboard/add-edit-resource/add-edit-resource.component';
-import {CreateMasterComponent} from '../app-components/main-body/main-hub-manager/create-master/create-master.component';
 import {CreateDonationOrderComponent} from '../app-components/main-body/main-hub-manager/create-donation-order/create-donation-order.component';
+import {CreateMasterLoadComponent} from '../app-components/main-body/main-hub-manager/create-master-load/create-master-load.component';
+import {EditMasterLoadComponent} from '../app-components/main-body/main-hub-manager/edit-master-load/edit-master-load.component';
 
 
 const routes: Routes = [
@@ -130,7 +131,10 @@ const routes: Routes = [
                 path: 'editpodmanager', component: EditPodManagerComponent
             },
             {
-                path: 'createmasterload', component: CreateMasterComponent, children: []
+                path: 'createmasterload', component: CreateMasterLoadComponent, children: []
+            },
+            {
+                path: 'editmasterload', component: EditMasterLoadComponent, children: []
             },
             {
                 path: 'createdonationorder', component: CreateDonationOrderComponent, children: []
