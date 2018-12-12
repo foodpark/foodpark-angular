@@ -7,6 +7,7 @@ import {CountryModel} from '../../../../model';
 import {Subscription} from 'rxjs';
 import {PodsService} from 'src/app/app-services/pods.service';
 import {FileUploadService} from 'src/app/app-services/fileupload.service';
+import {DataService} from '../../../../app-services/data.service';
 
 @Component({
     selector: 'app-create-pods',
@@ -21,14 +22,16 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
     private church_id: number;
     private wordfileURL: string;
     private wordFileToUpload: File;
+    hideFileContainer = false;
 
     churchType = ['Church', 'Non-Profit', 'Non-Religious', 'Non-Denominational', 'Other'];
-    connectedBy = ['Personal Referral', 'Google Search', 'Social Media', 'Other'];
+    connectedWith = ['Personal Referral', 'Google Search', 'Social Media', 'Other'];
 
     constructor(private formBuilder: FormBuilder,
                 private route: Router,
                 private countryService: CountryService,
                 private podService: PodsService,
+                private dataService: DataService,
                 private fileUploadService: FileUploadService) {
     }
 
@@ -45,7 +48,7 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
             sponsor: ['', Validators.required],
             title: ['', Validators.required],
             type: ['', Validators.required],
-            connectedBy: ['', Validators.required],
+            connected_with: ['', Validators.required],
             latitude: ['', Validators.required],
             longitude: ['', Validators.required],
             wordFile: [null, Validators.required]
@@ -79,13 +82,14 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
     }
 
     onConnectedByClick(type: string) {
-        const button = document.getElementById('connected_by');
+        const button = document.getElementById('connected_with');
         button.innerText = type;
-        this.registerpodform.get('connectedBy').setValue(type);
+        this.registerpodform.get('connected_with').setValue(type);
     }
 
     onFilePicked(files: FileList) {
         this.wordFileToUpload = files.item(0);
+        this.hideFileContainer = this.dataService.nullCheck(this.wordFileToUpload);
         this.registerpodform.get('wordFile').setValue(this.wordFileToUpload);
         document.getElementById('wordfile_name').innerText = this.wordFileToUpload.name;
     }
@@ -102,7 +106,8 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
             'last_name': this.registerpodform.get('lastname').value,
             'password': this.registerpodform.get('password').value,
             'country_id': this.registerpodform.get('country_id').value,
-            'church_name': this.registerpodform.get('church_name').value
+            'church_name': this.registerpodform.get('church_name').value,
+            'connected_with': this.registerpodform.get('connected_with').value
         };
 
         this.podService.registerPodManager(obj)
@@ -118,7 +123,7 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
         const updatePodData = {
             'name': this.registerpodform.value.church_name,
             'title': title,
-            'connected_with': this.registerpodform.value.connectedBy,
+            'connected_with': this.registerpodform.value.connected_with,
             'sponsor': this.registerpodform.value.sponsor,
             'latitude': this.registerpodform.value.latitude,
             'longitude': this.registerpodform.value.longitude,

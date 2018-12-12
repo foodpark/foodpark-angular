@@ -130,7 +130,7 @@ const routes: Routes = [
                 path: 'editpodmanager', component: EditPodManagerComponent
             },
             {
-                path: 'createmaster', component: CreateMasterComponent, children: []
+                path: 'createmasterload', component: CreateMasterComponent, children: []
             },
             {
                 path: 'createdonationorder', component: CreateDonationOrderComponent, children: []

@@ -6,6 +6,7 @@ import {MasterLoadService} from '../../../../app-services/master-load.service';
 import {MainhubService} from '../../../../app-services/mainhub.service';
 import {MainhubModel} from '../../../../model';
 import {Router} from '@angular/router';
+import {DataService} from '../../../../app-services/data.service';
 
 @Component({
     selector: 'app-create-master',
@@ -16,10 +17,12 @@ export class CreateMasterComponent implements OnInit {
     private wordfileURL: string;
     private wordFileToUpload: File;
     mainHubId: number;
+    hideFileContainer = false;
 
     private fileUploadSubscription: Subscription;
 
     constructor(private fb: FormBuilder,
+                private dataService: DataService,
                 private fileUploadService: FileUploadService,
                 private masterLoadService: MasterLoadService,
                 private mainhubService: MainhubService,
@@ -47,6 +50,7 @@ export class CreateMasterComponent implements OnInit {
 
     onFilePicked(files: FileList) {
         this.wordFileToUpload = files.item(0);
+        this.hideFileContainer = this.dataService.nullCheck(this.wordFileToUpload);
         document.getElementById('wordfile_name').innerText = this.wordFileToUpload.name;
     }
 

@@ -5,6 +5,7 @@ import {MasterLoadService} from '../../../../app-services/master-load.service';
 import {Subscription} from 'rxjs';
 import {MasterLoadModel, RegionalHubModel} from '../../../../model';
 import {RegionalhubsService} from '../../../../app-services/regionalhubs.service';
+import {MainhubService} from '../../../../app-services/mainhub.service';
 
 @Component({
     selector: 'app-create-donation-order',
@@ -15,12 +16,16 @@ export class CreateDonationOrderComponent implements OnInit {
     masterLoadSubscription: Subscription;
     masterLoads: MasterLoadModel[] = [];
     regionalHubs;
+    mainHubs;
     private regionalHubsSubscription: Subscription;
+    private mainHubsSubscription: Subscription;
+    requestBody = {};
 
     constructor(private fb: FormBuilder,
                 private router: Router,
                 private masterLoadService: MasterLoadService,
-                private regionalService: RegionalhubsService) {
+                private regionalService: RegionalhubsService,
+                private mainHubService: MainhubService) {
     }
 
     ngOnInit() {
@@ -37,7 +42,11 @@ export class CreateDonationOrderComponent implements OnInit {
                 this.masterLoads = res;
             });
 
-        this.regionalService.getRegionalHubs();
+        this.mainHubService.getMainhubOfLoggedInUser((localStorage.getItem('user_id')));
+        this.mainHubsSubscription = this.mainHubService.getMainhubsUpdateListener().subscribe(res => {
+            this.mainHubs = res;
+        });
+        this.regionalService.getRegionalHubsInMainHub(this.mainHubs['id']);
         this.regionalHubsSubscription = this.regionalService.getRegionalHubsUpdateListener()
             .subscribe((regionalHubs: RegionalHubModel[]) => {
                 this.regionalHubs = regionalHubs;
@@ -45,14 +54,27 @@ export class CreateDonationOrderComponent implements OnInit {
 
     }
 
-    onMainLoadClick(masterLoadName) {
+    // "master_load_id":2,
+    // "regional_hub_id":4,
+    // "load_id":1,
+    // "load_name":"Load 1"
+
+    onMasterLoadClick(index: number) {
         const button = document.getElementById('master_load');
-        button.innerText = masterLoadName;
+        button.innerText = this.masterLoads[index]['name'];
+        this.requestBody = {
+            ...this.requestBody,
+            master_load_id: this.masterLoads[index]['id']
+        };
     }
 
-    onRegionalHubClick(regionalHubName) {
+    onRegionalHubClick(index: number) {
         const button = document.getElementById('regional_hub');
-        button.innerText = regionalHubName;
+        button.innerText = this.regionalHubs[index]['name'];
+        this.requestBody = {
+            ...this.requestBody,
+            regional_hub_id: this.regionalHubs[index]['id']
+        };
     }
 
     saveDonationOrder() {

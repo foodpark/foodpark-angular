@@ -17,7 +17,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let masterLoad of masterLoads;">
+        <tr *ngFor="let masterLoad of masterLoads;let i = index">
             <td>{{masterLoad['name']}}</td>
             <td></td>
             <td></td>
@@ -27,7 +27,7 @@
                 </i>
             </td>
             <td style="text-align: center;">
-                <i class="material-icons" (click)="onDeleteClick(item['id'])">
+                <i class="material-icons" (click)="onDeleteClick(i)">
                     delete
                 </i>
             </td>
