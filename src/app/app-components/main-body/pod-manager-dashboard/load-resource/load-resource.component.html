@@ -1,6 +1,6 @@
 <div class="absolute-position">
     <div>
-        <div class="title-center"><h2>Load Resources</h2></div>
+        <div class="title-center"><h2>Load Request</h2></div>
         <button
             type="button"
             name="button"
@@ -10,7 +10,7 @@
             data-target="#exampleModal"
             (click)="popup1 = false"
         >
-            Create Load Resource
+           Create Load Request
         </button>
     </div>
 
@@ -19,6 +19,9 @@
             <tr>
                 <th>Request Name</th>
                 <th>Date</th>
+                <th>Pallets</th>
+                <th>Box</th>
+                <th>Items</th>
                 <th style="width: 5%;text-align: center;">Add/Edit</th>
                 <th style="width: 5%;text-align: center;">Delete</th>
             </tr>
@@ -27,13 +30,16 @@
             <tr *ngFor="let loaddata of loadrequests">
                 <td>{{ loaddata.name }}</td>
                 <td>{{ loaddata.created_at | date }}</td>
+                <td></td>
+                <!-- <td *ngFor="let boxes of boxesdata">
+                  <p>{{ boxes.category_name}}({{boxes.quantity}})</p>
+                </td> -->
+                <td>{{ loaddata.boxes[0].category_name}}({{loaddata.boxes[0].quantity}})</td>
+                <td></td>
                 <td style="text-align: center;">
-                    <i
-                        class="material-icons"
-                        (click)="clickAddEdit(loaddata.id)"
-                    >
-                        edit
-                    </i>
+                  <i  class="material-icons" (click)="clickAddEdit(loaddata.id)">
+                      edit
+                  </i>
                 </td>
                 <td style="text-align: center;">
                     <i class="material-icons"> delete </i>

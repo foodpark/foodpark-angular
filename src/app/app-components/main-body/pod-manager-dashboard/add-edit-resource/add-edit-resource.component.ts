@@ -1,53 +1,46 @@
-import {Component, OnInit} from '@angular/core';
-import {RouterModule, Routes, Router, ActivatedRoute} from '@angular/router';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MaterialModule} from '../../../../app-modules/material.module';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-
-import {PodsService} from '../../../../app-services/pods.service';
-import {PodsManagerService} from '../../../../app-services/pod-manager.service';
-import {MainhubService} from 'src/app/app-services/mainhub.service';
-
+import { PodsManagerService } from '../../../../app-services/pod-manager.service';
+import { CategoryModel, LoadItemModel } from 'src/app/model';
 
 @Component({
     selector: 'app-add-edit-resource',
-    templateUrl: './add-edit-resource.component.html',
-
+    templateUrl: './add-edit-resource.component.html'
 })
+
 export class AddEditResourceComponent implements OnInit {
-    allvolunters: any;
-    mainHub: any;
-    mainhubId: any;
-    territoryid: any;
     activatedroute: any;
     popup1: any;
-    loadID: any;
-    loadrequests: any;
+    loadID: number;
+    loaditems: LoadItemModel[];
     adddeatilsform: FormGroup;
     reqobj: any;
-    categories: any;
+    categories: CategoryModel[];
     loadtypes: any;
+    displayCategories: CategoryModel[];
 
     formErrors = {
-        'quantity': '',
-        'description': '',
-        'category_name': '',
-        'load_type': ''
+        quantity: '',
+        description: '',
+        category_name: '',
+        load_type: ''
     };
     // Form Error Object
     validationMessages = {
-        'quantity': {
-            'required': 'quantity  required',
-            'pattern': 'Enter a valid quantity'
+        quantity: {
+            required: 'quantity  required',
+            pattern: 'Enter a valid quantity'
         },
-        'description': {
-            'required': 'description required',
+        description: {
+            required: 'description required'
         },
-        'category_name': {
-            'required': 'category_name required',
+        category_name: {
+            required: 'category_name required'
         },
-        'load_type': {
-            'required': 'load_type required',
+        load_type: {
+            required: 'load_type required'
         }
     };
 
@@ -60,8 +53,9 @@ export class AddEditResourceComponent implements OnInit {
             load_type: ['', Validators.required]
         });
 
-        this.adddeatilsform.valueChanges
-            .subscribe(data => this.onValueChanged(data));
+        this.adddeatilsform.valueChanges.subscribe(data =>
+            this.onValueChanged(data)
+        );
         this.onValueChanged(); // (re)set validation messages now
     }
 
@@ -80,9 +74,7 @@ export class AddEditResourceComponent implements OnInit {
                     this.formErrors[field] += messages[key] + ' ';
                 }
             }
-
         }
-
     }
 
     onSubmitform() {
@@ -105,102 +97,108 @@ export class AddEditResourceComponent implements OnInit {
             }
         }
         if (this.adddeatilsform.valid) {
-            console.log('Form Is Valid-------->');
             this.reqobj = {
-                'category_id': this.adddeatilsform.value.category_id,
-                'category_name': this.adddeatilsform.value.category_name,
-                'quantity': this.adddeatilsform.value.quantity,
-                'description': this.adddeatilsform.value.description,
-                'load_type': this.adddeatilsform.value.load_type,
-                'load_id': this.loadID
+                category_id: this.adddeatilsform.value.category_id,
+                category_name: this.adddeatilsform.value.category_name,
+                quantity: this.adddeatilsform.value.quantity,
+                description: this.adddeatilsform.value.description,
+                load_type: this.adddeatilsform.value.load_type,
+                load_id: this.loadID
             };
-            console.log(this.formErrors);
             this.createLoad();
         }
-
     }
 
-    constructor(private podsService: PodsService, private podsManagerService: PodsManagerService,
-                private mainhubService: MainhubService, private activateroute: ActivatedRoute, private formBuilder: FormBuilder) {
+    constructor(
+        private podsManagerService: PodsManagerService,
+        private activateroute: ActivatedRoute,
+        private formBuilder: FormBuilder
+    ) {
         this.activatedroute = activateroute;
-        this.loadID = this.activatedroute.snapshot.params['id'] ? this.activatedroute.snapshot.params['id'] : '';
-        console.log(this.activateroute);
-        this.getmainhubid();
+        this.loadID = this.activatedroute.snapshot.params['id']
+            ? this.activatedroute.snapshot.params['id']
+            : '';
+
         this.getLoadItems();
         this.getcategories();
         this.loadtypes = [
             {
-                'loadtype': 'PALLET',
-                'id': '1'
+                loadtype: 'PALLET',
+                id: '1'
             },
             {
-                'loadtype': 'BOX',
-                'id': '2'
+                loadtype: 'BOX',
+                id: '2'
             },
             {
-                'loadtype': 'ITEM',
-                'id': '3'
+                loadtype: 'ITEM',
+                id: '3'
             }
         ];
         // this.newvolunterpopup = false;
     }
 
-    getmainhubid() {
-        this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
-            .subscribe((response) => {
-                this.mainHub = response[0];
-                // this.mainhubId = this.mainHub.id;
-                // this.territoryid = this.mainHub.territory_id;
-                // console.log(this.mainHub);
-            });
-    }
-
     getcategories() {
-        this.podsManagerService.apigetcategories()
-            .subscribe((response) => {
-                this.categories = response;
-                console.log('this is categories requests', this.categories);
-            }, (error) => {
-
-            });
+        this.podsManagerService.apigetcategories().subscribe(response => {
+            this.categories = response;
+            this.displayCategories = response;
+        });
     }
 
     onCategoryClick(index: number, id: number) {
         const button = document.getElementById('category');
-        button.innerText = this.categories[index]['category'];
-        this.adddeatilsform.get('category_name').setValue(this.categories[index]['category']);
-        this.adddeatilsform.get('category_id').setValue(this.categories[index]['id']);
+        const selectedCategory = this.displayCategories[index]['category'];
+        button.innerText = selectedCategory;
+        this.adddeatilsform.get('category_name').setValue(selectedCategory);
+        this.adddeatilsform
+            .get('category_id')
+            .setValue(this.categories[index]['id']);
     }
 
     onloadtypeClick(index: number, id: number) {
+        const categoryButton = document.getElementById('category');
+        categoryButton.innerText = 'Category Name';
+        this.adddeatilsform.get('category_name').setValue('');
+        this.adddeatilsform.get('category_id').setValue('');
+
         const button = document.getElementById('loadtype');
-        button.innerText = this.loadtypes[index]['loadtype'];
-        this.adddeatilsform.get('load_type').setValue(this.loadtypes[index]['loadtype']);
+        const selectedLoadType = this.loadtypes[index]['loadtype'];
+        button.innerText = selectedLoadType;
+        this.adddeatilsform.get('load_type').setValue(selectedLoadType);
+
+        const loadItemsCategories = this.loaditems
+            .filter(loaditem => loaditem.load_type === selectedLoadType)
+            .map(loaditem => {
+                return loaditem.category_name;
+            });
+
+        this.displayCategories = this.categories.filter(category => {
+            return loadItemsCategories.indexOf(category.category) === -1;
+        });
     }
 
     getLoadItems() {
-        this.podsManagerService.apigetLoadItems(this.loadID)
-            .subscribe((response) => {
-                this.loadrequests = response;
-                console.log('this is load requests', this.loadrequests);
-            }, (error) => {
-
+        this.podsManagerService
+            .apigetLoadItems(this.loadID)
+            .subscribe(response => {
+                this.loaditems = response;
             });
     }
 
     createLoad() {
-        this.podsManagerService.apicreateLoadItems(this.reqobj)
-            .subscribe((response) => {
+        this.podsManagerService.apicreateLoadItems(this.reqobj).subscribe(
+            response => {
                 this.popup1 = true;
                 this.getLoadItems();
-            }, (error) => {
+                this.addloaddeatilsform();
+            },
+            error => {
                 this.popup1 = false;
-
-            });
+            }
+        );
     }
 
     ngOnInit() {
         this.addloaddeatilsform();
     }
-
 }
