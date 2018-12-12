@@ -49,8 +49,8 @@ export class LoadResourceComponent implements OnInit {
     this.PodsManagerService.apigetLoadRequests()
     .subscribe((response) => {
         this.loadrequests = response;
-        this.boxesdata = response.boxes;
-        console.log('this is load requests',this.boxesdata);
+        //this.boxesdata = response.boxes;
+        //console.log('this is load requests',this.boxesdata);
     },(error)=>{
 
     });

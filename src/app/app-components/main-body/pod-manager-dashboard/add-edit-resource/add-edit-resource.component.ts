@@ -190,6 +190,7 @@ export class AddEditResourceComponent implements OnInit {
             response => {
                 this.popup1 = true;
                 this.getLoadItems();
+                this.addloaddeatilsform();
             },
             error => {
                 this.popup1 = false;
