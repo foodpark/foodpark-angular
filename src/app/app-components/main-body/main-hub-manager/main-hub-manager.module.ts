@@ -24,7 +24,6 @@ import {EditPodManagerComponent} from './pod-managers/edit-pod-manager/edit-pod-
 
 // import {PodManagerDashboardComponent} from './pod-manager-dashboard/pod-manager-dashboard.component';
 import {GIKDonationsComponent} from './distrubution-center/gikdonations/gik-donations.component';
-import {CreateMasterComponent} from './create-master/create-master.component';
 import {CreateDonationOrderComponent} from './create-donation-order/create-donation-order.component';
 import {EditMasterLoadComponent} from './edit-master-load/edit-master-load.component';
 import {CreateMasterLoadComponent} from './create-master-load/create-master-load.component';
