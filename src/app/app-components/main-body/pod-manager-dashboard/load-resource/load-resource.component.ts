@@ -73,6 +73,15 @@ export class LoadResourceComponent implements OnInit {
   clickAddEdit(id){
     this.route.navigate(['podmanager','add-edit',id]);
   }
+  
+  onclickDelete(deleteid){
+    this.PodsManagerService.apideleteLoadRequests(deleteid)
+    .subscribe((response) => {
+        this.getLoadRequests();
+    },(error)=>{
+
+    });
+  }
 
   ngOnInit() {
     this.requestInitform();
