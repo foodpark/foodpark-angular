@@ -26,6 +26,11 @@ export class MasterLoadService {
             });
     }
 
+
+    getMasterLoadFromId(masterLoadId: number) {
+        return this.http.get(environment.apiUrl + '/api/v1/rel/master_loads/' + masterLoadId);
+    }
+
     addMasterLoad(obj: any) {
         return this.http.post(environment.apiUrl + '/api/v1/rel/master_loads', obj);
     }

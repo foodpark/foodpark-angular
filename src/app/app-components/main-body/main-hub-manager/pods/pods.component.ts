@@ -28,6 +28,7 @@ export class PodsComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.fetchData();
         // Register for regional hubs service. Get all Pods after getting regional hubs
         this.regionalHubSubscription = this.regionalHubService.getRegionalHubsUpdateListener()
             .subscribe((regionalHubs: RegionalHubModel[]) => {
@@ -37,6 +38,7 @@ export class PodsComponent implements OnInit, OnDestroy {
 
         this.podsSubscription = this.podsService.getPodsUpdateListener()
             .subscribe((pods: PodModel[]) => {
+                this.selectedRegionalHubNames = [];
                 this.pods = pods;
                 this.pods.forEach(element => {
                     const regID = element['regional_hub_id'];
@@ -53,7 +55,6 @@ export class PodsComponent implements OnInit, OnDestroy {
                     }
                 });
             });
-        this.fetchData();
     }
 
     fetchData() {
@@ -86,9 +87,9 @@ export class PodsComponent implements OnInit, OnDestroy {
         }
     }
 
-    onAssignRegionalHubClick(rowindex: number, regionalhubId: number) {
+    onAssignRegionalHubClick(rowindex: number, regionalhubIndex: number, regionalhubId: number) {
         const button = document.getElementById('assignhub' + rowindex);
-        // button.innerText = this.regionalHubs[index]['name'];
+        button.innerText = this.regionalHubs[regionalhubIndex]['name'];
         this.podsService.updateRegionalHubID(this.pods[rowindex]['id'], regionalhubId).subscribe(res => {
             this.fetchData();
         });

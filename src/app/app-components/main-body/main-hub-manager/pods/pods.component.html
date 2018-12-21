@@ -20,13 +20,19 @@
         <tbody>
         <tr *ngFor="let item of pods; let i = index">
             <td>
-                <div>{{item['name']}}</div>
-                <div>{{item['type']}}</div>
-                <div>{{item['sponsor']}}</div>
-                <div>{{item['title']}}</div>
+                <div>
+                    <p style="margin: 0;"><strong>Sponsor Name</strong></p>
+                    <p style="text-indent :3em;" >{{item['name']}}</p>
+                    <p style="text-indent :3em;" >{{item['sponsor']}}</p>
+                    <p style="text-indent :3em;" >{{item['title']}}</p>
+                </div>
+                <div>
+                    <p style="margin: 0;"><strong>Connected by:</strong></p>
+                    <p style="text-indent :3em;" >{{item['connected_with']}}</p>
+                </div>
             </td>
             <td style="text-align: center;">
-                <a href="{{item['wordfile']}}">
+                <a href="{{item['wordfile']}}" target="_blank">
                     View
                 </a>
             </td>
@@ -35,7 +41,7 @@
                     <button id="{{'status'+i}}"
                             class="btn btn-primary dropdown-toggle"
                             type="button"
-                            data-toggle="dropdown">{{ pods[i]['approved'] == true ? 'Approve' : 'Reject' }}
+                            data-toggle="dropdown">{{ pods[i]['approved'] === true ? 'Approve' : 'Reject' }}
                     </button>
                     <div class="form-group">
                         <ul class="dropdown-menu">
@@ -51,12 +57,13 @@
                     <button id="{{'assignhub'+i}}"
                             class="btn btn-primary dropdown-toggle"
                             type="button"
-                            data-toggle="dropdown">{{ selectedRegionalHubNames[i] === '' ? 'Select' :
-                        selectedRegionalHubNames[i] }}
+                            data-toggle="dropdown">
+                        {{ selectedRegionalHubNames[i] === '' ? 'Select' : selectedRegionalHubNames[i] }}
                     </button>
                     <div class="form-group">
                         <ul class="dropdown-menu">
-                            <li *ngFor="let option of regionalHubs;" (click)="onAssignRegionalHubClick(i,option['id'])">
+                            <li *ngFor="let option of regionalHubs;let index = index"
+                                (click)="onAssignRegionalHubClick(i,index,option['id'])">
                                 {{option['name']}}
                             </li>
                         </ul>

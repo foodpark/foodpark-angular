@@ -76,9 +76,18 @@ input[type=file] {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    background: url('https://cdn1.iconfinder.com/data/icons/hawcons/32/698394-icon-130-cloud-upload-512.png') center center no-repeat #e4e4e4;
+    background: url('../assets/images/file-upload.png') center center no-repeat #e4e4e4;
     border-radius: 20px;
     background-size: 60px 60px;
+}
+
+.hide-file-container {
+    display: flex;
+    flex-direction: column;
+    input[type=file] {
+        width: 200px;
+        height: 50px;
+    }
 }
 
 .mat-form-field {

@@ -7,7 +7,7 @@ import { AuthService } from 'src/app/app-services/auth.service';
 })
 
 export class PodManagerDashboardComponent implements OnInit {
-    constructor(private authService: AuthService) {
+    constructor(public authService: AuthService) {
     }
 
     ngOnInit() {

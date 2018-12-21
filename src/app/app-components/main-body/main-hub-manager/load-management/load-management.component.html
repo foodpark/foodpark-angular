@@ -10,6 +10,7 @@
         <thead>
         <tr>
             <th style="width: 33%;">Name</th>
+            <th style="width: 10%;">Attachment</th>
             <th style="width: 33%;">Date</th>
             <th style="width: 33%;">POD Loads</th>
             <th style="width: 5%;text-align: center;">Edit</th>
@@ -17,9 +18,15 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let masterLoad of masterLoads;">
+        <tr *ngFor="let masterLoad of masterLoads;let i = index">
             <td>{{masterLoad['name']}}</td>
             <td>{{ masterLoad.created_at | date }}</td>
+            <td style="text-align: center;">
+                <a href="{{masterLoad['wordfile']}}">
+                    View
+                </a>
+            </td>
+            <td></td>
             <td></td>
             <td style="text-align: center;">
                 <i class="material-icons" (click)="onEditClick(i)">

@@ -1,0 +1,34 @@
+<div class="absolute-position">
+    <div class="title-center">
+        <h2>Edit Master Load</h2>
+    </div>
+    <form [formGroup]="editMasterForm">
+        <div class="form-group">
+            <h4>Load Name</h4>
+            <input
+                type="text"
+                class="form-control"
+                placeholder="Load Name"
+                formControlName="name"/>
+        </div>
+        <div class="form-group">
+            <h4>Upload Attachments</h4>
+            <div [ngClass]="{'hide-file-container' : hideFileContainer}">
+                <input type="file"
+                       class="form-control"
+                       placeholder="Upload Word Attachments"
+                       [accept]="' .xls, .xlsx, .xlsb, .xlsm , .xlt , .xltm , .xltx , .xlw'"
+                       formControlName="excelfile"
+                       (change)="onFilePicked($event.target.files)">
+                <h5 style="height: 30px;font-size: 20px;" id="wordfile_name">
+                    {{fileURL || 'File URL' }}
+                </h5>
+            </div>
+        </div>
+        <button type="submit"
+                class="btn btn-default"
+                [disabled]="!editMasterForm.valid"
+                (click)="editMaster()">Save
+        </button>
+    </form>
+</div>

@@ -2,7 +2,7 @@
     <a class="closebtn" (click)="closeNav()">&times;</a>
     <div class="leftmenu-header text-center">
         <img src="assets/images/logo.png" alt="logo" style="height: 50px;object-fit: contain;">
-        <div style="color: #818181;">{{this.authService.getUserName()}}</div>
+        <div style="color: #818181;">{{authService.getUserName()}}</div>
         <div>
             <a class="nav-link" style="color: #67c4ea" (click)="onLogout()">
                 Logout
@@ -11,7 +11,7 @@
     </div>
 
     <ng-container>
-        <a class="nav-link" routerLink='./loadresources' (click)="closeNav()">Load Request</a>
+        <a class="nav-link" routerLink='./loadresources' (click)="closeNav()">Load Requests</a>
     </ng-container>
 </div>
 <router-outlet></router-outlet>
