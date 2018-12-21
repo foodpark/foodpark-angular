@@ -19,7 +19,7 @@
         <tbody>
         <tr *ngFor="let masterLoad of masterLoads;">
             <td>{{masterLoad['name']}}</td>
-            <td></td>
+            <td>{{ masterLoad.created_at | date }}</td>
             <td></td>
             <td style="text-align: center;">
                 <i class="material-icons" (click)="onEditClick(i)">
@@ -27,7 +27,7 @@
                 </i>
             </td>
             <td style="text-align: center;">
-                <i class="material-icons" (click)="onDeleteClick(item['id'])">
+                <i class="material-icons" (click)="onDeleteClick(masterLoad['id'])">
                     delete
                 </i>
             </td>
@@ -40,5 +40,3 @@
         </button>
     </div>
 </div>
-
-

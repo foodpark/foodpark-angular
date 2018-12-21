@@ -31,10 +31,10 @@ export class MasterLoadService {
     }
 
     updateMasterLoad(masterLoadId: number, obj: any) {
-        return this.http.put(environment.apiUrl + '/api/v1/rel/master_loads' + masterLoadId, obj);
+        return this.http.put(environment.apiUrl + '/api/v1/rel/master_loads/' + masterLoadId, obj);
     }
 
     deleteMasterLoad(deleteMasterLoadId) {
-        return this.http.delete(environment.apiUrl + '/api/v1/rel/master_loads' + deleteMasterLoadId);
+        return this.http.delete(environment.apiUrl + '/api/v1/rel/master_loads/' + deleteMasterLoadId);
     }
 }

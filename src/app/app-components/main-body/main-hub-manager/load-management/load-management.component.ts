@@ -32,6 +32,14 @@ export class LoadManagementComponent implements OnInit, OnDestroy {
     onCreateDonationClick() {
         this.router.navigate(['/hubmanager/createdonationorder']);
     }
+    onDeleteClick(deleteid){
+      console.log('delete',deleteid);
+      this.masterLoadService.deleteMasterLoad(deleteid).subscribe(response=>{
+        console.log('dleted successfully',deleteid);
+        this.masterLoadService.getAllMasterLoads();
+      })
+
+    }
 
     ngOnDestroy() {
         this.masterLoadSubscription.unsubscribe();
