@@ -25,7 +25,7 @@ export class VolunteersComponent implements OnInit {
 
 
     constructor(private distributionservice: DistributionService,private mainhubService: MainhubService,private formBuilder: FormBuilder) {
-      this.getmainhubid();
+      this.getMainHub();
       this.volunteerInitform();
     }
 
@@ -39,7 +39,7 @@ export class VolunteersComponent implements OnInit {
         });
     }
 
-    getmainhubid() {
+    getMainHub() {
       this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
       .subscribe(response => {
           if (response.length > 0) {

@@ -20,7 +20,7 @@
         <tbody>
         <tr *ngFor="let masterLoad of masterLoads;let i = index">
             <td>{{masterLoad['name']}}</td>
-            <td>{{ masterLoad.created_at | date }}</td>
+            <td>{{ masterLoad['created_at'] | date }}</td>
             <td style="text-align: center;">
                 <a href="{{masterLoad['wordfile']}}">
                     View
