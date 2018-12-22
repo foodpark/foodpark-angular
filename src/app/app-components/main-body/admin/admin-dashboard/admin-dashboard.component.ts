@@ -1,19 +1,20 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, AfterViewInit} from '@angular/core';
 
 import {DataService} from '../../../../app-services/data.service';
 import {AuthService} from '../../../../app-services/auth.service';
 
 import {from} from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-admin-dashboard',
     templateUrl: './admin-dashboard.component.html',
 })
-export class AdminDashboardComponent implements OnInit {
+export class AdminDashboardComponent implements OnInit, AfterViewInit {
     userName: string;
 
-    constructor(private dataService: DataService,
-                public authService: AuthService) {
+    constructor(public authService: AuthService,
+        private router: Router) {
     }
 
     ngOnInit() {
@@ -26,5 +27,9 @@ export class AdminDashboardComponent implements OnInit {
 
     onLogout() {
         this.authService.logout();
+    }
+
+    ngAfterViewInit() {
+        this.router.navigate(['/admin/territories']);
     }
 }
