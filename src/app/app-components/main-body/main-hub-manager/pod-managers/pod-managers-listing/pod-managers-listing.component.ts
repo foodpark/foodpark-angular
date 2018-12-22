@@ -26,7 +26,7 @@ export class PodManagersListingComponent implements OnInit, OnDestroy {
     }
 
     onEditClick(index: number) {
-        this.router.navigate(['/hubmanager/editpodmanager', {podmanagerid: this.podManagers[index]['id']}]);
+        this.router.navigate(['/hubmanager/editpodmanager/' + this.podManagers[index]['id']]);
     }
 
     onDeleteClick(podManagerId: number) {

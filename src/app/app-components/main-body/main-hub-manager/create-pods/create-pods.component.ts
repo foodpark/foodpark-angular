@@ -20,8 +20,8 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
     private countriesSubscription: Subscription;
     private fileUploadSubscription: Subscription;
     private church_id: number;
-    private wordfileURL: string;
-    private wordFileToUpload: File;
+    wordfileURL: string;
+    wordFileToUpload: File;
     hideFileContainer = false;
 
     churchType = ['Church', 'Non-Profit', 'Non-Religious', 'Non-Denominational', 'Other'];

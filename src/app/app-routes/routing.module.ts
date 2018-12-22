@@ -128,7 +128,7 @@ const routes: Routes = [
                 path: 'podmanagers', component: PodManagersListingComponent
             },
             {
-                path: 'editpodmanager', component: EditPodManagerComponent
+                path: 'editpodmanager/:podmanagerid', component: EditPodManagerComponent
             },
             {
                 path: 'createmasterload', component: CreateMasterLoadComponent, children: []
