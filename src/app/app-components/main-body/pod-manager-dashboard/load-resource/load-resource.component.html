@@ -8,66 +8,66 @@
             style="height: 50px;align-items: center;width: 100%;"
             data-toggle="modal"
             data-target="#exampleModal"
-            (click)="popup1 = false"
-        >
-           Create Load Request
+            (click)="popup1 = false">
+            Create Load Request
         </button>
     </div>
 
     <table class="table table-borderless">
         <thead>
-            <tr>
-                <th>Request Name</th>
-                <th>Date</th>
-                <th>Pallets</th>
-                <th>Box</th>
-                <th>Items</th>
-                <th style="width: 5%;text-align: center;">Add/Edit</th>
-                <th style="width: 5%;text-align: center;">Delete</th>
-            </tr>
+        <tr>
+            <th>Request Name</th>
+            <th>Date</th>
+            <th>Pallets</th>
+            <th>Box</th>
+            <th>Items</th>
+            <th style="width: 5%;text-align: center;">Add/Edit</th>
+            <th style="width: 5%;text-align: center;">Delete</th>
+        </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let loaddata of loadrequests">
-                <td>{{ loaddata.name }}</td>
-                <td>{{ loaddata.created_at | date }}</td>
-                <td></td>
-                <!-- <td *ngFor="let boxes of boxesdata">
-                  <p>{{ boxes.category_name}}({{boxes.quantity}})</p>
-                </td> -->
-                <td>{{ loaddata.boxes[0].category_name}}({{loaddata.boxes[0].quantity}})</td>
-                <td></td>
-                <td style="text-align: center;">
-                  <i  class="material-icons" (click)="clickAddEdit(loaddata.id)">
-                      edit
-                  </i>
-                </td>
-                <td style="text-align: center;">
-                    <i class="material-icons" (click)="onclickDelete(loaddata.id)"> delete </i>
-                </td>
-                <td></td>
-            </tr>
+        <tr *ngFor="let loaddata of loadrequests">
+            <td>{{ loaddata.name }}</td>
+            <td>{{ loaddata.created_at | date }}</td>
+            <td></td>
+            <!-- <td *ngFor="let boxes of boxesdata">
+              <p>{{ boxes.category_name}}({{boxes.quantity}})</p>
+            </td> -->
+            <td>{{ loaddata.boxes[0].category_name}}({{loaddata.boxes[0].quantity}})</td>
+            <td></td>
+            <td style="text-align: center;">
+                <i class="material-icons" (click)="clickAddEdit(loaddata.id)">
+                    edit
+                </i>
+            </td>
+            <td style="text-align: center;">
+                <i class="material-icons" (click)="onclickDelete(loaddata.id)"> delete </i>
+            </td>
+            <td></td>
+        </tr>
         </tbody>
     </table>
 </div>
 
 
-<div class="modal_popup" id="exampleModal" role="dialog" data-backdrop="false"  aria-hidden="true"  *ngIf="!popup1">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header modal__header">
-        <h5 class="modal-title" id="exampleModalLabel">New Resource</h5>
-      </div>
-      <div class="modal-body">
-       <form [formGroup]="newloadrequestform">
-          <div class="new_volunteer_fields">
-            <input formControlName="name" type="text" name="" value="" placeholder="First Name">
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="createrequest()">Save</button>
-        <button type="button" class="btn btn-secondary" (click)="popup1 = true">Cancel</button>
-      </div>
+<div class="modal_popup" id="exampleModal" role="dialog" data-backdrop="false" aria-hidden="true" *ngIf="!popup1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header modal__header">
+                <h5 class="modal-title" id="exampleModalLabel">New Resource</h5>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="newloadrequestform">
+                    <div class="new_volunteer_fields">
+                        <input formControlName="name" type="text" name="" value="" placeholder="First Name">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="createrequest()">Save</button>
+                <button type="button" class="btn btn-secondary" (click)="popup1 = true">Cancel</button>
+            </div>
+        </div>
     </div>
+    <router-outlet></router-outlet>
 </div>
-<router-outlet></router-outlet>

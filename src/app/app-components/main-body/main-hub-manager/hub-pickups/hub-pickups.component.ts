@@ -17,6 +17,7 @@ export class HubPickupsComponent implements OnInit {
     pageTitle = 'Hub Pickups';
     hubPickupForm: FormGroup;
     mainHub: MainhubModel;
+    imageURL: string;
     private fileUploadSubscription: Subscription;
     hideFileContainer = false;
 
@@ -34,8 +35,8 @@ export class HubPickupsComponent implements OnInit {
             event_description: ['', Validators.required],
             event_image: ['', Validators.required],
             sponsor_name: ['', Validators.required],
-            sponsor1_image: ['', Validators.required],
-            sponsor2_image: ['', Validators.required],
+            sponsor1_image: [''],
+            sponsor2_image: [''],
             start_date: ['', Validators.required],
             end_date: ['', Validators.required],
             start_time: ['', Validators.required],
@@ -50,7 +51,8 @@ export class HubPickupsComponent implements OnInit {
 
         this.fileUploadSubscription = this.fileUploadService.getFileUploadListener()
             .subscribe((fileURL) => {
-                console.log(fileURL);
+                this.imageURL = fileURL;
+                this.onSaveClick();
             });
     }
 
@@ -60,14 +62,11 @@ export class HubPickupsComponent implements OnInit {
     }
 
     onImageUpload(name: string, files: FileList) {
+        this.fileUploadService.uploadFile(files[0]);
         this.hideFileContainer = this.dataService.nullCheck(files[0]);
-        this.imageUpload(files[0]);
         document.getElementById(name).innerText = files[0].name;
-        this.hubPickupForm.get(name).setValue(files[0]);
-    }
-
-    imageUpload(fileToUpload: File) {
-        this.fileUploadService.uploadFile(fileToUpload);
+        this.hubPickupForm.get(name).setValue(this.imageURL);
+        console.log(this.hubPickupForm.value);
     }
 
     onSaveClick() {
@@ -75,7 +74,7 @@ export class HubPickupsComponent implements OnInit {
             latitude: this.mainHub['latitude'],
             longitude: this.mainHub['longitude'],
         };
-        // this.hubPickupForm.patchValue({...this.hubPickupForm.value, obj});
+        this.hubPickupForm.patchValue(obj);
         this.hubPickupService.addHubPickup(this.hubPickupForm.value);
     }
 }

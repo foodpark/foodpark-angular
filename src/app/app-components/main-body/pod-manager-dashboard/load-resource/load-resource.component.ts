@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormBuilder, Validators } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {FormBuilder, Validators} from '@angular/forms';
 
-import { PodsService } from '../../../../app-services/pods.service';
-import { PodsManagerService } from '../../../../app-services/pod-manager.service';
-import { MainhubService } from 'src/app/app-services/mainhub.service';
+import {PodsService} from '../../../../app-services/pods.service';
+import {PodsManagerService} from '../../../../app-services/pod-manager.service';
+import {MainhubService} from 'src/app/app-services/mainhub.service';
 
 @Component({
     selector: 'app-loadresource',
@@ -76,8 +76,8 @@ export class LoadResourceComponent implements OnInit {
 
     onclickDelete(deleteid) {
         this.podsManagerService.apideleteLoadRequests(deleteid)
-        .subscribe(response => {
-            this.getLoadRequests();
-        });
+            .subscribe(response => {
+                this.getLoadRequests();
+            });
     }
 }
