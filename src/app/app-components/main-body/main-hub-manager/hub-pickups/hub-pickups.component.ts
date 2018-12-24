@@ -3,8 +3,10 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MainhubModel} from '../../../../model';
 import {MainhubService} from '../../../../app-services/mainhub.service';
 import {HttpClient} from '@angular/common/http';
-import {environment} from '../../../../../environments/environment.prod';
 import {FileUploadService} from '../../../../app-services/fileupload.service';
+import {DataService} from '../../../../app-services/data.service';
+import {Subscription} from 'rxjs';
+import {HubPickupService} from '../../../../app-services/hub-pickup.service';
 
 @Component({
     selector: 'app-hub-pickups',
@@ -15,11 +17,15 @@ export class HubPickupsComponent implements OnInit {
     pageTitle = 'Hub Pickups';
     hubPickupForm: FormGroup;
     mainHub: MainhubModel;
+    private fileUploadSubscription: Subscription;
+    hideFileContainer = false;
 
     constructor(private fb: FormBuilder,
                 private mainhubService: MainhubService,
                 private http: HttpClient,
-                private fileService: FileUploadService) {
+                private dataService: DataService,
+                private hubPickupService: HubPickupService,
+                private fileUploadService: FileUploadService) {
     }
 
     ngOnInit() {
@@ -42,6 +48,10 @@ export class HubPickupsComponent implements OnInit {
                 this.mainHub = response[0];
             });
 
+        this.fileUploadSubscription = this.fileUploadService.getFileUploadListener()
+            .subscribe((fileURL) => {
+                console.log(fileURL);
+            });
     }
 
     onHubClick() {
@@ -49,46 +59,23 @@ export class HubPickupsComponent implements OnInit {
         button.innerText = this.mainHub['name'];
     }
 
-    onImageUpload() {
+    onImageUpload(name: string, files: FileList) {
+        this.hideFileContainer = this.dataService.nullCheck(files[0]);
+        this.imageUpload(files[0]);
+        document.getElementById(name).innerText = files[0].name;
+        this.hubPickupForm.get(name).setValue(files[0]);
+    }
+
+    imageUpload(fileToUpload: File) {
+        this.fileUploadService.uploadFile(fileToUpload);
     }
 
     onSaveClick() {
-        // this.fileService.uploadFileAndGetActualResponse(this.hubPickupForm.get('event_image').value);
-        // const start_date = document.getElementById('start_date');
-        // const end_date = document.getElementById('end_date');
-        // this.hubPickupForm.get('start_date').setValue(start_date.value);
-        // this.hubPickupForm.get('end_date').setValue(end_date.value);
-        // const obj = {
-        //     latitude: this.mainHub['latitude'],
-        //     longitude: this.mainHub['longitude']
-        // };
-        // this.hubPickupForm.patchValue(obj);
-        // this.http.post(environment.apiUrl + 'api/v1/rel/events', this.hubPickupForm.value);
-
-        const startDate = this.hubPickupForm.value.start_date;
-        const endDate = this.hubPickupForm.value.end_date;
         const obj = {
             latitude: this.mainHub['latitude'],
             longitude: this.mainHub['longitude'],
         };
-        // const startTime1 = document.getElementById('start_time').value.split(':')[0].length === 1 ?
-        //     `0${document.getElementById('start_time').value.split(':')[0]}` :
-        //     document.getElementById('start_time').value.split(':')[0];
-        // const startTime2 = document.getElementById('start_time').value.split(':')[1].length === 1 ?
-        //     `0${document.getElementById('start_time').value.split(':')[1]}` :
-        //     document.getElementById('start_time').value.split(':')[1];
-        // const endTime1 = document.getElementById('end_time').value.split(':')[0].length === 1 ?
-        //     `0${document.getElementById('end_time').value.split(':')[0]}` :
-        //     document.getElementById('end_time').value.split(':')[0];
-        // const endTime2 = document.getElementById('end_time').value.split(':')[1].length === 1 ?
-        //     `0${document.getElementById('end_time').value.split(':')[1]}` :
-        //     document.getElementById('end_time').value.split(':')[1];
-        // const dateTimeObj = {
-        //     start_date: `${startDate.split('/')[2]}-${startDate.split('/')[0]}-${startDate.split('/')[1]}T${startTime1}:${startTime2}:00.000Z`,
-        //     end_date: `${endDate.split('/')[2]}-${endDate.split('/')[0]}-${endDate.split('/')[1]}T${endTime1}:${endTime2}:00.000Z`,
-        // };
-        // console.log(dateTimeObj);
-        this.hubPickupForm.patchValue(obj);
-        this.http.post(environment.apiUrl + 'api/v1/rel/events', this.hubPickupForm.value);
+        // this.hubPickupForm.patchValue({...this.hubPickupForm.value, obj});
+        this.hubPickupService.addHubPickup(this.hubPickupForm.value);
     }
 }
