@@ -198,6 +198,15 @@ export class AddEditResourceComponent implements OnInit {
         );
     }
 
+    onclickDelete(deleteid) {
+      this.podsManagerService.apiDeleteLoadItems(deleteid)
+      .subscribe(response =>{
+        this.getLoadItems();
+      }, error => {
+
+      });
+    }
+
     ngOnInit() {
         this.addloaddeatilsform();
     }

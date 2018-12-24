@@ -91,6 +91,7 @@
                 <h4>Upload Attachments</h4>
                 <div [ngClass]="{'hide-file-container' : hideFileContainer}">
                     <input type="file"
+                            style="width:130px;"
                            class="form-control"
                            placeholder="Upload Word Attachments"
                            accept=".docx, .doc"
@@ -116,7 +117,7 @@
             <button type="submit"
                     class="btn btn-default"
                     [disabled]="!registerpodform.valid"
-                    (click)="createPod()">Create Pods
+                    (click)="createPod()">Create Pod
             </button>
         </div>
     </form>

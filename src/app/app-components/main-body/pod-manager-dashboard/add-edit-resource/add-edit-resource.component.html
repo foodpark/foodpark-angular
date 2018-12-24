@@ -20,16 +20,20 @@
                 <th style="width: 15%;">Category</th>
                 <th style="width: 10%; text-align: center;">Quantity</th>
                 <th>Description</th>
+                <th>Delete</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let list of loaditems">
-                <td style="width: 15%;">{{ list.load_type }}</td>
+                <td style="width: 15%;">{{ list.load_type | titlecase }}</td>
                 <td style="width: 15%;">{{ list.category_name }}</td>
                 <td style="width: 10%;text-align: center;">
                     {{ list.quantity }}
                 </td>
                 <td>{{ list.description }}</td>
+                <td style="text-align: center;">
+                    <i class="material-icons" (click)="onclickDelete(list.id)"> delete </i>
+                </td>
             </tr>
         </tbody>
     </table>
@@ -55,15 +59,12 @@
                             id="loadtype"
                             class="btn btn-primary dropdown-toggle"
                             type="button"
-                            data-toggle="dropdown"
-                        >
+                            data-toggle="dropdown">
                             Load Type
                         </button>
                         <ul class="dropdown-menu">
-                            <li
-                                *ngFor="let type of loadtypes; let i = index"
-                                (click)="onloadtypeClick(i, type['id'])"
-                            >
+                            <li *ngFor="let type of loadtypes; let i = index"
+                                (click)="onloadtypeClick(i, type['id'])">
                                 {{ type.loadtype }}
                             </li>
                         </ul>
@@ -130,8 +131,7 @@
                     <button
                         type="button"
                         class="btn btn-secondary"
-                        (click)="popup1 = true"
-                    >
+                        (click)="popup1 = true">
                         Cancel
                     </button>
                 </div>
