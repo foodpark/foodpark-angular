@@ -71,7 +71,7 @@ export class LoadResourceComponent implements OnInit {
     }
 
     clickAddEdit(id) {
-        this.route.navigate(['podmanager', 'add-edit', id]);
+        this.route.navigate(['podmanager', 'addeditloadresource', id]);
     }
 
     onclickDelete(deleteid) {
