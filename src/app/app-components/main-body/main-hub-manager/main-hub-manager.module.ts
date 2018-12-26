@@ -27,6 +27,8 @@ import {GIKDonationsComponent} from './distrubution-center/gikdonations/gik-dona
 import {CreateDonationOrderComponent} from './create-donation-order/create-donation-order.component';
 import {EditMasterLoadComponent} from './edit-master-load/edit-master-load.component';
 import {CreateMasterLoadComponent} from './create-master-load/create-master-load.component';
+import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
+import { CustomizeLoadComponent } from './customize-load/customize-load.component';
 
 
 @NgModule({
@@ -35,7 +37,9 @@ import {CreateMasterLoadComponent} from './create-master-load/create-master-load
         ReactiveFormsModule,
         BrowserModule,
         RouterModule,
-        MaterialModule
+        MaterialModule,
+        OwlDateTimeModule,
+        OwlNativeDateTimeModule,
     ],
     declarations: [
         HubManagerDashboardComponent,
@@ -59,7 +63,8 @@ import {CreateMasterLoadComponent} from './create-master-load/create-master-load
         CreateMasterLoadComponent,
         EditMasterLoadComponent,
         CreateDonationOrderComponent,
-        EditMasterLoadComponent
+        EditMasterLoadComponent,
+        CustomizeLoadComponent
 
         // PodManagerDashboardComponent
     ],

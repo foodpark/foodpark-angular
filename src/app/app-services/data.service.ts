@@ -6,6 +6,10 @@ import {HttpClient} from '@angular/common/http';
 @Injectable({providedIn: 'root'})
 
 export class DataService {
+    imageSource: string;
+    sponsor1Image: string;
+    sponsor2Image: string;
+
     // localeStringsMap: any;
 
     constructor(private http: HttpClient) {

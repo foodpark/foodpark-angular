@@ -1,0 +1,28 @@
+<table *ngIf="showAddEditTable" class="table table-borderless">
+    <thead>
+    <tr>
+        <th style="width: 15%;">Load Type</th>
+        <th style="width: 15%;">Category</th>
+        <th style="width: 10%; text-align: center;">Quantity</th>
+        <th>Description</th>
+        <th>Delete</th>
+        <th>Edit</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let list of loaditems">
+        <td style="width: 15%;">{{ list.load_type | titlecase }}</td>
+        <td style="width: 15%;">{{ list.category_name }}</td>
+        <td style="width: 10%;text-align: center;">
+            {{ list.quantity }}
+        </td>
+        <td>{{ list.description }}</td>
+        <td>
+            <i class="material-icons" (click)="onDeleteLoadClick(list.id)"> delete </i>
+        </td>
+        <td>
+            <i class="material-icons" (click)="onEditLoadClick(list.id)"> edit </i>
+        </td>
+    </tr>
+    </tbody>
+</table>

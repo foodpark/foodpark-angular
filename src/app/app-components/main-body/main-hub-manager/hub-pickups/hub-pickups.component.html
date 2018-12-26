@@ -7,7 +7,7 @@
                     <h4>Event Name</h4>
                     <input
                         type="text"
-                        formControlName="event_name"
+                        formControlName="name"
                         class="form-control"
                         placeholder="Event Name">
                 </div>
@@ -15,7 +15,6 @@
                     <h4>Event Description</h4>
                     <input
                         type="text"
-                        formControlName="event_description"
                         class="form-control"
                         placeholder="Event Description">
                 </div>
@@ -24,9 +23,9 @@
                     <input
                         type="file"
                         name="event_image"
-                        formControlName="event_image"
+                        formControlName="image"
                         accept="image/*"
-                        (change)="onImageUpload('event_image', $event.target.files)"
+                        (change)="onImageUpload('event', $event.target.files)"
                         alt="Event Image">
                     <h5 style="height: 30px;font-size: 20px;" id="event_image">File URL
                     </h5>
@@ -53,83 +52,70 @@
                     <div style="padding-right: 20px">
                         <div class="form-group">
                             <h4>Sponsor Image</h4>
+                            <div class="form-group">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    (keyup)="onSponsor1Entered($event)"
+                                    placeholder="Sponsor Name"
+                                    id="sponsor1">
+                            </div>
                             <input
                                 type="file"
-                                formControlName="sponsor1_image"
                                 accept=".png, .jpg, .jpeg"
-                                (change)="onImageUpload('sponsor1_image', $event.target.files)"
+                                (change)="onImageUpload('sponsor1', $event.target.files)"
                                 alt="Sponsor Image">
                             <h5 style="height: 30px;font-size: 20px;" id="sponsor1_image">File URL
                             </h5>
-                        </div>
-                        <div class="form-group">
-                            <input
-                                type="text"
-                                formControlName="sponsor_name"
-                                class="form-control"
-                                placeholder="Sponsor Name">
                         </div>
                     </div>
                     <div>
                         <div class="form-group">
                             <h4>Sponsor Image</h4>
+                            <div class="form-group">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    (keyup)="onSponsor2Entered($event)"
+                                    placeholder="Sponsor Name"
+                                    id="sponsor2">
+                            </div>
                             <input
                                 type="file"
-                                formControlName="sponsor2_image"
                                 accept=".png, .jpg, .jpeg"
-                                (change)="onImageUpload('sponsor2_image', $event.target.files)"
+                                (change)="onImageUpload('sponsor2', $event.target.files)"
                                 alt="Sponsor Image">
                             <h5 style="height: 30px;font-size: 20px;" id="sponsor2_image">File URL
                             </h5>
                         </div>
-                        <div class="form-group">
-                            <input
-                                type="text"
-                                formControlName="sponsor_name"
-                                class="form-control"
-                                placeholder="Sponsor Name">
-                        </div>
+
                     </div>
                 </div>
                 <div style="display: flex;">
-                    <div class="form-group" style="padding-right: 20px;">
-                        <h4>Start Date</h4>
-                        <mat-form-field>
-                            <input matInput [matDatepicker]="picker1" placeholder="Choose a date"
-                                   formControlName="start_date" id="start_date">
-                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                            <mat-datepicker #picker1></mat-datepicker>
-                        </mat-form-field>
-                    </div>
-                    <div class="form-group">
-                        <h4>End Date</h4>
-                        <mat-form-field>
-                            <input matInput [matDatepicker]="picker2" placeholder="Choose a date"
-                                   formControlName="end_date" id="end_date">
-                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                            <mat-datepicker #picker2></mat-datepicker>
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div style="display: flex;">
-                    <div class="form-group" style="padding-right: 20px;">
-                        <h4>Start Time</h4>
+                    <div class="form-group"><label>
+                        Start Date:
                         <input
-                            id="start_time"
-                            type="text"
-                            formControlName="start_time"
-                            class="form-control"
-                            placeholder="10:10">
-                    </div>
-                    <div class="form-group">
-                        <h4>End Time</h4>
+                            [owlDateTimeTrigger]="dt5"
+                            [owlDateTime]="dt5"
+                            formControlName="start_date"
+                            id="fromDate">
+                        <owl-date-time
+                            #dt5
+                            [pickerMode]="'dialog'">
+                        </owl-date-time>
+                    </label></div>
+                    <div class="form-group"><label>
+                        End Date:
                         <input
-                            id="end_time"
-                            type="text"
-                            formControlName="end_time"
-                            class="form-control"
-                            placeholder="11:11">
-                    </div>
+                            [owlDateTimeTrigger]="dt6"
+                            [owlDateTime]="dt6"
+                            formControlName="end_date"
+                            id="toDate">
+                        <owl-date-time
+                            #dt6
+                            [pickerMode]="'dialog'">
+                        </owl-date-time>
+                    </label></div>
                 </div>
                 <button
                     type="submit"

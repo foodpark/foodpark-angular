@@ -20,7 +20,6 @@ export class CreateDonationOrderComponent implements OnInit, OnDestroy {
     requestBody = {};
     loads: any;
     loaditems: LoadItemModel[];
-    showAddEditTable = false;
     private regionalHubsSubscription: Subscription;
     private masterLoadSubscription: Subscription;
     private mainHubsSubscription: Subscription;
@@ -65,12 +64,7 @@ export class CreateDonationOrderComponent implements OnInit, OnDestroy {
     // "load_name":"Load 1"
 
     clickCustomize(loadId: number) {
-        this.showAddEditTable = true;
-        this.podsManagerService
-            .apigetLoadItems(loadId)
-            .subscribe(response => {
-                this.loaditems = response;
-            });
+        this.router.navigate(['/hubmanager/customizeLoad', {loadId: loadId}]);
     }
 
     onDeleteLoadClick(loadId: number) {
