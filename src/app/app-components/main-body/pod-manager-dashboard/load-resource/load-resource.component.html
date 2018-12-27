@@ -30,12 +30,19 @@
             <tr *ngFor="let loaddata of loadrequests">
                 <td>{{ loaddata.name }}</td>
                 <td>{{ loaddata.created_at | date }}</td>
-                <td></td>
                 <!-- <td *ngFor="let boxes of boxesdata">
                   <p>{{ boxes.category_name}}({{boxes.quantity}})</p>
                 </td> -->
-                <td>{{ loaddata.boxes[0].category_name}}({{loaddata.boxes[0].quantity}})</td>
-                <td></td>
+                <td>
+                  <p *ngFor="let pallet of loaddata.pallets">  {{ pallet.category_name}}({{pallet.quantity}})</p>
+                </td>
+                <!-- <td *ngFor="let boxes of loaddata.boxes">{{ boxes.category_name}}({{boxes.quantity}})</td> -->
+                <td>
+                  <p *ngFor="let boxes of loaddata.boxes">{{ boxes.category_name}}({{boxes.quantity}})</p>
+                </td>
+                <td>
+                  <p *ngFor="let item of loaddata.items">{{ item.category_name}}({{item.quantity}})</p>
+                </td>
                 <td style="text-align: center;">
                   <i  class="material-icons" (click)="clickAddEdit(loaddata.id)">
                       edit

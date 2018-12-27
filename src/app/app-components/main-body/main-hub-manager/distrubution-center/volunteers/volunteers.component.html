@@ -1,16 +1,18 @@
 <div class="tab-absolute-position">
-  <h1 class="hedaing_title"> Volunteers ( Shared )</h1>
+  <h1 class="hedaing_title"> Volunteers</h1>
     <table class="table table-borderless">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Avilablity</th>
-                <th>Phone</th>
-                <th style="width: 5%;text-align: center;">Delete</th>
+              <th></th>
+              <th>Name</th>
+              <th>Avilablity</th>
+              <th>Phone</th>
+              <th style="width: 5%;text-align: center;">Delete</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of allvolunters">
+            <tr *ngFor="let item of allvolunters; let i = index">
+                <td>{{i + 1}}</td>
                 <td>{{ item.first_name }} {{ item.last_name }}</td>
                 <td>
                     <div class="button-switch">
@@ -61,8 +63,8 @@
               <td>{{ item.first_name }}.{{ item.last_name }}</td>
               <td>{{ item.phone }}</td>
               <td style="text-align: center;">
-                  <button class="add_button" type="button" name="button" (click)="Addvolunter(item)" *ngIf="!item.selected">Add Driver</button>
-                  <button class="remove_button" type="button" name="button" *ngIf="item.selected" (click)="deletevolunteer(item['id'])">Remove Driver</button>
+                  <button class="add_button" type="button" name="button" (click)="Addvolunter(item)" *ngIf="!item.selected">Add Volunteer</button>
+                  <button class="remove_button" type="button" name="button" *ngIf="item.selected" (click)="deletevolunteer(item['id'])">Remove </button>
               </td>
           </tr>
       </tbody>

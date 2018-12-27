@@ -109,16 +109,77 @@ export class AddEditResourceComponent implements OnInit {
         }
     }
 
-    constructor(
-        private podsManagerService: PodsManagerService,
-        private activateroute: ActivatedRoute,
-        private formBuilder: FormBuilder
-    ) {
-        this.activatedroute = activateroute;
-        this.loadID = this.activatedroute.snapshot.params['id']
-            ? this.activatedroute.snapshot.params['id']
-            : '';
 
+    editloaddeatilsform() {
+        this.editdeatilsform = this.formBuilder.group({
+            quantity: ['', Validators.required],
+            description: ['', Validators.required],
+            category_id: [3, Validators.required],
+            category_name: ["Furniture", Validators.required],
+            load_type: ["BOX", Validators.required]
+        });
+
+        this.editdeatilsform.valueChanges.subscribe(data =>
+            this.onValueChanged(data)
+        );
+        this.onValueChanged(); // (re)set validation messages now
+    }
+
+    onValueChanged(data?: any) {
+        if (!this.editdeatilsform) {
+            return;
+        }
+        const form = this.editdeatilsform;
+        for (const field in this.formErrors) {
+            // clear previous error message (if any)
+            this.formErrors[field] = '';
+            const control = form.get(field);
+            if (control && control.dirty && !control.valid) {
+                const messages = this.validationMessages[field];
+                for (const key in control.errors) {
+                    this.formErrors[field] += messages[key] + ' ';
+                }
+            }
+        }
+    }
+
+    onSubmiteditform() {
+        if (!this.editdeatilsform.valid) {
+            console.log('Form Is not Valid-------->',this.editdeatilsform);
+            if (!this.editdeatilsform) {
+                return;
+            }
+            const form = this.editdeatilsform;
+            for (const field in this.formErrors) {
+                // clear previous error message (if any)
+                this.formErrors[field] = '';
+                const control = form.get(field);
+                if (control && !control.valid) {
+                    const messages = this.validationMessages[field];
+                    for (const key in control.errors) {
+                        this.formErrors[field] += messages[key] + ' ';
+                    }
+                }
+            }
+        }
+        if (this.editdeatilsform.valid) {
+            this.editreqobj = {
+                category_id: this.editdeatilsform.value.category_id,
+                category_name: this.editdeatilsform.value.category_name,
+                // category_id: 3,
+                // category_name: "Furniture",
+                quantity: this.editdeatilsform.value.quantity,
+                description: this.editdeatilsform.value.description,
+                load_type: this.editdeatilsform.value.load_type,
+                //load_id: this.loadID
+            };
+            this.updateloaddetails();
+        }
+    }
+
+    constructor( private podsManagerService: PodsManagerService,private activateroute: ActivatedRoute,private formBuilder: FormBuilder) {
+        this.activatedroute = activateroute;
+        this.loadID = this.activatedroute.snapshot.params['id'] ? this.activatedroute.snapshot.params['id']: '';
         this.getLoadItems();
         this.getcategories();
         this.loadtypes = [
@@ -136,23 +197,36 @@ export class AddEditResourceComponent implements OnInit {
             }
         ];
         // this.newvolunterpopup = false;
+        this.editpopup = false;
     }
 
     getcategories() {
         this.podsManagerService.apigetcategories().subscribe(response => {
             this.categories = response;
             this.displayCategories = response;
+            //
+            // Object.assign({},
+            //   ...Object.keys(this.displayCategories) . map(key => ({[this.fix_key(key)]: this.displayCategories[key]}))
+            //
+            // )
+            //
+            // console.log("here===>", this.displayCategories);
+
         });
     }
 
+    // fix_key(key){
+    //   return key.replace('category', 'category_name');
+    // }
+
+
+
     onCategoryClick(index: number, id: number) {
-        const button = document.getElementById('category');
-        const selectedCategory = this.displayCategories[index]['category'];
-        button.innerText = selectedCategory;
-        this.adddeatilsform.get('category_name').setValue(selectedCategory);
-        this.adddeatilsform
-            .get('category_id')
-            .setValue(this.categories[index]['id']);
+      const button = document.getElementById('category');
+      const selectedCategory = this.displayCategories[index]['category'];
+      button.innerText = selectedCategory;
+      this.adddeatilsform.get('category_name').setValue(selectedCategory);
+      this.adddeatilsform.get('category_id').setValue(this.categories[index]['id']);
     }
 
     onloadtypeClick(index: number, id: number) {
@@ -176,6 +250,7 @@ export class AddEditResourceComponent implements OnInit {
             return loadItemsCategories.indexOf(category.category) === -1;
         });
     }
+
 
     getLoadItems() {
         this.podsManagerService
@@ -206,8 +281,45 @@ export class AddEditResourceComponent implements OnInit {
 
       });
     }
+    onclickAddEdit(listdata) {
+      console.log(listdata);
+      this.editdata = listdata;
+      this.loadid = this.editdata.id;
+      this.editdeatilsform.get('quantity').setValue(this.editdata['quantity'], {emitEvent: false});
+      this.editdeatilsform.get('description').setValue(this.editdata['description'], {emitEvent: false});
+      this.selectedCategoryname = this.editdata;
+      this.editpopup = true;
+    }
+
+    // selectLoadType(value){
+    //   this.selectedLoadType = value;
+    // }
+    //
+    // selectCategoryName(value){
+    //   this.selectedCategoryname = value;
+    //   const button = document.getElementById('category');
+    //   const selectedCategoryname = this.selectedCategoryname['category'];
+    //   button.innerText = selectedCategoryname;
+    // }
+
+
+
+    updateloaddetails(){
+      this.podsManagerService.apiupdateLoadItems(this.loadid, this.editreqobj).subscribe(
+          response => {
+            console.log(successfully update)
+              this.editpopup = false;
+              this.getLoadItems();
+              this.editloaddeatilsform();
+          },
+          error => {
+            this.editpopup = true;
+          }
+      );
+    }
 
     ngOnInit() {
         this.addloaddeatilsform();
+        this.editloaddeatilsform();
     }
 }
