@@ -14,7 +14,6 @@ import {HubPickupService} from '../../../../app-services/hub-pickup.service';
 
 })
 export class HubPickupsComponent implements OnInit {
-    pageTitle = 'Hub Pickups';
     hubPickupForm: FormGroup;
     mainHub: MainhubModel;
     imageURL: string;
@@ -44,6 +43,7 @@ export class HubPickupsComponent implements OnInit {
             latitude: ['', Validators.required],
             longitude: ['', Validators.required],
         });
+
         this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
             .subscribe((response) => {
                 this.mainHub = response[0];

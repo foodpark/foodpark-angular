@@ -1,50 +1,90 @@
 <div class="absolute-position">
-    <div class="title-center">
-        <h2>Create Pod</h2>
-    </div>
+    <div class="title-center"><h2>Create Pod</h2></div>
     <form [formGroup]="registerpodform">
         <div class="create_pods_section--first-step">
             <div class="form-group">
                 <h4>First Name</h4>
-                <input type="text" class="form-control" name="" value="" placeholder="First Name"
-                       formControlName="firstname">
+                <input
+                    type="text"
+                    class="form-control"
+                    name=""
+                    value=""
+                    placeholder="First Name"
+                    formControlName="firstname"
+                />
             </div>
             <div class="form-group">
                 <h4>Last Name</h4>
-                <input type="text" class="form-control" name="" value="" placeholder="Last Name"
-                       formControlName="lastname">
+                <input
+                    type="text"
+                    class="form-control"
+                    name=""
+                    value=""
+                    placeholder="Last Name"
+                    formControlName="lastname"
+                />
             </div>
             <div class="form-group">
                 <h4>Email</h4>
-                <input type="text" class="form-control" name="" value="" placeholder="Email"
-                       formControlName="email">
+                <input
+                    type="text"
+                    class="form-control"
+                    name=""
+                    value=""
+                    placeholder="Email"
+                    formControlName="email"
+                />
             </div>
             <div class="form-group">
                 <h4>Password</h4>
-                <input type="password" class="form-control" name="" value="" placeholder="Password"
-                       formControlName="password">
+                <input
+                    type="password"
+                    class="form-control"
+                    name=""
+                    value=""
+                    placeholder="Password"
+                    formControlName="password"
+                />
             </div>
             <div class="form-group">
                 <h4>Retype Password</h4>
-                <input type="password" class="form-control" name="" value="" placeholder="Retype Password"
-                       formControlName="repeatpassword">
+                <input
+                    type="password"
+                    class="form-control"
+                    name=""
+                    value=""
+                    placeholder="Retype Password"
+                    formControlName="repeatpassword"
+                />
             </div>
             <div class="form-group">
                 <h4>Pod Name</h4>
-                <input type="text" class="form-control" name="" value="" placeholder="Pod Name"
-                       formControlName="church_name">
+                <input
+                    type="text"
+                    class="form-control"
+                    name=""
+                    value=""
+                    placeholder="Pod Name"
+                    formControlName="church_name"
+                />
             </div>
             <div class="form-group">
                 <h4>Country</h4>
                 <div class="dropdown">
-                    <button id="country_button"
-                            class="btn btn-primary dropdown-toggle"
-                            type="button"
-                            data-toggle="dropdown">Select
+                    <button
+                        id="country_button"
+                        class="btn btn-primary dropdown-toggle"
+                        type="button"
+                        data-toggle="dropdown"
+                    >
+                        Select
                     </button>
                     <ul class="dropdown-menu">
-                        <li *ngFor="let item of countries; let i = index" (click)="onCountryClick(i, item['id'])">
-                            {{item.name}}
+                        <li
+                            *ngFor="let item of countries; let i = index"
+                            (click)="onCountryClick(i, item['id'])"
+                        >
+                            {{ item.name }}
                         </li>
                     </ul>
                 </div>
@@ -52,72 +92,125 @@
 
             <div class="form-group">
                 <h4>Sponsor</h4>
-                <input type="text" class="form-control" name="" value="" placeholder="Sponsor"
-                       formControlName="sponsor">
+                <input
+                    type="text"
+                    class="form-control"
+                    name=""
+                    value=""
+                    placeholder="Sponsor"
+                    formControlName="sponsor"
+                />
             </div>
             <div class="form-group">
                 <h4>Title</h4>
-                <input type="text" class="form-control" name="" value="" placeholder="Title"
-                       formControlName="title">
+                <input
+                    type="text"
+                    class="form-control"
+                    name=""
+                    value=""
+                    placeholder="Title"
+                    formControlName="title"
+                />
             </div>
 
             <div class="form-group">
                 <h4>Church Type</h4>
                 <div class="dropdown">
-                    <button id="church_type"
-                            class="btn btn-primary dropdown-toggle"
-                            type="button"
-                            data-toggle="dropdown">Select
+                    <button
+                        id="church_type"
+                        class="btn btn-primary dropdown-toggle"
+                        type="button"
+                        data-toggle="dropdown"
+                    >
+                        Select
                     </button>
                     <ul class="dropdown-menu">
-                        <li *ngFor="let type of churchType" (click)="onChurchTypeClick(type)">{{type}}</li>
+                        <li
+                            *ngFor="let type of churchType"
+                            (click)="onChurchTypeClick(type)"
+                        >
+                            {{ type }}
+                        </li>
                     </ul>
                 </div>
             </div>
             <div class="form-group">
                 <h4>Connected By</h4>
                 <div class="dropdown">
-                    <button id="connected_with"
-                            class="btn btn-primary dropdown-toggle"
-                            type="button"
-                            data-toggle="dropdown">Select
+                    <button
+                        id="connected_with"
+                        class="btn btn-primary dropdown-toggle"
+                        type="button"
+                        data-toggle="dropdown"
+                    >
+                        Select
                     </button>
                     <ul class="dropdown-menu">
-                        <li *ngFor="let item of connectedWith" (click)="onConnectedByClick(item)">{{item}}</li>
+                        <li
+                            *ngFor="let item of connectedWith"
+                            (click)="onConnectedByClick(item)"
+                        >
+                            {{ item }}
+                        </li>
                     </ul>
                 </div>
             </div>
             <div class="form-group">
                 <h4>Upload Attachments</h4>
-                <div [ngClass]="{'hide-file-container' : hideFileContainer}">
-                    <input type="file"
-                            style="width:130px;"
-                           class="form-control"
-                           placeholder="Upload Word Attachments"
-                           accept=".docx, .doc"
-                           formControlName="wordFile"
-                           (change)="onFilePicked($event.target.files)">
-                    <h5 style="height: 30px;font-size: 20px;" id="wordfile_name">{{wordFileToUpload != null ?
-                        wordFileToUpload.name :
-                        wordfileURL ? wordfileURL :'File URL' }}
+                <div [ngClass]="{ 'hide-file-container': hideFileContainer }">
+                    <input
+                        type="file"
+                        style="width:130px;"
+                        class="form-control"
+                        placeholder="Upload Word Attachments"
+                        accept=".docx, .doc"
+                        formControlName="wordFile"
+                        (change)="onFilePicked($event.target.files)"
+                    />
+                    <h5
+                        style="height: 30px;font-size: 20px;"
+                        id="wordfile_name"
+                    >
+                        {{
+                            wordFileToUpload != null
+                                ? wordFileToUpload.name
+                                : wordfileURL
+                                ? wordfileURL
+                                : "File URL"
+                        }}
                     </h5>
                 </div>
             </div>
 
             <div class="form-group">
                 <h4>Latitude</h4>
-                <input type="text" class="form-control" name="" value="" placeholder="Latitude"
-                       formControlName="latitude">
+                <input
+                    type="text"
+                    class="form-control"
+                    name=""
+                    value=""
+                    placeholder="Latitude"
+                    formControlName="latitude"
+                />
             </div>
             <div class="form-group">
                 <h4>Longitude</h4>
-                <input type="text" class="form-control" name="" value="" placeholder="Longitude"
-                       formControlName="longitude">
+                <input
+                    type="text"
+                    class="form-control"
+                    name=""
+                    value=""
+                    placeholder="Longitude"
+                    formControlName="longitude"
+                />
             </div>
-            <button type="submit"
-                    class="btn btn-default"
-                    [disabled]="!registerpodform.valid"
-                    (click)="createPod()">Create Pod
+            <button
+                type="submit"
+                class="btn btn-default"
+                [disabled]="!registerpodform.valid"
+                (click)="createPod()"
+            >
+                Create Pod
             </button>
         </div>
     </form>

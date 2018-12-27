@@ -1,6 +1,7 @@
 <div class="absolute-position">
     <section class="greybg center ">
-        <h2 class="page-header" style="margin: 10px 80px;height: 50px;">{{pageTitle}}</h2>
+        <div class="title-center"><h2>Create Hub Pickup</h2></div>
+        <h2 class="page-header" style="margin: 10px 80px;height: 50px;"></h2>
         <div class="container-fluid col-sm-12 menu_detail shell bg_1">
             <form [formGroup]="hubPickupForm">
                 <div class="form-group">
@@ -23,6 +24,7 @@
                     <h4>Event Image</h4>
                     <input
                         type="file"
+                        style="width:130px;"
                         name="event_image"
                         formControlName="event_image"
                         accept="image/*"
@@ -55,6 +57,7 @@
                             <h4>Sponsor Image</h4>
                             <input
                                 type="file"
+                                style="width:130px;"
                                 formControlName="sponsor1_image"
                                 accept=".png, .jpg, .jpeg"
                                 (change)="onImageUpload('sponsor1_image', $event.target.files)"
@@ -75,6 +78,7 @@
                             <h4>Sponsor Image</h4>
                             <input
                                 type="file"
+                                style="width:130px;"
                                 formControlName="sponsor2_image"
                                 accept=".png, .jpg, .jpeg"
                                 (change)="onImageUpload('sponsor2_image', $event.target.files)"
