@@ -16,10 +16,16 @@ export class AddEditResourceComponent implements OnInit {
     loadID: number;
     loaditems: LoadItemModel[];
     adddeatilsform: FormGroup;
+    editdeatilsform: FormGroup;
     reqobj: any;
     categories: CategoryModel[];
     loadtypes: any;
     displayCategories: CategoryModel[];
+    editreqobj:any;
+    editpopup:any;
+    editdata:any;
+    loadid:any;
+    selectedCategoryname:any;
 
     formErrors = {
         quantity: '',
@@ -120,12 +126,12 @@ export class AddEditResourceComponent implements OnInit {
         });
 
         this.editdeatilsform.valueChanges.subscribe(data =>
-            this.onValueChanged(data)
+            this.oneditValueChanged(data)
         );
-        this.onValueChanged(); // (re)set validation messages now
+        this.oneditValueChanged(); // (re)set validation messages now
     }
 
-    onValueChanged(data?: any) {
+    oneditValueChanged(data?: any) {
         if (!this.editdeatilsform) {
             return;
         }
@@ -307,7 +313,7 @@ export class AddEditResourceComponent implements OnInit {
     updateloaddetails(){
       this.podsManagerService.apiupdateLoadItems(this.loadid, this.editreqobj).subscribe(
           response => {
-            console.log(successfully update)
+            console.log('successfully update');
               this.editpopup = false;
               this.getLoadItems();
               this.editloaddeatilsform();
