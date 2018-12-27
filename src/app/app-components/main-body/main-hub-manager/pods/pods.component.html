@@ -21,19 +21,18 @@
         <tr *ngFor="let item of pods; let i = index">
             <td>
                 <div>
+                    <p>{{item['name']}}</p>
                     <p style="margin: 0;"><strong>Sponsor Name</strong></p>
-                    <p style="text-indent :3em;" >{{item['name']}}</p>
-                    <p style="text-indent :3em;" >{{item['sponsor']}}</p>
-                    <p style="text-indent :3em;" >{{item['title']}}</p>
-                </div>
-                <div>
+                    <p>{{item['sponsor']}}</p>
+                    <p style="margin: 0;"><strong>Title</strong></p>
+                    <p>{{item['title']}}</p>
                     <p style="margin: 0;"><strong>Connected by:</strong></p>
-                    <p style="text-indent :3em;" >{{item['connected_with']}}</p>
+                    <p>{{item['connected_with']}}</p>
                 </div>
             </td>
             <td style="text-align: center;">
                 <a href="{{item['wordfile']}}" target="_blank">
-                    View
+                    Download
                 </a>
             </td>
             <td>

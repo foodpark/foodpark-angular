@@ -13,9 +13,8 @@ export class HubPickupListingComponent implements OnInit, OnDestroy {
     hubPickups: HubPickupModel[] = [];
     private hubPickupsSubscription: Subscription;
     mainHub: MainhubModel;
-    sponsors = [];
-    sponsorName = {};
-    sposorImages = [];
+    hubPickupStartTime = [];
+    hubPickupEndTime = [];
 
     constructor(private hubPickupService: HubPickupService,
                 private mainhubService: MainhubService,
@@ -27,6 +26,10 @@ export class HubPickupListingComponent implements OnInit, OnDestroy {
         this.hubPickupsSubscription = this.hubPickupService.getHubPickupUpdateListener()
             .subscribe((hubPickups: HubPickupModel[]) => {
                 this.hubPickups = hubPickups;
+                this.hubPickups.forEach(hub => {
+                    this.hubPickupStartTime.push(hub['start_date'].split('T')[0]);
+                    this.hubPickupEndTime.push(hub['end_date'].split('T')[0]);
+                });
             });
         this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
             .subscribe((response) => {

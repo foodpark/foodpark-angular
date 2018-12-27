@@ -1,6 +1,6 @@
 <div class="absolute-position">
     <div class="title-center">
-        <h2>Edit Pod Managers</h2>
+        <h2>Edit Pod Manager</h2>
     </div>
     <form [formGroup]="editpodmanagerform">
         <div class="create_pods_section--first-step">
@@ -49,7 +49,7 @@
             <button type="submit"
                     class="btn btn-default"
                     [disabled]="!editpodmanagerform.valid"
-                    (click)="updatePodManager()">Create Pods
+                    (click)="updatePodManager()">Save
             </button>
         </div>
     </form>
