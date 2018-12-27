@@ -19,6 +19,7 @@ import {AppComponent} from './app.component';
 import {MaterialModule} from './app-modules/material.module';
 
 import {PodManagerModule} from './app-components/main-body/pod-manager-dashboard/pod-manager.module';
+import { TitleCasePipe } from '@angular/common';
 
 @NgModule({
     declarations: [
@@ -45,7 +46,8 @@ import {PodManagerModule} from './app-components/main-body/pod-manager-dashboard
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
-        {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+        {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+        TitleCasePipe
     ],
     bootstrap: [AppComponent],
     entryComponents: [ErrorComponent],

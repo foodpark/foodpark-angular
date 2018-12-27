@@ -4,12 +4,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { PodsManagerService } from '../../../../app-services/pod-manager.service';
 import { CategoryModel, LoadItemModel } from 'src/app/model';
+import { TitleCasePipe } from '@angular/common';
 
 @Component({
     selector: 'app-add-edit-resource',
     templateUrl: './add-edit-resource.component.html'
 })
-
 export class AddEditResourceComponent implements OnInit {
     activatedroute: any;
     popup1: any;
@@ -21,11 +21,11 @@ export class AddEditResourceComponent implements OnInit {
     categories: CategoryModel[];
     loadtypes: any;
     displayCategories: CategoryModel[];
-    editreqobj:any;
-    editpopup:any;
-    editdata:any;
-    loadid:any;
-    selectedCategoryname:any;
+    editreqobj: any;
+    editpopup: any;
+    editdata: any;
+    loadid: any;
+    selectedCategoryname: any;
 
     formErrors = {
         quantity: '',
@@ -33,6 +33,7 @@ export class AddEditResourceComponent implements OnInit {
         category_name: '',
         load_type: ''
     };
+
     // Form Error Object
     validationMessages = {
         quantity: {
@@ -115,14 +116,13 @@ export class AddEditResourceComponent implements OnInit {
         }
     }
 
-
     editloaddeatilsform() {
         this.editdeatilsform = this.formBuilder.group({
             quantity: ['', Validators.required],
             description: ['', Validators.required],
             category_id: [3, Validators.required],
-            category_name: ["Furniture", Validators.required],
-            load_type: ["BOX", Validators.required]
+            category_name: ['Furniture', Validators.required],
+            load_type: ['BOX', Validators.required]
         });
 
         this.editdeatilsform.valueChanges.subscribe(data =>
@@ -151,11 +151,12 @@ export class AddEditResourceComponent implements OnInit {
 
     onSubmiteditform() {
         if (!this.editdeatilsform.valid) {
-            console.log('Form Is not Valid-------->',this.editdeatilsform);
+            console.log('Form Is not Valid-------->', this.editdeatilsform);
             if (!this.editdeatilsform) {
                 return;
             }
             const form = this.editdeatilsform;
+
             for (const field in this.formErrors) {
                 // clear previous error message (if any)
                 this.formErrors[field] = '';
@@ -168,24 +169,29 @@ export class AddEditResourceComponent implements OnInit {
                 }
             }
         }
+
         if (this.editdeatilsform.valid) {
             this.editreqobj = {
                 category_id: this.editdeatilsform.value.category_id,
                 category_name: this.editdeatilsform.value.category_name,
-                // category_id: 3,
-                // category_name: "Furniture",
                 quantity: this.editdeatilsform.value.quantity,
                 description: this.editdeatilsform.value.description,
-                load_type: this.editdeatilsform.value.load_type,
-                //load_id: this.loadID
+                load_type: this.editdeatilsform.value.load_type
             };
             this.updateloaddetails();
         }
     }
 
-    constructor( private podsManagerService: PodsManagerService,private activateroute: ActivatedRoute,private formBuilder: FormBuilder) {
+    constructor(
+        private podsManagerService: PodsManagerService,
+        private activateroute: ActivatedRoute,
+        private formBuilder: FormBuilder,
+        private titleCasePipe: TitleCasePipe
+    ) {
         this.activatedroute = activateroute;
-        this.loadID = this.activatedroute.snapshot.params['id'] ? this.activatedroute.snapshot.params['id']: '';
+        this.loadID = this.activatedroute.snapshot.params['id']
+            ? this.activatedroute.snapshot.params['id']
+            : '';
         this.getLoadItems();
         this.getcategories();
         this.loadtypes = [
@@ -216,8 +222,7 @@ export class AddEditResourceComponent implements OnInit {
             //
             // )
             //
-            // console.log("here===>", this.displayCategories);
-
+            // console.log('here===>', this.displayCategories);
         });
     }
 
@@ -225,14 +230,14 @@ export class AddEditResourceComponent implements OnInit {
     //   return key.replace('category', 'category_name');
     // }
 
-
-
     onCategoryClick(index: number, id: number) {
-      const button = document.getElementById('category');
-      const selectedCategory = this.displayCategories[index]['category'];
-      button.innerText = selectedCategory;
-      this.adddeatilsform.get('category_name').setValue(selectedCategory);
-      this.adddeatilsform.get('category_id').setValue(this.categories[index]['id']);
+        const button = document.getElementById('category');
+        const selectedCategory = this.displayCategories[index]['category'];
+        button.innerText = selectedCategory;
+        this.adddeatilsform.get('category_name').setValue(selectedCategory);
+        this.adddeatilsform
+            .get('category_id')
+            .setValue(this.categories[index]['id']);
     }
 
     onloadtypeClick(index: number, id: number) {
@@ -243,7 +248,7 @@ export class AddEditResourceComponent implements OnInit {
 
         const button = document.getElementById('loadtype');
         const selectedLoadType = this.loadtypes[index]['loadtype'];
-        button.innerText = selectedLoadType;
+        button.innerText = this.titleCasePipe.transform(selectedLoadType);
         this.adddeatilsform.get('load_type').setValue(selectedLoadType);
 
         const loadItemsCategories = this.loaditems
@@ -256,7 +261,6 @@ export class AddEditResourceComponent implements OnInit {
             return loadItemsCategories.indexOf(category.category) === -1;
         });
     }
-
 
     getLoadItems() {
         this.podsManagerService
@@ -280,21 +284,25 @@ export class AddEditResourceComponent implements OnInit {
     }
 
     onclickDelete(deleteid) {
-      this.podsManagerService.apiDeleteLoadItems(deleteid)
-      .subscribe(response =>{
-        this.getLoadItems();
-      }, error => {
-
-      });
+        this.podsManagerService.apiDeleteLoadItems(deleteid).subscribe(
+            response => {
+                this.getLoadItems();
+            },
+            error => {}
+        );
     }
     onclickAddEdit(listdata) {
-      console.log(listdata);
-      this.editdata = listdata;
-      this.loadid = this.editdata.id;
-      this.editdeatilsform.get('quantity').setValue(this.editdata['quantity'], {emitEvent: false});
-      this.editdeatilsform.get('description').setValue(this.editdata['description'], {emitEvent: false});
-      this.selectedCategoryname = this.editdata;
-      this.editpopup = true;
+        console.log(listdata);
+        this.editdata = listdata;
+        this.loadid = this.editdata.id;
+        this.editdeatilsform
+            .get('quantity')
+            .setValue(this.editdata['quantity'], { emitEvent: false });
+        this.editdeatilsform
+            .get('description')
+            .setValue(this.editdata['description'], { emitEvent: false });
+        this.selectedCategoryname = this.editdata;
+        this.editpopup = true;
     }
 
     // selectLoadType(value){
@@ -308,20 +316,20 @@ export class AddEditResourceComponent implements OnInit {
     //   button.innerText = selectedCategoryname;
     // }
 
-
-
-    updateloaddetails(){
-      this.podsManagerService.apiupdateLoadItems(this.loadid, this.editreqobj).subscribe(
-          response => {
-            console.log('successfully update');
-              this.editpopup = false;
-              this.getLoadItems();
-              this.editloaddeatilsform();
-          },
-          error => {
-            this.editpopup = true;
-          }
-      );
+    updateloaddetails() {
+        this.podsManagerService
+            .apiupdateLoadItems(this.loadid, this.editreqobj)
+            .subscribe(
+                response => {
+                    console.log('successfully update');
+                    this.editpopup = false;
+                    this.getLoadItems();
+                    this.editloaddeatilsform();
+                },
+                error => {
+                    this.editpopup = true;
+                }
+            );
     }
 
     ngOnInit() {
