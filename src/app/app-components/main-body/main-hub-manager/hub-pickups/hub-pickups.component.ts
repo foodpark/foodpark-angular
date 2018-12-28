@@ -14,7 +14,6 @@ import {HubPickupService} from '../../../../app-services/hub-pickup.service';
 
 })
 export class HubPickupsComponent implements OnInit {
-    pageTitle = 'Hub Pickups';
     hubPickupForm: FormGroup;
     mainHub: MainhubModel;
     sponsors = [];
@@ -53,6 +52,7 @@ export class HubPickupsComponent implements OnInit {
             sponsors: [''],
             schedule: ['']
         });
+
         this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
             .subscribe((response) => {
                 this.mainHub = response[0];

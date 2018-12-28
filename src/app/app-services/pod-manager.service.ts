@@ -37,6 +37,10 @@ export class PodsManagerService {
         return this.http.post(environment.apiUrl + '/api/v1/rel/load_items', data);
     }
 
+    apiupdateLoadItems(loadid, data) {
+      return this.http.put(environment.apiUrl + '/api/v1/rel/load_items/'+ loadid, data);
+    }
+
     apiDeleteLoadItems(loaditemsid) {
         return this.http.delete(environment.apiUrl + '/api/v1/rel/load_items/' + loaditemsid);
     }

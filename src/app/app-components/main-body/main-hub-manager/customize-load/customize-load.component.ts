@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, ParamMap} from '@angular/router';
-import {PodsService} from '../../../../app-services/pods.service';
 import {MasterLoadService} from '../../../../app-services/master-load.service';
 import {PodsManagerService} from '../../../../app-services/pod-manager.service';
 

@@ -4,22 +4,28 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { PodsManagerService } from '../../../../app-services/pod-manager.service';
 import { CategoryModel, LoadItemModel } from 'src/app/model';
+import { TitleCasePipe } from '@angular/common';
 
 @Component({
     selector: 'app-add-edit-resource',
     templateUrl: './add-edit-resource.component.html'
 })
-
 export class AddEditResourceComponent implements OnInit {
     activatedroute: any;
     popup1: any;
     loadID: number;
     loaditems: LoadItemModel[];
     adddeatilsform: FormGroup;
+    editdeatilsform: FormGroup;
     reqobj: any;
     categories: CategoryModel[];
     loadtypes: any;
     displayCategories: CategoryModel[];
+    editreqobj: any;
+    editpopup: any;
+    editdata: any;
+    loadid: any;
+    selectedCategoryname: any;
 
     formErrors = {
         quantity: '',
@@ -27,6 +33,7 @@ export class AddEditResourceComponent implements OnInit {
         category_name: '',
         load_type: ''
     };
+
     // Form Error Object
     validationMessages = {
         quantity: {
@@ -109,16 +116,82 @@ export class AddEditResourceComponent implements OnInit {
         }
     }
 
+    editloaddeatilsform() {
+        this.editdeatilsform = this.formBuilder.group({
+            quantity: ['', Validators.required],
+            description: ['', Validators.required],
+            category_id: [3, Validators.required],
+            category_name: ['Furniture', Validators.required],
+            load_type: ['BOX', Validators.required]
+        });
+
+        this.editdeatilsform.valueChanges.subscribe(data =>
+            this.oneditValueChanged(data)
+        );
+        this.oneditValueChanged(); // (re)set validation messages now
+    }
+
+    oneditValueChanged(data?: any) {
+        if (!this.editdeatilsform) {
+            return;
+        }
+        const form = this.editdeatilsform;
+        for (const field in this.formErrors) {
+            // clear previous error message (if any)
+            this.formErrors[field] = '';
+            const control = form.get(field);
+            if (control && control.dirty && !control.valid) {
+                const messages = this.validationMessages[field];
+                for (const key in control.errors) {
+                    this.formErrors[field] += messages[key] + ' ';
+                }
+            }
+        }
+    }
+
+    onSubmiteditform() {
+        if (!this.editdeatilsform.valid) {
+            console.log('Form Is not Valid-------->', this.editdeatilsform);
+            if (!this.editdeatilsform) {
+                return;
+            }
+            const form = this.editdeatilsform;
+
+            for (const field in this.formErrors) {
+                // clear previous error message (if any)
+                this.formErrors[field] = '';
+                const control = form.get(field);
+                if (control && !control.valid) {
+                    const messages = this.validationMessages[field];
+                    for (const key in control.errors) {
+                        this.formErrors[field] += messages[key] + ' ';
+                    }
+                }
+            }
+        }
+
+        if (this.editdeatilsform.valid) {
+            this.editreqobj = {
+                category_id: this.editdeatilsform.value.category_id,
+                category_name: this.editdeatilsform.value.category_name,
+                quantity: this.editdeatilsform.value.quantity,
+                description: this.editdeatilsform.value.description,
+                load_type: this.editdeatilsform.value.load_type
+            };
+            this.updateloaddetails();
+        }
+    }
+
     constructor(
         private podsManagerService: PodsManagerService,
         private activateroute: ActivatedRoute,
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        private titleCasePipe: TitleCasePipe
     ) {
         this.activatedroute = activateroute;
         this.loadID = this.activatedroute.snapshot.params['id']
             ? this.activatedroute.snapshot.params['id']
             : '';
-
         this.getLoadItems();
         this.getcategories();
         this.loadtypes = [
@@ -135,15 +208,27 @@ export class AddEditResourceComponent implements OnInit {
                 id: '3'
             }
         ];
-        // this.newvolunterpopup = false;
+
+        this.editpopup = false;
     }
 
     getcategories() {
         this.podsManagerService.apigetcategories().subscribe(response => {
             this.categories = response;
             this.displayCategories = response;
+            //
+            // Object.assign({},
+            //   ...Object.keys(this.displayCategories) . map(key => ({[this.fix_key(key)]: this.displayCategories[key]}))
+            //
+            // )
+            //
+            // console.log('here===>', this.displayCategories);
         });
     }
+
+    // fix_key(key){
+    //   return key.replace('category', 'category_name');
+    // }
 
     onCategoryClick(index: number, id: number) {
         const button = document.getElementById('category');
@@ -163,7 +248,7 @@ export class AddEditResourceComponent implements OnInit {
 
         const button = document.getElementById('loadtype');
         const selectedLoadType = this.loadtypes[index]['loadtype'];
-        button.innerText = selectedLoadType;
+        button.innerText = this.titleCasePipe.transform(selectedLoadType);
         this.adddeatilsform.get('load_type').setValue(selectedLoadType);
 
         const loadItemsCategories = this.loaditems
@@ -199,15 +284,62 @@ export class AddEditResourceComponent implements OnInit {
     }
 
     onclickDelete(deleteid) {
-      this.podsManagerService.apiDeleteLoadItems(deleteid)
-      .subscribe(response =>{
-        this.getLoadItems();
-      }, error => {
+        this.podsManagerService.apiDeleteLoadItems(deleteid).subscribe(
+            response => {
+                this.getLoadItems();
+            },
+            error => {}
+        );
+    }
 
-      });
+    onclickAddEdit(listdata) {
+        console.log(listdata);
+        this.editdata = listdata;
+        this.loadid = this.editdata.id;
+        this.editdeatilsform
+            .get('quantity')
+            .setValue(this.editdata['quantity'], { emitEvent: false });
+        this.editdeatilsform
+            .get('description')
+            .setValue(this.editdata['description'], { emitEvent: false });
+        this.selectedCategoryname = this.editdata['category_name'];
+
+        // this.editdeatilsform.get('load_type').setValue(this.editdata['load_type'], {emitEvent: false});
+        // document.getElementById('loadtype').innerText = this.editdeatilsform.value.load_type;
+        this.editdeatilsform.get('load_type').setValue('ITEM', {emitEvent: false});
+        document.getElementById('loadtype').innerText = 'ITEM';
+        this.editpopup = true;
+    }
+
+    // selectLoadType(value){
+    //   this.selectedLoadType = value;
+    // }
+    //
+    // selectCategoryName(value){
+    //   this.selectedCategoryname = value;
+    //   const button = document.getElementById('category');
+    //   const selectedCategoryname = this.selectedCategoryname['category'];
+    //   button.innerText = selectedCategoryname;
+    // }
+
+    updateloaddetails() {
+        this.podsManagerService
+            .apiupdateLoadItems(this.loadid, this.editreqobj)
+            .subscribe(
+                response => {
+                    console.log('successfully update');
+                    this.editpopup = false;
+                    this.getLoadItems();
+                    this.editloaddeatilsform();
+                },
+                error => {
+                    this.editpopup = true;
+                }
+            );
     }
 
     ngOnInit() {
         this.addloaddeatilsform();
+        this.editloaddeatilsform();
     }
 }

@@ -152,7 +152,7 @@ const routes: Routes = [
                 path: 'loadresources', component: LoadResourceComponent
             },
             {
-                path: 'add-edit/:id', component: AddEditResourceComponent
+                path: 'addeditloadresource/:id', component: AddEditResourceComponent
             }
         ]
     }
