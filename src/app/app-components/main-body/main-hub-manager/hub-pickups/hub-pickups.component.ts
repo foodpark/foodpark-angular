@@ -7,6 +7,7 @@ import {FileUploadService} from '../../../../app-services/fileupload.service';
 import {DataService} from '../../../../app-services/data.service';
 import {Subscription} from 'rxjs';
 import {HubPickupService} from '../../../../app-services/hub-pickup.service';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-hub-pickups',
@@ -21,6 +22,7 @@ export class HubPickupsComponent implements OnInit {
     sponsor2Name;
     sponsor1Image;
     sponsor2Image;
+    imageURL;
 
     private fileUploadSubscription: Subscription;
     hideFileContainer = false;
@@ -30,27 +32,23 @@ export class HubPickupsComponent implements OnInit {
                 private http: HttpClient,
                 private dataService: DataService,
                 private hubPickupService: HubPickupService,
-                private fileUploadService: FileUploadService) {
+                private fileUploadService: FileUploadService,
+                private router: Router) {
     }
 
     ngOnInit() {
 
-        //     "schedule": [
-        //     {
-        //         "start": "08:00-03:00",
-        //         "end": "10:00-03:00"
-        //     }
-        // ]
-
         this.hubPickupForm = this.fb.group({
             name: ['', Validators.required],
+            description: [''],
             start_date: ['', Validators.required],
             end_date: ['', Validators.required],
             latitude: ['', Validators.required],
             longitude: ['', Validators.required],
             image: ['', Validators.required],
             sponsors: [''],
-            schedule: ['']
+            schedule: [''],
+            manager: [localStorage['user_id']]
         });
 
         this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
@@ -60,12 +58,13 @@ export class HubPickupsComponent implements OnInit {
 
         this.fileUploadSubscription = this.fileUploadService.getFileUploadListener()
             .subscribe((fileURL) => {
-                if (this.dataService.stringComparator(this.dataService.imageSource, 'event')) {
-                    this.hubPickupForm.get('image').setValue(fileURL);
-                } else if (this.dataService.stringComparator(this.dataService.imageSource, 'sponsor1')) {
+                if (this.dataService.stringComparator(this.dataService.imageSource, 'sponsor1')) {
                     this.dataService.sponsor1Image = fileURL;
-                } else {
+                } else if (this.dataService.stringComparator(this.dataService.imageSource, 'sponsor2')) {
                     this.dataService.sponsor2Image = fileURL;
+                } else {
+                    this.imageURL = fileURL;
+
                 }
             });
     }
@@ -91,6 +90,7 @@ export class HubPickupsComponent implements OnInit {
     }
 
     onSaveClick() {
+        this.sponsors = [];
         const sponsor1 = {
             name: this.sponsor1Name,
             image: this.dataService.sponsor1Image
@@ -106,21 +106,28 @@ export class HubPickupsComponent implements OnInit {
         if (!this.checkProperties(sponsor1)) {
             this.sponsors.push(sponsor2);
         }
+        const startDate = new Date(document.getElementById('fromDate')['value']);
+        const endDate = new Date(document.getElementById('toDate')['value']);
+        const startTime = startDate.getHours() + ':' + startDate.getMinutes();
+        const endTime = endDate.getHours() + ':' + endDate.getMinutes();
         const obj = {
+            image: this.imageURL,
+            start_date: startDate.getFullYear() + '-' + startDate.getMonth() + '-' + startDate.getDate(),
+            end_date: endDate.getFullYear() + '-' + endDate.getMonth() + '-' + endDate.getDate(),
             latitude: this.mainHub['latitude'],
             longitude: this.mainHub['longitude'],
             sponsors: this.sponsors,
             schedule: [
                 {
-                    start: '08:00-03:00',
-                    end: '10:00-03:00'
+                    start: startTime,
+                    end: endTime
                 }
             ]
         };
-        this.hubPickupForm.get('start_date').setValue(document.getElementById('fromDate')['value']);
-        this.hubPickupForm.get('end_date').setValue(document.getElementById('toDate')['value']);
+
         this.hubPickupForm.patchValue(obj);
         this.hubPickupService.addHubPickup(this.hubPickupForm.value);
+        this.router.navigate(['hubmanager/hubpickups']);
     }
 
     checkProperties(sponsor) {
