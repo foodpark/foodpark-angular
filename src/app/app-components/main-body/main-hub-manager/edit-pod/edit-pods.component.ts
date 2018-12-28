@@ -4,7 +4,6 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {PodsService} from 'src/app/app-services/pods.service';
 import {FileUploadService} from 'src/app/app-services/fileupload.service';
 import {Subscription} from 'rxjs';
-import {PodModel} from 'src/app/model';
 
 @Component({
     selector: 'app-edit-pods',

@@ -208,7 +208,7 @@ export class AddEditResourceComponent implements OnInit {
                 id: '3'
             }
         ];
-        // this.newvolunterpopup = false;
+
         this.editpopup = false;
     }
 
@@ -291,6 +291,7 @@ export class AddEditResourceComponent implements OnInit {
             error => {}
         );
     }
+
     onclickAddEdit(listdata) {
         console.log(listdata);
         this.editdata = listdata;
@@ -301,7 +302,12 @@ export class AddEditResourceComponent implements OnInit {
         this.editdeatilsform
             .get('description')
             .setValue(this.editdata['description'], { emitEvent: false });
-        this.selectedCategoryname = this.editdata;
+        this.selectedCategoryname = this.editdata['category_name'];
+
+        // this.editdeatilsform.get('load_type').setValue(this.editdata['load_type'], {emitEvent: false});
+        // document.getElementById('loadtype').innerText = this.editdeatilsform.value.load_type;
+        this.editdeatilsform.get('load_type').setValue('ITEM', {emitEvent: false});
+        document.getElementById('loadtype').innerText = 'ITEM';
         this.editpopup = true;
     }
 
