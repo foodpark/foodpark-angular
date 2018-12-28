@@ -1,6 +1,6 @@
 <div class="absolute-position">
     <section class="greybg center ">
-        <h2 class="page-header" style="margin: 10px 80px;height: 50px;">{{pageTitle}}</h2>
+        <h2 class="page-header" style="margin: 10px 80px;height: 50px;">Edit Hub Pickup</h2>
         <div class="container-fluid col-sm-12 menu_detail shell bg_1">
             <form [formGroup]="hubPickupForm">
                 <div class="form-group">
@@ -26,6 +26,7 @@
                         id="file"
                         name="image"
                         formControlName="image"
+                        value="{{imageURL}}"
                         accept="image/*"
                         alt="Event Image">
                 </div>
@@ -38,71 +39,78 @@
                                 data-toggle="dropdown">Select
 
                         </button>
-                        <ul class="dropdown-menu">
-                            <li
-                                (click)="onHubClick()">
-                                {{mainHub?.name}}
-                            </li>
-                        </ul>
+                        <!--<ul class="dropdown-menu">-->
+                        <!--<li-->
+                        <!--(click)="onHubClick()">-->
+                        <!--{{mainHub?.name}}-->
+                        <!--</li>-->
+                        <!--</ul>-->
                     </div>
                 </div>
                 <h4>Sponsor</h4>
                 <div style="display: flex;">
                     <div style="padding-right: 20px">
                         <div class="form-group">
+                            <div class="form-group">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    (keyup)="onSponsor1Entered($event)"
+                                    placeholder="Sponsor Name"
+                                    id="sponsor1">
+                            </div>
                             <h4>Sponsor Image</h4>
                             <input
                                 type="file"
-                                id="sponsor1_image"
                                 accept=".png, .jpg, .jpeg"
-                                (onchange)="onImageUpload('sponsor1_image')"
+                                (input)="onImageUpload('sponsor1', $event.target.files)"
                                 alt="Sponsor Image">
-                        </div>
-                        <div class="form-group">
-                            <input
-                                type="text"
-                                class="form-control"
-                                placeholder="Sponsor Name">
+                            <h5 style="height: 30px;font-size: 20px;" id="sponsor1_image">{{ 'File URL'}}
+                            </h5>
                         </div>
                     </div>
-                    <div>
-                        <div class="form-group">
-                            <h4>Sponsor Image</h4>
-                            <input
-                                type="file"
-                                id="sponsor2_image"
-                                accept=".png, .jpg, .jpeg"
-                                (onchange)="onImageUpload('sponsor2_image')"
-                                alt="Sponsor Image">
-                        </div>
+                    <div class="form-group">
                         <div class="form-group">
                             <input
                                 type="text"
                                 class="form-control"
-                                placeholder="Sponsor Name">
+                                (keyup)="onSponsor2Entered($event)"
+                                placeholder="Sponsor Name"
+                                id="sponsor2">
                         </div>
+                        <h4>Sponsor Image</h4>
+                        <input
+                            type="file"
+                            accept=".png, .jpg, .jpeg"
+                            (input)="onImageUpload('sponsor2', $event.target.files)"
+                            alt="Sponsor Image">
+                        <h5 style="height: 30px;font-size: 20px;" id="sponsor2_image">{{'File URL'}}
+                        </h5>
                     </div>
                 </div>
                 <div style="display: flex;">
+                    <div class="form-group">
+                        <label style="margin: 0 20px 0 0;">
+                            <h4> Start Date:</h4>
+                            <input
+                                class="form-control"
+                                [owlDateTimeTrigger]="dt5"
+                                [owlDateTime]="dt5"
+                                formControlName="start_date"
+                                id="fromDate">
+                            <owl-date-time
+                                #dt5
+                                [pickerMode]="'dialog'">
+                            </owl-date-time>
+                        </label>
+                    </div>
                     <div class="form-group"><label>
-                        Start Date:
-                        <input
-                            [owlDateTimeTrigger]="dt5"
-                            [owlDateTime]="dt5"
-                            formControlName="start_date"
-                            id="fromDate">
-                        <owl-date-time
-                            #dt5
-                            [pickerMode]="'dialog'">
-                        </owl-date-time>
-                    </label></div>
-                    <div class="form-group"><label>
-                        End Date:
-                        <input
-                            [owlDateTimeTrigger]="dt6"
-                            [owlDateTime]="dt6"
-                            formControlName="end_date"
-                            id="toDate">
+                        <h4> End Date:</h4>
+                        <input class="form-control"
+                               [owlDateTimeTrigger]="dt6"
+                               [owlDateTime]="dt6"
+                               formControlName="end_date"
+                               id="toDate">
                         <owl-date-time
                             #dt6
                             [pickerMode]="'dialog'">

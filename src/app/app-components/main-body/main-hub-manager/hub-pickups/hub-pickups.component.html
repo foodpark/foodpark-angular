@@ -1,6 +1,6 @@
 <div class="absolute-position">
     <section class="greybg center ">
-        <h2 class="page-header" style="margin: 10px 80px;height: 50px;">{{pageTitle}}</h2>
+        <h2 class="page-header" style="margin: 10px 80px;height: 50px;">Add Hub Pickup</h2>
         <div class="container-fluid col-sm-12 menu_detail shell bg_1">
             <form [formGroup]="hubPickupForm">
                 <div class="form-group">
@@ -40,12 +40,12 @@
                                 data-toggle="dropdown">Select
 
                         </button>
-                        <ul class="dropdown-menu">
-                            <li
-                                (click)="onHubClick()">
-                                {{mainHub?.name}}
-                            </li>
-                        </ul>
+                        <!--<ul class="dropdown-menu">-->
+                        <!--<li-->
+                        <!--(click)="onHubClick()">-->
+                        <!--{{mainHub?.name}}-->
+                        <!--</li>-->
+                        <!--</ul>-->
                     </div>
                 </div>
                 <h4>Sponsor</h4>
@@ -70,44 +70,45 @@
                             </h5>
                         </div>
                     </div>
-                    <div>
+                    <div class="form-group">
                         <div class="form-group">
-                            <div class="form-group">
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    (keyup)="onSponsor2Entered($event)"
-                                    placeholder="Sponsor Name"
-                                    id="sponsor2">
-                            </div>
-                            <h4>Sponsor Image</h4>
                             <input
-                                type="file"
-                                accept=".png, .jpg, .jpeg"
-                                (input)="onImageUpload('sponsor2', $event.target.files)"
-                                alt="Sponsor Image">
-                            <h5 style="height: 30px;font-size: 20px;" id="sponsor2_image">File URL
-                            </h5>
+                                type="text"
+                                class="form-control"
+                                (keyup)="onSponsor2Entered($event)"
+                                placeholder="Sponsor Name"
+                                id="sponsor2">
                         </div>
-
+                        <h4>Sponsor Image</h4>
+                        <input
+                            type="file"
+                            accept=".png, .jpg, .jpeg"
+                            (input)="onImageUpload('sponsor2', $event.target.files)"
+                            alt="Sponsor Image">
+                        <h5 style="height: 30px;font-size: 20px;" id="sponsor2_image">File URL
+                        </h5>
                     </div>
                 </div>
                 <div style="display: flex;">
-                    <div class="form-group"><label>
-                        Start Date:
-                        <input
-                            [owlDateTimeTrigger]="dt5"
-                            [owlDateTime]="dt5"
-                            formControlName="start_date"
-                            id="fromDate">
-                        <owl-date-time
-                            #dt5
-                            [pickerMode]="'dialog'">
-                        </owl-date-time>
-                    </label></div>
+                    <div class="form-group">
+                        <label style="margin: 0 20px 0 0;">
+                            Start Date:
+                            <input
+                                class="form-control"
+                                [owlDateTimeTrigger]="dt5"
+                                [owlDateTime]="dt5"
+                                formControlName="start_date"
+                                id="fromDate">
+                            <owl-date-time
+                                #dt5
+                                [pickerMode]="'dialog'">
+                            </owl-date-time>
+                        </label>
+                    </div>
                     <div class="form-group"><label>
                         End Date:
                         <input
+                            class="form-control"
                             [owlDateTimeTrigger]="dt6"
                             [owlDateTime]="dt6"
                             formControlName="end_date"

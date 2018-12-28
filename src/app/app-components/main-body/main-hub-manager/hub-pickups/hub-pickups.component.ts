@@ -23,9 +23,8 @@ export class HubPickupsComponent implements OnInit {
     sponsor1Image;
     sponsor2Image;
     imageURL;
-
-    private fileUploadSubscription: Subscription;
     hideFileContainer = false;
+    private fileUploadSubscription: Subscription;
 
     constructor(private fb: FormBuilder,
                 private mainhubService: MainhubService,
