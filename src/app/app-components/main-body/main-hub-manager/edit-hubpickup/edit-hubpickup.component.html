@@ -121,6 +121,7 @@
                         </owl-date-time>
                     </label></div>
                 </div>
+                <div *ngIf="showDateError" class="alert alert-danger">Start date must be less than End date</div>
                 <button
                     type="submit"
                     class="btn btn-default"

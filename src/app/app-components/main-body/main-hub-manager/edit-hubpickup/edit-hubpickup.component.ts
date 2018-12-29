@@ -28,6 +28,7 @@ export class EditHubpickupComponent implements OnInit {
     eventImage: File;
     imageURL;
     isSponsor1Available = false;
+    showDateError = false;
     private fileUploadSubscription: Subscription;
 
     constructor(private fb: FormBuilder,
@@ -165,6 +166,9 @@ export class EditHubpickupComponent implements OnInit {
         }
         const startDate = new Date(document.getElementById('fromDate')['value']);
         const endDate = new Date(document.getElementById('toDate')['value']);
+        if (startDate > endDate) {
+            this.showDateError = true;
+        }
         const startTime = startDate.getHours() + ':' + startDate.getMinutes();
         const endTime = endDate.getHours() + ':' + endDate.getMinutes();
         const obj = {
@@ -186,8 +190,10 @@ export class EditHubpickupComponent implements OnInit {
             manager: parseInt(localStorage['user_id'], 10)
         };
 
-        this.hubPickupService.editHubPickup(obj);
-        this.router.navigate(['hubmanager/hubpickups']);
+        if (!this.showDateError) {
+            this.hubPickupService.editHubPickup(obj);
+            this.router.navigate(['hubmanager/hubpickups']);
+        }
     }
 
     checkProperties(sponsor) {
