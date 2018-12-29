@@ -20,6 +20,7 @@ export class EditMasterLoadComponent implements OnInit {
     hideFileContainer = false;
     masterLoadId;
     masterLoads;
+    isFileChanged = false;
     private fileUploadSubscription: Subscription;
 
     constructor(private fb: FormBuilder,
@@ -51,6 +52,7 @@ export class EditMasterLoadComponent implements OnInit {
             .subscribe((fileURL) => {
                 console.log('File Uploaded: ' + fileURL);
                 this.fileURL = fileURL;
+                this.editMasterLoad();
             });
     }
 
@@ -61,14 +63,26 @@ export class EditMasterLoadComponent implements OnInit {
         this.fileURL = this.wordFileToUpload['name'];
     }
 
-    editMaster() {
+    editMasterLoad() {
         const obj = {
-            ...this.editMasterForm.value,
-            main_hub_id: this.mainHubId
+            name: this.editMasterForm.value['name'],
+            excelfile: this.fileURL
         };
-        this.masterLoadService.addMasterLoad(obj).subscribe();
-        this.fileUploadService.uploadFile(this.wordFileToUpload);
+        this.masterLoadService.updateMasterLoad(this.masterLoads['id'], obj).subscribe();
         this.router.navigate(['/hubmanager/loadmanagement']);
+    }
+
+    editMaster() {
+        if (this.isFileChanged) {
+            this.fileUploadService.uploadFile(this.wordFileToUpload);
+        } else {
+            const obj = {
+                name: this.editMasterForm.value['name']
+            };
+            this.masterLoadService.updateMasterLoad(this.masterLoads['id'], obj).subscribe();
+            this.router.navigate(['/hubmanager/loadmanagement']);
+        }
+
     }
 
 }

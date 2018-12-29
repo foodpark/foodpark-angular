@@ -60,23 +60,23 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let load of loads">
+                        <tr *ngFor="let load of loads" (click)="onLoadRequestSelected(load)">
                             <td>{{ load.name }}</td>
                             <td>{{ load.created_at | date }}</td>
                             <td>
-                                <span
+                                <p
                                     *ngFor="let pallet of load.pallets;">{{ pallet['category_name']}} ({{pallet['quantity']}})
-                                </span>
+                                </p>
                             </td>
                             <td>
-                                <span
+                                <p
                                     *ngFor="let box of load.boxes;"> {{ box['category_name']}} ({{box['quantity']}})
-                                </span>
+                                </p>
                             </td>
                             <td>
-                                <span
-                                    *ngFor="let item of load.items;"> {{ item['category_name']}} ({{item['quantity']}})
-                                </span>
+                                <p
+                                    *ngFor="let item of load.items;">{{ item['category_name']}} ({{item['quantity']}})
+                                </p>
                             </td>
                             <td style="text-align: center;">
                                 <i class="material-icons" (click)="clickCustomize(load.id)">
@@ -92,7 +92,6 @@
         <button
             type="submit"
             class="btn btn-default"
-            [disabled]="!createDonationOrderForm.valid"
             (click)="saveDonationOrder()">
             Save
         </button>

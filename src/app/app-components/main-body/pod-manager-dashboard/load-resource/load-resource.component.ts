@@ -32,7 +32,6 @@ export class LoadResourceComponent implements OnInit {
 
     ngOnInit() {
         this.requestInitform();
-        this.getMainHub();
         this.getLoadRequests();
     }
 
@@ -40,13 +39,6 @@ export class LoadResourceComponent implements OnInit {
         this.newloadrequestform = this.formBuilder.group({
             name: ['', Validators.required]
         });
-    }
-
-    getMainHub() {
-        this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
-            .subscribe(response => {
-                this.mainHub = response[0];
-            });
     }
 
     getLoadRequests() {

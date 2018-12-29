@@ -16,7 +16,7 @@
             <th style="width: 20%;">Name</th>
             <th style="width: 15%;">Date</th>
             <th style="width: 10%;">Attachment</th>
-            <th style="width: 50%;">POD Loads</th>
+            <th style="width: 30%;">POD Loads</th>
             <th style="width: 5%;text-align: center;">Edit</th>
             <th style="width: 5%;text-align: center;">Delete</th>
         </tr>
@@ -26,11 +26,11 @@
             <td>{{masterLoad['name']}}</td>
             <td>{{ masterLoad['created_at'] | date }}</td>
             <td style="text-align: center;">
-                <a href="{{masterLoad['wordfile']}}" target="_blank">
+                <a href="{{masterLoad['excelfile']}}" target="_blank">
                     Download
                 </a>
             </td>
-            <td></td>
+            <td><p *ngFor="let pod of masterLoad['pod_loads']">{{pod['load_name']}}</p></td>
             <td style="text-align: center;">
                 <i class="material-icons" (click)="onEditClick(i)">
                     edit

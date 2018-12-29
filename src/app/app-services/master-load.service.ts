@@ -42,4 +42,8 @@ export class MasterLoadService {
     deleteMasterLoad(deleteMasterLoadId) {
         return this.http.delete(environment.apiUrl + '/api/v1/rel/master_loads/' + deleteMasterLoadId);
     }
+
+    addDonationOrder(data: any) {
+        return this.http.post(environment.apiUrl + '/api/v1/rel/donation_orders', data);
+    }
 }
