@@ -1,6 +1,9 @@
 <div class="absolute-position">
     <div>
         <div class="title-center"><h2>Load Details</h2></div>
+        <div class="title-center">
+            <h4>Load: <i>{{loadName}}</i></h4>
+        </div>
         <button
             type="button"
             name="button"
@@ -15,171 +18,178 @@
 
     <table class="table table-borderless">
         <thead>
-            <tr>
-                <th style="width: 15%;">Load Type</th>
-                <th style="width: 15%;">Category</th>
-                <th style="width: 10%; text-align: center;">Quantity</th>
-                <th>Description</th>
-                <th style="width: 10%;text-align: center;">Edit</th>
-                <th style="width: 10%;text-align: center;">Delete</th>
-            </tr>
+        <tr>
+            <th style="width: 15%;">Load Type</th>
+            <th style="width: 15%;">Category</th>
+            <th style="width: 10%; text-align: center;">Quantity</th>
+            <th>Description</th>
+            <th style="width: 10%;text-align: center;">Edit</th>
+            <th style="width: 10%;text-align: center;">Delete</th>
+        </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let list of loaditems">
-                <td style="width: 15%;">{{ list.load_type | titlecase }}</td>
-                <td style="width: 15%;">{{ list.category_name }}</td>
-                <td style="width: 10%;text-align: center;">
-                    {{ list.quantity }}
-                </td>
-                <td>{{ list.description }}</td>
-                <td style="text-align: center;">
-                  <i  class="material-icons" (click)="onclickAddEdit(list)">
-                      edit
-                  </i>
-                </td>
-                <td style="text-align: center;">
-                    <i class="material-icons" (click)="onclickDelete(list.id)"> delete </i>
-                </td>
-            </tr>
+        <tr *ngFor="let list of loaditems">
+            <td style="width: 15%;">{{ list.load_type | titlecase }}</td>
+            <td style="width: 15%;">{{ list.category_name }}</td>
+            <td style="width: 10%;text-align: center;">
+                {{ list.quantity }}
+            </td>
+            <td>{{ list.description }}</td>
+            <td style="text-align: center;">
+                <i class="material-icons" (click)="onclickAddEdit(list)">
+                    edit
+                </i>
+            </td>
+            <td style="text-align: center;">
+                <i class="material-icons" (click)="onclickDelete(list.id)"> delete </i>
+            </td>
+        </tr>
         </tbody>
     </table>
 </div>
 
 <div class="modal_popup" id="exampleModal" role="dialog" data-backdrop="false" aria-hidden="true" *ngIf="!popup1">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-        <div class="modal-header modal__header">
-            <h5 class="modal-title" id="exampleModalLabel">Add New Item</h5>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header modal__header">
+                <h5 class="modal-title" id="exampleModalLabel">Add New Item</h5>
+            </div>
+            <form [formGroup]="adddeatilsform">
+                <div class="modal-body">
+                    <div class="dropdown loadtype_dropdown">
+                        <button id="loadtype" class="btn btn-primary dropdown-toggle" type="button"
+                                data-toggle="dropdown">
+                            Load Type
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li *ngFor="let type of loadtypes; let i = index" (click)="onloadtypeClick(i, type['id'])">
+                                {{ type.loadtype | titlecase }}
+                            </li>
+                        </ul>
+                    </div>
+                    <p class="formErrors" *ngIf="formErrors.quantity">
+                        {{ formErrors.load_type }}
+                    </p>
+
+                    <div class="dropdown loadtype_dropdown">
+                        <button id="category" class="btn btn-primary dropdown-toggle" type="button"
+                                data-toggle="dropdown">
+                            Category Name
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li *ngFor="let item of displayCategories; let i = index"
+                                (click)="onCategoryClick(i, item['id'])">
+                                {{ item.category }}
+                            </li>
+                        </ul>
+                    </div>
+                    <p class="formErrors" *ngIf="formErrors.quantity">
+                        {{ formErrors.category_name }}
+                    </p>
+                    <div class="new_volunteer_fields">
+                        <input formControlName="quantity" type="text" name="" value="" placeholder="Quantity"/>
+                    </div>
+                    <p class="formErrors" *ngIf="formErrors.quantity">
+                        {{ formErrors.quantity }}
+                    </p>
+
+                    <div class="new_volunteer_fields">
+                        <input formControlName="description" type="text" name="" value="" placeholder="Description"/>
+                    </div>
+                    <p class="formErrors" *ngIf="formErrors.description">
+                        {{ formErrors.description }}
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" (click)="onSubmitform()">
+                        Save
+                    </button>
+                    <button type="button" class="btn btn-secondary" (click)="popup1 = true">
+                        Cancel
+                    </button>
+                </div>
+            </form>
         </div>
-        <form [formGroup]="adddeatilsform">
-          <div class="modal-body">
-            <div class="dropdown loadtype_dropdown">
-                <button id="loadtype" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                    Load Type
-                </button>
-                <ul class="dropdown-menu">
-                    <li *ngFor="let type of loadtypes; let i = index" (click)="onloadtypeClick(i, type['id'])">
-                        {{ type.loadtype | titlecase }}
-                    </li>
-                </ul>
-            </div>
-            <p class="formErrors" *ngIf="formErrors.quantity">
-                {{ formErrors.load_type }}
-            </p>
-
-            <div class="dropdown loadtype_dropdown">
-                <button id="category" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                    Category Name
-                </button>
-                <ul class="dropdown-menu">
-                    <li *ngFor="let item of displayCategories; let i = index" (click)="onCategoryClick(i, item['id'])">
-                        {{ item.category }}
-                    </li>
-                </ul>
-            </div>
-            <p class="formErrors" *ngIf="formErrors.quantity">
-                {{ formErrors.category_name }}
-            </p>
-            <div class="new_volunteer_fields">
-                <input formControlName="quantity" type="text" name="" value="" placeholder="Quantity" />
-            </div>
-            <p class="formErrors" *ngIf="formErrors.quantity">
-                {{ formErrors.quantity }}
-            </p>
-
-            <div class="new_volunteer_fields">
-                <input formControlName="description" type="text" name="" value="" placeholder="Description" />
-            </div>
-            <p class="formErrors" *ngIf="formErrors.description">
-                {{ formErrors.description }}
-            </p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="onSubmitform()">
-                Save
-            </button>
-            <button type="button" class="btn btn-secondary" (click)="popup1 = true">
-                Cancel
-            </button>
-          </div>
-        </form>
-      </div>
-  </div>
+    </div>
 </div>
 
 <!-- this is edit popup  -->
-<div class="modal_popup" id="editpopup" role="dialog" data-backdrop="false" aria-hidden="true" *ngIf="editpopup" style="display:block">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-        <div class="modal-header modal__header">
-            <h5 class="modal-title" id="exampleModalLabel">Edit Item</h5>
+<div class="modal_popup" id="editpopup" role="dialog" data-backdrop="false" aria-hidden="true" *ngIf="editpopup"
+     style="display:block">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header modal__header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Item</h5>
+            </div>
+            <form [formGroup]="editdeatilsform">
+                <div class="modal-body">
+                    <div class="dropdown loadtype_dropdown">
+                        <button id="loadtype" class="btn btn-primary dropdown-toggle" type="button"
+                                data-toggle="dropdown">
+                            Load Type
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li *ngFor="let type of loadtypes; let i = index" (click)="onloadtypeClick(i, type['id'])">
+                                {{ type.loadtype }}
+                            </li>
+                        </ul>
+                    </div>
+                    <p class="formErrors" *ngIf="formErrors.quantity">
+                        {{ formErrors.load_type }}
+                    </p>
+
+                    <div class="dropdown loadtype_dropdown">
+                        <button id="category" class="btn btn-primary dropdown-toggle" type="button"
+                                data-toggle="dropdown">
+                            Category Name
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li *ngFor="let item of displayCategories; let i = index"
+                                (click)="onCategoryClick(i, item['id'])">
+                                {{ item.category }}
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- <div class="dropdown loadtype_dropdown">
+                        <button id="category" *ngIf="!selectedCategoryname"  class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                            Category Name
+                        </button>
+                        <button id="category" *ngIf="selectedCategoryname" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                            {{selectedCategoryname.category}}
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li *ngFor="let item of displayCategories; let i = index" (click)="selectCategoryName(item)">
+                              {{ item.category }}
+                          </li>
+                        </ul>
+                    </div> -->
+                    <p class="formErrors" *ngIf="formErrors.quantity">
+                        {{ formErrors.category_name }}
+                    </p>
+                    <div class="new_volunteer_fields">
+                        <input formControlName="quantity" type="text" name="" value="" placeholder="Quantity"/>
+                    </div>
+                    <p class="formErrors" *ngIf="formErrors.quantity">
+                        {{ formErrors.quantity }}
+                    </p>
+
+                    <div class="new_volunteer_fields">
+                        <input formControlName="description" type="text" name="" value="" placeholder="Description"/>
+                    </div>
+                    <p class="formErrors" *ngIf="formErrors.description">
+                        {{ formErrors.description }}
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" (click)="onSubmiteditform()">
+                        Save
+                    </button>
+                    <button type="button" class="btn btn-secondary" (click)="editpopup = false">
+                        Cancel
+                    </button>
+                </div>
+            </form>
         </div>
-        <form [formGroup]="editdeatilsform">
-          <div class="modal-body">
-            <div class="dropdown loadtype_dropdown">
-                <button id="loadtype" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                    Load Type
-                </button>
-                <ul class="dropdown-menu">
-                    <li *ngFor="let type of loadtypes; let i = index" (click)="onloadtypeClick(i, type['id'])">
-                        {{ type.loadtype }}
-                    </li>
-                </ul>
-            </div>
-            <p class="formErrors" *ngIf="formErrors.quantity">
-                {{ formErrors.load_type }}
-            </p>
-
-            <div class="dropdown loadtype_dropdown">
-                <button id="category" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                    Category Name
-                </button>
-                <ul class="dropdown-menu">
-                    <li *ngFor="let item of displayCategories; let i = index" (click)="onCategoryClick(i, item['id'])">
-                        {{ item.category }}
-                    </li>
-                </ul>
-            </div>
-
-            <!-- <div class="dropdown loadtype_dropdown">
-                <button id="category" *ngIf="!selectedCategoryname"  class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                    Category Name
-                </button>
-                <button id="category" *ngIf="selectedCategoryname" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                    {{selectedCategoryname.category}}
-                </button>
-                <ul class="dropdown-menu">
-                  <li *ngFor="let item of displayCategories; let i = index" (click)="selectCategoryName(item)">
-                      {{ item.category }}
-                  </li>
-                </ul>
-            </div> -->
-            <p class="formErrors" *ngIf="formErrors.quantity">
-                {{ formErrors.category_name }}
-            </p>
-            <div class="new_volunteer_fields">
-                <input formControlName="quantity" type="text" name="" value="" placeholder="Quantity" />
-            </div>
-            <p class="formErrors" *ngIf="formErrors.quantity">
-                {{ formErrors.quantity }}
-            </p>
-
-            <div class="new_volunteer_fields">
-                <input formControlName="description" type="text" name="" value="" placeholder="Description" />
-            </div>
-            <p class="formErrors" *ngIf="formErrors.description">
-                {{ formErrors.description }}
-            </p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="onSubmiteditform()">
-                Save
-            </button>
-            <button type="button" class="btn btn-secondary" (click)="editpopup = false">
-                Cancel
-            </button>
-          </div>
-        </form>
-      </div>
-  </div>
+    </div>
 </div>
