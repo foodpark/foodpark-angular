@@ -38,10 +38,11 @@ export class HubPickupService {
         return this.http.get<HubPickupModel[]>(environment.apiUrl + '/api/v1/rel/events/' + hubPickupId);
     }
 
-    editHubPickup(hubPickup: HubPickupModel) {
-        this.http.put<HubPickupModel>(environment.apiUrl + '/api/v1/rel/events/' + hubPickup['id'], hubPickup)
+    editHubPickup(hubPickup: any) {
+        return this.http.put<HubPickupModel>(environment.apiUrl + '/api/v1/rel/events/' + hubPickup['id'], hubPickup)
             .subscribe((response) => {
-                this.getHubPickups();
+                this.hubPickups.push(response);
+                this.hubPickupsUpdated.next([...this.hubPickups]);
             });
     }
 

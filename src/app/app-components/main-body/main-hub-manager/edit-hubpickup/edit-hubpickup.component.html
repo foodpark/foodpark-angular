@@ -23,34 +23,35 @@
                     <h4>Event Image</h4>
                     <input
                         type="file"
-                        id="file"
-                        name="image"
+                        id="event"
+                        name="event"
                         formControlName="image"
-                        value="{{imageURL}}"
                         accept="image/*"
+                        (input)="onImageUpload('event', $event.target.files)"
                         alt="Event Image">
+                    <h5 style="height: 30px;font-size: 20px;" id="event_image">File URL</h5>
                 </div>
-                <div class="form-group">
-                    <h4>Select Hub</h4>
-                    <div class="dropdown">
-                        <button id="hub_button"
-                                class="btn btn-primary dropdown-toggle"
-                                type="button"
-                                data-toggle="dropdown">Select
+                <!--<div class="form-group">-->
+                <!--<h4>Select Hub</h4>-->
+                <!--<div class="dropdown">-->
+                <!--<button id="hub_button"-->
+                <!--class="btn btn-primary dropdown-toggle"-->
+                <!--type="button"-->
+                <!--data-toggle="dropdown">Select-->
 
-                        </button>
-                        <!--<ul class="dropdown-menu">-->
-                        <!--<li-->
-                        <!--(click)="onHubClick()">-->
-                        <!--{{mainHub?.name}}-->
-                        <!--</li>-->
-                        <!--</ul>-->
-                    </div>
-                </div>
+                <!--</button>-->
+                <!--<ul class="dropdown-menu">-->
+                <!--<li-->
+                <!--(click)="onHubClick()">-->
+                <!--{{mainHub?.name}}-->
+                <!--</li>-->
+                <!--</ul>-->
+                <!--</div>-->
+                <!--</div>-->
                 <h4>Sponsor</h4>
                 <div style="display: flex;">
                     <div style="padding-right: 20px">
-                        <div class="form-group">
+                        <div class="form-group" style="width: 100%;">
                             <div class="form-group">
                                 <input
                                     type="text"
@@ -59,17 +60,19 @@
                                     placeholder="Sponsor Name"
                                     id="sponsor1">
                             </div>
-                            <h4>Sponsor Image</h4>
+                            <h4>Sponsor 1 Image</h4>
+                            <h5 style="min-height: 30px;font-size: 20px;padding: 5px 0;" id="sponsor1_image">{{ s1image
+                                ||
+                                'File URL'}}
+                            </h5>
                             <input
                                 type="file"
                                 accept=".png, .jpg, .jpeg"
                                 (input)="onImageUpload('sponsor1', $event.target.files)"
                                 alt="Sponsor Image">
-                            <h5 style="height: 30px;font-size: 20px;" id="sponsor1_image">{{ 'File URL'}}
-                            </h5>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="width: 100%;">
                         <div class="form-group">
                             <input
                                 type="text"
@@ -78,14 +81,15 @@
                                 placeholder="Sponsor Name"
                                 id="sponsor2">
                         </div>
-                        <h4>Sponsor Image</h4>
+                        <h4>Sponsor 2 Image</h4>
+                        <h5 style="min-height: 30px;font-size: 20px;padding: 5px 0;" id="sponsor2_image">{{s2image ||
+                            'File URL'}}
+                        </h5>
                         <input
                             type="file"
                             accept=".png, .jpg, .jpeg"
                             (input)="onImageUpload('sponsor2', $event.target.files)"
                             alt="Sponsor Image">
-                        <h5 style="height: 30px;font-size: 20px;" id="sponsor2_image">{{'File URL'}}
-                        </h5>
                     </div>
                 </div>
                 <div style="display: flex;">

@@ -25,7 +25,6 @@ export class HubPickupsComponent implements OnInit {
     eventImage: File;
     imageURL;
     isSponsor1Available = false;
-    hideFileContainer = false;
     private fileUploadSubscription: Subscription;
 
     constructor(private fb: FormBuilder,
@@ -82,7 +81,6 @@ export class HubPickupsComponent implements OnInit {
     }
 
     onSponsor1Entered(event) {
-        console.log(event);
         this.sponsor1Name = event['srcElement']['value'];
         if (this.sponsor1Image !== undefined && this.sponsor1Name.length > 0) {
             this.isSponsor1Available = true;
@@ -110,7 +108,6 @@ export class HubPickupsComponent implements OnInit {
         } else if (name === 'event') {
             this.eventImage = files[0];
         }
-        this.hideFileContainer = this.dataService.nullCheck(files[0]);
     }
 
     onSaveClick() {
@@ -138,7 +135,7 @@ export class HubPickupsComponent implements OnInit {
         if (this.checkProperties(sponsor1)) {
             this.sponsors.push(sponsor1);
         }
-        if (this.checkProperties(sponsor1)) {
+        if (this.checkProperties(sponsor2)) {
             this.sponsors.push(sponsor2);
         }
         const startDate = new Date(document.getElementById('fromDate')['value']);
