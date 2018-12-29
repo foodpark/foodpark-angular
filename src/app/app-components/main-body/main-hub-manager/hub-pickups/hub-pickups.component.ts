@@ -38,7 +38,9 @@ export class HubPickupsComponent implements OnInit {
     }
 
     ngOnInit() {
-
+        this.sponsor1Image = null;
+        this.sponsor2Image = null;
+        this.eventImage = null;
         this.hubPickupForm = this.fb.group({
             name: ['', Validators.required],
             description: [''],
@@ -60,7 +62,7 @@ export class HubPickupsComponent implements OnInit {
             .subscribe((fileURL) => {
                 if (this.dataService.stringComparator(this.dataService.imageSource, 'sponsor1')) {
                     this.dataService.sponsor1Image = fileURL;
-                    this.sponsor1Image = null;
+                    // this.sponsor1Image = null;
                     if (this.sponsor2Image !== null && this.sponsor2Image !== undefined) {
                         this.dataService.imageSource = 'sponsor2';
                         this.fileUploadService.uploadFile(this.sponsor2Image);
@@ -70,12 +72,12 @@ export class HubPickupsComponent implements OnInit {
                     }
                 } else if (this.dataService.stringComparator(this.dataService.imageSource, 'sponsor2')) {
                     this.dataService.sponsor2Image = fileURL;
-                    this.sponsor2Image = null;
+                    // this.sponsor2Image = null;
                     this.dataService.imageSource = 'event';
                     this.fileUploadService.uploadFile(this.eventImage);
                 } else {
                     this.imageURL = fileURL;
-                    this.eventImage = null;
+                    // this.eventImage = null;
                     this.uploadFinalObj();
                 }
             });
@@ -140,9 +142,7 @@ export class HubPickupsComponent implements OnInit {
         }
         const startDate = new Date(document.getElementById('fromDate')['value']);
         const endDate = new Date(document.getElementById('toDate')['value']);
-        if (startDate > endDate) {
-            this.showDateError = true;
-        }
+        this.showDateError = startDate > endDate;
         const startTime = startDate.getHours() + ':' + startDate.getMinutes();
         const endTime = endDate.getHours() + ':' + endDate.getMinutes();
         const obj = {

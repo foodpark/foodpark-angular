@@ -42,6 +42,9 @@ export class EditHubpickupComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.sponsor1Image = null;
+        this.sponsor2Image = null;
+        this.eventImage = null;
         this.hubPickupForm = this.fb.group({
             name: ['', Validators.required],
             description: [''],
@@ -59,15 +62,15 @@ export class EditHubpickupComponent implements OnInit {
                 this.hubPickupId = JSON.parse(paramMap['params']['hubPickups']);
                 this.hubPickupService.getHubPickupsFromId(this.hubPickupId).subscribe(res => {
                     this.hubPickup = res;
-                    this.s1image = this.hubPickup['sponsors'][0]['image'];
-                    this.s2image = this.hubPickup['sponsors'][1]['image'];
+                    this.s1image = this.hubPickup['sponsors'][0] ? this.hubPickup['sponsors'][0]['image'] : '';
+                    this.s2image = this.hubPickup['sponsors'][1] ? this.hubPickup['sponsors'][1]['image'] : '';
                     this.hubPickupForm = this.fb.group({
                         name: [res['name'], Validators.required],
                         description: [res['description'], Validators.required],
                         image: [null, Validators.required],
                         sponsors: [res['sponsors']],
-                        start_date: [res['start_date']],
-                        end_date: [res['end_date']],
+                        start_date: [new Date(res['start_date'])],
+                        end_date: [new Date(res['end_date'])],
                         start_time: [res['schedule']['start']],
                         end_time: [res['schedule']['end']],
                         latitude: [res['latitude'], Validators.required],
@@ -86,7 +89,7 @@ export class EditHubpickupComponent implements OnInit {
             .subscribe((fileURL) => {
                 if (this.dataService.stringComparator(this.dataService.imageSource, 'sponsor1')) {
                     this.dataService.sponsor1Image = fileURL;
-                    this.sponsor1Image = null;
+                    // this.sponsor1Image = null;
                     if (this.sponsor2Image !== null && this.sponsor2Image !== undefined) {
                         this.dataService.imageSource = 'sponsor2';
                         this.fileUploadService.uploadFile(this.sponsor2Image);
@@ -96,12 +99,12 @@ export class EditHubpickupComponent implements OnInit {
                     }
                 } else if (this.dataService.stringComparator(this.dataService.imageSource, 'sponsor2')) {
                     this.dataService.sponsor2Image = fileURL;
-                    this.sponsor2Image = null;
+                    // this.sponsor2Image = null;
                     this.dataService.imageSource = 'event';
                     this.fileUploadService.uploadFile(this.eventImage);
                 } else {
                     this.imageURL = fileURL;
-                    this.eventImage = null;
+                    // this.eventImage = null;
                     this.uploadFinalObj();
                 }
             });
@@ -166,9 +169,7 @@ export class EditHubpickupComponent implements OnInit {
         }
         const startDate = new Date(document.getElementById('fromDate')['value']);
         const endDate = new Date(document.getElementById('toDate')['value']);
-        if (startDate > endDate) {
-            this.showDateError = true;
-        }
+        this.showDateError = startDate > endDate;
         const startTime = startDate.getHours() + ':' + startDate.getMinutes();
         const endTime = endDate.getHours() + ':' + endDate.getMinutes();
         const obj = {
