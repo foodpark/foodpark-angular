@@ -50,6 +50,7 @@ export class EditHubpickupComponent implements OnInit {
             schedule: [''],
             manager: [localStorage['user_id']]
         });
+        
         this.route.paramMap.subscribe((paramMap: ParamMap) => {
             if (paramMap.has('hubPickups')) {
                 this.hubPickupId = JSON.parse(paramMap['params']['hubPickups']);

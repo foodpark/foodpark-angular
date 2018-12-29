@@ -63,8 +63,9 @@ export class CreateDonationOrderComponent implements OnInit, OnDestroy {
     // "load_id":1,
     // "load_name":"Load 1"
 
-    clickCustomize(loadId: number) {
-        this.router.navigate(['/hubmanager/customizeLoad', {loadId: loadId}]);
+    clickCustomize(loadId: string) {
+        localStorage.setItem('loadId', loadId);
+        this.router.navigate(['/hubmanager/customizeLoad']);
     }
 
     onDeleteLoadClick(loadId: number) {

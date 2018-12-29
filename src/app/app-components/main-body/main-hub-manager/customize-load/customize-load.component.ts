@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, ParamMap} from '@angular/router';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {MasterLoadService} from '../../../../app-services/master-load.service';
 import {PodsManagerService} from '../../../../app-services/pod-manager.service';
 
@@ -10,21 +10,20 @@ import {PodsManagerService} from '../../../../app-services/pod-manager.service';
 export class CustomizeLoadComponent implements OnInit {
     loaditems: any;
 
-    constructor(private route: ActivatedRoute,
-                private loadService: MasterLoadService,
-                private podsManagerService: PodsManagerService) {
+    constructor(private loadService: MasterLoadService,
+                private podsManagerService: PodsManagerService,
+                private router: Router,
+                private route: ActivatedRoute) {
     }
 
     ngOnInit() {
-        this.route.paramMap.subscribe((paramMap: ParamMap) => {
-            if (paramMap.has('loadId')) {
-                this.podsManagerService
-                    .apigetLoadItems(paramMap.get('loadId'))
-                    .subscribe(response => {
-                        this.loaditems = response;
-                    });
-            }
-        });
+        if (localStorage.getItem('loadId')) {
+            this.podsManagerService
+                .apigetLoadItems(localStorage.getItem('loadId'))
+                .subscribe(response => {
+                    this.loaditems = response;
+                });
+        }
     }
 
 }
