@@ -32,21 +32,21 @@
                     </h5>
                 </div>
                 <!--<div class="form-group">-->
-                    <!--<h4>Select Hub</h4>-->
-                    <!--<div class="dropdown">-->
-                        <!--<button id="hub_button"-->
-                                <!--class="btn btn-primary dropdown-toggle"-->
-                                <!--type="button"-->
-                                <!--data-toggle="dropdown">Select-->
+                <!--<h4>Select Hub</h4>-->
+                <!--<div class="dropdown">-->
+                <!--<button id="hub_button"-->
+                <!--class="btn btn-primary dropdown-toggle"-->
+                <!--type="button"-->
+                <!--data-toggle="dropdown">Select-->
 
-                        <!--</button>-->
-                        <!--<ul class="dropdown-menu">-->
-                        <!--<li-->
-                        <!--(click)="onHubClick()">-->
-                        <!--{{mainHub?.name}}-->
-                        <!--</li>-->
-                        <!--</ul>-->
-                    <!--</div>-->
+                <!--</button>-->
+                <!--<ul class="dropdown-menu">-->
+                <!--<li-->
+                <!--(click)="onHubClick()">-->
+                <!--{{mainHub?.name}}-->
+                <!--</li>-->
+                <!--</ul>-->
+                <!--</div>-->
                 <!--</div>-->
                 <h4>Sponsor</h4>
                 <div style="display: flex;">
@@ -56,11 +56,11 @@
                                 <input
                                     type="text"
                                     class="form-control"
-                                    (keyup)="onSponsor1Entered($event)"
+                                    (focusout)="onSponsor1Entered($event)"
                                     placeholder="Sponsor Name"
                                     id="sponsor1">
                             </div>
-                            <h4>Sponsor Image</h4>
+                            <h4>Sponsor 1 Image</h4>
                             <input
                                 type="file"
                                 accept=".png, .jpg, .jpeg"
@@ -70,7 +70,7 @@
                             </h5>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div *ngIf="isSponsor1Available" class="form-group">
                         <div class="form-group">
                             <input
                                 type="text"
@@ -79,7 +79,7 @@
                                 placeholder="Sponsor Name"
                                 id="sponsor2">
                         </div>
-                        <h4>Sponsor Image</h4>
+                        <h4>Sponsor 2 Image</h4>
                         <input
                             type="file"
                             accept=".png, .jpg, .jpeg"

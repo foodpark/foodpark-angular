@@ -18,7 +18,7 @@ export class HubPickupService {
         return this.hubPickupsUpdated.asObservable();
     }
 
-    addHubPickup(data: FormData) {
+    addHubPickup(data: any) {
         return this.http.post<HubPickupModel>(environment.apiUrl + '/api/v1/rel/events', data)
             .subscribe((response) => {
                 this.hubPickups.push(response);

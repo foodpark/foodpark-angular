@@ -20,9 +20,11 @@ export class HubPickupsComponent implements OnInit {
     sponsors = [];
     sponsor1Name;
     sponsor2Name;
-    sponsor1Image;
-    sponsor2Image;
+    sponsor1Image: File;
+    sponsor2Image: File;
+    eventImage: File;
     imageURL;
+    isSponsor1Available = false;
     hideFileContainer = false;
     private fileUploadSubscription: Subscription;
 
@@ -46,8 +48,7 @@ export class HubPickupsComponent implements OnInit {
             longitude: ['', Validators.required],
             image: ['', Validators.required],
             sponsors: [''],
-            schedule: [''],
-            manager: [localStorage['user_id']]
+            schedule: ['']
         });
 
         this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
@@ -59,17 +60,33 @@ export class HubPickupsComponent implements OnInit {
             .subscribe((fileURL) => {
                 if (this.dataService.stringComparator(this.dataService.imageSource, 'sponsor1')) {
                     this.dataService.sponsor1Image = fileURL;
+                    this.sponsor1Image = null;
+                    if (this.sponsor2Image !== null && this.sponsor2Image !== undefined) {
+                        this.dataService.imageSource = 'sponsor2';
+                        this.fileUploadService.uploadFile(this.sponsor2Image);
+                    } else {
+                        this.dataService.imageSource = 'event';
+                        this.fileUploadService.uploadFile(this.eventImage);
+                    }
                 } else if (this.dataService.stringComparator(this.dataService.imageSource, 'sponsor2')) {
                     this.dataService.sponsor2Image = fileURL;
+                    this.sponsor2Image = null;
+                    this.dataService.imageSource = 'event';
+                    this.fileUploadService.uploadFile(this.eventImage);
                 } else {
                     this.imageURL = fileURL;
-
+                    this.eventImage = null;
+                    this.uploadFinalObj();
                 }
             });
     }
 
     onSponsor1Entered(event) {
+        console.log(event);
         this.sponsor1Name = event['srcElement']['value'];
+        if (this.sponsor1Image !== undefined && this.sponsor1Name.length > 0) {
+            this.isSponsor1Available = true;
+        }
     }
 
     onSponsor2Entered(event) {
@@ -82,13 +99,32 @@ export class HubPickupsComponent implements OnInit {
     }
 
     onImageUpload(name: string, files: FileList) {
-        this.dataService.imageSource = name;
         document.getElementById(name + '_image').innerText = files[0].name;
-        this.fileUploadService.uploadFile(files[0]);
+        if (name === 'sponsor1') {
+            this.sponsor1Image = files[0];
+            if (this.sponsor1Image !== undefined && this.sponsor1Name !== undefined && this.sponsor1Name.length > 0) {
+                this.isSponsor1Available = true;
+            }
+        } else if (name === 'sponsor2') {
+            this.sponsor2Image = files[0];
+        } else if (name === 'event') {
+            this.eventImage = files[0];
+        }
         this.hideFileContainer = this.dataService.nullCheck(files[0]);
     }
 
     onSaveClick() {
+        if (this.sponsor1Image !== null && this.sponsor1Image !== undefined) {
+            this.dataService.imageSource = 'sponsor1';
+            this.fileUploadService.uploadFile(this.sponsor1Image);
+        } else {
+            this.dataService.imageSource = 'event';
+            this.fileUploadService.uploadFile(this.eventImage);
+        }
+    }
+
+    uploadFinalObj() {
+
         this.sponsors = [];
         const sponsor1 = {
             name: this.sponsor1Name,
@@ -99,10 +135,10 @@ export class HubPickupsComponent implements OnInit {
             image: this.dataService.sponsor2Image
         };
 
-        if (!this.checkProperties(sponsor1)) {
+        if (this.checkProperties(sponsor1)) {
             this.sponsors.push(sponsor1);
         }
-        if (!this.checkProperties(sponsor1)) {
+        if (this.checkProperties(sponsor1)) {
             this.sponsors.push(sponsor2);
         }
         const startDate = new Date(document.getElementById('fromDate')['value']);
@@ -110,7 +146,9 @@ export class HubPickupsComponent implements OnInit {
         const startTime = startDate.getHours() + ':' + startDate.getMinutes();
         const endTime = endDate.getHours() + ':' + endDate.getMinutes();
         const obj = {
+            name: this.hubPickupForm.value['name'],
             image: this.imageURL,
+            description: this.hubPickupForm.value['description'],
             start_date: startDate.getFullYear() + '-' + startDate.getMonth() + '-' + startDate.getDate(),
             end_date: endDate.getFullYear() + '-' + endDate.getMonth() + '-' + endDate.getDate(),
             latitude: this.mainHub['latitude'],
@@ -121,20 +159,22 @@ export class HubPickupsComponent implements OnInit {
                     start: startTime,
                     end: endTime
                 }
-            ]
+            ],
+            manager: parseInt(localStorage['user_id'], 10)
         };
 
-        this.hubPickupForm.patchValue(obj);
-        this.hubPickupService.addHubPickup(this.hubPickupForm.value);
+        this.hubPickupService.addHubPickup(obj);
         this.router.navigate(['hubmanager/hubpickups']);
     }
 
     checkProperties(sponsor) {
+        let isValid = true;
         for (const key in sponsor) {
-            if (sponsor.hasOwnProperty(key) && sponsor[key] !== null && sponsor[key] !== '' && sponsor[key] !== undefined) {
-                return false;
+            if (sponsor.hasOwnProperty(key) && (sponsor[key] === null || sponsor[key] === '' || sponsor[key] === undefined)) {
+                isValid = false;
+                break;
             }
         }
-        return true;
+        return isValid;
     }
 }
