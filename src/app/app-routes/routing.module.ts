@@ -37,6 +37,7 @@ import {AddEditResourceComponent} from '../app-components/main-body/pod-manager-
 import {CreateDonationOrderComponent} from '../app-components/main-body/main-hub-manager/create-donation-order/create-donation-order.component';
 import {CreateMasterLoadComponent} from '../app-components/main-body/main-hub-manager/create-master-load/create-master-load.component';
 import {EditMasterLoadComponent} from '../app-components/main-body/main-hub-manager/edit-master-load/edit-master-load.component';
+import {CustomizeLoadComponent} from '../app-components/main-body/main-hub-manager/customize-load/customize-load.component';
 
 
 const routes: Routes = [
@@ -138,6 +139,12 @@ const routes: Routes = [
             },
             {
                 path: 'createdonationorder', component: CreateDonationOrderComponent, children: []
+            },
+            {
+                path: 'customizeLoad', component: CustomizeLoadComponent, children: []
+            },
+            {
+                path: 'addeditloadresource/:id', component: AddEditResourceComponent, children: []
             }
         ]
     },

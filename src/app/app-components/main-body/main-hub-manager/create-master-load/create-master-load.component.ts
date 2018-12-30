@@ -38,6 +38,7 @@ export class CreateMasterLoadComponent implements OnInit {
             .subscribe((fileURL) => {
                 console.log('File Uploaded: ' + fileURL);
                 this.wordfileURL = fileURL;
+                this.createMaterLoad();
             });
 
         this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
@@ -54,13 +55,20 @@ export class CreateMasterLoadComponent implements OnInit {
     }
 
     createMaster() {
-        const obj = {
-            ...this.createMasterForm.value,
-            main_hub_id: this.mainHubId
-        };
-        this.masterLoadService.addMasterLoad(obj).subscribe();
         this.fileUploadService.uploadFile(this.wordFileToUpload);
-        this.router.navigate(['/hubmanager/loadmanagement']);
     }
 
+    createMaterLoad() {
+
+        const obj = {
+            main_hub_id: this.mainHubId,
+            excelfile: this.wordfileURL,
+            name: this.createMasterForm.value.name
+        };
+        this.masterLoadService.addMasterLoad(obj)
+            .subscribe(response => {
+                this.router.navigate(['/hubmanager/loadmanagement']);
+            });
+
+    }
 }

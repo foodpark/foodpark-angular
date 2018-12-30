@@ -21,6 +21,10 @@ export class PodsManagerService {
         return this.http.get(environment.apiUrl + '/api/v1/rel/loads');
     }
 
+    apigetLoadRequestsFromId(id: number) {
+        return this.http.get(environment.apiUrl + '/api/v1/rel/loads/' + id);
+    }
+
     apicreateLoadRequests(data) {
         return this.http.post(environment.apiUrl + '/api/v1/rel/loads', data);
     }
@@ -38,7 +42,7 @@ export class PodsManagerService {
     }
 
     apiupdateLoadItems(loadid, data) {
-      return this.http.put(environment.apiUrl + '/api/v1/rel/load_items/'+ loadid, data);
+        return this.http.put(environment.apiUrl + '/api/v1/rel/load_items/' + loadid, data);
     }
 
     apiDeleteLoadItems(loaditemsid) {

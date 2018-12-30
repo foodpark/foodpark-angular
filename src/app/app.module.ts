@@ -16,7 +16,6 @@ import {AdminModule} from './app-components/main-body/admin/admin.module';
 import {MainHubManagerModule} from './app-components/main-body/main-hub-manager/main-hub-manager.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppComponent} from './app.component';
-import {MaterialModule} from './app-modules/material.module';
 
 import {PodManagerModule} from './app-components/main-body/pod-manager-dashboard/pod-manager.module';
 import { TitleCasePipe } from '@angular/common';
@@ -29,8 +28,6 @@ import { TitleCasePipe } from '@angular/common';
         LoaderComponent,
         ErrorComponent,
         LoginComponent,
-
-
     ],
     imports: [
         BrowserModule,
@@ -41,8 +38,7 @@ import { TitleCasePipe } from '@angular/common';
         HttpClientModule,
         AdminModule,
         MainHubManagerModule,
-        PodManagerModule
-
+        PodManagerModule,
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},

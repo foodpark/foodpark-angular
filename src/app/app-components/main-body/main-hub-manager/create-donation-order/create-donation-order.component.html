@@ -60,56 +60,28 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let load of loads">
+                        <tr *ngFor="let load of loads" (click)="onLoadRequestSelected(load)">
                             <td>{{ load.name }}</td>
                             <td>{{ load.created_at | date }}</td>
                             <td>
-                                <span
+                                <p
                                     *ngFor="let pallet of load.pallets;">{{ pallet['category_name']}} ({{pallet['quantity']}})
-                                </span>
+                                </p>
                             </td>
                             <td>
-                                <span
+                                <p
                                     *ngFor="let box of load.boxes;"> {{ box['category_name']}} ({{box['quantity']}})
-                                </span>
+                                </p>
                             </td>
                             <td>
-                                <span
-                                    *ngFor="let item of load.items;"> {{ item['category_name']}} ({{item['quantity']}})
-                                </span>
+                                <p
+                                    *ngFor="let item of load.items;">{{ item['category_name']}} ({{item['quantity']}})
+                                </p>
                             </td>
                             <td style="text-align: center;">
                                 <i class="material-icons" (click)="clickCustomize(load.id)">
                                     edit
                                 </i>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <table *ngIf="showAddEditTable" class="table table-borderless">
-                        <thead>
-                        <tr>
-                            <th style="width: 15%;">Load Type</th>
-                            <th style="width: 15%;">Category</th>
-                            <th style="width: 10%; text-align: center;">Quantity</th>
-                            <th>Description</th>
-                            <th>Delete</th>
-                            <th>Edit</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr *ngFor="let list of loaditems">
-                            <td style="width: 15%;">{{ list.load_type | titlecase }}</td>
-                            <td style="width: 15%;">{{ list.category_name }}</td>
-                            <td style="width: 10%;text-align: center;">
-                                {{ list.quantity }}
-                            </td>
-                            <td>{{ list.description }}</td>
-                            <td>
-                                <i class="material-icons" (click)="onDeleteLoadClick(list.id)"> delete </i>
-                            </td>
-                            <td>
-                                <i class="material-icons" (click)="onEditLoadClick(list.id)"> edit </i>
                             </td>
                         </tr>
                         </tbody>
@@ -120,7 +92,6 @@
         <button
             type="submit"
             class="btn btn-default"
-            [disabled]="!createDonationOrderForm.valid"
             (click)="saveDonationOrder()">
             Save
         </button>

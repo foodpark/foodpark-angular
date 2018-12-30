@@ -16,14 +16,10 @@ export class CreateDonationOrderComponent implements OnInit, OnDestroy {
     createDonationOrderForm: FormGroup;
     masterLoads: MasterLoadModel[] = [];
     regionalHubs;
-    mainHubs;
     requestBody = {};
     loads: any;
-    loaditems: LoadItemModel[];
-    showAddEditTable = false;
     private regionalHubsSubscription: Subscription;
     private masterLoadSubscription: Subscription;
-    private mainHubsSubscription: Subscription;
 
     constructor(private fb: FormBuilder,
                 private router: Router,
@@ -64,13 +60,9 @@ export class CreateDonationOrderComponent implements OnInit, OnDestroy {
     // "load_id":1,
     // "load_name":"Load 1"
 
-    clickCustomize(loadId: number) {
-        this.showAddEditTable = true;
-        this.podsManagerService
-            .apigetLoadItems(loadId)
-            .subscribe(response => {
-                this.loaditems = response;
-            });
+    clickCustomize(loadId: string) {
+        localStorage.setItem('loadId', loadId);
+        this.router.navigate(['/hubmanager/addeditloadresource', loadId]);
     }
 
     onDeleteLoadClick(loadId: number) {
@@ -97,9 +89,21 @@ export class CreateDonationOrderComponent implements OnInit, OnDestroy {
         };
     }
 
+    onLoadRequestSelected(loadRequest) {
+        const button = document.getElementById('pod_load');
+        button.innerText = loadRequest['name'];
+        this.requestBody = {
+            ...this.requestBody,
+            load_id: loadRequest['id'],
+            load_name: loadRequest['name']
+        };
+    }
+
     saveDonationOrder() {
+        this.masterLoadService.addDonationOrder(this.requestBody).subscribe();
         this.router.navigate(['/hubmanager/loadmanagement']);
     }
+
 
     ngOnDestroy() {
         // this.mainHubsSubscription.unsubscribe();

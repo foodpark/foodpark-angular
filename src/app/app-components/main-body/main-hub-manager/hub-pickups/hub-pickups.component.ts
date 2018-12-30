@@ -7,6 +7,7 @@ import {FileUploadService} from '../../../../app-services/fileupload.service';
 import {DataService} from '../../../../app-services/data.service';
 import {Subscription} from 'rxjs';
 import {HubPickupService} from '../../../../app-services/hub-pickup.service';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-hub-pickups',
@@ -16,32 +17,40 @@ import {HubPickupService} from '../../../../app-services/hub-pickup.service';
 export class HubPickupsComponent implements OnInit {
     hubPickupForm: FormGroup;
     mainHub: MainhubModel;
-    imageURL: string;
+    sponsors = [];
+    sponsor1Name;
+    sponsor2Name;
+    sponsor1Image: File;
+    sponsor2Image: File;
+    eventImage: File;
+    imageURL;
+    isSponsor1Available = false;
     private fileUploadSubscription: Subscription;
-    hideFileContainer = false;
+    showDateError = false;
 
     constructor(private fb: FormBuilder,
                 private mainhubService: MainhubService,
                 private http: HttpClient,
                 private dataService: DataService,
                 private hubPickupService: HubPickupService,
-                private fileUploadService: FileUploadService) {
+                private fileUploadService: FileUploadService,
+                private router: Router) {
     }
 
     ngOnInit() {
+        this.sponsor1Image = null;
+        this.sponsor2Image = null;
+        this.eventImage = null;
         this.hubPickupForm = this.fb.group({
-            event_name: ['', Validators.required],
-            event_description: ['', Validators.required],
-            event_image: ['', Validators.required],
-            sponsor_name: ['', Validators.required],
-            sponsor1_image: [''],
-            sponsor2_image: [''],
+            name: ['', Validators.required],
+            description: [''],
             start_date: ['', Validators.required],
             end_date: ['', Validators.required],
-            start_time: ['', Validators.required],
-            end_time: ['', Validators.required],
             latitude: ['', Validators.required],
             longitude: ['', Validators.required],
+            image: ['', Validators.required],
+            sponsors: [''],
+            schedule: ['']
         });
 
         this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
@@ -51,9 +60,38 @@ export class HubPickupsComponent implements OnInit {
 
         this.fileUploadSubscription = this.fileUploadService.getFileUploadListener()
             .subscribe((fileURL) => {
-                this.imageURL = fileURL;
-                this.onSaveClick();
+                if (this.dataService.stringComparator(this.dataService.imageSource, 'sponsor1')) {
+                    this.dataService.sponsor1Image = fileURL;
+                    // this.sponsor1Image = null;
+                    if (this.sponsor2Image !== null && this.sponsor2Image !== undefined) {
+                        this.dataService.imageSource = 'sponsor2';
+                        this.fileUploadService.uploadFile(this.sponsor2Image);
+                    } else {
+                        this.dataService.imageSource = 'event';
+                        this.fileUploadService.uploadFile(this.eventImage);
+                    }
+                } else if (this.dataService.stringComparator(this.dataService.imageSource, 'sponsor2')) {
+                    this.dataService.sponsor2Image = fileURL;
+                    // this.sponsor2Image = null;
+                    this.dataService.imageSource = 'event';
+                    this.fileUploadService.uploadFile(this.eventImage);
+                } else {
+                    this.imageURL = fileURL;
+                    // this.eventImage = null;
+                    this.uploadFinalObj();
+                }
             });
+    }
+
+    onSponsor1Entered(event) {
+        this.sponsor1Name = event['srcElement']['value'];
+        if (this.sponsor1Image !== undefined && this.sponsor1Name.length > 0) {
+            this.isSponsor1Available = true;
+        }
+    }
+
+    onSponsor2Entered(event) {
+        this.sponsor2Name = event['srcElement']['value'];
     }
 
     onHubClick() {
@@ -62,19 +100,83 @@ export class HubPickupsComponent implements OnInit {
     }
 
     onImageUpload(name: string, files: FileList) {
-        this.fileUploadService.uploadFile(files[0]);
-        this.hideFileContainer = this.dataService.nullCheck(files[0]);
-        document.getElementById(name).innerText = files[0].name;
-        this.hubPickupForm.get(name).setValue(this.imageURL);
-        console.log(this.hubPickupForm.value);
+        document.getElementById(name + '_image').innerText = files[0].name;
+        if (name === 'sponsor1') {
+            this.sponsor1Image = files[0];
+            if (this.sponsor1Image !== undefined && this.sponsor1Name !== undefined && this.sponsor1Name.length > 0) {
+                this.isSponsor1Available = true;
+            }
+        } else if (name === 'sponsor2') {
+            this.sponsor2Image = files[0];
+        } else if (name === 'event') {
+            this.eventImage = files[0];
+        }
     }
 
     onSaveClick() {
+        if (this.sponsor1Image !== null && this.sponsor1Image !== undefined) {
+            this.dataService.imageSource = 'sponsor1';
+            this.fileUploadService.uploadFile(this.sponsor1Image);
+        } else {
+            this.dataService.imageSource = 'event';
+            this.fileUploadService.uploadFile(this.eventImage);
+        }
+    }
+
+    uploadFinalObj() {
+        this.sponsors = [];
+        const sponsor1 = {
+            name: this.sponsor1Name,
+            image: this.dataService.sponsor1Image
+        };
+        const sponsor2 = {
+            name: this.sponsor2Name,
+            image: this.dataService.sponsor2Image
+        };
+
+        if (this.checkProperties(sponsor1)) {
+            this.sponsors.push(sponsor1);
+        }
+        if (this.checkProperties(sponsor2)) {
+            this.sponsors.push(sponsor2);
+        }
+        const startDate = new Date(document.getElementById('fromDate')['value']);
+        const endDate = new Date(document.getElementById('toDate')['value']);
+        this.showDateError = startDate > endDate;
+        const startTime = startDate.getHours() + ':' + startDate.getMinutes();
+        const endTime = endDate.getHours() + ':' + endDate.getMinutes();
         const obj = {
+            name: this.hubPickupForm.value['name'],
+            image: this.imageURL,
+            description: this.hubPickupForm.value['description'],
+            start_date: startDate.getFullYear() + '-' + startDate.getMonth() + '-' + startDate.getDate(),
+            end_date: endDate.getFullYear() + '-' + endDate.getMonth() + '-' + endDate.getDate(),
             latitude: this.mainHub['latitude'],
             longitude: this.mainHub['longitude'],
+            sponsors: this.sponsors,
+            schedule: [
+                {
+                    start: startTime,
+                    end: endTime
+                }
+            ],
+            manager: parseInt(localStorage['user_id'], 10)
         };
-        this.hubPickupForm.patchValue(obj);
-        this.hubPickupService.addHubPickup(this.hubPickupForm.value);
+
+        if (!this.showDateError) {
+            this.hubPickupService.addHubPickup(obj);
+            this.router.navigate(['hubmanager/hubpickups']);
+        }
+    }
+
+    checkProperties(sponsor) {
+        let isValid = true;
+        for (const key in sponsor) {
+            if (sponsor.hasOwnProperty(key) && (sponsor[key] === null || sponsor[key] === '' || sponsor[key] === undefined)) {
+                isValid = false;
+                break;
+            }
+        }
+        return isValid;
     }
 }

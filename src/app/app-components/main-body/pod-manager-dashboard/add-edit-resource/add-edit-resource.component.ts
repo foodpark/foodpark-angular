@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
-import { PodsManagerService } from '../../../../app-services/pod-manager.service';
-import { CategoryModel, LoadItemModel } from 'src/app/model';
-import { TitleCasePipe } from '@angular/common';
+import {PodsManagerService} from '../../../../app-services/pod-manager.service';
+import {CategoryModel, LoadItemModel} from 'src/app/model';
+import {TitleCasePipe} from '@angular/common';
 
 @Component({
     selector: 'app-add-edit-resource',
@@ -13,6 +13,7 @@ import { TitleCasePipe } from '@angular/common';
 export class AddEditResourceComponent implements OnInit {
     activatedroute: any;
     loadID: number;
+    loadName: string;
     loaditems: LoadItemModel[];
     adddeatilsform: FormGroup;
     editdeatilsform: FormGroup;
@@ -186,12 +187,9 @@ export class AddEditResourceComponent implements OnInit {
         private podsManagerService: PodsManagerService,
         private activateroute: ActivatedRoute,
         private formBuilder: FormBuilder,
-        private titleCasePipe: TitleCasePipe
-    ) {
+        private titleCasePipe: TitleCasePipe) {
         this.activatedroute = activateroute;
-        this.loadID = this.activatedroute.snapshot.params['id']
-            ? this.activatedroute.snapshot.params['id']
-            : '';
+        this.loadID = this.activatedroute.snapshot.params['id'] ? this.activatedroute.snapshot.params['id'] : '';
         this.getLoadItems();
         this.getcategories();
         this.loadtypes = [
@@ -263,6 +261,9 @@ export class AddEditResourceComponent implements OnInit {
     }
 
     getLoadItems() {
+        this.podsManagerService.apigetLoadRequestsFromId(this.loadID).subscribe(res => {
+            this.loadName = res['name'];
+        });
         this.podsManagerService
             .apigetLoadItems(this.loadID)
             .subscribe(response => {
@@ -288,7 +289,8 @@ export class AddEditResourceComponent implements OnInit {
             response => {
                 this.getLoadItems();
             },
-            error => {}
+            error => {
+            }
         );
     }
 
