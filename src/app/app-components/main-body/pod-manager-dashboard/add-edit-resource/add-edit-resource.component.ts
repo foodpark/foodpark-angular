@@ -12,7 +12,6 @@ import { TitleCasePipe } from '@angular/common';
 })
 export class AddEditResourceComponent implements OnInit {
     activatedroute: any;
-    popup1: any;
     loadID: number;
     loaditems: LoadItemModel[];
     adddeatilsform: FormGroup;
@@ -21,6 +20,7 @@ export class AddEditResourceComponent implements OnInit {
     categories: CategoryModel[];
     loadtypes: any;
     displayCategories: CategoryModel[];
+    addpopup : any;
     editreqobj: any;
     editpopup: any;
     editdata: any;
@@ -208,7 +208,7 @@ export class AddEditResourceComponent implements OnInit {
                 id: '3'
             }
         ];
-
+        this.addpopup = false;
         this.editpopup = false;
     }
 
@@ -273,12 +273,12 @@ export class AddEditResourceComponent implements OnInit {
     createLoad() {
         this.podsManagerService.apicreateLoadItems(this.reqobj).subscribe(
             response => {
-                this.popup1 = true;
+                this.addpopup = false;
                 this.getLoadItems();
                 this.addloaddeatilsform();
             },
             error => {
-                this.popup1 = false;
+                this.addpopup = true;
             }
         );
     }
@@ -296,12 +296,8 @@ export class AddEditResourceComponent implements OnInit {
         console.log(listdata);
         this.editdata = listdata;
         this.loadid = this.editdata.id;
-        this.editdeatilsform
-            .get('quantity')
-            .setValue(this.editdata['quantity'], { emitEvent: false });
-        this.editdeatilsform
-            .get('description')
-            .setValue(this.editdata['description'], { emitEvent: false });
+        this.editdeatilsform.get('quantity').setValue(this.editdata['quantity'], { emitEvent: false });
+        this.editdeatilsform.get('description').setValue(this.editdata['description'], { emitEvent: false });
         this.selectedCategoryname = this.editdata['category_name'];
 
         // this.editdeatilsform.get('load_type').setValue(this.editdata['load_type'], {emitEvent: false});

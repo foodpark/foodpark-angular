@@ -8,7 +8,7 @@
             class="btn btn-default new_btn"
             data-toggle="modal"
             data-target="#exampleModal"
-            (click)="popup1 = false">
+            (click)="addpopup = true">
             Add Pallet | Box | Item
         </button>
     </div>
@@ -45,8 +45,8 @@
     </table>
 </div>
 
-<div class="modal_popup" id="exampleModal" role="dialog" data-backdrop="false" aria-hidden="true" *ngIf="!popup1">
-  <div class="modal-dialog" role="document">
+<div class="modal_popup" id="addpopup"role="dialog" data-backdrop="false" aria-hidden="true" *ngIf="addpopup" style="display:block">
+  <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header modal__header">
             <h5 class="modal-title" id="exampleModalLabel">Add New Item</h5>
@@ -98,7 +98,7 @@
             <button type="button" class="btn btn-secondary" (click)="onSubmitform()">
                 Save
             </button>
-            <button type="button" class="btn btn-secondary" (click)="popup1 = true">
+            <button type="button" class="btn btn-secondary" (click)="addpopup = false" data-dismiss="modal">
                 Cancel
             </button>
           </div>

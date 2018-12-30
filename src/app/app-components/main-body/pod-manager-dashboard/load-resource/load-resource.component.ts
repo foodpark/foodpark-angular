@@ -20,13 +20,8 @@ export class LoadResourceComponent implements OnInit {
     newloadrequestform: any;
     popup1: any;
 
-    constructor(
-        private podsService: PodsService,
-        private podsManagerService: PodsManagerService,
-        private mainhubService: MainhubService,
-        private route: Router,
-        private formBuilder: FormBuilder
-    ) {
+    constructor(private podsService: PodsService,private podsManagerService: PodsManagerService,private mainhubService: MainhubService,private route: Router,  private formBuilder: FormBuilder) {
+          this.popup1 = true;
     }
 
 
