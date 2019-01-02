@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 import {PodsManagerService} from '../../../../app-services/pod-manager.service';
@@ -21,13 +21,13 @@ export class AddEditResourceComponent implements OnInit {
     categories: CategoryModel[];
     loadtypes: any;
     displayCategories: CategoryModel[];
-    addpopup : any;
+    addpopup: any;
     editreqobj: any;
     editpopup: any;
     editdata: any;
     loadid: any;
     selectedCategoryname: any;
-    loadbuttonvalue : any;
+    loadbuttonvalue: any;
     categorybuttonvalue: any;
 
     formErrors = {
@@ -189,7 +189,8 @@ export class AddEditResourceComponent implements OnInit {
         private podsManagerService: PodsManagerService,
         private activateroute: ActivatedRoute,
         private formBuilder: FormBuilder,
-        private titleCasePipe: TitleCasePipe) {
+        private titleCasePipe: TitleCasePipe,
+        private router: Router) {
         this.activatedroute = activateroute;
         this.loadID = this.activatedroute.snapshot.params['id'] ? this.activatedroute.snapshot.params['id'] : '';
         this.getLoadItems();
@@ -301,54 +302,57 @@ export class AddEditResourceComponent implements OnInit {
     // }
 
     onclickAddEdit(listdata) {
-      console.log(listdata);
-      this.editpopup = true;
-      this.editdata = listdata;
-      this.loadid = this.editdata.id;
-      this.editdeatilsform.get('quantity').setValue(this.editdata['quantity'], { emitEvent: false });
-      this.editdeatilsform.get('description').setValue(this.editdata['description'], { emitEvent: false });
-      this.editdeatilsform.get('load_type').setValue(this.editdata['load_type'], {emitEvent: false});
-      this.editdeatilsform.get('category_name').setValue(this.editdata['category_name'], {emitEvent: false});
-      this.editdeatilsform.get('category_id').setValue(this.editdata['category_id'], {emitEvent: false});
-      this.loadbuttonvalue = this.editdeatilsform.get('load_type').value;
-      this.categorybuttonvalue = this.editdeatilsform.get('category_name').value;
+        this.editpopup = true;
+        this.editdata = listdata;
+        this.loadid = this.editdata.id;
+        this.editdeatilsform.get('quantity').setValue(this.editdata['quantity'], {emitEvent: false});
+        this.editdeatilsform.get('description').setValue(this.editdata['description'], {emitEvent: false});
+        this.editdeatilsform.get('load_type').setValue(this.editdata['load_type'], {emitEvent: false});
+        this.editdeatilsform.get('category_name').setValue(this.editdata['category_name'], {emitEvent: false});
+        this.editdeatilsform.get('category_id').setValue(this.editdata['category_id'], {emitEvent: false});
+        this.loadbuttonvalue = this.editdeatilsform.get('load_type').value;
+        this.categorybuttonvalue = this.editdeatilsform.get('category_name').value;
     }
 
     onEditCategoryClick(index: number, id: number) {
-      const button = document.getElementById('editcategory');
-      const selectedCategory = this.displayCategories[index]['category'];
-      button.innerText = selectedCategory;
-      this.editdeatilsform.get('category_name').setValue(selectedCategory);
-      this.editdeatilsform.get('category_id').setValue(this.categories[index]['id']);
-      console.log('this edit category',this.editdeatilsform.get('category_id').value)
+        const button = document.getElementById('editcategory');
+        const selectedCategory = this.displayCategories[index]['category'];
+        button.innerText = selectedCategory;
+        this.editdeatilsform.get('category_name').setValue(selectedCategory);
+        this.editdeatilsform.get('category_id').setValue(this.categories[index]['id']);
+        console.log('this edit category', this.editdeatilsform.get('category_id').value);
 
     }
 
     onEditloadtypeClick(index: number, id: number) {
-      const button = document.getElementById('editloadtype');
-      const selectedloadvalue = this.loadtypes[index]['loadtype'];
-      button.innerText = selectedloadvalue;
-      this.editdeatilsform.get('load_type').setValue(selectedloadvalue);
-      console.log('this edit category',this.editdeatilsform.get('load_type').value)
+        const button = document.getElementById('editloadtype');
+        const selectedloadvalue = this.loadtypes[index]['loadtype'];
+        button.innerText = selectedloadvalue;
+        this.editdeatilsform.get('load_type').setValue(selectedloadvalue);
+        console.log('this edit category', this.editdeatilsform.get('load_type').value);
 
     }
 
     updateloaddetails() {
-      this.podsManagerService.apiupdateLoadItems(this.loadid, this.editreqobj).subscribe(
-          response => {
-              console.log('successfully update');
-              this.editpopup = false;
-              this.getLoadItems();
-              this.editloaddeatilsform();
-          },
-          error => {
-              this.editpopup = true;
-          }
-      );
+        this.podsManagerService.apiupdateLoadItems(this.loadid, this.editreqobj).subscribe(
+            response => {
+                console.log('successfully update');
+                this.editpopup = false;
+                this.getLoadItems();
+                this.editloaddeatilsform();
+            },
+            error => {
+                this.editpopup = true;
+            }
+        );
     }
 
     ngOnInit() {
         this.addloaddeatilsform();
         this.editloaddeatilsform();
+    }
+
+    onSaveAndGoBackClick() {
+        this.router.navigate(['/hubmanager/createdonationorder']);
     }
 }

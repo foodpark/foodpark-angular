@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {MasterLoadService} from '../../../../app-services/master-load.service';
 import {Subscription} from 'rxjs';
-import {LoadItemModel, MasterLoadModel, RegionalHubModel} from '../../../../model';
+import {MasterLoadModel, RegionalHubModel} from '../../../../model';
 import {RegionalhubsService} from '../../../../app-services/regionalhubs.service';
 import {MainhubService} from '../../../../app-services/mainhub.service';
 import {PodsManagerService} from '../../../../app-services/pod-manager.service';
