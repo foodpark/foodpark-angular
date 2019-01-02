@@ -19,7 +19,7 @@ export class CustomizeLoadComponent implements OnInit {
     ngOnInit() {
         if (localStorage.getItem('loadId')) {
             this.podsManagerService
-                .apigetLoadItems(localStorage.getItem('loadId'))
+                .getLoadItems(localStorage.getItem('loadId'))
                 .subscribe(response => {
                     this.loaditems = response;
                 });

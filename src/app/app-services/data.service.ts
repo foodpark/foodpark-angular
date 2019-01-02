@@ -12,27 +12,13 @@ export class DataService {
 
     // localeStringsMap: any;
 
-    constructor(private http: HttpClient) {
-        // this.httpGetTranslations().subscribe(transMap => {
-        //     this.localeStringsMap = transMap;
-        // });
-    }
+    constructor(private http: HttpClient) {}
 
     getJsonData(jsonfile: string): Observable<any> {
         return this.http.get('assets/json/' + jsonfile).pipe(map(res => {
             return res || {};
         }));
     }
-
-    //
-    // httpGetTranslations(): Observable<any> {
-    //     const currentLang = navigator.language;
-    //     return this.http.get('assets/i18n/' + currentLang + '.json').pipe(
-    //         map((res: any) => {
-    //             return res || {};
-    //         })
-    //     );
-    // }
 
     stringComparator(originalString: string, comparedString: string) {
         return this.nullCheck(originalString) && this.nullCheck(comparedString) && originalString.toLowerCase() === comparedString.toLowerCase();
