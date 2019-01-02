@@ -13,23 +13,27 @@ export class DistributionService {
     constructor(private http: HttpClient) {
     }
 
-    apiGetVolunteers(mainHubId) {
+    getVolunteers(mainHubId) {
         return this.http.get(environment.apiUrl + '/api/v1/rel/food_parks/' + mainHubId + '/drivers');
     }
-    apiGetRegisteredVolunteers(territoryid) {
-        return this.http.get(environment.apiUrl + '/api/v1/rel/territories/'+ territoryid +'/users?role=DRIVER');
+
+    getRegisteredVolunteers(territoryid) {
+        return this.http.get(environment.apiUrl + '/api/v1/rel/territories/' + territoryid +'/users?role=DRIVER');
     }
 
-    apiAddVolunteers(volunterId, data) {
+    addVolunteers(volunterId, data) {
         return this.http.post(environment.apiUrl + '/api/v1/rel/food_parks/' + volunterId + '/drivers', data);
     }
-    Apicreatevolunteers(data) {
+    
+    createVolunteer(data) {
         return this.http.post(environment.apiUrl + '/auth/register ', data);
     }
-    Apideletevolunteers(foodid, userid) {
+    
+    deleteVolunteer(foodid, userid) {
         return this.http.delete(environment.apiUrl + '/api/v1/rel/food_parks/'+ foodid +'/drivers/'+ userid);
     }
-    Apiavilablitydata(mainid, id, data) {
+
+    updateAvilablity(mainid, id, data) {
         return this.http.put(environment.apiUrl + '/api/v1/rel/food_parks/'+ mainid +'/drivers/'+ id, data);
     }
 

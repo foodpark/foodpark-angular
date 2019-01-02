@@ -72,7 +72,10 @@ const routes: Routes = [
             },
             {
                 path: 'editmainhubmanager', component: AddEditMainHubManagerComponent, children: []
-            }
+            },
+            {
+                path: 'reporting', component: ReportingComponent
+            },
         ]
     },
     {

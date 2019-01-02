@@ -5,7 +5,7 @@
             <tr>
               <th></th>
               <th>Name</th>
-              <th>Avilablity</th>
+              <th>Availablity</th>
               <th>Phone</th>
               <th style="width: 5%;text-align: center;">Delete</th>
             </tr>
@@ -50,14 +50,6 @@
 <div class="">
   <h1 class="hedaing_title">Registered Volunteers ( Shared )</h1>
   <table class="table table-borderless">
-      <!-- <thead>
-          <tr>
-              <th>Name</th>
-              <th>Avilablity</th>
-              <th>Phone</th>
-              <th style="width: 5%;text-align: center;">Delete</th>
-          </tr>
-      </thead> -->
       <tbody>
           <tr *ngFor="let item of allregisteredvolunters">
               <td>{{ item.first_name }}.{{ item.last_name }}</td>
