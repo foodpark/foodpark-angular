@@ -24,11 +24,11 @@ export class DistributionService {
     addVolunteers(volunterId, data) {
         return this.http.post(environment.apiUrl + '/api/v1/rel/food_parks/' + volunterId + '/drivers', data);
     }
-    
+
     createVolunteer(data) {
         return this.http.post(environment.apiUrl + '/auth/register ', data);
     }
-    
+
     deleteVolunteer(foodid, userid) {
         return this.http.delete(environment.apiUrl + '/api/v1/rel/food_parks/'+ foodid +'/drivers/'+ userid);
     }

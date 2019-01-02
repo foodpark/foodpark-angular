@@ -50,7 +50,7 @@ export class CreateDonationOrderComponent implements OnInit, OnDestroy {
         // this.mainHubsSubscription = this.mainHubService.getMainhubsUpdateListener().subscribe(res => {
         //     this.mainHubs = res;
         // });
-        this.podsManagerService.apigetLoadRequests().subscribe(res => {
+        this.podsManagerService.getLoadRequests().subscribe(res => {
             this.loads = res;
         });
     }

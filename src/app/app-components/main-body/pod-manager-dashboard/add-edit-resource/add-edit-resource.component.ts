@@ -213,7 +213,7 @@ export class AddEditResourceComponent implements OnInit {
     }
 
     getcategories() {
-        this.podsManagerService.apigetcategories().subscribe(response => {
+        this.podsManagerService.getCategories().subscribe(response => {
             this.categories = response;
             this.displayCategories = response;
         });
@@ -261,18 +261,18 @@ export class AddEditResourceComponent implements OnInit {
 
 
     getLoadItems() {
-        this.podsManagerService.apigetLoadRequestsFromId(this.loadID).subscribe(res => {
+        this.podsManagerService.getLoadRequestsFromId(this.loadID).subscribe(res => {
             this.loadName = res['name'];
         });
         this.podsManagerService
-            .apigetLoadItems(this.loadID)
+            .getLoadItems(this.loadID)
             .subscribe(response => {
                 this.loaditems = response;
             });
     }
 
     createLoad() {
-        this.podsManagerService.apicreateLoadItems(this.reqobj).subscribe(
+        this.podsManagerService.createLoadItem(this.reqobj).subscribe(
             response => {
                 this.addpopup = false;
                 this.getLoadItems();
@@ -285,7 +285,7 @@ export class AddEditResourceComponent implements OnInit {
     }
 
     onclickDelete(deleteid) {
-        this.podsManagerService.apiDeleteLoadItems(deleteid).subscribe(
+        this.podsManagerService.deleteLoadItem(deleteid).subscribe(
             response => {
                 this.getLoadItems();
             },
@@ -334,7 +334,7 @@ export class AddEditResourceComponent implements OnInit {
     }
 
     updateloaddetails() {
-      this.podsManagerService.apiupdateLoadItems(this.loadid, this.editreqobj).subscribe(
+      this.podsManagerService.updateLoadItem(this.loadid, this.editreqobj).subscribe(
           response => {
               console.log('successfully update');
               this.editpopup = false;

@@ -49,6 +49,7 @@ export class FileUploadService {
         });
     }
 
+    /* //Unused methods, but needs to be improved
     uploadFileAndGetActualResponse(file: File) {
         const fileData = new FormData();
         fileData.append('file', file, file.name);
@@ -70,4 +71,5 @@ export class FileUploadService {
 
         return link['href'];
     }
+    */
 }
