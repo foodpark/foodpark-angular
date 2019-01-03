@@ -9,10 +9,12 @@ export class DataService {
     imageSource: string;
     sponsor1Image: string;
     sponsor2Image: string;
+    loadName: string;
 
     // localeStringsMap: any;
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {
+    }
 
     getJsonData(jsonfile: string): Observable<any> {
         return this.http.get('assets/json/' + jsonfile).pipe(map(res => {

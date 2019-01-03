@@ -1,12 +1,13 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {MasterLoadService} from '../../../../app-services/master-load.service';
 import {Subscription} from 'rxjs';
 import {MasterLoadModel, RegionalHubModel} from '../../../../model';
 import {RegionalhubsService} from '../../../../app-services/regionalhubs.service';
 import {MainhubService} from '../../../../app-services/mainhub.service';
 import {PodsManagerService} from '../../../../app-services/pod-manager.service';
+import {DataService} from '../../../../app-services/data.service';
 
 @Component({
     selector: 'app-create-donation-order',
@@ -18,14 +19,18 @@ export class CreateDonationOrderComponent implements OnInit, OnDestroy {
     regionalHubs;
     requestBody = {};
     loads: any;
+    loadId;
+    loadName: string;
     private regionalHubsSubscription: Subscription;
     private masterLoadSubscription: Subscription;
 
     constructor(private fb: FormBuilder,
                 private router: Router,
+                private dataService: DataService,
                 private masterLoadService: MasterLoadService,
                 private regionalService: RegionalhubsService,
                 private mainHubService: MainhubService,
+                private activateroute: ActivatedRoute,
                 private podsManagerService: PodsManagerService) {
     }
 
@@ -53,6 +58,12 @@ export class CreateDonationOrderComponent implements OnInit, OnDestroy {
         this.podsManagerService.getLoadRequests().subscribe(res => {
             this.loads = res;
         });
+
+        this.loadName = this.dataService.nullCheck(this.dataService.loadName) ? this.dataService.loadName : '';
+        if (this.loadName !== '') {
+            const button = document.getElementById('pod_load');
+            button.innerText = this.loadName;
+        }
     }
 
     // "master_load_id":2,
@@ -60,9 +71,12 @@ export class CreateDonationOrderComponent implements OnInit, OnDestroy {
     // "load_id":1,
     // "load_name":"Load 1"
 
-    clickCustomize(loadId: string) {
-        localStorage.setItem('loadId', loadId);
-        this.router.navigate(['/hubmanager/addeditloadresource', loadId]);
+    clickCustomize(loadId: number) {
+        localStorage.setItem('loadId', loadId['id']);
+        this.podsManagerService.getLoadRequestsFromId(loadId).subscribe(res => {
+            this.dataService.loadName = res['name'];
+        });
+        this.router.navigate(['/hubmanager/addeditloadresource', loadId, 'hubmanager']);
     }
 
     onDeleteLoadClick(loadId: number) {

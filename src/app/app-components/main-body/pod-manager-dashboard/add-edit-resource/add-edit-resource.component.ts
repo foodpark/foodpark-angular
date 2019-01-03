@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 import {PodsManagerService} from '../../../../app-services/pod-manager.service';
@@ -189,6 +189,7 @@ export class AddEditResourceComponent implements OnInit {
         private podsManagerService: PodsManagerService,
         private activateroute: ActivatedRoute,
         private formBuilder: FormBuilder,
+        private router: Router,
         private titleCasePipe: TitleCasePipe) {
         this.activatedroute = activateroute;
         this.loadID = this.activatedroute.snapshot.params['id'] ? this.activatedroute.snapshot.params['id'] : '';

@@ -42,11 +42,11 @@
         </tr>
         </tbody>
     </table>
-    <button
-        type="button"
-        style="height: 50px;align-items: center;width: 100%;text-transform:none"
-        class="btn btn-default new_btn"
-        (click)="onSaveAndGoBackClick()">Save and go back
+    <button *ngIf="this.activatedroute.snapshot?.params['src']?.toLowerCase() === 'hubmanager'"
+            type="button"
+            style="height: 50px;align-items: center;width: 100%;text-transform:none"
+            class="btn btn-default new_btn"
+            (click)="onSaveAndGoBackClick()">Save and go back
     </button>
 </div>
 
