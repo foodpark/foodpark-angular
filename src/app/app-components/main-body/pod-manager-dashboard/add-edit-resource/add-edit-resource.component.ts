@@ -261,36 +261,36 @@ export class AddEditResourceComponent implements OnInit {
 
 
     getLoadItems() {
-        this.podsManagerService.apigetLoadRequestsFromId(this.loadID).subscribe(res => {
-            this.loadName = res['name'];
-        });
-        this.podsManagerService
-            .apigetLoadItems(this.loadID)
-            .subscribe(response => {
-                this.loaditems = response;
-            });
+      this.podsManagerService.apigetLoadRequestsFromId(this.loadID).subscribe(res => {
+        this.loadName = res['name'];
+      });
+      this.podsManagerService.apigetLoadItems(this.loadID)
+        .subscribe(response => {
+          this.loaditems = response;
+      });
     }
 
     createLoad() {
-        this.podsManagerService.apicreateLoadItems(this.reqobj).subscribe(
-            response => {
-                this.addpopup = false;
-                this.getLoadItems();
-                this.addloaddeatilsform();
-            },
-            error => {
-                this.addpopup = true;
-            }
-        );
+      this.podsManagerService.apicreateLoadItems(this.reqobj).subscribe(
+        response => {
+          this.addpopup = false;
+          this.getLoadItems();
+          this.addloaddeatilsform();
+        },
+        error => {
+          this.addpopup = true;
+        }
+      );
     }
 
     onclickDelete(deleteid) {
         this.podsManagerService.apiDeleteLoadItems(deleteid).subscribe(
-            response => {
-                this.getLoadItems();
-            },
-            error => {
-            }
+          response => {
+            this.getLoadItems();
+          },
+          error => {
+
+          }
         );
     }
 

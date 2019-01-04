@@ -12,6 +12,7 @@ import {ErrorInterceptor} from './error-interceptor';
 import {ErrorComponent} from './error/error.component';
 import {AuthInterceptor} from './auth-interceptor';
 import {LoginComponent} from './app-components/main-body/login/login.component';
+import {GuestCreatePodsComponent} from './app-components/main-body/guest-create-pods/create-pods.component';
 import {AdminModule} from './app-components/main-body/admin/admin.module';
 import {MainHubManagerModule} from './app-components/main-body/main-hub-manager/main-hub-manager.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -28,6 +29,7 @@ import { TitleCasePipe } from '@angular/common';
         LoaderComponent,
         ErrorComponent,
         LoginComponent,
+        GuestCreatePodsComponent,
     ],
     imports: [
         BrowserModule,

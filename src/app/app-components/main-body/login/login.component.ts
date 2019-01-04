@@ -1,5 +1,6 @@
 import {Component, EventEmitter, OnInit, Output, OnDestroy} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import {AuthService} from '../../../app-services/auth.service';
 import {Subscription} from 'rxjs';

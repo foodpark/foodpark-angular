@@ -2,39 +2,40 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
-import {CountryService} from '../../../../app-services/country.service';
-import {CountryModel} from '../../../../model';
+import {CountryService} from '../../../app-services/country.service';
+import {TerritoryService} from '../../../app-services/territory.service';
+import {MainhubService} from '../../../app-services/mainhub.service';
+
+import {CountryModel, MainhubModel, TerritoryModel} from '../../../model';
 import {Subscription} from 'rxjs';
 import {PodsService} from 'src/app/app-services/pods.service';
 import {FileUploadService} from 'src/app/app-services/fileupload.service';
-import {DataService} from '../../../../app-services/data.service';
-import {MainhubService} from '../../../../app-services/mainhub.service';
+import {DataService} from '../../../app-services/data.service';
 
 @Component({
     selector: 'app-create-pods',
     templateUrl: './create-pods.component.html',
 })
 
-export class CreatePodsComponent implements OnInit, OnDestroy {
+export class GuestCreatePodsComponent implements OnInit, OnDestroy {
     registerpodform: FormGroup;
     countries: CountryModel[] = [];
+    territories: TerritoryModel[] = [];
+    mainhubs: MainhubModel[] = [];
     private countriesSubscription: Subscription;
+    private territoriesSubscription: Subscription;
     private fileUploadSubscription: Subscription;
     private mainhubsSubscription: Subscription;
     private church_id: number;
     wordfileURL: string;
-    mainHub : any;
     wordFileToUpload: File;
     hideFileContainer = false;
 
     churchType = ['Church', 'Non-Profit', 'Non-Religious', 'Non-Denominational', 'Other'];
     connectedWith = ['Personal Referral', 'Google Search', 'Social Media', 'Other'];
 
-    constructor(private formBuilder: FormBuilder, private route: Router, private countryService: CountryService, private podService: PodsService, private dataService: DataService, private fileUploadService: FileUploadService, private mainhubService: MainhubService) {
-      this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
-        .subscribe((response) => {
-          this.mainHub = response[0];
-      });
+    constructor(private formBuilder: FormBuilder, private route: Router, private countryService: CountryService, private territoryService: TerritoryService, private mainhubService: MainhubService, private podService: PodsService, private dataService: DataService, private fileUploadService: FileUploadService) {
+
     }
 
     ngOnInit() {
@@ -46,6 +47,8 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
             repeatpassword: ['', Validators.required],
             church_name: ['', Validators.required],
             country_id: ['', Validators.required],
+            territory_id: ['', Validators.required],
+            main_hub_id: ['', Validators.required],
             country: ['', Validators.required],
             sponsor: ['', Validators.required],
             title: ['', Validators.required],
@@ -62,12 +65,22 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
                 this.wordfileURL = fileURL;
                 this.createPodManager();
             });
+            this.countryService.getCountries();
 
         this.countriesSubscription = this.countryService.getCountriesUpdateListener()
             .subscribe((countries: CountryModel[]) => {
                 this.countries = countries;
             });
-        this.countryService.getCountries();
+        this.territoriesSubscription = this.territoryService.getTerritoriesUpdateListener()
+        .subscribe((territories: TerritoryModel[]) => {
+            this.territories = territories;
+        });
+
+        this.mainhubsSubscription = this.mainhubService.getMainhubsUpdateListener()
+        .subscribe((res: MainhubModel[]) => {
+            this.mainhubs = res;
+        });
+
     }
 
     onCountryClick(index: number, id: number) {
@@ -75,6 +88,30 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
         button.innerText = this.countries[index]['name'];
         this.registerpodform.get('country').setValue(this.countries[index]['name']);
         this.registerpodform.get('country_id').setValue(this.countries[index]['id']);
+        this.getTerritory(id);
+    }
+
+    getTerritory(id: number) {
+        this.territoryService.getTerritoriesInCountry(id);
+
+    }
+
+    onTerritoryClick(index: number, item) {
+        const button = document.getElementById('territory_button');
+        button.innerText = this.territories[index]['territory'];
+        this.registerpodform.get('territory_id').setValue(this.territories[index]['id']);
+        this.getMainhubs(item.id, item.country);
+    }
+
+    getMainhubs(id: number, country: string ){
+      this.mainhubService.getMainHubsIn(country,id);
+    }
+
+    onMainHubClick(index: number, item) {
+        const button = document.getElementById('mainhub_button');
+        button.innerText = this.mainhubs[index]['name'];
+        this.registerpodform.get('main_hub_id').setValue(this.mainhubs[index]['id']);
+        //this.getMainhubs(item.id, item.country);
     }
 
     onChurchTypeClick(type: string) {
@@ -108,6 +145,7 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
             'last_name': this.registerpodform.get('lastname').value,
             'password': this.registerpodform.get('password').value,
             'country_id': this.registerpodform.get('country_id').value,
+            'territory_id': this.registerpodform.get('territory_id').value,
             'church_name': this.registerpodform.get('church_name').value,
             'connected_with': this.registerpodform.get('connected_with').value
         };
@@ -125,7 +163,7 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
         const updatePodData = {
             'name': this.registerpodform.value.church_name,
             'title': title,
-            'main_hub_id': this.mainHub.id,
+            'main_hub_id': this.registerpodform.get('main_hub_id').value,
             'connected_with': this.registerpodform.value.connected_with,
             'sponsor': this.registerpodform.value.sponsor,
             'latitude': this.registerpodform.value.latitude,

@@ -38,6 +38,7 @@ import {CreateDonationOrderComponent} from '../app-components/main-body/main-hub
 import {CreateMasterLoadComponent} from '../app-components/main-body/main-hub-manager/create-master-load/create-master-load.component';
 import {EditMasterLoadComponent} from '../app-components/main-body/main-hub-manager/edit-master-load/edit-master-load.component';
 import {CustomizeLoadComponent} from '../app-components/main-body/main-hub-manager/customize-load/customize-load.component';
+import {GuestCreatePodsComponent} from '../app-components/main-body/guest-create-pods/create-pods.component';
 
 
 const routes: Routes = [
@@ -47,6 +48,7 @@ const routes: Routes = [
     {
         path: 'dashboard', component: LoginComponent
     },
+    {path:'guest-create-pod', component:GuestCreatePodsComponent},
     {
         path: 'admin', component: AdminDashboardComponent, canActivate: [AuthGuard], children: [
             {
