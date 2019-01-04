@@ -149,7 +149,7 @@ const routes: Routes = [
                 path: 'customizeLoad', component: CustomizeLoadComponent, children: []
             },
             {
-                path: 'addeditloadresource/:id', component: AddEditResourceComponent, children: []
+                path: 'addeditloadresource/:id/:src', component: AddEditResourceComponent, children: []
             }
         ]
     },

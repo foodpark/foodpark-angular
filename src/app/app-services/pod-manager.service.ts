@@ -13,39 +13,39 @@ export class PodsManagerService {
     constructor(private http: HttpClient) {
     }
 
-    apigetcategories() {
+    getCategories() {
         return this.http.get<CategoryModel[]>(environment.apiUrl + '/api/v1/rel/categories');
     }
 
-    apigetLoadRequests() {
+    getLoadRequests() {
         return this.http.get(environment.apiUrl + '/api/v1/rel/loads');
     }
 
-    apigetLoadRequestsFromId(id: number) {
+    getLoadRequestsFromId(id: number) {
         return this.http.get(environment.apiUrl + '/api/v1/rel/loads/' + id);
     }
 
-    apicreateLoadRequests(data) {
+    createLoadRequest(data) {
         return this.http.post(environment.apiUrl + '/api/v1/rel/loads', data);
     }
 
-    apideleteLoadRequests(deleteid) {
+    deleteLoadRequest(deleteid) {
         return this.http.delete(environment.apiUrl + '/api/v1/rel/loads/' + deleteid);
     }
 
-    apigetLoadItems(id) {
+    getLoadItems(id) {
         return this.http.get<LoadItemModel[]>(environment.apiUrl + '/api/v1/rel/load_items?load_id=' + id);
     }
 
-    apicreateLoadItems(data) {
+    createLoadItem(data) {
         return this.http.post(environment.apiUrl + '/api/v1/rel/load_items', data);
     }
 
-    apiupdateLoadItems(loadid, data) {
+    updateLoadItem(loadid, data) {
         return this.http.put(environment.apiUrl + '/api/v1/rel/load_items/' + loadid, data);
     }
 
-    apiDeleteLoadItems(loaditemsid) {
+    deleteLoadItem(loaditemsid) {
         return this.http.delete(environment.apiUrl + '/api/v1/rel/load_items/' + loaditemsid);
     }
 

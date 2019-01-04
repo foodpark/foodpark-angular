@@ -9,13 +9,11 @@ export class DataService {
     imageSource: string;
     sponsor1Image: string;
     sponsor2Image: string;
+    loadName: string;
 
     // localeStringsMap: any;
 
     constructor(private http: HttpClient) {
-        // this.httpGetTranslations().subscribe(transMap => {
-        //     this.localeStringsMap = transMap;
-        // });
     }
 
     getJsonData(jsonfile: string): Observable<any> {
@@ -23,16 +21,6 @@ export class DataService {
             return res || {};
         }));
     }
-
-    //
-    // httpGetTranslations(): Observable<any> {
-    //     const currentLang = navigator.language;
-    //     return this.http.get('assets/i18n/' + currentLang + '.json').pipe(
-    //         map((res: any) => {
-    //             return res || {};
-    //         })
-    //     );
-    // }
 
     stringComparator(originalString: string, comparedString: string) {
         return this.nullCheck(originalString) && this.nullCheck(comparedString) && originalString.toLowerCase() === comparedString.toLowerCase();

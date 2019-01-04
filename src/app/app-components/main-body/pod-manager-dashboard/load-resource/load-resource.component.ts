@@ -37,7 +37,7 @@ export class LoadResourceComponent implements OnInit {
     }
 
     getLoadRequests() {
-        this.podsManagerService.apigetLoadRequests().subscribe(response => {
+        this.podsManagerService.getLoadRequests().subscribe(response => {
             this.loadrequests = response;
         });
     }
@@ -46,7 +46,7 @@ export class LoadResourceComponent implements OnInit {
         const reqobj = {
             name: this.newloadrequestform.get('name').value
         };
-        this.podsManagerService.apicreateLoadRequests(reqobj).subscribe(
+        this.podsManagerService.createLoadRequest(reqobj).subscribe(
             response => {
                 this.popup1 = true;
                 this.getLoadRequests();
@@ -62,7 +62,7 @@ export class LoadResourceComponent implements OnInit {
     }
 
     onclickDelete(deleteid) {
-        this.podsManagerService.apideleteLoadRequests(deleteid)
+        this.podsManagerService.deleteLoadRequest(deleteid)
             .subscribe(response => {
                 this.getLoadRequests();
             });
