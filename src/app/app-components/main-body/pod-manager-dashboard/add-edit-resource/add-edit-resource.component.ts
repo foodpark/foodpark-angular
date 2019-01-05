@@ -261,37 +261,60 @@ export class AddEditResourceComponent implements OnInit {
     }
 
 
+    // getLoadItems() {
+    //   this.podsManagerService.apigetLoadRequestsFromId(this.loadID).subscribe(res => {
+    //     this.loadName = res['name'];
+    //   });
+    //   this.podsManagerService.apigetLoadItems(this.loadID)
+    //     .subscribe(response => {
+    //       this.loaditems = response;
+    //   });
+    // }
+
+    // createLoad() {
+    //   this.podsManagerService.apicreateLoadItems(this.reqobj).subscribe(
+    //     response => {
+    //       this.addpopup = false;
+    //       this.getLoadItems();
+    //       this.addloaddeatilsform();
+    //     },
+    //     error => {
+    //       this.addpopup = true;
+    //     }
+    //   );
+    // }
+
     getLoadItems() {
-      this.podsManagerService.apigetLoadRequestsFromId(this.loadID).subscribe(res => {
-        this.loadName = res['name'];
+      this.podsManagerService.getLoadRequestsFromId(this.loadID).subscribe(res => {
+          this.loadName = res['name'];
       });
-      this.podsManagerService.apigetLoadItems(this.loadID)
-        .subscribe(response => {
-          this.loaditems = response;
-      });
+      this.podsManagerService
+          .getLoadItems(this.loadID)
+          .subscribe(response => {
+              this.loaditems = response;
+          });
     }
 
     createLoad() {
-      this.podsManagerService.apicreateLoadItems(this.reqobj).subscribe(
-        response => {
-          this.addpopup = false;
-          this.getLoadItems();
-          this.addloaddeatilsform();
-        },
-        error => {
-          this.addpopup = true;
-        }
-      );
+        this.podsManagerService.createLoadItem(this.reqobj).subscribe(
+            response => {
+                this.addpopup = false;
+                this.getLoadItems();
+                this.addloaddeatilsform();
+            },
+            error => {
+                this.addpopup = true;
+            }
+        );
     }
 
     onclickDelete(deleteid) {
-        this.podsManagerService.apiDeleteLoadItems(deleteid).subscribe(
-          response => {
-            this.getLoadItems();
-          },
-          error => {
-
-          }
+        this.podsManagerService.deleteLoadItem(deleteid).subscribe(
+            response => {
+                this.getLoadItems();
+            },
+            error => {
+            }
         );
     }
 
