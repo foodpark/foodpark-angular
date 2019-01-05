@@ -263,6 +263,29 @@ export class AddEditResourceComponent implements OnInit {
     }
 
 
+    // getLoadItems() {
+    //   this.podsManagerService.apigetLoadRequestsFromId(this.loadID).subscribe(res => {
+    //     this.loadName = res['name'];
+    //   });
+    //   this.podsManagerService.apigetLoadItems(this.loadID)
+    //     .subscribe(response => {
+    //       this.loaditems = response;
+    //   });
+    // }
+
+    // createLoad() {
+    //   this.podsManagerService.apicreateLoadItems(this.reqobj).subscribe(
+    //     response => {
+    //       this.addpopup = false;
+    //       this.getLoadItems();
+    //       this.addloaddeatilsform();
+    //     },
+    //     error => {
+    //       this.addpopup = true;
+    //     }
+    //   );
+    // }
+
     getLoadItems() {
         this.podsManagerService.getLoadRequestsFromId(this.loadID).subscribe(res => {
             this.loadName = res['name'];
@@ -271,6 +294,7 @@ export class AddEditResourceComponent implements OnInit {
             .subscribe(response => {
                 this.loaditems = response;
             });
+
     }
 
     createLoad() {
@@ -292,7 +316,6 @@ export class AddEditResourceComponent implements OnInit {
                 this.getLoadItems();
             },
             error => {
-
             }
         );
     }
