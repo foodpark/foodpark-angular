@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 import {PodsManagerService} from '../../../../app-services/pod-manager.service';
-import {CategoryModel, LoadItemModel} from 'src/app/model';
+import {CategoryModel, LoadItemModel, PodModel} from 'src/app/model';
 import {TitleCasePipe} from '@angular/common';
 
 @Component({
@@ -29,6 +29,7 @@ export class AddEditResourceComponent implements OnInit {
     selectedCategoryname: any;
     loadbuttonvalue: any;
     categorybuttonvalue: any;
+    pod: PodModel;
 
     formErrors = {
         quantity: '',
@@ -113,7 +114,8 @@ export class AddEditResourceComponent implements OnInit {
                 quantity: this.adddeatilsform.value.quantity,
                 description: this.adddeatilsform.value.description,
                 load_type: this.adddeatilsform.value.load_type,
-                load_id: this.loadID
+                load_id: this.loadID,
+                church_id: this.pod['id']
             };
             this.createLoad();
         }
@@ -262,36 +264,36 @@ export class AddEditResourceComponent implements OnInit {
 
 
     getLoadItems() {
-      this.podsManagerService.apigetLoadRequestsFromId(this.loadID).subscribe(res => {
-        this.loadName = res['name'];
-      });
-      this.podsManagerService.apigetLoadItems(this.loadID)
-        .subscribe(response => {
-          this.loaditems = response;
-      });
+        this.podsManagerService.getLoadRequestsFromId(this.loadID).subscribe(res => {
+            this.loadName = res['name'];
+        });
+        this.podsManagerService.getLoadItems(this.loadID)
+            .subscribe(response => {
+                this.loaditems = response;
+            });
     }
 
     createLoad() {
-      this.podsManagerService.apicreateLoadItems(this.reqobj).subscribe(
-        response => {
-          this.addpopup = false;
-          this.getLoadItems();
-          this.addloaddeatilsform();
-        },
-        error => {
-          this.addpopup = true;
-        }
-      );
+        this.podsManagerService.createLoadItem(this.reqobj).subscribe(
+            response => {
+                this.addpopup = false;
+                this.getLoadItems();
+                this.addloaddeatilsform();
+            },
+            error => {
+                this.addpopup = true;
+            }
+        );
     }
 
     onclickDelete(deleteid) {
-        this.podsManagerService.apiDeleteLoadItems(deleteid).subscribe(
-          response => {
-            this.getLoadItems();
-          },
-          error => {
+        this.podsManagerService.deleteLoadItem(deleteid).subscribe(
+            response => {
+                this.getLoadItems();
+            },
+            error => {
 
-          }
+            }
         );
     }
 
@@ -351,6 +353,9 @@ export class AddEditResourceComponent implements OnInit {
     ngOnInit() {
         this.addloaddeatilsform();
         this.editloaddeatilsform();
+        this.podsManagerService.getPodOfLoggedInUser(localStorage.getItem('user_id')).subscribe(pod => {
+            this.pod = pod[0];
+        });
     }
 
     onSaveAndGoBackClick() {

@@ -5,6 +5,7 @@ import {FormBuilder, Validators} from '@angular/forms';
 import {PodsService} from '../../../../app-services/pods.service';
 import {PodsManagerService} from '../../../../app-services/pod-manager.service';
 import {MainhubService} from 'src/app/app-services/mainhub.service';
+import {PodModel} from '../../../../model';
 
 @Component({
     selector: 'app-loadresource',
@@ -19,15 +20,23 @@ export class LoadResourceComponent implements OnInit {
     loadrequests: any;
     newloadrequestform: any;
     popup1: any;
+    pod: PodModel;
 
-    constructor(private podsService: PodsService,private podsManagerService: PodsManagerService,private mainhubService: MainhubService,private route: Router,  private formBuilder: FormBuilder) {
-          this.popup1 = true;
+    constructor(private podsService: PodsService,
+                private podsManagerService: PodsManagerService,
+                private mainhubService: MainhubService,
+                private route: Router,
+                private formBuilder: FormBuilder) {
+        this.popup1 = true;
     }
 
 
     ngOnInit() {
         this.requestInitform();
         this.getLoadRequests();
+        this.podsManagerService.getPodOfLoggedInUser(localStorage.getItem('user_id')).subscribe(pod => {
+            this.pod = pod[0];
+        });
     }
 
     requestInitform() {
@@ -44,7 +53,8 @@ export class LoadResourceComponent implements OnInit {
 
     createrequest() {
         const reqobj = {
-            name: this.newloadrequestform.get('name').value
+            name: this.newloadrequestform.get('name').value,
+            church_id: this.pod['id']
         };
         this.podsManagerService.createLoadRequest(reqobj).subscribe(
             response => {
