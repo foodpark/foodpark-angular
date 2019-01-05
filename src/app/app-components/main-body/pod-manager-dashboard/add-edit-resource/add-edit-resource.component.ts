@@ -376,7 +376,7 @@ export class AddEditResourceComponent implements OnInit {
     ngOnInit() {
         this.addloaddeatilsform();
         this.editloaddeatilsform();
-        this.podsManagerService.getPodOfLoggedInUser(localStorage.getItem('user_id')).subscribe(pod => {
+        this.podsManagerService.getPodOfLoggedInUser(parseInt(localStorage.getItem('user_id'), 10)).subscribe(pod => {
             this.pod = pod[0];
         });
     }

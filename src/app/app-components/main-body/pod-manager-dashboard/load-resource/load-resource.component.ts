@@ -34,7 +34,7 @@ export class LoadResourceComponent implements OnInit {
     ngOnInit() {
         this.requestInitform();
         this.getLoadRequests();
-        this.podsManagerService.getPodOfLoggedInUser(localStorage.getItem('user_id')).subscribe(pod => {
+        this.podsManagerService.getPodOfLoggedInUser(parseInt(localStorage.getItem('user_id'), 10)).subscribe(pod => {
             this.pod = pod[0];
         });
     }
