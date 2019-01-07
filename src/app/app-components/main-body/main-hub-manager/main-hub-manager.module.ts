@@ -28,7 +28,8 @@ import {CreateDonationOrderComponent} from './create-donation-order/create-donat
 import {EditMasterLoadComponent} from './edit-master-load/edit-master-load.component';
 import {CreateMasterLoadComponent} from './create-master-load/create-master-load.component';
 import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
-import { CustomizeLoadComponent } from './customize-load/customize-load.component';
+import {CustomizeLoadComponent} from './customize-load/customize-load.component';
+import {AgmCoreModule} from '@agm/core';
 
 
 @NgModule({
@@ -40,6 +41,9 @@ import { CustomizeLoadComponent } from './customize-load/customize-load.componen
         MaterialModule,
         OwlDateTimeModule,
         OwlNativeDateTimeModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyCte3xKzZwcbVXm7942WDn1Twu2I0SAsoo'
+        })
     ],
     declarations: [
         HubManagerDashboardComponent,

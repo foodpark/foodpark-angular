@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {Subject} from 'rxjs';
-import {CategoryModel, LoadItemModel} from '../model';
+import {CategoryModel, LoadItemModel, PodModel} from '../model';
 
 @Injectable({
     providedIn: 'root'
@@ -47,6 +47,10 @@ export class PodsManagerService {
 
     deleteLoadItem(loaditemsid) {
         return this.http.delete(environment.apiUrl + '/api/v1/rel/load_items/' + loaditemsid);
+    }
+
+    getPodOfLoggedInUser(userId: number) {
+        return this.http.get<PodModel>(environment.apiUrl + '/api/v1/rel/churches?user_id=' + userId);
     }
 
 }

@@ -7,7 +7,6 @@ import { MainhubService } from 'src/app/app-services/mainhub.service';
     selector: 'app-volunteers',
     templateUrl: './volunteers.component.html'
 })
-
 export class VolunteersComponent implements OnInit {
     allvolunters: any;
     mainHub: any;
@@ -118,15 +117,13 @@ export class VolunteersComponent implements OnInit {
             phone: this.objresponse.phone,
             user_id: this.objresponse.id
         };
-        this.distributionservice
-            .addVolunteers(this.mainhubId, obj)
-            .subscribe(
-                response => {
-                    this.getAllVolunteers();
-                    this.getRegisteredVolunteers();
-                },
-                error => {}
-            );
+        this.distributionservice.addVolunteers(this.mainhubId, obj).subscribe(
+            response => {
+                this.getAllVolunteers();
+                this.getRegisteredVolunteers();
+            },
+            error => {}
+        );
     }
 
     switchChanged(event, avilableid) {

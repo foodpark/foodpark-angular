@@ -1,13 +1,18 @@
 <div class="absolute-position">
     <div>
-        <div class="title-center"><h2>Load Request</h2></div>
+        <div class="title-center">
+            <h2>Load Request</h2>
+        </div>
+        <div class="title-center">
+            <h4>Pod: <i>{{pod?.name}}</i></h4>
+        </div>
         <button
             type="button"
             name="button"
             class="btn btn-default new_btn"
             style="height: 50px;align-items: center;width: 100%;"
             data-toggle="modal"
-            
+
             (click)="popup1 = false">
             Create Load Request
         </button>
@@ -26,38 +31,39 @@
         </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let loaddata of loadrequests">
-                <td>{{ loaddata.name }}</td>
-                <td>{{ loaddata.created_at | date }}</td>
-                <!-- <td *ngFor="let boxes of boxesdata">
-                  <p>{{ boxes.category_name}}({{boxes.quantity}})</p>
-                </td> -->
-                <td>
-                  <p *ngFor="let pallet of loaddata.pallets">  {{ pallet.category_name}}({{pallet.quantity}})</p>
-                </td>
-                <!-- <td *ngFor="let boxes of loaddata.boxes">{{ boxes.category_name}}({{boxes.quantity}})</td> -->
-                <td>
-                  <p *ngFor="let boxes of loaddata.boxes">{{ boxes.category_name}}({{boxes.quantity}})</p>
-                </td>
-                <td>
-                  <p *ngFor="let item of loaddata.items">{{ item.category_name}}({{item.quantity}})</p>
-                </td>
-                <td style="text-align: center;">
-                  <i  class="material-icons" (click)="clickAddEdit(loaddata.id)">
-                      edit
-                  </i>
-                </td>
-                <td style="text-align: center;">
-                    <i class="material-icons" (click)="onclickDelete(loaddata.id)"> delete </i>
-                </td>
-                <td></td>
-            </tr>
+        <tr *ngFor="let loaddata of loadrequests">
+            <td>{{ loaddata.name }}</td>
+            <td>{{ loaddata.created_at | date }}</td>
+            <!-- <td *ngFor="let boxes of boxesdata">
+              <p>{{ boxes.category_name}}({{boxes.quantity}})</p>
+            </td> -->
+            <td>
+                <p *ngFor="let pallet of loaddata.pallets"> {{ pallet.category_name}}({{pallet.quantity}})</p>
+            </td>
+            <!-- <td *ngFor="let boxes of loaddata.boxes">{{ boxes.category_name}}({{boxes.quantity}})</td> -->
+            <td>
+                <p *ngFor="let boxes of loaddata.boxes">{{ boxes.category_name}}({{boxes.quantity}})</p>
+            </td>
+            <td>
+                <p *ngFor="let item of loaddata.items">{{ item.category_name}}({{item.quantity}})</p>
+            </td>
+            <td style="text-align: center;">
+                <i class="material-icons" (click)="clickAddEdit(loaddata.id)">
+                    edit
+                </i>
+            </td>
+            <td style="text-align: center;">
+                <i class="material-icons" (click)="onclickDelete(loaddata.id)"> delete </i>
+            </td>
+            <td></td>
+        </tr>
         </tbody>
     </table>
 </div>
 
 
-<div class="modal_popup" id="createload" role="dialog" data-backdrop="false" aria-hidden="true" *ngIf="!popup1" style="display:block">
+<div class="modal_popup" id="createload" role="dialog" data-backdrop="false" aria-hidden="true" *ngIf="!popup1"
+     style="display:block">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header modal__header">
