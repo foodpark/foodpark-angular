@@ -65,17 +65,18 @@
                             <td>{{ load.created_at | date }}</td>
                             <td>
                                 <p
-                                    *ngFor="let pallet of load.pallets;">{{ pallet['category_name']}} ({{pallet['quantity']}})
+                                    *ngFor="let pallet of load.pallets;">{{ pallet['category_name']}} X
+                                    {{pallet['quantity']}}
                                 </p>
                             </td>
                             <td>
                                 <p
-                                    *ngFor="let box of load.boxes;"> {{ box['category_name']}} ({{box['quantity']}})
+                                    *ngFor="let box of load.boxes;"> {{ box['category_name']}} X {{box['quantity']}}
                                 </p>
                             </td>
                             <td>
                                 <p
-                                    *ngFor="let item of load.items;">{{ item['category_name']}} ({{item['quantity']}})
+                                    *ngFor="let item of load.items;">{{ item['category_name']}} X {{item['quantity']}}
                                 </p>
                             </td>
                             <td style="text-align: center;">

@@ -1,4 +1,7 @@
 <h2 style="padding-top:100px;display:flex;justify-content:center;width:100%;">Reporting</h2>
+<div class="title-center">
+    <h4>Main Hub: <i>{{mainHub[0]?.name}}</i></h4>
+</div>
 <agm-map
     [latitude]="latitude"
     [longitude]="longitude"
@@ -8,7 +11,7 @@
         *ngFor="let m of markers;"
         [latitude]="m.latitude"
         [longitude]="m.longitude"
-        [iconUrl]=""
+        [iconUrl]="m.icon"
         [label]="m.label">
     </agm-marker>
 
@@ -23,7 +26,7 @@
 <div class="container-fluid col-sm-12 menu_detail shell bg_1" style="padding: 35px 80px;">
     <div class="form-group" style="display: flex;justify-content: space-between;">
         <h4>Select Date</h4>
-        <div class="dropdown" style="min-width: 300px;">
+        <div class="dropdown" style="min-width: 500px;">
             <button id="year"
                     class="btn btn-primary dropdown-toggle"
                     type="button"
@@ -35,7 +38,7 @@
                 </li>
             </ul>
         </div>
-        <div class="dropdown" style="min-width: 300px;">
+        <div class="dropdown" style="min-width: 500px;">
             <button id="month"
                     class="btn btn-primary dropdown-toggle"
                     type="button"
@@ -50,7 +53,7 @@
     </div>
     <div class="form-group" style="display: flex;justify-content: space-between;">
         <h4>Select Main Hub</h4>
-        <div class="dropdown" style="min-width: 550px;">
+        <div class="dropdown" style="min-width: 86%;">
             <button id="mainhub"
                     class="btn btn-primary dropdown-toggle"
                     type="button"
@@ -64,10 +67,13 @@
         </div>
     </div>
     <div class="title-center"><h2>MASTER LOADS: {{masterLoadCount || ''}}</h2></div>
+    <div class="form-group" *ngFor="let regionalHub of regionalHubs;let i = index;">REGIONAL HUB #{{i+1}} LOADS
+        :{{loadCount}}
+    </div>
 </div>
 <!--<i class="material-icons">-->
 <!--home-->
 <!--</i>-->
 <!--<i class="material-icons">-->
-<!--store_mall_directory-->
+<!--store_mall_directory-->c
 <!--</i>-->

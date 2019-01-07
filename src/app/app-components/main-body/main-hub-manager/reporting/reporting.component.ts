@@ -4,7 +4,7 @@ import {RegionalhubsService} from '../../../../app-services/regionalhubs.service
 import {MainhubService} from '../../../../app-services/mainhub.service';
 import {Router} from '@angular/router';
 import {ReportingService} from '../../../../app-services/reporting.service';
-import {MainhubModel} from '../../../../model';
+import {MainhubModel, PodModel, RegionalHubModel} from '../../../../model';
 import {Subscription} from 'rxjs';
 
 interface Marker {
@@ -31,6 +31,8 @@ export class ReportingComponent implements OnInit {
     markers: Marker[] = [];
     icon;
     mainHub: MainhubModel[];
+    regionalHubs: RegionalHubModel[];
+    pods: PodModel[];
     monthMap = {
         0: 'January',
         1: 'February',
@@ -47,6 +49,7 @@ export class ReportingComponent implements OnInit {
     };
     private mainhubsSubscription: Subscription;
     masterLoadCount: number;
+    loadCount = 0;
 
     constructor(private dataService: DataService,
                 private regionalHubService: RegionalhubsService,
@@ -71,6 +74,7 @@ export class ReportingComponent implements OnInit {
             .subscribe((response) => {
                 this.reportService.getReportsOfLoggedInUser(response[0]['id']).subscribe(report => {
                     this.masterLoadCount = report['master_loads'];
+                    this.regionalHubs = report['regionalhubs'];
                     const obj = {
                         latitude: parseFloat(report['mainhub'][0]['latitude']),
                         longitude: parseFloat(report['mainhub'][0]['longitude']),
@@ -78,7 +82,9 @@ export class ReportingComponent implements OnInit {
                         icon: '../../../../../assets/images/warehouse.svg'
                     };
                     this.markers.push(obj);
+                    this.loadCount = 0;
                     report['regionalhubs'].forEach(hub => {
+                        this.loadCount = hub['load_count'];
                         hub['pods'].forEach(pod => {
                             const podMarker = {
                                     latitude: parseFloat(pod['latitude']),
