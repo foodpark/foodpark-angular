@@ -5,7 +5,6 @@ import {AdminDashboardComponent} from '../app-components/main-body/admin/admin-d
 
 import {HubManagerDashboardComponent} from '../app-components/main-body/main-hub-manager/hub-manager-dashboard/hub-manager-dashboard.component';
 import {RegionalHubComponent} from '../app-components/main-body/main-hub-manager/regionalhub/regionalhub.component';
-import {ReportingComponent} from '../app-components/main-body/main-hub-manager/reporting/reporting.component';
 import {CreatePodsComponent} from '../app-components/main-body/main-hub-manager/create-pods/create-pods.component';
 import {PodsComponent} from '../app-components/main-body/main-hub-manager/pods/pods.component';
 
@@ -39,7 +38,9 @@ import {CreateMasterLoadComponent} from '../app-components/main-body/main-hub-ma
 import {EditMasterLoadComponent} from '../app-components/main-body/main-hub-manager/edit-master-load/edit-master-load.component';
 import {CustomizeLoadComponent} from '../app-components/main-body/main-hub-manager/customize-load/customize-load.component';
 import {GuestCreatePodsComponent} from '../app-components/main-body/guest-create-pods/create-pods.component';
-import { PodPickupListingComponent } from '../app-components/main-body/main-hub-manager/pod-pickups-listing/pod-pickup-listing.component';
+import {PodPickupListingComponent} from '../app-components/main-body/main-hub-manager/pod-pickups-listing/pod-pickup-listing.component';
+import {AdminReportingComponent} from '../app-components/main-body/admin/admin-reporting/admin-reporting.component';
+import {HubManagerReportingComponent} from '../app-components/main-body/main-hub-manager/hub-manager-reporting/hub-manager-reporting.component';
 
 
 const routes: Routes = [
@@ -77,7 +78,7 @@ const routes: Routes = [
                 path: 'editmainhubmanager', component: AddEditMainHubManagerComponent, children: []
             },
             {
-                path: 'reporting', component: ReportingComponent
+                path: 'adminreporting', component: AdminReportingComponent
             },
         ]
     },
@@ -88,7 +89,7 @@ const routes: Routes = [
                 path: 'regionalhubs', component: RegionalHubComponent
             },
             {
-                path: 'reporting', component: ReportingComponent
+                path: 'hubmgrreporting', component: HubManagerReportingComponent
             },
             {
                 path: 'addregionalhub', component: AddEditRegionalHubComponent, children: []
@@ -123,13 +124,13 @@ const routes: Routes = [
             {
                 path: 'distributioncentermanagement', component: DistributionCenterComponent,
                 children: [
-                  { path: '',  redirectTo: 'gikdonations', pathMatch: 'full'},
-                  {
-                      path: 'gikdonations', component: GIKDonationsComponent
-                  },
-                  {
-                      path: 'volunteers', component: VolunteersComponent
-                  }
+                    {path: '', redirectTo: 'gikdonations', pathMatch: 'full'},
+                    {
+                        path: 'gikdonations', component: GIKDonationsComponent
+                    },
+                    {
+                        path: 'volunteers', component: VolunteersComponent
+                    }
                 ]
             },
             {

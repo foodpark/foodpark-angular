@@ -10,6 +10,8 @@ import {TerritoriesListingComponent} from './territories-listing/territories-lis
 import {AddEditMainHubManagerComponent} from './add-edit-main-hub-manager/add-edit-main-hub-manager.component';
 import {AddEditTerritoryComponent} from './add-edit-territory/add-edit-territory.component';
 import {AddEditMainhubComponent} from './add-edit-mainhub/add-edit-mainhub.component';
+import {AdminReportingComponent} from './admin-reporting/admin-reporting.component';
+import {AgmCoreModule} from '@agm/core';
 
 
 @NgModule({
@@ -18,7 +20,10 @@ import {AddEditMainhubComponent} from './add-edit-mainhub/add-edit-mainhub.compo
         ReactiveFormsModule,
         BrowserModule,
         RouterModule,
-        MainHubManagerModule
+        MainHubManagerModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyCte3xKzZwcbVXm7942WDn1Twu2I0SAsoo'
+        })
     ],
     declarations: [
         AdminDashboardComponent,
@@ -27,7 +32,8 @@ import {AddEditMainhubComponent} from './add-edit-mainhub/add-edit-mainhub.compo
         AddEditTerritoryComponent,
         MainHubsListingComponent,
         AddEditMainhubComponent,
-        MainhubManagerListingComponent
+        MainhubManagerListingComponent,
+        AdminReportingComponent
     ],
     exports: [],
 })
