@@ -16,8 +16,9 @@
 }
 
 .new_pods_button {
-  margin: 15px 0;
+    margin: 15px 0;
 }
+
 .dashboard_content_layout {
     padding-top: 85px;
     width: 100%;
@@ -278,4 +279,11 @@ $transition-default: 0.25s ease-out 0.10s;
 
 agm-map {
     height: 300px;
+    agm-marker {
+        img {
+            height: 50px;
+            width: 50px;
+            object-fit: contain;
+        }
+    }
 }

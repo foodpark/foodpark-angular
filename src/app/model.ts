@@ -111,3 +111,17 @@ export interface LoadItemModel {
     load_type: string;
     load_id: number;
 }
+
+export interface PodReportingModel {
+    id: number;
+    name: string;
+    lat: number;
+    lng: number;
+    load_count: number;
+}
+
+export interface HubReportingModel {
+    id: number;
+    name: string;
+    pods: PodmanagerModel[];
+}

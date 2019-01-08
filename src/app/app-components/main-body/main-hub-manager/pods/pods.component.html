@@ -21,6 +21,7 @@
         <tr *ngFor="let item of pods; let i = index">
             <td>
                 <div>
+                    <p style="margin: 0;"><strong>Pod Name</strong></p>
                     <p>{{item['name']}}</p>
                     <p style="margin: 0;"><strong>Sponsor Name</strong></p>
                     <p>{{item['sponsor']}}</p>
@@ -40,7 +41,7 @@
                     <button id="{{'status'+i}}"
                             class="btn btn-primary dropdown-toggle"
                             type="button"
-                            data-toggle="dropdown">{{ pods[i]['approved'] === true ? 'Approve' : 'Reject' }}
+                            data-toggle="dropdown">{{ pods[i]['approved'] === true ? 'Approved' : 'Unapproved' }}
                     </button>
                     <div class="form-group">
                         <ul class="dropdown-menu">

@@ -31,21 +31,6 @@
                 <input type="password" class="form-control" name="" value="" placeholder="Retype Password"
                        formControlName="repeatpassword">
             </div>
-            <div class="form-group">
-                <h4>Country</h4>
-                <div class="dropdown">
-                    <button id="country_button"
-                            class="btn btn-primary dropdown-toggle"
-                            type="button"
-                            data-toggle="dropdown">Select
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li *ngFor="let item of countries; let i = index" (click)="onCountryClick(i, item['id'])">
-                            {{item.name}}
-                        </li>
-                    </ul>
-                </div>
-            </div>
             <button type="submit"
                     class="btn btn-default"
                     [disabled]="!editpodmanagerform.valid"

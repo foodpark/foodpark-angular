@@ -33,9 +33,9 @@ export class LoadResourceComponent implements OnInit {
 
     ngOnInit() {
         this.requestInitform();
-        this.getLoadRequests();
         this.podsManagerService.getPodOfLoggedInUser(parseInt(localStorage.getItem('user_id'), 10)).subscribe(pod => {
             this.pod = pod[0];
+            this.getLoadRequestsFromPodId(this.pod['id']);
         });
     }
 
@@ -51,6 +51,12 @@ export class LoadResourceComponent implements OnInit {
         });
     }
 
+    getLoadRequestsFromPodId(podId: number) {
+        this.podsManagerService.getLoadRequestsFromPodId(podId).subscribe(response => {
+            this.loadrequests = response;
+        });
+    }
+
     createrequest() {
         const reqobj = {
             name: this.newloadrequestform.get('name').value,
@@ -59,7 +65,7 @@ export class LoadResourceComponent implements OnInit {
         this.podsManagerService.createLoadRequest(reqobj).subscribe(
             response => {
                 this.popup1 = true;
-                this.getLoadRequests();
+                this.getLoadRequestsFromPodId(this.pod['id']);
             },
             error => {
                 this.popup1 = false;
@@ -74,7 +80,7 @@ export class LoadResourceComponent implements OnInit {
     onclickDelete(deleteid) {
         this.podsManagerService.deleteLoadRequest(deleteid)
             .subscribe(response => {
-                this.getLoadRequests();
+                this.getLoadRequestsFromPodId(this.pod['id']);
             });
     }
 }

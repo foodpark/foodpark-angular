@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DataService} from '../../../../app-services/data.service';
 import {RegionalhubsService} from '../../../../app-services/regionalhubs.service';
 import {MainhubService} from '../../../../app-services/mainhub.service';
 import {Router} from '@angular/router';
 import {ReportingService} from '../../../../app-services/reporting.service';
-import {MainhubModel} from '../../../../model';
+import {MainhubModel, PodModel, RegionalHubModel} from '../../../../model';
 import {Subscription} from 'rxjs';
 
 interface Marker {
@@ -17,36 +17,25 @@ interface Marker {
 
 @Component({
     selector: 'app-reporting',
-    templateUrl: './reporting.component.html',
+    templateUrl: './hub-manager-reporting.component.html',
 
 })
-export class ReportingComponent implements OnInit {
+export class HubManagerReportingComponent implements OnInit, OnDestroy {
     lat: number;
     lng: number;
     latitude: number;
     longitude: number;
     currentYear;
-    lastMonth;
     zoom = 3;
     markers: Marker[] = [];
     icon;
-    mainHub: MainhubModel[];
-    monthMap = {
-        0: 'January',
-        1: 'February',
-        2: 'March',
-        3: 'April',
-        4: 'May',
-        5: 'June',
-        6: 'July',
-        7: 'August',
-        8: 'September',
-        9: 'October',
-        10: 'November',
-        11: 'December'
-    };
+    mainHub: MainhubModel;
+    regionalHubs: RegionalHubModel[];
+    pods: PodModel[];
     private mainhubsSubscription: Subscription;
+    private reportsSubscription: Subscription;
     masterLoadCount: number;
+    loadCount = [];
 
     constructor(private dataService: DataService,
                 private regionalHubService: RegionalhubsService,
@@ -56,21 +45,12 @@ export class ReportingComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (this.dataService.stringComparator(localStorage.getItem('userrole'), 'hubmgr')) {
-            this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id')).subscribe((response) => {
-                this.mainHub = response;
-            });
-        } else if (this.dataService.stringComparator(localStorage.getItem('userrole'), 'admin')) {
-            this.mainhubService.getMainhubs();
-            this.mainhubsSubscription = this.mainhubService.getMainhubsUpdateListener()
-                .subscribe((res: MainhubModel[]) => {
-                    this.mainHub = res;
-                });
-        }
-        this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
+        this.mainhubsSubscription = this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
             .subscribe((response) => {
-                this.reportService.getReportsOfLoggedInUser(response[0]['id']).subscribe(report => {
+                this.mainHub = response[0];
+                this.reportsSubscription = this.reportService.getReportsOfLoggedInUser(response[0]['id']).subscribe(report => {
                     this.masterLoadCount = report['master_loads'];
+                    this.regionalHubs = report['regionalhubs'];
                     const obj = {
                         latitude: parseFloat(report['mainhub'][0]['latitude']),
                         longitude: parseFloat(report['mainhub'][0]['longitude']),
@@ -78,7 +58,9 @@ export class ReportingComponent implements OnInit {
                         icon: '../../../../../assets/images/warehouse.svg'
                     };
                     this.markers.push(obj);
-                    report['regionalhubs'].forEach(hub => {
+                    this.loadCount = [];
+                    this.regionalHubs.forEach(hub => {
+                        this.loadCount.push(hub['load_count']);
                         hub['pods'].forEach(pod => {
                             const podMarker = {
                                     latitude: parseFloat(pod['latitude']),
@@ -94,7 +76,6 @@ export class ReportingComponent implements OnInit {
                 });
             });
         this.currentYear = new Date().getFullYear();
-        this.lastMonth = this.monthMap[new Date().getMonth() === 0 ? 11 : new Date().getMonth()];
     }
 
 
@@ -115,19 +96,23 @@ export class ReportingComponent implements OnInit {
     }
 
     onYearSelected() {
-        const button = document.getElementById('year');
+        const button = document.getElementById('date');
         button.innerText = this.currentYear;
     }
 
     onMonthSelected() {
-        const button = document.getElementById('month');
-        button.innerText = this.lastMonth;
+        const button = document.getElementById('date');
+        button.innerText = 'Last Month';
     }
 
     onMainHubSelected() {
         const button = document.getElementById('mainhub');
-        button.innerText = this.lastMonth;
+        button.innerText = this.mainHub['name'];
     }
 
+    ngOnDestroy() {
+        this.mainhubsSubscription && this.mainhubsSubscription.unsubscribe();
+        this.reportsSubscription && this.reportsSubscription.unsubscribe();
+    }
 }
 

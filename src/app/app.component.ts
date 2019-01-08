@@ -10,27 +10,22 @@ import { Router, NavigationStart, NavigationEnd, NavigationCancel, Event as Navi
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
+
 export class AppComponent implements OnInit {
-    loading:any;
+    loading: any;
     constructor(private dataService: DataService, private authService: AuthService, private router: Router) {
       this.loading = true;
-
     }
-
 
     ngOnInit() {
         this.authService.autoAuthUser();
         this.router.events
-            .subscribe((event) => {
-                if(event instanceof NavigationStart) {
-                  document.getElementById('loader').classList.remove('hide1');
-                }
-                else if (
-                    event instanceof NavigationEnd ||
-                    event instanceof NavigationCancel
-                    ) {
-                    document.getElementById('loader').classList.add('hide1');
-                }
-            });
+        .subscribe((event) => {
+            if (event instanceof NavigationStart) {
+                document.getElementById('loader').classList.remove('hide1');
+            } else if (event instanceof NavigationEnd || event instanceof NavigationCancel) {
+                document.getElementById('loader').classList.add('hide1');
+            }
+        });
     }
 }

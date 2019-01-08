@@ -1,9 +1,7 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ActivatedRoute, ParamMap} from '@angular/router';
-import {PodmanagerModel, CountryModel} from 'src/app/model';
 import {PodsService} from 'src/app/app-services/pods.service';
 import {Subscription} from 'rxjs';
-import {CountryService} from 'src/app/app-services/country.service';
 import {FormGroup, Validators, FormBuilder} from '@angular/forms';
 
 @Component({
@@ -15,13 +13,11 @@ export class EditPodManagerComponent implements OnInit, OnDestroy {
     editpodmanagerform: FormGroup;
     podManager: any;
     podManagerID: string;
-    countries = [];
 
     private countriesSubscription: Subscription;
 
     constructor(private formBuilder: FormBuilder,
                 private route: ActivatedRoute,
-                private countryService: CountryService,
                 private podService: PodsService) {
     }
 
@@ -35,13 +31,6 @@ export class EditPodManagerComponent implements OnInit, OnDestroy {
             country_id: ['', Validators.required],
             country: ['', Validators.required]
         });
-
-        this.countriesSubscription = this.countryService.getCountriesUpdateListener()
-            .subscribe((countries: CountryModel[]) => {
-                if (countries.length > 0) {
-                    this.countries = countries;
-                }
-            });
 
         this.route.paramMap.subscribe((paramMap: ParamMap) => {
             if (paramMap.has('podmanagerid')) {
@@ -62,17 +51,9 @@ export class EditPodManagerComponent implements OnInit, OnDestroy {
                         //     email: this.podManager.email,
                         //     country_id: this.podManager.country_id
                         // });
-                        this.countryService.getCountries();
                     });
             }
         });
-    }
-
-    onCountryClick(index: number, id: number) {
-        const button = document.getElementById('country_button');
-        button.innerText = this.countries[index]['name'];
-        this.editpodmanagerform.get('country').setValue(this.countries[index]['name']);
-        this.editpodmanagerform.get('country_id').setValue(this.countries[index]['id']);
     }
 
     updatePodManager() {

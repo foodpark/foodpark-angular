@@ -6,7 +6,6 @@ import {MaterialModule} from '../../../app-modules/material.module';
 
 import {HubManagerDashboardComponent} from './hub-manager-dashboard/hub-manager-dashboard.component';
 import {RegionalHubComponent} from './regionalhub/regionalhub.component';
-import {ReportingComponent} from './reporting/reporting.component';
 import {PodsComponent} from './pods/pods.component';
 import {CreatePodsComponent} from './create-pods/create-pods.component';
 import {LoadManagementComponent} from './load-management/load-management.component';
@@ -30,6 +29,8 @@ import {CreateMasterLoadComponent} from './create-master-load/create-master-load
 import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
 import {CustomizeLoadComponent} from './customize-load/customize-load.component';
 import {AgmCoreModule} from '@agm/core';
+import {PodPickupListingComponent} from './pod-pickups-listing/pod-pickup-listing.component';
+import {HubManagerReportingComponent} from './hub-manager-reporting/hub-manager-reporting.component';
 
 
 @NgModule({
@@ -48,7 +49,6 @@ import {AgmCoreModule} from '@agm/core';
     declarations: [
         HubManagerDashboardComponent,
         RegionalHubComponent,
-        ReportingComponent,
         PodsComponent,
         CreatePodsComponent,
         LoadManagementComponent,
@@ -68,14 +68,13 @@ import {AgmCoreModule} from '@agm/core';
         EditMasterLoadComponent,
         CreateDonationOrderComponent,
         EditMasterLoadComponent,
-        CustomizeLoadComponent
-
-        // PodManagerDashboardComponent
+        CustomizeLoadComponent,
+        PodPickupListingComponent,
+        HubManagerReportingComponent
     ],
     exports: [
         HubManagerDashboardComponent,
         RegionalHubComponent,
-        ReportingComponent,
         PodsComponent,
         CreatePodsComponent,
         LoadManagementComponent,
@@ -88,7 +87,7 @@ import {AgmCoreModule} from '@agm/core';
         AddEditRegionalHubComponent,
         CreateMasterLoadComponent,
         EditMasterLoadComponent,
-        // PodManagerDashboardComponent
+        HubManagerReportingComponent
     ],
 })
 export class MainHubManagerModule {

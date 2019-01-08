@@ -21,6 +21,10 @@ export class PodsManagerService {
         return this.http.get(environment.apiUrl + '/api/v1/rel/loads');
     }
 
+    getLoadRequestsFromPodId(podId: number) {
+        return this.http.get(environment.apiUrl + '/api/v1/rel/churches/' + podId + '/loads');
+    }
+
     getLoadRequestsFromId(id: number) {
         return this.http.get(environment.apiUrl + '/api/v1/rel/loads/' + id);
     }
