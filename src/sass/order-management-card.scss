@@ -23,6 +23,12 @@
   font-size: 19px;
   color: #568ca1;
 }
+
+.card_view_icon {
+  img {
+    height: 63px;
+  }
+}
 .order_staus_action_buttons {
   display: flex;
   justify-content: space-around;
@@ -47,12 +53,27 @@
 .card_view__actions {
   width: 129px;
   button {
+    font-size: 18px;
     width: 100%;
     border: 1px solid #77776b;
-    background-color: #77776b;
     text-align: center;
     padding: 10px 0;
     color: #fff;
   }
 
+}
+.button_arrived {
+  background-color: #9f1f63 !important;
+}
+.button_palletized {
+  background-color: #83a8b7 !important;
+}
+.button_ready {
+  background-color: #67c4ea;
+}
+.button_dispatched {
+  background-color: #1A237E !important;
+}
+.button_delivered {
+  background-color: #67eaae !important;
 }
