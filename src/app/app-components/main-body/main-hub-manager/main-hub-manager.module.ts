@@ -30,6 +30,7 @@ import {CreateMasterLoadComponent} from './create-master-load/create-master-load
 import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
 import {CustomizeLoadComponent} from './customize-load/customize-load.component';
 import {AgmCoreModule} from '@agm/core';
+import { PodPickupListingComponent } from './pod-pickups-listing/pod-pickup-listing.component';
 
 
 @NgModule({
@@ -68,7 +69,8 @@ import {AgmCoreModule} from '@agm/core';
         EditMasterLoadComponent,
         CreateDonationOrderComponent,
         EditMasterLoadComponent,
-        CustomizeLoadComponent
+        CustomizeLoadComponent,
+        PodPickupListingComponent
 
         // PodManagerDashboardComponent
     ],
