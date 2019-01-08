@@ -48,7 +48,7 @@ const routes: Routes = [
     {
         path: 'dashboard', component: LoginComponent
     },
-    {path:'guest-create-pod', component:GuestCreatePodsComponent},
+    {path: 'guest-create-pod', component: GuestCreatePodsComponent},
     {
         path: 'admin', component: AdminDashboardComponent, canActivate: [AuthGuard], children: [
             {
