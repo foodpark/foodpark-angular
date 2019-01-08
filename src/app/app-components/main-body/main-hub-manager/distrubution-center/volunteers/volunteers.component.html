@@ -16,7 +16,7 @@
                 <td>{{ item.first_name }} {{ item.last_name }}</td>
                 <td>
                     <div class="button-switch">
-                      <input type="checkbox" id="switch-blue" class="switch" [checked]="item.available" (change)="switchChanged($event, item.id)"  />
+                      <input type="checkbox" id="switch-blue" class="switch" [checked]="item.available" (change)="changeVolunteereStatus($event, item.id)"  />
                       <!-- <input type="checkbox" id="switch-blue" class="switch"  *ngIf="item.available == false"/> -->
                       <!--
                           <label for="switch-blue" class="lbl-off"></label>
@@ -26,7 +26,7 @@
                 </td>
                 <td>{{ item.phone }}</td>
                 <td style="text-align: center;">
-                    <i class="material-icons" (click)="deletevolunteer(item['id'])">
+                    <i class="material-icons" (click)="deleteVolunteer(item['id'])">
                         delete
                     </i>
                 </td>
@@ -55,8 +55,8 @@
               <td>{{ item.first_name }}.{{ item.last_name }}</td>
               <td>{{ item.phone }}</td>
               <td style="text-align: center;">
-                  <button class="add_button" type="button" name="button" (click)="Addvolunter(item)" *ngIf="!item.selected">Add Volunteer</button>
-                  <button class="remove_button" type="button" name="button" *ngIf="item.selected" (click)="deletevolunteer(item['id'])">Remove </button>
+                  <button class="add_button" type="button" name="button" (click)="addVolunteer(item)" *ngIf="!item.selected">Add Volunteer</button>
+                  <button class="remove_button" type="button" name="button" *ngIf="item.selected" (click)="deleteVolunteer(item['id'])">Remove </button>
               </td>
           </tr>
       </tbody>
@@ -89,7 +89,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="createVolunteers()">Save</button>
+        <button type="button" class="btn btn-secondary" (click)="createVolunteer()">Save</button>
         <button type="button" class="btn btn-secondary" (click)="newvolunterpopup = false">Cancel</button>
       </div>
     </div>
