@@ -1,6 +1,8 @@
 <h2 style="padding-top:100px;display:flex;justify-content:center;width:100%;">Reporting</h2>
 <div class="title-center">
-    <h4>Main Hub: <i>{{ mainHub?.name }}</i>
+    <h4>Main Hub: <i>{{ mainHubNameAdminLogin }}</i>
+        <i>{{ mainHub['name'] }}</i>
+        <i>{{ mainHubAdminLogin[0]['name']}}</i>
     </h4>
 </div>
 <div>
@@ -37,11 +39,30 @@
                 </ul>
             </div>
         </div>
+        <div class="form-group" style="display: flex;justify-content: space-between;">
+            <h4>Select Main Hub</h4>
+            <div class="dropdown" style="min-width: 86%;">
+                <button id="mainhub"
+                        class="btn btn-primary dropdown-toggle"
+                        type="button"
+                        data-toggle="dropdown">Select
+                </button>
+                <ul *ngIf="isAdminLogin" class="dropdown-menu">
+                    <li *ngFor="let hub of mainHubAdminLogin;let i = index;" (click)="onMainHubSelected(hub)">
+                        {{hub['name']}}
+                    </li>
+                </ul>
+                <ul *ngIf="!isAdminLogin" class="dropdown-menu">
+                    <li (click)="onMainHubSelected(hub || null)">
+                        {{mainHub['name']}}
+                    </li>
+                </ul>
+            </div>
+        </div>
         <div class="title-center"><h2>MASTER LOADS: {{masterLoadCount || ''}}</h2></div>
-        <h2 *ngFor="let regionalHub of regionalHubs;let i = index;">REGIONAL HUB #{{i+1}} LOADS
-            :{{loadCount[i]}}
-        </h2>
-        <tree-root [nodes]="nodes" [options]="options"></tree-root>
+        <div class="form-group" *ngFor="let regionalHub of regionalHubs;let i = index;">REGIONAL HUB #{{i+1}} LOADS
+            :{{loadCount}}
+        </div>
     </div>
     <!--<i class="material-icons">-->
     <!--home-->

@@ -1,11 +1,11 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {MainhubModel, PodModel, RegionalHubModel} from '../../../../model';
+import {Subscription} from 'rxjs';
 import {DataService} from '../../../../app-services/data.service';
 import {RegionalhubsService} from '../../../../app-services/regionalhubs.service';
 import {MainhubService} from '../../../../app-services/mainhub.service';
-import {Router} from '@angular/router';
 import {ReportingService} from '../../../../app-services/reporting.service';
-import {MainhubModel, PodModel, RegionalHubModel} from '../../../../model';
-import {Subscription} from 'rxjs';
+import {Router} from '@angular/router';
 
 interface Marker {
     latitude: number;
@@ -16,11 +16,12 @@ interface Marker {
 }
 
 @Component({
-    selector: 'app-reporting',
-    templateUrl: './hub-manager-reporting.component.html',
-
+    selector: 'app-admin-reporting',
+    templateUrl: './admin-reporting.component.html',
+    styleUrls: ['./admin-reporting.component.css']
 })
-export class HubManagerReportingComponent implements OnInit, OnDestroy {
+export class AdminReportingComponent implements OnInit {
+
     lat: number;
     lng: number;
     latitude: number;
@@ -29,39 +30,12 @@ export class HubManagerReportingComponent implements OnInit, OnDestroy {
     zoom = 3;
     markers: Marker[] = [];
     icon;
-    mainHub: MainhubModel;
+    mainHubAdminLogin: MainhubModel[];
     regionalHubs: RegionalHubModel[];
     pods: PodModel[];
     private mainhubsSubscription: Subscription;
-    private reportsSubscription: Subscription;
     masterLoadCount: number;
-    loadCount = [];
-
-    nodes = [
-        {
-            id: 1,
-            name: 'root1',
-            children: [
-                {id: 2, name: 'child1'},
-                {id: 3, name: 'child2'}
-            ]
-        },
-        {
-            id: 4,
-            name: 'root2',
-            children: [
-                {id: 5, name: 'child2.1'},
-                {
-                    id: 6,
-                    name: 'child2.2',
-                    children: [
-                        {id: 7, name: 'subsub'}
-                    ]
-                }
-            ]
-        }
-    ];
-    options = {};
+    loadCount = 0;
 
     constructor(private dataService: DataService,
                 private regionalHubService: RegionalhubsService,
@@ -71,10 +45,14 @@ export class HubManagerReportingComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.mainhubsSubscription = this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
+        this.mainhubService.getMainhubs();
+        this.mainhubsSubscription = this.mainhubService.getMainhubsUpdateListener()
+            .subscribe((res: MainhubModel[]) => {
+                this.mainHubAdminLogin = res;
+            });
+        this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
             .subscribe((response) => {
-                this.mainHub = response[0];
-                this.reportsSubscription = this.reportService.getReportsOfLoggedInUser(response[0]['id']).subscribe(report => {
+                this.reportService.getReportsOfLoggedInUser(response[0]['id']).subscribe(report => {
                     this.masterLoadCount = report['master_loads'];
                     this.regionalHubs = report['regionalhubs'];
                     const obj = {
@@ -84,9 +62,9 @@ export class HubManagerReportingComponent implements OnInit, OnDestroy {
                         icon: '../../../../../assets/images/warehouse.svg'
                     };
                     this.markers.push(obj);
-                    this.loadCount = [];
-                    this.regionalHubs.forEach(hub => {
-                        this.loadCount.push(hub['load_count']);
+                    this.loadCount = 0;
+                    report['regionalhubs'].forEach(hub => {
+                        this.loadCount = hub['load_count'];
                         hub['pods'].forEach(pod => {
                             const podMarker = {
                                     latitude: parseFloat(pod['latitude']),
@@ -101,6 +79,7 @@ export class HubManagerReportingComponent implements OnInit, OnDestroy {
                     });
                 });
             });
+
         this.currentYear = new Date().getFullYear();
     }
 
@@ -131,14 +110,9 @@ export class HubManagerReportingComponent implements OnInit, OnDestroy {
         button.innerText = 'Last Month';
     }
 
-    onMainHubSelected() {
+    onMainHubSelected(hub) {
         const button = document.getElementById('mainhub');
-        button.innerText = this.mainHub['name'];
+        button.innerText = hub['name'];
     }
 
-    ngOnDestroy() {
-        this.mainhubsSubscription && this.mainhubsSubscription.unsubscribe();
-        this.reportsSubscription && this.reportsSubscription.unsubscribe();
-    }
 }
-
