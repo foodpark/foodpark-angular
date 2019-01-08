@@ -25,10 +25,6 @@ export class VolunteersComponent implements OnInit {
         private formBuilder: FormBuilder
     ) {
         this.getMainHub();
-        this.volunteerInitform();
-    }
-
-    volunteerInitform() {
         this.newvolunteersform = this.formBuilder.group({
             firstname: ['', Validators.required],
             lastname: ['', Validators.required],
@@ -46,49 +42,34 @@ export class VolunteersComponent implements OnInit {
                     this.mainHub = response[0];
                     this.mainhubId = this.mainHub.id;
                     this.territoryid = this.mainHub.territory_id;
-                    console.log(this.mainHub);
                     this.getAllVolunteers();
                 }
             });
     }
 
     getAllVolunteers() {
-        this.distributionservice.getVolunteers(this.mainhubId).subscribe(
-            response => {
-                this.allvolunters = response;
-                console.log('this is all users', this.allvolunters);
-                this.getRegisteredVolunteers();
-            },
-            error => {}
-        );
+        this.distributionservice.getVolunteers(this.mainhubId)
+        .subscribe(response => {
+            this.allvolunters = response;
+            this.getRegisteredVolunteers();
+        });
     }
 
     getRegisteredVolunteers() {
-        this.distributionservice
-            .getRegisteredVolunteers(this.territoryid)
-            .subscribe(
-                response => {
-                    this.allregisteredvolunters = response;
-                    for (
-                        let i = 0;
-                        i < this.allregisteredvolunters.length;
-                        i++
-                    ) {
-                        for (let j = 0; j < this.allvolunters.length; j++) {
-                            if (
-                                this.allregisteredvolunters[i].id ===
-                                this.allvolunters[j].id
-                            ) {
-                                this.allregisteredvolunters[i].selected = true;
-                            }
-                        }
+        this.distributionservice.getRegisteredVolunteers(this.territoryid)
+        .subscribe(response => {
+            this.allregisteredvolunters = response;
+            for (let i = 0; i < this.allregisteredvolunters.length; i++) {
+                for (let j = 0; j < this.allvolunters.length; j++) {
+                    if (this.allregisteredvolunters[i].id === this.allvolunters[j].id) {
+                        this.allregisteredvolunters[i].selected = true;
                     }
-                },
-                error => {}
-            );
+                }
+            }
+        });
     }
 
-    createVolunteers() {
+    createVolunteer() {
         const reqobj = {
             role: 'DRIVER',
             first_name: this.newvolunteersform.get('firstname').value,
@@ -99,9 +80,9 @@ export class VolunteersComponent implements OnInit {
             territory_id: this.territoryid,
             food_park_id: this.mainhubId
         };
+
         this.distributionservice.createVolunteer(reqobj).subscribe(
             response => {
-                console.log('this is new volunter', response);
                 this.newvolunterpopup = false;
                 this.getRegisteredVolunteers();
             },
@@ -109,9 +90,8 @@ export class VolunteersComponent implements OnInit {
         );
     }
 
-    Addvolunter(data) {
+    addVolunteer(data) {
         this.objresponse = data;
-        console.log('this.objresponse', this.objresponse);
         const obj = {
             name: this.objresponse.first_name + this.objresponse.last_name,
             phone: this.objresponse.phone,
@@ -126,8 +106,7 @@ export class VolunteersComponent implements OnInit {
         );
     }
 
-    switchChanged(event, avilableid) {
-        console.log('event here->', event);
+    changeVolunteereStatus(event, avilableid) {
         let avilData;
         if (event.srcElement.checked) {
             avilData = {
@@ -151,7 +130,7 @@ export class VolunteersComponent implements OnInit {
             );
     }
 
-    deletevolunteer(deleteid) {
+    deleteVolunteer(deleteid) {
         this.distributionservice
             .deleteVolunteer(this.mainhubId, deleteid)
             .subscribe(
