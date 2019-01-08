@@ -72,13 +72,13 @@
                     <td>{{ ordersdata.name }}</td>
                     <td>{{ ordersdata.created_at | date }}</td>
                     <td>
-                      <p *ngFor="let pallet of ordersdata.pallets">  {{ pallet.category_name}}({{pallet.quantity}})</p>
+                      <p *ngFor="let pallet of ordersdata.pallets">  {{pallet.category_name}} X {{pallet.quantity}}</p>
                     </td>
                     <td>
-                      <p *ngFor="let boxes of ordersdata.boxes">{{ boxes.category_name}}({{boxes.quantity}})</p>
+                      <p *ngFor="let boxes of ordersdata.boxes">{{boxes.category_name}} X {{boxes.quantity}}</p>
                     </td>
                     <td>
-                      <p *ngFor="let item of ordersdata.items">{{ item.category_name}}({{item.quantity}})</p>
+                      <p *ngFor="let item of ordersdata.items">{{item.category_name}} X {{item.quantity}}</p>
                     </td>
                   </tr>
                 </tbody>
