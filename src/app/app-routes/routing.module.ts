@@ -122,12 +122,13 @@ const routes: Routes = [
             {
                 path: 'distributioncentermanagement', component: DistributionCenterComponent,
                 children: [
-                    {
-                        path: 'gikdonations', component: GIKDonationsComponent
-                    },
-                    {
-                        path: 'volunteers', component: VolunteersComponent
-                    }
+                  { path:'',  redirectTo: 'gikdonations', pathMatch: 'full'},
+                  {
+                      path: 'gikdonations', component: GIKDonationsComponent
+                  },
+                  {
+                      path: 'volunteers', component: VolunteersComponent
+                  }
                 ]
             },
             {

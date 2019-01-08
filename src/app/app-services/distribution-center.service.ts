@@ -37,4 +37,20 @@ export class DistributionService {
         return this.http.put(environment.apiUrl + '/api/v1/rel/food_parks/'+ mainid +'/drivers/'+ id, data);
     }
 
+    // ordermanagement service
+
+    getOrderDetails(mainHubId) {
+        return this.http.get(environment.apiUrl + '/api/v1/rel/food_parks/' + mainHubId + '/ordermanagement');
+    }
+    getAvilablityVolunteers(mainHubId) {
+        return this.http.get(environment.apiUrl + '/api/v1/rel/drivers?is_deleted=false&available=true');
+    }
+
+    OnVolunteerUpdate (data,id) {
+      return this.http.put(environment.apiUrl + '/api/v1/rel/loads/' + id, data);
+    }
+    
+    OnStatusUpdate (data,id) {
+      return this.http.put(environment.apiUrl + '/api/v1/rel/loads/' + id, data);
+    }
 }

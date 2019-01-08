@@ -1,0 +1,58 @@
+.card_view {
+  height: 120px;
+  width: 100%;
+  border-top: 1px solid #ebcb41;
+  border-bottom: 1px solid #ebcb41;
+  color: #000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  &:hover {
+    background-color: #fff;
+  }
+}
+.card_view_collapsed {
+  height: auto;
+  background-color: #fff;
+  width: 100%;
+  margin-top: 10px;
+}
+.crad_view__creation_details,
+.card_view__names {
+  font-size: 19px;
+  color: #568ca1;
+}
+.order_staus_action_buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
+.volunteer_dropdown {
+  margin:22px;
+  .form-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .dropdown {
+      width: 85%;
+    }
+  }
+}
+
+.regional_hub_section {
+  border-bottom: 2px solid grey;
+}
+
+.card_view__actions {
+  width: 129px;
+  button {
+    width: 100%;
+    border: 1px solid #77776b;
+    background-color: #77776b;
+    text-align: center;
+    padding: 10px 0;
+    color: #fff;
+  }
+
+}
