@@ -29,7 +29,7 @@ export class PodManagersListingComponent implements OnInit, OnDestroy {
         this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
         .subscribe((response) => {
             this.mainHub = response[0];
-            this.podService.getPodManagers();
+            this.podService.getPodManagersInMainHub(this.mainHub['id']);
         });
     }
 

@@ -72,6 +72,14 @@ export class PodsService {
         return this.http.delete(environment.apiUrl + '/api/v1/rel/churches/' + deletePodID);
     }
 
+    getPodManagersInMainHub(mainHubId: number) {
+        return this.http.get<PodmanagerModel[]>(environment.apiUrl + '/api/v1/rel/food_parks/' + mainHubId + '/podmanagers')
+        .subscribe((podmanagersData) => {
+            this.podManagers = podmanagersData;
+            this.podmanagersUpdated.next([...this.podManagers]);
+        });
+    }
+
     getPodManagers() {
         return this.http.get<PodmanagerModel[]>(environment.apiUrl + '/api/v1/rel/users?role=PODMGR')
         .subscribe((podmanagersData) => {
