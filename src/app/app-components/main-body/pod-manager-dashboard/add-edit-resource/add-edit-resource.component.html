@@ -23,7 +23,7 @@
             <th style="width: 15%;">Load Type</th>
             <th style="width: 15%;">Category</th>
             <th style="width: 10%; text-align: center;">Quantity</th>
-            <th>Description</th>
+            <th style="text-align: center;">Description</th>
             <th style="width: 10%;text-align: center;">Edit</th>
             <th style="width: 10%;text-align: center;">Delete</th>
         </tr>
@@ -33,7 +33,7 @@
             <td style="width: 15%;">{{ list.load_type | titlecase }}</td>
             <td style="width: 15%;">{{ list.category_name }}</td>
             <td style="width: 10%;text-align: center;">{{ list.quantity }}</td>
-            <td>{{ list.description }}</td>
+            <td style="text-align: center;">{{ list.description }}</td>
             <td style="text-align: center;">
                 <i class="material-icons" (click)="onclickAddEdit(list)">
                     edit
@@ -49,7 +49,7 @@
             type="button"
             style="height: 50px;align-items: center;width: 100%;text-transform:none"
             class="btn btn-default new_btn"
-            (click)="onSaveAndGoBackClick()">Save and go back
+            (click)="onSaveAndGoBackClick()">Save and Exit
     </button>
 </div>
 
