@@ -43,13 +43,13 @@ export class DistributionService {
         return this.http.get(environment.apiUrl + '/api/v1/rel/food_parks/' + mainHubId + '/ordermanagement');
     }
     getAvilablityVolunteers(mainHubId) {
-        return this.http.get(environment.apiUrl + '/api/v1/rel/drivers?is_deleted=false&available=true');
+        return this.http.get(environment.apiUrl + '/api/v1/rel/food_parks/' + mainHubId + '/drivers');
     }
 
     OnVolunteerUpdate (data,id) {
       return this.http.put(environment.apiUrl + '/api/v1/rel/loads/' + id, data);
     }
-    
+
     OnStatusUpdate (data,id) {
       return this.http.put(environment.apiUrl + '/api/v1/rel/loads/' + id, data);
     }

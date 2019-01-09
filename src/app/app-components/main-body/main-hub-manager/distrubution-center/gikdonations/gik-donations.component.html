@@ -1,5 +1,5 @@
 <div class="tab-absolute-position">
-  <h1 class="hedaing_title"> Order Management</h1>
+  <!-- <h1 class="hedaing_title"> Order Management</h1> -->
   <div class="title-center">
       <h4>Main Hub: <i>{{mainHubName}}</i></h4>
   </div>
@@ -11,16 +11,24 @@
         <ng-container *ngFor="let orders of pods.orders; let i = index">
           <div class="card_view accordion-toggle" data-toggle="collapse" [attr.data-target]="i" (click)="openaccordian(orders,i)">
             <div class="card_view_icon">
-
+              <img src="assets/images/truck.jpeg" alt="">
             </div>
             <div class="crad_view__creation_details">
               <p>Order Creation: {{orders.created_at | date}}</p>
             </div>
-            <div class="card_view__names">
-              <p>Volunteer: {{orders.name}}</p>
+            <div class="card_view__names" *ngIf="orders.driver_name">
+              <p>Volunteer: {{orders.driver_name}}</p>
+            </div>
+            <div class="card_view__names" *ngIf="!orders.driver_name">
+              <p>Volunteer: N/A</p>
             </div>
             <div class="card_view__actions">
-              <button type="button" name="button">{{orders.status}}</button>
+              <button type="button" name="button" [ngClass]="{
+                'button_arrived':orders.status === 'ARRIVED',
+                'button_ready':orders.status === 'POD READY',
+                'button_palletized':orders.status === 'PALLETIZED',
+                'button_dispatched':orders.status === 'DISPATCHED',
+                'button_delivered':orders.status === 'DELIVERED'}">{{orders.status}}</button>
             </div>
           </div>
           <div class="accordian-body card_view_collapsed" id="{{orders.id+''}}" *ngIf="selectedid == orders.id">
@@ -29,16 +37,19 @@
             </div>
             <div class="order_staus_action_buttons">
               <div class="card_view__actions">
-                <button type="button" name="button" value="ARRIVED" (click)="StatusClick($event)">Arrived</button>
+                <button type="button" name="button" value="ARRIVED" (click)="StatusClick($event)" class="button_arrived">Arrived</button>
               </div>
               <div class="card_view__actions">
-                <button type="button" name="button" value="PALLETIZED" (click)="StatusClick($event)">Palletieed</button>
+                <button type="button" name="button" value="PALLETIZED" (click)="StatusClick($event)" class="button_palletized">Palletieed</button>
               </div>
               <div class="card_view__actions">
-                <button type="button" name="button" value="POD READY" (click)="StatusClick($event)">Ready</button>
+                <button type="button" name="button" value="POD READY" (click)="StatusClick($event)" class="button_ready">Ready</button>
               </div>
               <div class="card_view__actions">
-                <button type="button" name="button" value="DISPATCHED" (click)="StatusClick($event)">Dispatched</button>
+                <button type="button" name="button" value="DISPATCHED" (click)="StatusClick($event)" class="button_dispatched">Dispatched</button>
+              </div>
+              <div class="card_view__actions">
+                <button type="button" name="button" value="DELIVERED" (click)="StatusClick($event)" class="button_delivered">Delivered</button>
               </div>
             </div>
             <div class="volunteer_dropdown">
@@ -49,8 +60,8 @@
                     <button id="volunteer_button" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" *ngIf="!pods.orders"> Select</button>
                     <ul class="dropdown-menu">
                       <!-- (click)="onCountryClick(i, item['id'])" -->
-                      <li *ngFor="let item of volunteerslist; let i = index" (click)="onVolunteerClick(i, item)">
-                          {{ item.name }}
+                      <li *ngFor="let item of filteredVolunteers; let i = index" (click)="onVolunteerClick(i, item)">
+                          {{ item.username }}
                       </li>
                     </ul>
                   </div>
