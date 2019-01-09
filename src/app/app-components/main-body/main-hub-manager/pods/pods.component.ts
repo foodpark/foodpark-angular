@@ -33,7 +33,7 @@ export class PodsComponent implements OnInit, OnDestroy {
         this.regionalHubSubscription = this.regionalHubService.getRegionalHubsUpdateListener()
             .subscribe((regionalHubs: RegionalHubModel[]) => {
                 this.regionalHubs = regionalHubs;
-                this.podsService.getAllPods();
+                this.podsService.getPodsInMainHub(this.mainHub['id']);
             });
 
         this.podsSubscription = this.podsService.getPodsUpdateListener()
@@ -59,10 +59,10 @@ export class PodsComponent implements OnInit, OnDestroy {
 
     fetchData() {
         this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
-            .subscribe((response) => {
-                this.mainHub = response[0];
-                this.regionalHubService.getRegionalHubsInMainHub(this.mainHub['id']);
-            });
+        .subscribe((response) => {
+            this.mainHub = response[0];
+            this.regionalHubService.getRegionalHubsInMainHub(this.mainHub['id']);
+        });
     }
 
     onEditClick(index: number) {

@@ -33,6 +33,14 @@ export class PodsService {
         });
     }
 
+    getPodsInMainHub(mainHubId: number) {
+        this.http.get<PodModel[]>(environment.apiUrl + '/api/v1/rel/churches?main_hub_id=' + mainHubId)
+        .subscribe((response) => {
+            this.pods = response;
+            this.podsUpdated.next([...this.pods]);
+        });
+    }
+
     getPodFromPodId(podId: number) {
         return this.http.get(environment.apiUrl + '/api/v1/rel/churches/' + podId);
     }
@@ -66,10 +74,10 @@ export class PodsService {
 
     getPodManagers() {
         return this.http.get<PodmanagerModel[]>(environment.apiUrl + '/api/v1/rel/users?role=PODMGR')
-            .subscribe((podmanagersData) => {
-                this.podManagers = podmanagersData;
-                this.podmanagersUpdated.next([...this.podManagers]);
-            });
+        .subscribe((podmanagersData) => {
+            this.podManagers = podmanagersData;
+            this.podmanagersUpdated.next([...this.podManagers]);
+        });
     }
 
     getPodManager(id: string) {

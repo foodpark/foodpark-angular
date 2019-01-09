@@ -1,8 +1,9 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {PodmanagerModel} from 'src/app/model';
+import {PodmanagerModel, MainhubModel} from 'src/app/model';
 import {PodsService} from 'src/app/app-services/pods.service';
 import {Subscription} from 'rxjs';
 import {Router} from '@angular/router';
+import { MainhubService } from 'src/app/app-services/mainhub.service';
 
 @Component({
     selector: 'app-pod-managers-listing',
@@ -10,10 +11,12 @@ import {Router} from '@angular/router';
 })
 
 export class PodManagersListingComponent implements OnInit, OnDestroy {
+    mainHub: MainhubModel;
     podManagers: PodmanagerModel[] = [];
     private podmanagerSubscription: Subscription;
 
     constructor(private podService: PodsService,
+                private mainhubService: MainhubService,
                 private router: Router) {
     }
 
@@ -22,7 +25,12 @@ export class PodManagersListingComponent implements OnInit, OnDestroy {
             .subscribe((podManagers) => {
                 this.podManagers = podManagers;
             });
-        this.podService.getPodManagers();
+
+        this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
+        .subscribe((response) => {
+            this.mainHub = response[0];
+            this.podService.getPodManagers();
+        });
     }
 
     onEditClick(index: number) {
