@@ -33,6 +33,7 @@ export class MainhubManagerListingComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.countryService.getCountries();
         this.countriesSubscription = this.countryService.getCountriesUpdateListener()
             .subscribe((countries: CountryModel[]) => {
                 if (countries.length > 0) {
@@ -40,20 +41,9 @@ export class MainhubManagerListingComponent implements OnInit, OnDestroy {
                     const button = document.getElementById('country_button');
                     button.innerText = countryName;
                     this.countries = countries;
-
                     this.territoryService.getTerritoriesInCountry(countries[0]['id']);
                 } else {
                     this.dialog.open(ErrorComponent, {data: {message: 'No Countries found!!'}});
-                }
-            });
-
-        this.mainhubsManagersSubscription = this.mainhubmanagerService.getMainHubManagersUpdateListener()
-            .subscribe((mainHubMgrs: HubmanagerModel[]) => {
-                if (mainHubMgrs.length > 0) {
-                    this.mainhubManagers = mainHubMgrs;
-                } else {
-                    this.mainhubManagers = [];
-                    this.dialog.open(ErrorComponent, {data: {message: 'No Main Hub Managers available for this territory'}});
                 }
             });
 
@@ -70,7 +60,16 @@ export class MainhubManagerListingComponent implements OnInit, OnDestroy {
                     this.dialog.open(ErrorComponent, {data: {message: 'No Territories found for the selected country'}});
                 }
             });
-        this.countryService.getCountries();
+
+        this.mainhubsManagersSubscription = this.mainhubmanagerService.getMainHubManagersUpdateListener()
+            .subscribe((mainHubMgrs: HubmanagerModel[]) => {
+                if (mainHubMgrs.length > 0) {
+                    this.mainhubManagers = mainHubMgrs;
+                } else {
+                    this.mainhubManagers = [];
+                    this.dialog.open(ErrorComponent, {data: {message: 'No Main Hub Managers available for this territory'}});
+                }
+            });
     }
 
     onCountryClick(index: number) {

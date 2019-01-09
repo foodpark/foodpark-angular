@@ -1,7 +1,6 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {PodsService} from 'src/app/app-services/pods.service';
-import {Subscription} from 'rxjs';
 import {FormGroup, Validators, FormBuilder} from '@angular/forms';
 
 @Component({
@@ -14,7 +13,6 @@ export class EditPodManagerComponent implements OnInit, OnDestroy {
     podManager: any;
     podManagerID: string;
 
-    private countriesSubscription: Subscription;
 
     constructor(private formBuilder: FormBuilder,
                 private route: ActivatedRoute,
@@ -28,8 +26,6 @@ export class EditPodManagerComponent implements OnInit, OnDestroy {
             email: ['', Validators.email],
             password: ['', Validators.required],
             repeatpassword: ['', Validators.required],
-            country_id: ['', Validators.required],
-            country: ['', Validators.required]
         });
 
         this.route.paramMap.subscribe((paramMap: ParamMap) => {
@@ -38,19 +34,11 @@ export class EditPodManagerComponent implements OnInit, OnDestroy {
                 this.podService.getPodManager(this.podManagerID)
                     .subscribe((podmanager) => {
                         this.podManager = podmanager;
-                        console.log('this.podManager', this.podManager.first_name);
                         this.editpodmanagerform.get('firstname').setValue(this.podManager.first_name, {emitEvent: false});
                         this.editpodmanagerform.get('lastname').setValue(this.podManager.last_name, {emitEvent: false});
                         this.editpodmanagerform.get('email').setValue(this.podManager.username, {emitEvent: false});
                         this.editpodmanagerform.get('password').setValue(this.podManager.password, {emitEvent: false});
                         this.editpodmanagerform.get('repeatpassword').setValue(this.podManager.password, {emitEvent: false});
-                        this.editpodmanagerform.get('country_id').setValue(this.podManager.country_id, {emitEvent: false});
-                        // this.editpodmanagerform.setValue({
-                        //     firstname: this.podManager.first_name,
-                        //     lastname: this.podManager.last_name,
-                        //     email: this.podManager.email,
-                        //     country_id: this.podManager.country_id
-                        // });
                     });
             }
         });
@@ -62,7 +50,6 @@ export class EditPodManagerComponent implements OnInit, OnDestroy {
             'first_name': this.editpodmanagerform.get('firstname').value,
             'last_name': this.editpodmanagerform.get('lastname').value,
             'password': this.editpodmanagerform.get('password').value,
-            'country_id': this.editpodmanagerform.get('country_id').value,
         };
 
         this.podService.updatePodManager(this.podManagerID, obj).subscribe();

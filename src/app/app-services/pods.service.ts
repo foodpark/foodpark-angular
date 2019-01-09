@@ -27,18 +27,18 @@ export class PodsService {
 
     getAllPods() {
         this.http.get<PodModel[]>(environment.apiUrl + '/api/v1/rel/churches')
-        .subscribe((response) => {
-            this.pods = response;
-            this.podsUpdated.next([...this.pods]);
-        });
+            .subscribe((response) => {
+                this.pods = response;
+                this.podsUpdated.next([...this.pods]);
+            });
     }
 
     getPodsInMainHub(mainHubId: number) {
         this.http.get<PodModel[]>(environment.apiUrl + '/api/v1/rel/churches?main_hub_id=' + mainHubId)
-        .subscribe((response) => {
-            this.pods = response;
-            this.podsUpdated.next([...this.pods]);
-        });
+            .subscribe((response) => {
+                this.pods = response;
+                this.podsUpdated.next([...this.pods]);
+            });
     }
 
     getPodFromPodId(podId: number) {
@@ -74,18 +74,18 @@ export class PodsService {
 
     getPodManagersInMainHub(mainHubId: number) {
         return this.http.get<PodmanagerModel[]>(environment.apiUrl + '/api/v1/rel/food_parks/' + mainHubId + '/podmanagers')
-        .subscribe((podmanagersData) => {
-            this.podManagers = podmanagersData;
-            this.podmanagersUpdated.next([...this.podManagers]);
-        });
+            .subscribe((podmanagersData) => {
+                this.podManagers = podmanagersData;
+                this.podmanagersUpdated.next([...this.podManagers]);
+            });
     }
 
     getPodManagers() {
         return this.http.get<PodmanagerModel[]>(environment.apiUrl + '/api/v1/rel/users?role=PODMGR')
-        .subscribe((podmanagersData) => {
-            this.podManagers = podmanagersData;
-            this.podmanagersUpdated.next([...this.podManagers]);
-        });
+            .subscribe((podmanagersData) => {
+                this.podManagers = podmanagersData;
+                this.podmanagersUpdated.next([...this.podManagers]);
+            });
     }
 
     getPodManager(id: string) {
@@ -94,5 +94,9 @@ export class PodsService {
 
     updatePodManager(id: string, data: any) {
         return this.http.put(environment.apiUrl + '/api/v1/rel/users/' + id, data);
+    }
+
+    deletePodManager(id: number) {
+        return this.http.delete(environment.apiUrl + '/api/v1/rel/users/' + id);
     }
 }

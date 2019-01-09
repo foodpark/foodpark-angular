@@ -122,14 +122,12 @@ export class GuestCreatePodsComponent implements OnInit, OnDestroy {
     onTerritoryClick(index: number, item) {
         const button = document.getElementById('territory_button');
         button.innerText = this.territories[index]['territory'];
-        this.registerpodform
-            .get('territory_id')
-            .setValue(this.territories[index]['id']);
+        this.registerpodform.get('territory_id').setValue(this.territories[index]['id']);
         this.getMainhubs(item.id, item.country);
     }
 
     getMainhubs(id: number, country: string) {
-        this.mainhubService.getMainHubsIn(country, id);
+        this.mainhubService.getMainHubsInTerritory(country, id);
     }
 
     onMainHubClick(index: number, item) {

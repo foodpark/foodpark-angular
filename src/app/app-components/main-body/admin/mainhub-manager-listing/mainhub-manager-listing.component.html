@@ -1,9 +1,11 @@
 <div class="absolute-position">
-    <div (click)="onAddMainHubManagerClick()">
+    <div>
         <div class="title-center">
             <h2>Main Hub Managers</h2>
         </div>
-        <button type="button" class="btn btn-info"
+        <button (click)="onAddMainHubManagerClick()"
+                type="button"
+                class="btn btn-info"
                 style="height: 50px;align-items: center;width: 100%;">Add Main Hub Manager
         </button>
     </div>
@@ -46,7 +48,6 @@
             <th style="width: 10%;text-align: center;">Delete</th>
         </tr>
         </thead>
-        <!-- <tbody *ngIf="dataLoaded"> -->
         <tr *ngFor="let item of mainhubManagers; let i = index">
             <td>{{item['first_name'] + ' ' + item['last_name']}}</td>
             <td>{{item['username']}}</td>

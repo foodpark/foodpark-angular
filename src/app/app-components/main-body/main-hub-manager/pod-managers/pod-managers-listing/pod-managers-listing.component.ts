@@ -38,7 +38,9 @@ export class PodManagersListingComponent implements OnInit, OnDestroy {
     }
 
     onDeleteClick(podManagerId: number) {
-
+        this.podService.deletePodManager(podManagerId).subscribe(() => {
+            this.podService.getPodManagersInMainHub(this.mainHub['id']);
+        });
     }
 
     ngOnDestroy() {
