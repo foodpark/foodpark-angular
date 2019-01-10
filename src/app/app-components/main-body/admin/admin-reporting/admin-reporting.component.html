@@ -1,8 +1,7 @@
 <h2 style="padding-top:100px;display:flex;justify-content:center;width:100%;">Reporting</h2>
 <div class="title-center">
-    <h4>Main Hub: <i>{{ mainHubNameAdminLogin }}</i>
-        <i>{{ mainHub['name'] }}</i>
-        <i>{{ mainHubAdminLogin[0]['name']}}</i>
+    <h4>Main Hub:
+        <i>{{mainHubName}}</i>
     </h4>
 </div>
 <div>
@@ -21,9 +20,54 @@
         </agm-map>
     </div>
     <div class="container-fluid col-sm-12 menu_detail shell bg_1" style="padding: 35px 80px;">
-        <div class="form-group" style="display: flex;justify-content: space-between;">
+        <div class="form-group">
+            <h4>Country</h4>
+            <div class="dropdown">
+                <button id="country_button"
+                        class="btn btn-primary dropdown-toggle"
+                        type="button"
+                        data-toggle="dropdown">Select
+                </button>
+                <ul class="dropdown-menu">
+                    <li *ngFor="let item of countries; let i = index" (click)="onCountryClick(i)">
+                        {{item.name}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="form-group">
+            <h4>Territory</h4>
+            <div class="dropdown">
+                <button id="territory_button"
+                        class="btn btn-primary dropdown-toggle"
+                        type="button"
+                        data-toggle="dropdown">Select
+                </button>
+                <ul class="dropdown-menu">
+                    <li *ngFor="let item of territories; let i = index" (click)="onTerritoryClick(i)">
+                        {{item.territory}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="form-group">
+            <h4>MainHub</h4>
+            <div class="dropdown">
+                <button id="mainhub"
+                        class="btn btn-primary dropdown-toggle"
+                        type="button"
+                        data-toggle="dropdown">Select
+                </button>
+                <ul class="dropdown-menu">
+                    <li *ngFor="let hub of mainHub; let i = index" (click)="onMainHubSelected(i)">
+                        {{hub.name}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="form-group">
             <h4>Select Date</h4>
-            <div class="dropdown" style="min-width: 86%;">
+            <div class="dropdown">
                 <button id="date"
                         class="btn btn-primary dropdown-toggle"
                         type="button"
@@ -35,26 +79,6 @@
                     </li>
                     <li (click)="onMonthSelected()">
                         Last Month
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="form-group" style="display: flex;justify-content: space-between;">
-            <h4>Select Main Hub</h4>
-            <div class="dropdown" style="min-width: 86%;">
-                <button id="mainhub"
-                        class="btn btn-primary dropdown-toggle"
-                        type="button"
-                        data-toggle="dropdown">Select
-                </button>
-                <ul *ngIf="isAdminLogin" class="dropdown-menu">
-                    <li *ngFor="let hub of mainHubAdminLogin;let i = index;" (click)="onMainHubSelected(hub)">
-                        {{hub['name']}}
-                    </li>
-                </ul>
-                <ul *ngIf="!isAdminLogin" class="dropdown-menu">
-                    <li (click)="onMainHubSelected(hub || null)">
-                        {{mainHub['name']}}
                     </li>
                 </ul>
             </div>

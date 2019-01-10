@@ -38,7 +38,7 @@
             </div>
         </div>
         <div class="title-center"><h2>MASTER LOADS: {{masterLoadCount || ''}}</h2></div>
-        <h2 *ngFor="let regionalHub of regionalHubs;let i = index;">REGIONAL HUB #{{i+1}} LOADS
+        <h2 *ngFor="let regionalHub of regionalHubs;let i = index;">REGIONAL HUB {{regionalHub['name']}} LOADS
             :{{loadCount[i]}}
         </h2>
         <tree-root [nodes]="nodes" [options]="options"></tree-root>

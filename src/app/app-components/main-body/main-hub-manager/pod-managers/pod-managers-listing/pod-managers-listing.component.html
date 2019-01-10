@@ -16,21 +16,21 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of podManagers; let i = index">
-                <td>{{item['first_name']}}</td>
-                <td>{{item['last_name']}}</td>
-                <td>{{item['username']}}</td>
-                <td style="text-align: center;">
-                    <i class="material-icons" (click)="onEditClick(i)">
-                        edit
-                    </i>
-                </td>
-                <td style="text-align: center;">
-                    <i class="material-icons" (click)="onDeleteClick(i)">
-                        delete
-                    </i>
-                </td>
-            </tr>
+        <tr *ngFor="let item of podManagers; let i = index">
+            <td>{{item['first_name']}}</td>
+            <td>{{item['last_name']}}</td>
+            <td>{{item['username']}}</td>
+            <td style="text-align: center;">
+                <i class="material-icons" (click)="onEditClick(i)">
+                    edit
+                </i>
+            </td>
+            <td style="text-align: center;">
+                <i class="material-icons" (click)="onDeleteClick(i)">
+                    delete
+                </i>
+            </td>
+        </tr>
         </tbody>
     </table>
     <router-outlet></router-outlet>
