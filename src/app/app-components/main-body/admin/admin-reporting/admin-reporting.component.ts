@@ -1,11 +1,15 @@
 import {Component, OnInit} from '@angular/core';
-import {MainhubModel, PodModel, RegionalHubModel} from '../../../../model';
+import {CountryModel, MainhubModel, PodModel, RegionalHubModel, TerritoryModel} from '../../../../model';
 import {Subscription} from 'rxjs';
 import {DataService} from '../../../../app-services/data.service';
 import {RegionalhubsService} from '../../../../app-services/regionalhubs.service';
 import {MainhubService} from '../../../../app-services/mainhub.service';
 import {ReportingService} from '../../../../app-services/reporting.service';
 import {Router} from '@angular/router';
+import {CountryService} from '../../../../app-services/country.service';
+import {TerritoryService} from '../../../../app-services/territory.service';
+import {MatDialog} from '@angular/material';
+import {ErrorComponent} from '../../../../error/error.component';
 
 interface Marker {
     latitude: number;
@@ -27,32 +31,68 @@ export class AdminReportingComponent implements OnInit {
     latitude: number;
     longitude: number;
     currentYear;
-    zoom = 3;
+    zoom = 1;
     markers: Marker[] = [];
     icon;
-    mainHubAdminLogin: MainhubModel[];
+    mainHub: MainhubModel[];
     regionalHubs: RegionalHubModel[];
     pods: PodModel[];
-    private mainhubsSubscription: Subscription;
     masterLoadCount: number;
     loadCount = 0;
+    countries = [];
+    territories: TerritoryModel[] = [];
+    mainHubName: string;
+    private countriesSubscription: Subscription;
+    private territoriesSubscription: Subscription;
+    private mainhubsSubscription: Subscription;
+    private territorySelected: number;
 
-    constructor(private dataService: DataService,
-                private regionalHubService: RegionalhubsService,
+    constructor(private regionalHubService: RegionalhubsService,
                 private mainhubService: MainhubService,
                 private reportService: ReportingService,
-                private router: Router) {
+                private router: Router,
+                private countryService: CountryService,
+                private territoryService: TerritoryService,
+                private dialog: MatDialog,
+                private dataService: DataService) {
     }
 
     ngOnInit() {
-        this.mainhubService.getMainhubs();
-        this.mainhubsSubscription = this.mainhubService.getMainhubsUpdateListener()
-            .subscribe((res: MainhubModel[]) => {
-                this.mainHubAdminLogin = res;
+        this.countryService.getCountries();
+        this.countriesSubscription = this.countryService.getCountriesUpdateListener()
+            .subscribe((countries: CountryModel[]) => {
+                if (countries.length > 0) {
+                    const countryName = countries[0]['name'];
+                    const button = document.getElementById('country_button');
+                    button.innerText = countryName;
+                    this.countries = countries;
+                    this.territoryService.getTerritoriesInCountry(countries[0]['id']);
+                } else {
+                    this.dialog.open(ErrorComponent, {data: {message: 'No Countries found!!'}});
+                }
             });
-        this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
-            .subscribe((response) => {
-                this.reportService.getReportsOfLoggedInUser(response[0]['id']).subscribe(report => {
+
+        this.territoriesSubscription = this.territoryService.getTerritoriesUpdateListener()
+            .subscribe((territories: TerritoryModel[]) => {
+                if (territories.length > 0) {
+                    this.territorySelected = 0;
+                    const territoryName = territories[0]['territory'];
+                    const territoryButton = document.getElementById('territory_button');
+                    territoryButton.innerText = territoryName;
+                    this.territories = territories;
+                    this.mainhubService.getMainHubsInTerritory(this.territories[0]['country'], this.territories[0]['id']);
+                } else {
+                    this.dialog.open(ErrorComponent, {data: {message: 'No Territories found for the selected country'}});
+                }
+            });
+
+        this.mainhubsSubscription = this.mainhubService.getMainhubsUpdateListener()
+            .subscribe((response: MainhubModel[]) => {
+                this.mainHub = response;
+                this.mainHubName = this.mainHub[0]['name'];
+                const mainHubButton = document.getElementById('mainhub');
+                mainHubButton.innerText = this.mainHubName;
+                this.reportService.getReportsOfLoggedInUser(this.mainHub[0]['id']).subscribe(report => {
                     this.masterLoadCount = report['master_loads'];
                     this.regionalHubs = report['regionalhubs'];
                     const obj = {
@@ -70,7 +110,7 @@ export class AdminReportingComponent implements OnInit {
                                     latitude: parseFloat(pod['latitude']),
                                     longitude: parseFloat(pod['longitude']),
                                     label: pod['name'],
-                                    icon: '../../../../../assets/images/Church.svg'
+                                    icon: '../../../../../assets/images/church.svg'
                                 }
                             ;
                             this.markers.push(podMarker);

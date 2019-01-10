@@ -21,47 +21,22 @@ interface Marker {
 
 })
 export class HubManagerReportingComponent implements OnInit, OnDestroy {
-    lat: number;
-    lng: number;
     latitude: number;
     longitude: number;
     currentYear;
     zoom = 3;
+    icon: string;
     markers: Marker[] = [];
-    icon;
     mainHub: MainhubModel;
     regionalHubs: RegionalHubModel[];
     pods: PodModel[];
-    private mainhubsSubscription: Subscription;
-    private reportsSubscription: Subscription;
     masterLoadCount: number;
     loadCount = [];
-
-    nodes = [
-        {
-            id: 1,
-            name: 'root1',
-            children: [
-                {id: 2, name: 'child1'},
-                {id: 3, name: 'child2'}
-            ]
-        },
-        {
-            id: 4,
-            name: 'root2',
-            children: [
-                {id: 5, name: 'child2.1'},
-                {
-                    id: 6,
-                    name: 'child2.2',
-                    children: [
-                        {id: 7, name: 'subsub'}
-                    ]
-                }
-            ]
-        }
-    ];
+    nodes = [];
     options = {};
+    private mainhubsSubscription: Subscription;
+    private reportsSubscription: Subscription;
+
 
     constructor(private dataService: DataService,
                 private regionalHubService: RegionalhubsService,
@@ -85,19 +60,29 @@ export class HubManagerReportingComponent implements OnInit, OnDestroy {
                     };
                     this.markers.push(obj);
                     this.loadCount = [];
+                    let counter = 0;
                     this.regionalHubs.forEach(hub => {
                         this.loadCount.push(hub['load_count']);
+                        const nodeObj = {
+                            id: counter++,
+                            name: hub['name'],
+                        };
                         hub['pods'].forEach(pod => {
-                            const podMarker = {
-                                    latitude: parseFloat(pod['latitude']),
-                                    longitude: parseFloat(pod['longitude']),
-                                    label: pod['name'],
-                                    icon: '../../../../../assets/images/Church.svg'
+                            nodeObj['children'] = [
+                                {
+                                    id: counter++,
+                                    name: pod['name'],
                                 }
-                            ;
+                            ];
+                            const podMarker = {
+                                latitude: parseFloat(pod['latitude']),
+                                longitude: parseFloat(pod['longitude']),
+                                label: pod['name'],
+                                icon: '../../../../../assets/images/church.svg'
+                            };
                             this.markers.push(podMarker);
                         });
-
+                        this.nodes.push(nodeObj);
                     });
                 });
             });
