@@ -27,6 +27,11 @@ export class HubPickupsComponent implements OnInit {
     isSponsor1Available = false;
     private fileUploadSubscription: Subscription;
     showDateError = false;
+    fileURL : any;
+    filetype : any;
+    eventimage : File;
+    sponsor1image : File;
+    sponsor2image : File;
 
     constructor(private fb: FormBuilder,
                 private mainhubService: MainhubService,
@@ -35,6 +40,8 @@ export class HubPickupsComponent implements OnInit {
                 private hubPickupService: HubPickupService,
                 private fileUploadService: FileUploadService,
                 private router: Router) {
+                  this.fileURL={};
+                  this.filetype = "";
     }
 
     ngOnInit() {
@@ -99,7 +106,28 @@ export class HubPickupsComponent implements OnInit {
         button.innerText = this.mainHub['name'];
     }
 
-    onImageUpload(name: string, files: FileList) {
+    onImageUpload(name: string, event) {
+      console.log('this is the image',event);
+      console.log('this is the filetype',this.filetype);
+
+      let files = event.target.files;
+      let data = files[0];
+      let reader = new FileReader();
+        reader.onload = event => {
+          this.fileURL = event;
+          // this.image = event.target.result;
+          switch (this.filetype) {
+              case "EVENT": this.eventimage = this.fileURL.target.result;
+                break;
+              case "SPONSOR1": this.sponsor1image = this.fileURL.target.result;
+                break;
+              case "SPONSOR2": this.sponsor2image = this.fileURL.target.result;
+                break;
+            }
+        };
+        reader.readAsDataURL(data);
+        console.log('this is image data',data);
+
         document.getElementById(name + '_image').innerText = files[0].name;
         if (name === 'sponsor1') {
             this.sponsor1Image = files[0];

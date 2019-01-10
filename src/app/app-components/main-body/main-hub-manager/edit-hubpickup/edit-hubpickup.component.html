@@ -61,10 +61,11 @@
                                     id="sponsor1">
                             </div>
                             <h4>Sponsor 1 Image</h4>
-                            <h5 style="min-height: 30px;font-size: 20px;padding: 5px 0;" id="sponsor1_image">{{ s1image
+                            <h5 style="min-height: 30px;font-size: 20px;padding: 5px 0;" id="sponsor1_image" class="hide">{{ s1image
                                 ||
                                 'File URL'}}
                             </h5>
+                            <img src="{{s1image}}" alt="" id="sponsor1_image">
                             <input
                                 type="file"
                                 accept=".png, .jpg, .jpeg"
@@ -82,9 +83,10 @@
                                 id="sponsor2">
                         </div>
                         <h4>Sponsor 2 Image</h4>
-                        <h5 style="min-height: 30px;font-size: 20px;padding: 5px 0;" id="sponsor2_image">{{s2image ||
+                        <!-- <h5 style="min-height: 30px;font-size: 20px;padding: 5px 0;" id="sponsor2_image">{{s2image ||
                             'File URL'}}
-                        </h5>
+                        </h5> -->
+                        <img src="{{s2image}}" alt="">
                         <input
                             type="file"
                             accept=".png, .jpg, .jpeg"
@@ -131,4 +133,3 @@
         </div>
     </section>
 </div>
-

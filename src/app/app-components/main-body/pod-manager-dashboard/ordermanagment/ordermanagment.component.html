@@ -5,17 +5,16 @@
   </div>
   <div class="order_mngmnt_card_view" >
     <ng-container *ngFor="let item of allordersdata" class="regional_hub_section">
-       <p><label>Regional Hub</label> :{{item.name}}</p>
+      <!-- <p>{{item.name}}</p> -->
       <ng-container *ngFor="let pods of item.pods">
-        <p><label>Pod Name</label> :{{pods.name}}</p>
+        <!-- <p>{{pods.name}}</p> -->
         <ng-container *ngFor="let orders of pods.orders; let i = index">
-
           <div class="card_view accordion-toggle" data-toggle="collapse" [attr.data-target]="i" (click)="openaccordian(orders,i)">
             <div class="card_view_icon">
               <img src="assets/images/truck.jpeg" alt="">
             </div>
             <div class="crad_view__creation_details">
-              <p>Order Creation: {{orders.created_at | date: 'MMM d, y, - h:mm a'}}</p>
+              <p>Order Creation: {{orders.created_at | date}}</p>
             </div>
             <div class="card_view__names" *ngIf="orders.driver_name">
               <p>Volunteer: {{orders.driver_name}}</p>
@@ -38,19 +37,19 @@
             </div>
             <div class="order_staus_action_buttons">
               <div class="card_view__actions">
-                <button type="button" name="button" value="ARRIVED" (click)="StatusClick($event)" class="button_arrived">Master Load Received</button>
+                <button type="button" name="button" value="ARRIVED" (click)="StatusClick($event)" class="button_arrived">Arrived</button>
               </div>
               <div class="card_view__actions">
-                <button type="button" name="button" value="PALLETIZED" (click)="StatusClick($event)" class="button_palletized">Palletized GIK</button>
+                <button type="button" name="button" value="PALLETIZED" (click)="StatusClick($event)" class="button_palletized">Palletieed</button>
               </div>
               <div class="card_view__actions">
-                <button type="button" name="button" value="POD READY" (click)="StatusClick($event)" class="button_ready">Pod Ready</button>
+                <button type="button" name="button" value="POD READY" (click)="StatusClick($event)" class="button_ready">Ready</button>
               </div>
               <div class="card_view__actions">
                 <button type="button" name="button" value="DISPATCHED" (click)="StatusClick($event)" class="button_dispatched">Dispatched</button>
               </div>
               <div class="card_view__actions">
-                <button type="button" name="button" value="DELIVERED" (click)="StatusClick($event)" class="button_delivered">Pod Delivered</button>
+                <button type="button" name="button" value="DELIVERED" (click)="StatusClick($event)" class="button_delivered">Delivered</button>
               </div>
             </div>
             <div class="volunteer_dropdown">
@@ -98,9 +97,6 @@
             </div>
           </div>
         </ng-container>
-        <div class="no_orders" *ngIf= "!pods.orders.length">
-          <p>There is no Orders for this Pod</p>
-        </div>
       </ng-container>
     </ng-container>
 
