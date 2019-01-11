@@ -31,7 +31,8 @@ import {CustomizeLoadComponent} from './customize-load/customize-load.component'
 import {AgmCoreModule} from '@agm/core';
 import {PodPickupListingComponent} from './pod-pickups-listing/pod-pickup-listing.component';
 import {HubManagerReportingComponent} from './hub-manager-reporting/hub-manager-reporting.component';
-import {TreeModule} from 'angular-tree-component';
+// import {TreeModule} from 'angular-tree-component';
+import { TreeModule } from 'ng2-tree';
 
 
 @NgModule({
@@ -46,7 +47,7 @@ import {TreeModule} from 'angular-tree-component';
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyCte3xKzZwcbVXm7942WDn1Twu2I0SAsoo'
         }),
-        TreeModule.forRoot()
+        TreeModule
     ],
     declarations: [
         HubManagerDashboardComponent,

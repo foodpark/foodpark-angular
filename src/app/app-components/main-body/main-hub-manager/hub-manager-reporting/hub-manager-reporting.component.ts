@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 import {ReportingService} from '../../../../app-services/reporting.service';
 import {MainhubModel, PodModel, RegionalHubModel} from '../../../../model';
 import {Subscription} from 'rxjs';
+import {TreeModel} from 'ng2-tree';
 
 interface Marker {
     latitude: number;
@@ -33,6 +34,22 @@ export class HubManagerReportingComponent implements OnInit, OnDestroy {
     masterLoadCount: number;
     loadCount = [];
     nodes = [];
+    treeNodes = [];
+    // tree: TreeModel = {
+    //     value: 'Programming languages by programming paradigm',
+    //     children: [
+    //         {
+    //             value: 'Object-oriented programming',
+    //             children: [{value: 'Java'}, {value: 'C++'}, {value: 'C#'}]
+    //         },
+    //         {
+    //             value: 'Prototype-based programming',
+    //             children: [{value: 'JavaScript'}, {value: 'CoffeeScript'}, {value: 'Lua'}]
+    //         }
+    //     ]
+    // };
+    tree: TreeModel;
+    treeArray;
     options = {};
     private mainhubsSubscription: Subscription;
     private reportsSubscription: Subscription;
@@ -56,18 +73,24 @@ export class HubManagerReportingComponent implements OnInit, OnDestroy {
                         latitude: parseFloat(report['mainhub'][0]['latitude']),
                         longitude: parseFloat(report['mainhub'][0]['longitude']),
                         label: report['mainhub'][0]['name'],
-                        icon: '../../../../../assets/images/warehouse.svg'
+                        icon: '../../../../../assets/images/warehouse.png'
                     };
                     this.markers.push(obj);
                     this.loadCount = [];
                     let counter = 0;
                     this.regionalHubs.forEach(hub => {
                         this.loadCount.push(hub['load_count']);
+                        const trees = {
+                            value: hub['name']
+                        };
                         const nodeObj = {
                             id: counter++,
                             name: hub['name'],
                         };
                         hub['pods'].forEach(pod => {
+                            trees['children'] = [{
+                                value: pod['name']
+                            }];
                             nodeObj['children'] = [
                                 {
                                     id: counter++,
@@ -78,12 +101,17 @@ export class HubManagerReportingComponent implements OnInit, OnDestroy {
                                 latitude: parseFloat(pod['latitude']),
                                 longitude: parseFloat(pod['longitude']),
                                 label: pod['name'],
-                                icon: '../../../../../assets/images/church.svg'
+                                icon: '../../../../../assets/images/church.png'
                             };
                             this.markers.push(podMarker);
                         });
-                        this.nodes.push(nodeObj);
+                        this.treeNodes.push(nodeObj);
+                        this.treeArray = {...trees, ...this.treeArray};
                     });
+                    this.nodes.push(this.treeNodes);
+                    this.tree = this.treeArray;
+                    // console.log(JSON.stringify(this.nodes));
+                    console.log(JSON.stringify(this.tree));
                 });
             });
         this.currentYear = new Date().getFullYear();

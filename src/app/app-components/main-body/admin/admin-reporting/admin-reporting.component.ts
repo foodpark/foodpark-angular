@@ -99,7 +99,7 @@ export class AdminReportingComponent implements OnInit {
                         latitude: parseFloat(report['mainhub'][0]['latitude']),
                         longitude: parseFloat(report['mainhub'][0]['longitude']),
                         label: report['mainhub'][0]['name'],
-                        icon: '../../../../../assets/images/warehouse.svg'
+                        icon: '../../../../../assets/images/warehouse.png'
                     };
                     this.markers.push(obj);
                     this.loadCount = 0;
@@ -110,7 +110,7 @@ export class AdminReportingComponent implements OnInit {
                                     latitude: parseFloat(pod['latitude']),
                                     longitude: parseFloat(pod['longitude']),
                                     label: pod['name'],
-                                    icon: '../../../../../assets/images/church.svg'
+                                    icon: '../../../../../assets/images/church.png'
                                 }
                             ;
                             this.markers.push(podMarker);
