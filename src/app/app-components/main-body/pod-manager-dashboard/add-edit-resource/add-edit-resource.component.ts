@@ -58,7 +58,7 @@ export class AddEditResourceComponent implements OnInit {
     addloaddeatilsform() {
         this.adddeatilsform = this.formBuilder.group({
             quantity: ['', Validators.required],
-            description: ['', Validators.required],
+            description: [''],
             category_id: ['', Validators.required],
             category_name: ['', Validators.required],
             load_type: ['', Validators.required]
@@ -124,7 +124,7 @@ export class AddEditResourceComponent implements OnInit {
     editloaddeatilsform() {
         this.editdeatilsform = this.formBuilder.group({
             quantity: ['', Validators.required],
-            description: ['', Validators.required],
+            description: [''],
             category_id: ['', Validators.required],
             category_name: ['', Validators.required],
             load_type: ['', Validators.required]
