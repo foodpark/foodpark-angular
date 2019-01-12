@@ -44,10 +44,10 @@ export class AddEditMainHubManagerComponent implements OnInit, OnDestroy {
             email: ['', Validators.email],
             password: ['', Validators.required],
             repeatpassword: ['', Validators.required],
-            country_id: ['', Validators.required],
-            country: ['', Validators.required],
-            territory_id: ['', Validators.required],
-            mainhubId: ['', Validators.required],
+            country_id: [''],
+            country: [''],
+            territory_id: [''],
+            mainhubId: [''],
             role: ['HUBMGR']
         });
         this.countryService.getCountries();
@@ -67,6 +67,8 @@ export class AddEditMainHubManagerComponent implements OnInit, OnDestroy {
                     this.hubmanagerForm.get('firstname').setValue(res[0]['first_name']);
                     this.hubmanagerForm.get('lastname').setValue(res[0]['last_name']);
                     this.hubmanagerForm.get('email').setValue(res[0]['username']);
+                    this.hubmanagerForm.get('password').setValue(res[0]['password']);
+                    this.hubmanagerForm.get('repeatpassword').setValue(res[0]['password']);
                 });
                 this.isCreate = false;
                 this.pageTitle = 'Edit Main Hub Manager';

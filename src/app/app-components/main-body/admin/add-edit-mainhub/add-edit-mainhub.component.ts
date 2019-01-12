@@ -37,7 +37,7 @@ export class AddEditMainhubComponent implements OnInit, OnDestroy {
             longitude: ['', Validators.required],
             country: ['', Validators.required],
             territory_id: ['', Validators.required],
-            type: ['MAIN', Validators.required]
+            type: ['MAIN']
         });
         this.countryService.getCountries();
         this.countriesSubscription = this.countryService.getCountriesUpdateListener()
@@ -60,9 +60,10 @@ export class AddEditMainhubComponent implements OnInit, OnDestroy {
                     this.mainhubForm.get('latitude').setValue(this.mainhubs['latitude'], {emitEvent: false});
                     this.mainhubForm.get('longitude').setValue(this.mainhubs['longitude'], {emitEvent: false});
                     this.mainhubForm.get('country').setValue(this.mainhubs['country'], {emitEvent: false});
+                    this.mainhubForm.get('territory_id').setValue(this.mainhubs['territory_id'], {emitEvent: false});
                     document.getElementById('country_button').innerText = this.mainhubForm.get('country').value;
-                    this.territoryService.getTerritoriesFromId(this.mainhubs['territory_id']).subscribe(res => {
-                        document.getElementById('territory_button').innerText = res['territory'];
+                    this.territoryService.getTerritoriesFromId(this.mainhubs['territory_id']).subscribe(territory => {
+                        document.getElementById('territory_button').innerText = territory['territory'];
                     });
                 });
             }
