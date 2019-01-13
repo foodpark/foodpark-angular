@@ -27,7 +27,7 @@ export class HubPickupService {
     }
 
     getHubPickups() {
-        this.http.get<HubPickupModel[]>(environment.apiUrl + '/api/v1/rel/events')
+        this.http.get<HubPickupModel[]>(environment.apiUrl + '/api/v1/rel/events?manager=' + localStorage.getItem('user_id'))
             .subscribe((hubPickups) => {
                 this.hubPickups = hubPickups;
                 this.hubPickupsUpdated.next([...this.hubPickups]);
