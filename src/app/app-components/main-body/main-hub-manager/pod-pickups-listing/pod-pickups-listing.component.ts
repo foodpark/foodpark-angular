@@ -51,7 +51,7 @@ export class PodPickupsListingComponent implements OnInit, OnDestroy {
 
     onDeleteClick(index: number) {
         this.podPickupService.deletePodPickup(index).subscribe(() => {
-            this.podPickupService.getPodPickups();
+            this.podPickupService.getPodPickups(this.mainHub['id']);
         });
     }
 
