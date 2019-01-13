@@ -75,7 +75,6 @@ export class AddEditMainHubManagerComponent implements OnInit, OnDestroy {
             } else {
                 this.isCreate = true;
                 this.pageTitle = 'Add Main Hub Manager';
-
             }
         });
     }
