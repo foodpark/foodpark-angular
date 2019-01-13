@@ -66,7 +66,10 @@ const routes: Routes = [
                 path: 'mainhubs', component: MainHubsListingComponent, children: []
             },
             {
-                path: 'editmainhub', component: AddEditMainhubComponent, children: []
+                path: 'editmainhub/:mainhubId', component: AddEditMainhubComponent, children: []
+            },
+            {
+                path: 'createmainhub', component: AddEditMainhubComponent, children: []
             },
             {
                 path: 'mainhubmanagers', component: MainhubManagerListingComponent, children: []

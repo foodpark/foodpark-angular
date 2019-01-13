@@ -50,11 +50,11 @@ export class MainHubsListingComponent implements OnInit, OnDestroy {
     }
 
     onAddMainhubClick() {
-        this.router.navigate(['/admin/editmainhub']);
+        this.router.navigate(['/admin/createmainhub']);
     }
 
     onEditClick(index: number) {
-        this.router.navigate(['/admin/editmainhub', {mainhubId: this.mainhubs[index]['id']}]);
+        this.router.navigate(['/admin/editmainhub/' + this.mainhubs[index]['id']]);
     }
 
     onDeleteClick(id: number) {
