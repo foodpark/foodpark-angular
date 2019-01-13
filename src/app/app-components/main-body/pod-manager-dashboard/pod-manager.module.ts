@@ -19,7 +19,7 @@ import {AddEditResourceComponent} from './add-edit-resource/add-edit-resource.co
     declarations: [
       PodManagerDashboardComponent,
       LoadResourceComponent,
-      AddEditResourceComponent
+      AddEditResourceComponent,
     ],
     exports: [
       PodManagerDashboardComponent,

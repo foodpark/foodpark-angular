@@ -121,11 +121,6 @@ export class EditHubpickupComponent implements OnInit {
         this.sponsor2Name = event['srcElement']['value'];
     }
 
-    // onHubClick() {
-    //     const button = document.getElementById('hub_button');
-    //     button.innerText = this.mainHub['name'];
-    // }
-
     onImageUpload(name: string, files: FileList) {
         document.getElementById(name + '_image').innerText = files[0].name;
         if (name === 'sponsor1') {

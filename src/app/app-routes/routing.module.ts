@@ -38,9 +38,10 @@ import {CreateMasterLoadComponent} from '../app-components/main-body/main-hub-ma
 import {EditMasterLoadComponent} from '../app-components/main-body/main-hub-manager/edit-master-load/edit-master-load.component';
 import {CustomizeLoadComponent} from '../app-components/main-body/main-hub-manager/customize-load/customize-load.component';
 import {GuestCreatePodsComponent} from '../app-components/main-body/guest-create-pods/create-pods.component';
-import {PodPickupListingComponent} from '../app-components/main-body/main-hub-manager/pod-pickups-listing/pod-pickup-listing.component';
 import {AdminReportingComponent} from '../app-components/main-body/admin/admin-reporting/admin-reporting.component';
 import {HubManagerReportingComponent} from '../app-components/main-body/main-hub-manager/hub-manager-reporting/hub-manager-reporting.component';
+import {PodPickupsListingComponent} from '../app-components/main-body/main-hub-manager/pod-pickups-listing/pod-pickups-listing.component';
+import {AddEditPodPickupComponent} from '../app-components/main-body/main-hub-manager/add-edit-podpickup/add-edit-podpickup.component';
 
 
 const routes: Routes = [
@@ -155,7 +156,10 @@ const routes: Routes = [
                 path: 'addeditloadresource/:id/:src', component: AddEditResourceComponent, children: []
             },
             {
-                path: 'podpickups', component: PodPickupListingComponent, children: []
+                path: 'podpickups', component: PodPickupsListingComponent, children: []
+            },
+            {
+                path: 'addeditpodpickup', component: AddEditPodPickupComponent, children: []
             }
         ]
     },

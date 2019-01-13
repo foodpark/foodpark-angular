@@ -1,21 +1,25 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MainhubModel} from '../../../../model';
+import {MainhubModel, PodModel, RegionalHubModel} from '../../../../model';
+import {Subscription} from 'rxjs';
 import {MainhubService} from '../../../../app-services/mainhub.service';
 import {HttpClient} from '@angular/common/http';
-import {FileUploadService} from '../../../../app-services/fileupload.service';
 import {DataService} from '../../../../app-services/data.service';
-import {Subscription} from 'rxjs';
-import {HubPickupService} from '../../../../app-services/hub-pickup.service';
-import {Router} from '@angular/router';
+import {FileUploadService} from '../../../../app-services/fileupload.service';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
+import {PodPickupService} from '../../../../app-services/pod-pickup.service';
+import {RegionalhubsService} from '../../../../app-services/regionalhubs.service';
+import {PodsService} from '../../../../app-services/pods.service';
 
 @Component({
-    selector: 'app-hub-pickups',
-    templateUrl: './hub-pickups.component.html',
-
+    selector: 'app-add-edit-podpickup',
+    templateUrl: './add-edit-podpickup.component.html',
 })
-export class HubPickupsComponent implements OnInit {
-    hubPickupForm: FormGroup;
+export class AddEditPodPickupComponent implements OnInit {
+
+    podPickupForm: FormGroup;
+    podPickupId: number;
+    podPickup;
     mainHub: MainhubModel;
     sponsors = [];
     sponsor1Name;
@@ -31,14 +35,24 @@ export class HubPickupsComponent implements OnInit {
     filetype: any;
     eventimage: File;
     sponsor1image: File;
+    regionalHubs;
     sponsor2image: File;
+    pods: PodModel[] = [];
+    pageTitle = '';
+    isCreate = false;
+    reqObj = {};
+    private regionalHubsSubscription: Subscription;
+    private podsSubscription: Subscription;
 
     constructor(private fb: FormBuilder,
                 private mainhubService: MainhubService,
                 private http: HttpClient,
                 private dataService: DataService,
-                private hubPickupService: HubPickupService,
+                private route: ActivatedRoute,
+                private podPickupService: PodPickupService,
+                private regionalService: RegionalhubsService,
                 private fileUploadService: FileUploadService,
+                private podsService: PodsService,
                 private router: Router) {
         this.fileURL = {};
         this.filetype = '';
@@ -48,21 +62,60 @@ export class HubPickupsComponent implements OnInit {
         this.sponsor1Image = null;
         this.sponsor2Image = null;
         this.eventImage = null;
-        this.hubPickupForm = this.fb.group({
+        this.podPickupForm = this.fb.group({
             name: ['', Validators.required],
-            description: [''],
             start_date: ['', Validators.required],
             end_date: ['', Validators.required],
-            latitude: ['', Validators.required],
-            longitude: ['', Validators.required],
+            schedule: [''],
+            latitude: [''],
+            longitude: [''],
             image: ['', Validators.required],
             sponsors: [''],
-            schedule: ['']
+            description: [''],
         });
 
+        this.route.paramMap.subscribe((paramMap: ParamMap) => {
+            if (paramMap.has('podPickup')) {
+                this.podPickupId = JSON.parse(paramMap['params']['podPickup']);
+                this.podPickupService.getPodPickupsFromId(this.podPickupId).subscribe(res => {
+                    this.podPickup = res;
+                    this.sponsor1Image = this.podPickup['sponsors'][0] ? this.podPickup['sponsors'][0]['image'] : '';
+                    this.sponsor2Image = this.podPickup['sponsors'][1] ? this.podPickup['sponsors'][1]['image'] : '';
+                    this.podPickupForm = this.fb.group({
+                        name: [res['name'], Validators.required],
+                        description: [res['description'], Validators.required],
+                        image: [null, Validators.required],
+                        sponsors: [res['sponsors']],
+                        start_date: [new Date(res['start_date'])],
+                        end_date: [new Date(res['end_date'])],
+                        start_time: [res['schedule']['start']],
+                        end_time: [res['schedule']['end']],
+                    });
+                });
+                this.isCreate = false;
+                this.pageTitle = 'Edit Pod Pickup';
+            } else {
+                this.isCreate = true;
+                this.pageTitle = 'Add Pod Pickup';
+            }
+        });
         this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
             .subscribe((response) => {
                 this.mainHub = response[0];
+                this.reqObj = {
+                    ...this.reqObj,
+                    main_hub_id: this.mainHub['id']
+                };
+                this.regionalService.getRegionalHubsInMainHub(this.mainHub['id']);
+                this.regionalHubsSubscription = this.regionalService.getRegionalHubsUpdateListener()
+                    .subscribe((regionalHubs: RegionalHubModel[]) => {
+                        this.regionalHubs = regionalHubs;
+                    });
+                this.podsService.getPodsInMainHub(this.mainHub['id']);
+                this.podsSubscription = this.podsService.getPodsUpdateListener()
+                    .subscribe((pods: PodModel[]) => {
+                        this.pods = pods;
+                    });
             });
 
         this.fileUploadSubscription = this.fileUploadService.getFileUploadListener()
@@ -98,14 +151,32 @@ export class HubPickupsComponent implements OnInit {
         this.sponsor2Name = event['srcElement']['value'];
     }
 
-    onHubClick() {
-        const button = document.getElementById('hub_button');
-        button.innerText = this.mainHub['name'];
+    onPodClick(index) {
+        const button = document.getElementById('pod_button');
+        button.innerText = this.pods[index]['name'];
+        this.reqObj = {
+            ...this.reqObj,
+            pod_id: this.pods[index]['id'],
+            pod_name: this.pods[index]['name'],
+            latitude: this.pods[index]['latitude'],
+            longitude: this.pods[index]['longitude'],
+        };
+    }
+
+    onRegionalHubClick(index) {
+        const button = document.getElementById('regional_hub');
+        button.innerText = this.regionalHubs[index]['name'];
+        this.reqObj = {
+            ...this.reqObj,
+            regional_hub_id: this.regionalHubs[index]['id'],
+            regional_hub_name: this.regionalHubs[index]['name']
+        };
     }
 
     onImageUpload(name: string, event) {
         console.log('this is the image', event);
         console.log('this is the filetype', this.filetype);
+
         const files = event.target.files, data = files[0], reader = new FileReader();
         reader.onload = event => {
             this.fileURL = event;
@@ -169,14 +240,13 @@ export class HubPickupsComponent implements OnInit {
         this.showDateError = startDate > endDate;
         const startTime = startDate.getHours() + ':' + startDate.getMinutes();
         const endTime = endDate.getHours() + ':' + endDate.getMinutes();
-        const obj = {
-            name: this.hubPickupForm.value['name'],
+        this.reqObj = {
+            ...this.reqObj,
+            name: this.podPickupForm.value['name'],
             image: this.imageURL,
-            description: this.hubPickupForm.value['description'],
+            description: this.podPickupForm.value['description'],
             start_date: startDate.getFullYear() + '-' + startDate.getMonth() + '-' + startDate.getDate(),
             end_date: endDate.getFullYear() + '-' + endDate.getMonth() + '-' + endDate.getDate(),
-            latitude: this.mainHub['latitude'],
-            longitude: this.mainHub['longitude'],
             sponsors: this.sponsors,
             schedule: [
                 {
@@ -188,8 +258,8 @@ export class HubPickupsComponent implements OnInit {
         };
 
         if (!this.showDateError) {
-            this.hubPickupService.addHubPickup(obj);
-            this.router.navigate(['hubmanager/hubpickups']);
+            this.podPickupService.addPodPickup(this.reqObj);
+            this.router.navigate(['hubmanager/podpickups']);
         }
     }
 
@@ -203,4 +273,5 @@ export class HubPickupsComponent implements OnInit {
         }
         return isValid;
     }
+
 }

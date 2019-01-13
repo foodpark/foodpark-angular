@@ -33,7 +33,6 @@ export class HubManagerReportingComponent implements OnInit, OnDestroy {
     pods: PodModel[];
     masterLoadCount: number;
     loadCount = [];
-    nodes = [];
     treeNodes = [];
     // tree: TreeModel = {
     //     value: 'Programming languages by programming paradigm',
@@ -77,26 +76,15 @@ export class HubManagerReportingComponent implements OnInit, OnDestroy {
                     };
                     this.markers.push(obj);
                     this.loadCount = [];
-                    let counter = 0;
                     this.regionalHubs.forEach(hub => {
                         this.loadCount.push(hub['load_count']);
                         const trees = {
                             value: hub['name']
                         };
-                        const nodeObj = {
-                            id: counter++,
-                            name: hub['name'],
-                        };
                         hub['pods'].forEach(pod => {
                             trees['children'] = [{
                                 value: pod['name']
                             }];
-                            nodeObj['children'] = [
-                                {
-                                    id: counter++,
-                                    name: pod['name'],
-                                }
-                            ];
                             const podMarker = {
                                 latitude: parseFloat(pod['latitude']),
                                 longitude: parseFloat(pod['longitude']),
@@ -104,13 +92,10 @@ export class HubManagerReportingComponent implements OnInit, OnDestroy {
                                 icon: '../../../../../assets/images/church.png'
                             };
                             this.markers.push(podMarker);
+                            this.treeArray = {...trees, ...this.treeArray};
                         });
-                        this.treeNodes.push(nodeObj);
-                        this.treeArray = {...trees, ...this.treeArray};
                     });
-                    this.nodes.push(this.treeNodes);
                     this.tree = this.treeArray;
-                    // console.log(JSON.stringify(this.nodes));
                     console.log(JSON.stringify(this.tree));
                 });
             });

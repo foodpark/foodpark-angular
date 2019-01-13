@@ -29,10 +29,11 @@ import {CreateMasterLoadComponent} from './create-master-load/create-master-load
 import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
 import {CustomizeLoadComponent} from './customize-load/customize-load.component';
 import {AgmCoreModule} from '@agm/core';
-import {PodPickupListingComponent} from './pod-pickups-listing/pod-pickup-listing.component';
 import {HubManagerReportingComponent} from './hub-manager-reporting/hub-manager-reporting.component';
 // import {TreeModule} from 'angular-tree-component';
-import { TreeModule } from 'ng2-tree';
+import {TreeModule} from 'ng2-tree';
+import {PodPickupsListingComponent} from './pod-pickups-listing/pod-pickups-listing.component';
+import {AddEditPodPickupComponent} from './add-edit-podpickup/add-edit-podpickup.component';
 
 
 @NgModule({
@@ -72,8 +73,9 @@ import { TreeModule } from 'ng2-tree';
         CreateDonationOrderComponent,
         EditMasterLoadComponent,
         CustomizeLoadComponent,
-        PodPickupListingComponent,
-        HubManagerReportingComponent
+        HubManagerReportingComponent,
+        PodPickupsListingComponent,
+        AddEditPodPickupComponent
     ],
     exports: [
         HubManagerDashboardComponent,
