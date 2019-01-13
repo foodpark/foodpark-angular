@@ -20,9 +20,9 @@
                         <div class="card_view_icon">
                             <img alt="" src="assets/images/truck.jpeg" style="padding-left: 60px;">
                         </div>
-                        <!-- <div class="crad_view__creation_details"> -->
+                        <div class="crad_view__creation_details">
                             Order Creation: {{ orders.created_at | date: "MMM d, y, - h:mm a" }}
-                        <!-- </div> -->
+                        </div>
                         <div class="card_view__names" *ngIf="orders.driver_name">
                             Volunteer: {{ orders.driver_name }}
                         </div>
