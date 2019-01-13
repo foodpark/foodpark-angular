@@ -1,108 +1,193 @@
 <div class="tab-absolute-position">
-  <!-- <h1 class="hedaing_title"> Order Management</h1> -->
-  <div class="title-center">
-      <h4>Main Hub: <i>{{mainHubName}}</i></h4>
-  </div>
-  <div class="order_mngmnt_card_view" >
-    <ng-container *ngFor="let item of allordersdata" class="regional_hub_section">
-       <p><label>Regional Hub</label> :{{item.name}}</p>
-      <ng-container *ngFor="let pods of item.pods">
-        <p><label>Pod Name</label> :{{pods.name}}</p>
-        <ng-container *ngFor="let orders of pods.orders; let i = index">
+    <div class="title-center">
+        <h4>
+            Main Hub: <i>{{ mainHubName }}</i>
+        </h4>
+    </div>
+    <div class="order_mngmnt_card_view">
+        <ng-container *ngFor="let item of allordersdata" class="regional_hub_section">
+            <h4 style="padding-bottom: 10px;">Regional Hub: <i>{{ item.name }}</i></h4>
+            <ng-container *ngFor="let pods of item.pods">
+                <h4>Pod: <i>{{ pods.name }}</i></h4>
+                <ng-container *ngFor="let orders of pods.orders; let i = index">
+                    <div
+                        class="card_view accordion-toggle"
+                        data-toggle="collapse"
+                        [attr.data-target]="i"
+                        (click)="openaccordian(orders, i)"
+                    >
 
-          <div class="card_view accordion-toggle" data-toggle="collapse" [attr.data-target]="i" (click)="openaccordian(orders,i)">
-            <div class="card_view_icon">
-              <img src="assets/images/truck.jpeg" alt="">
-            </div>
-            <div class="crad_view__creation_details">
-              <p>Order Creation: {{orders.created_at | date: 'MMM d, y, - h:mm a'}}</p>
-            </div>
-            <div class="card_view__names" *ngIf="orders.driver_name">
-              <p>Volunteer: {{orders.driver_name}}</p>
-            </div>
-            <div class="card_view__names" *ngIf="!orders.driver_name">
-              <p>Volunteer: N/A</p>
-            </div>
-            <div class="card_view__actions">
-              <button type="button" name="button" [ngClass]="{
-                'button_arrived':orders.status === 'ARRIVED',
-                'button_ready':orders.status === 'POD READY',
-                'button_palletized':orders.status === 'PALLETIZED',
-                'button_dispatched':orders.status === 'DISPATCHED',
-                'button_delivered':orders.status === 'DELIVERED'}">{{orders.status}}</button>
-            </div>
-          </div>
-          <div class="accordian-body card_view_collapsed" id="{{orders.id+''}}" *ngIf="selectedid == orders.id">
-            <div class="title-center">
-                <h4>Select Order Status</h4>
-            </div>
-            <div class="order_staus_action_buttons">
-              <div class="card_view__actions">
-                <button type="button" name="button" value="ARRIVED" (click)="StatusClick($event)" class="button_arrived">Master Load Received</button>
-              </div>
-              <div class="card_view__actions">
-                <button type="button" name="button" value="PALLETIZED" (click)="StatusClick($event)" class="button_palletized">Palletized GIK</button>
-              </div>
-              <div class="card_view__actions">
-                <button type="button" name="button" value="POD READY" (click)="StatusClick($event)" class="button_ready">Pod Ready</button>
-              </div>
-              <div class="card_view__actions">
-                <button type="button" name="button" value="DISPATCHED" (click)="StatusClick($event)" class="button_dispatched">Dispatched</button>
-              </div>
-              <div class="card_view__actions">
-                <button type="button" name="button" value="DELIVERED" (click)="StatusClick($event)" class="button_delivered">Pod Delivered</button>
-              </div>
-            </div>
-            <div class="volunteer_dropdown">
-              <div class="form-group">
-                  <h4>Volunteer</h4>
-                  <div class="dropdown">
-                    <button id="volunteer_button" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" *ngIf="pods.orders"> {{orders.driver_name}}</button>
-                    <button id="volunteer_button" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" *ngIf="!pods.orders"> Select</button>
-                    <ul class="dropdown-menu">
-                      <!-- (click)="onCountryClick(i, item['id'])" -->
-                      <li *ngFor="let item of filteredVolunteers; let i = index" (click)="onVolunteerClick(i, item)">
-                          {{ item.username }}
-                      </li>
-                    </ul>
-                  </div>
-              </div>
-            </div>
-            <div class="load__details">
-              <table class="table table-borderless">
-                <thead>
-                  <tr>
-                    <th>Request Name</th>
-                    <th>Date</th>
-                    <th>Pallets</th>
-                    <th>Box</th>
-                    <th>Items</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>{{ ordersdata.name }}</td>
-                    <td>{{ ordersdata.created_at | date }}</td>
-                    <td>
-                      <p *ngFor="let pallet of ordersdata.pallets">  {{pallet.category_name}} X {{pallet.quantity}}</p>
-                    </td>
-                    <td>
-                      <p *ngFor="let boxes of ordersdata.boxes">{{boxes.category_name}} X {{boxes.quantity}}</p>
-                    </td>
-                    <td>
-                      <p *ngFor="let item of ordersdata.items">{{item.category_name}} X {{item.quantity}}</p>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+                        <div class="card_view_icon">
+                            <img alt="" src="assets/images/truck.jpeg" style="padding-left: 60px;">
+                        </div>
+                        <!-- <div class="crad_view__creation_details"> -->
+                            Order Creation: {{ orders.created_at | date: "MMM d, y, - h:mm a" }}
+                        <!-- </div> -->
+                        <div class="card_view__names" *ngIf="orders.driver_name">
+                            Volunteer: {{ orders.driver_name }}
+                        </div>
+                        <div class="card_view__names" *ngIf="!orders.driver_name">
+                            Volunteer:
+                        </div>
+                        <div class="card_view__actions">
+                            <button
+                                type="button"
+                                name="button"
+                                [ngClass]="{
+                                    button_arrived: orders.status === 'ARRIVED',
+                                    button_ready: orders.status === 'POD READY',
+                                    button_palletized: orders.status === 'PALLETIZED',
+                                    button_dispatched: orders.status === 'DISPATCHED',
+                                    button_delivered: orders.status === 'DELIVERED'
+                                }"
+                            >
+                                {{ orders.status }}
+                            </button>
+                        </div>
+                    </div>
+                    <div
+                        class="accordian-body card_view_collapsed"
+                        id="{{ orders.id + '' }}"
+                        *ngIf="selectedid == orders.id"
+                    >
+                        <div class="title-center">
+                            <h4>Select Order Status</h4>
+                        </div>
+                        <div class="order_staus_action_buttons">
+                            <div class="card_view__actions">
+                                <button
+                                    type="button"
+                                    name="button"
+                                    value="ARRIVED"
+                                    (click)="onStatusClick($event)"
+                                    class="button_arrived"
+                                >
+                                    Master Load Received
+                                </button>
+                            </div>
+                            <div class="card_view__actions">
+                                <button
+                                    type="button"
+                                    name="button"
+                                    value="PALLETIZED"
+                                    (click)="onStatusClick($event)"
+                                    class="button_palletized"
+                                >
+                                    Palletized GIK
+                                </button>
+                            </div>
+                            <div class="card_view__actions">
+                                <button
+                                    type="button"
+                                    name="button"
+                                    value="POD READY"
+                                    (click)="onStatusClick($event)"
+                                    class="button_ready"
+                                >
+                                    Pod Ready
+                                </button>
+                            </div>
+                            <div class="card_view__actions">
+                                <button
+                                    type="button"
+                                    name="button"
+                                    value="DISPATCHED"
+                                    (click)="onStatusClick($event)"
+                                    class="button_dispatched"
+                                >
+                                    Dispatched
+                                </button>
+                            </div>
+                            <div class="card_view__actions">
+                                <button
+                                    type="button"
+                                    name="button"
+                                    value="DELIVERED"
+                                    (click)="onStatusClick($event)"
+                                    class="button_delivered"
+                                >
+                                    Pod Delivered
+                                </button>
+                            </div>
+                        </div>
+                        <div class="volunteer_dropdown">
+                            <div class="form-group">
+                                <h4>Volunteer</h4>
+                                <div class="dropdown">
+                                    <button
+                                        id="volunteer_button"
+                                        class="btn btn-primary dropdown-toggle"
+                                        type="button"
+                                        data-toggle="dropdown"
+                                        *ngIf="pods.orders"
+                                    >
+                                        {{ orders.driver_name }}
+                                    </button>
+                                    <button
+                                        id="volunteer_button"
+                                        class="btn btn-primary dropdown-toggle"
+                                        type="button"
+                                        data-toggle="dropdown"
+                                        *ngIf="!pods.orders"
+                                    >
+                                        Select
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li
+                                            *ngFor="
+                                                let item of filteredVolunteers;
+                                                let i = index
+                                            "
+                                            (click)="onVolunteerClick(i, item)"
+                                        >
+                                            {{ item.username }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="load__details">
+                            <table class="table table-borderless">
+                                <thead>
+                                    <tr>
+                                        <th>Request Name</th>
+                                        <th>Date</th>
+                                        <th>Pallets</th>
+                                        <th>Box</th>
+                                        <th>Items</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{ ordersdata.name }}</td>
+                                        <td>
+                                            {{ ordersdata.created_at | date }}
+                                        </td>
+                                        <td>
+                                            <p *ngFor="let pallet of ordersdata.pallets">
+                                                {{ pallet.category_name }} X {{ pallet.quantity }}
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p *ngFor="let boxes of ordersdata.boxes">
+                                                {{ boxes.category_name }} X {{ boxes.quantity }}
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p *ngFor="let item of ordersdata.items">
+                                                {{ item.category_name }} X {{ item.quantity }}
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </ng-container>
+                <div class="no_orders" *ngIf="!pods.orders.length">
+                    <h5 style="padding-bottom: 20px;">There are no orders available for this Pod</h5>
+                </div>
+            </ng-container>
         </ng-container>
-        <div class="no_orders" *ngIf= "!pods.orders.length">
-          <p>There is no Orders for this Pod</p>
-        </div>
-      </ng-container>
-    </ng-container>
-
-  </div>
+    </div>
 </div>
