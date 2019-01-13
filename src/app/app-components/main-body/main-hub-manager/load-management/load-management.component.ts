@@ -2,7 +2,8 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {MasterLoadService} from '../../../../app-services/master-load.service';
 import {Subscription} from 'rxjs';
-import {MasterLoadModel} from '../../../../model';
+import {MasterLoadModel, MainhubModel} from '../../../../model';
+import { MainhubService } from 'src/app/app-services/mainhub.service';
 
 @Component({
     selector: 'app-load-management',
@@ -10,19 +11,26 @@ import {MasterLoadModel} from '../../../../model';
 
 })
 export class LoadManagementComponent implements OnInit, OnDestroy {
+    mainHub: MainhubModel;
     masterLoadSubscription: Subscription;
     masterLoads: MasterLoadModel[] = [];
 
     constructor(private router: Router,
-                private masterLoadService: MasterLoadService) {
+                private masterLoadService: MasterLoadService,
+                private mainHubService: MainhubService) {
     }
 
     ngOnInit() {
-        this.masterLoadService.getAllMasterLoads();
         this.masterLoadSubscription = this.masterLoadService.getMasterUpdateListener()
-            .subscribe(res => {
-                this.masterLoads = res;
-            });
+        .subscribe(res => {
+            this.masterLoads = res;
+        });
+
+        this.mainHubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
+        .subscribe((response) => {
+            this.mainHub = response[0];
+            this.masterLoadService.getMasterLoadsInMainHub(this.mainHub.id);
+        });
     }
 
     onCreateLoadMasterClick() {
