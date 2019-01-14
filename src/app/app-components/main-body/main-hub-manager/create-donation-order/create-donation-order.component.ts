@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MasterLoadService} from '../../../../app-services/master-load.service';
 import {Subscription} from 'rxjs';
-import {MasterLoadModel, RegionalHubModel} from '../../../../model';
+import {MasterLoadModel, RegionalHubModel, MainhubModel} from '../../../../model';
 import {RegionalhubsService} from '../../../../app-services/regionalhubs.service';
 import {MainhubService} from '../../../../app-services/mainhub.service';
 import {PodsManagerService} from '../../../../app-services/pod-manager.service';
@@ -14,6 +14,7 @@ import {DataService} from '../../../../app-services/data.service';
     templateUrl: './create-donation-order.component.html',
 })
 export class CreateDonationOrderComponent implements OnInit, OnDestroy {
+    mainHub: MainhubModel;
     createDonationOrderForm: FormGroup;
     masterLoads: MasterLoadModel[] = [];
     regionalHubs;
@@ -41,20 +42,22 @@ export class CreateDonationOrderComponent implements OnInit, OnDestroy {
             select_pod_load: ['', Validators.required],
         });
 
-        this.masterLoadService.getAllMasterLoads();
         this.masterLoadSubscription = this.masterLoadService.getMasterUpdateListener()
-            .subscribe(res => {
-                this.masterLoads = res;
-                this.regionalService.getRegionalHubsInMainHub(this.masterLoads[0]['main_hub_id']);
-                this.regionalHubsSubscription = this.regionalService.getRegionalHubsUpdateListener()
-                    .subscribe((regionalHubs: RegionalHubModel[]) => {
-                        this.regionalHubs = regionalHubs;
-                    });
-            });
-        // this.mainHubService.getMainhubOfLoggedInUser((localStorage.getItem('user_id')));
-        // this.mainHubsSubscription = this.mainHubService.getMainhubsUpdateListener().subscribe(res => {
-        //     this.mainHubs = res;
-        // });
+        .subscribe(res => {
+            this.masterLoads = res;
+            this.regionalService.getRegionalHubsInMainHub(this.masterLoads[0]['main_hub_id']);
+            this.regionalHubsSubscription = this.regionalService.getRegionalHubsUpdateListener()
+                .subscribe((regionalHubs: RegionalHubModel[]) => {
+                    this.regionalHubs = regionalHubs;
+                });
+        });
+
+        this.mainHubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
+        .subscribe((response) => {
+            this.mainHub = response[0];
+            this.masterLoadService.getMasterLoadsInMainHub(this.mainHub.id);
+        });
+
         this.podsManagerService.getLoadRequests().subscribe(res => {
             this.loads = res;
         });
@@ -65,11 +68,6 @@ export class CreateDonationOrderComponent implements OnInit, OnDestroy {
             button.innerText = this.loadName;
         }
     }
-
-    // "master_load_id":2,
-    // "regional_hub_id":4,
-    // "load_id":1,
-    // "load_name":"Load 1"
 
     clickCustomize(loadId: number) {
         localStorage.setItem('loadId', loadId['id']);

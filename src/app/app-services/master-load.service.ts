@@ -20,12 +20,19 @@ export class MasterLoadService {
 
     getAllMasterLoads() {
         this.http.get<MasterLoadModel[]>(environment.apiUrl + '/api/v1/rel/master_loads')
-            .subscribe((response) => {
-                this.masterLoad = response;
-                this.materLoadUpdated.next([...this.masterLoad]);
-            });
+        .subscribe((response) => {
+            this.masterLoad = response;
+            this.materLoadUpdated.next([...this.masterLoad]);
+        });
     }
 
+    getMasterLoadsInMainHub(mainHubId: number) {
+        this.http.get<MasterLoadModel[]>(environment.apiUrl + '/api/v1/rel/master_loads?main_hub_id=' + mainHubId)
+        .subscribe((response) => {
+            this.masterLoad = response;
+            this.materLoadUpdated.next([...this.masterLoad]);
+        });
+    }
 
     getMasterLoadFromId(masterLoadId: number) {
         return this.http.get(environment.apiUrl + '/api/v1/rel/master_loads/' + masterLoadId);

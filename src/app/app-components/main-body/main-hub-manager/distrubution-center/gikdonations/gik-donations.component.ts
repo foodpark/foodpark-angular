@@ -92,7 +92,7 @@ export class GIKDonationsComponent implements OnInit {
 
   }
 
-  StatusClick(element){
+  onStatusClick(element){
     this.orderstatusvalue = element.currentTarget.value;
     console.log('button staus',this.orderstatusvalue);
     let statusReq = {
