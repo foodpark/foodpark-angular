@@ -116,19 +116,34 @@ export interface LoadItemModel {
     load_id: number;
 }
 
+export interface ReportingModel {
+    mainhub: MainHubReportingModel;
+    master_loads: number;
+    regionalhubs: RegionalHubReportingModel[];
+}
+
+export interface MainHubReportingModel {
+    id: number;
+    name: string;
+    latitude: number;
+    longitude: number;
+}
+
+export interface RegionalHubReportingModel {
+    id: number;
+    name: string;
+    load_count: number;
+    pods: PodReportingModel[];
+}
+
 export interface PodReportingModel {
     id: number;
     name: string;
-    lat: number;
-    lng: number;
+    latitude: number;
+    longitude: number;
     load_count: number;
 }
 
-export interface HubReportingModel {
-    id: number;
-    name: string;
-    pods: PodmanagerModel[];
-}
 
 export interface VolunteerModel {
     id: number;

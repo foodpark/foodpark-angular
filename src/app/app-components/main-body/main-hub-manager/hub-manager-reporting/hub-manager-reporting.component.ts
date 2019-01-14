@@ -1,10 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {DataService} from '../../../../app-services/data.service';
-import {RegionalhubsService} from '../../../../app-services/regionalhubs.service';
 import {MainhubService} from '../../../../app-services/mainhub.service';
 import {Router} from '@angular/router';
 import {ReportingService} from '../../../../app-services/reporting.service';
-import {MainhubModel, PodModel, RegionalHubModel} from '../../../../model';
+import {MainhubModel, ReportingModel} from '../../../../model';
 import {Subscription} from 'rxjs';
 import {TreeModel} from 'ng2-tree';
 
@@ -19,44 +17,22 @@ interface Marker {
 @Component({
     selector: 'app-reporting',
     templateUrl: './hub-manager-reporting.component.html',
-
 })
+
 export class HubManagerReportingComponent implements OnInit, OnDestroy {
     latitude: number;
     longitude: number;
     currentYear;
     zoom = 3;
-    icon: string;
     markers: Marker[] = [];
     mainHub: MainhubModel;
-    regionalHubs: RegionalHubModel[];
-    pods: PodModel[];
-    masterLoadCount: number;
-    loadCount = [];
-    treeNodes = [];
-    // tree: TreeModel = {
-    //     value: 'Programming languages by programming paradigm',
-    //     children: [
-    //         {
-    //             value: 'Object-oriented programming',
-    //             children: [{value: 'Java'}, {value: 'C++'}, {value: 'C#'}]
-    //         },
-    //         {
-    //             value: 'Prototype-based programming',
-    //             children: [{value: 'JavaScript'}, {value: 'CoffeeScript'}, {value: 'Lua'}]
-    //         }
-    //     ]
-    // };
+    report: ReportingModel;
     tree: TreeModel;
-    treeArray;
-    options = {};
     private mainhubsSubscription: Subscription;
     private reportsSubscription: Subscription;
 
 
-    constructor(private dataService: DataService,
-                private regionalHubService: RegionalhubsService,
-                private mainhubService: MainhubService,
+    constructor(private mainhubService: MainhubService,
                 private reportService: ReportingService,
                 private router: Router) {
     }
@@ -65,43 +41,49 @@ export class HubManagerReportingComponent implements OnInit, OnDestroy {
         this.mainhubsSubscription = this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
             .subscribe((response) => {
                 this.mainHub = response[0];
-                this.reportsSubscription = this.reportService.getReportsOfLoggedInUser(response[0]['id']).subscribe(report => {
-                    this.masterLoadCount = report['master_loads'];
-                    this.regionalHubs = report['regionalhubs'];
-                    const obj = {
-                        latitude: parseFloat(report['mainhub'][0]['latitude']),
-                        longitude: parseFloat(report['mainhub'][0]['longitude']),
-                        label: report['mainhub'][0]['name'],
-                        icon: '../../../../../assets/images/warehouse.png'
-                    };
-                    this.markers.push(obj);
-                    this.loadCount = [];
-                    this.regionalHubs.forEach(hub => {
-                        this.loadCount.push(hub['load_count']);
-                        const trees = {
-                            value: hub['name']
-                        };
-                        hub['pods'].forEach(pod => {
-                            trees['children'] = [{
-                                value: pod['name']
-                            }];
-                            const podMarker = {
-                                latitude: parseFloat(pod['latitude']),
-                                longitude: parseFloat(pod['longitude']),
-                                label: pod['name'],
-                                icon: '../../../../../assets/images/church.png'
-                            };
-                            this.markers.push(podMarker);
-                            this.treeArray = {...trees, ...this.treeArray};
-                        });
-                    });
-                    this.tree = this.treeArray;
-                    console.log(JSON.stringify(this.tree));
+                this.reportsSubscription = this.reportService.getReportsOfLoggedInUser(response[0]['id']).subscribe(reportModel => {
+                    this.report = reportModel;
+                    this.parseData();
                 });
             });
         this.currentYear = new Date().getFullYear();
     }
 
+    parseData() {
+        const obj = {
+            latitude: this.report.mainhub.latitude,
+            longitude: this.report.mainhub.longitude,
+            label: this.report.mainhub.name,
+            icon: '../../../../../assets/images/warehouse.png'
+        };
+        this.markers.push(obj);
+
+        const regionalTrees = [];
+        this.report.regionalhubs.forEach(hub => {
+            const children = [];
+            hub.pods.forEach(pod => {
+                children.push({'value': pod.name + '(' + pod.load_count + ')'});
+
+                const podMarker = {
+                    latitude: pod.latitude,
+                    longitude: pod.longitude,
+                    label: pod.name,
+                    icon: '../../../../../assets/images/church.png'
+                };
+                this.markers.push(podMarker);
+            });
+
+            regionalTrees.push({
+                'value': hub.name + ' (' + hub.load_count + ')',
+                'children': children
+            });
+        });
+
+        this.tree = {
+            'value': this.report.mainhub.name + '(' + this.report.master_loads + ')',
+            'children': regionalTrees
+        };
+    }
 
     clickedMarker(label: string, index: number) {
         console.log(`clicked the marker: ${label || index}`);
@@ -139,4 +121,3 @@ export class HubManagerReportingComponent implements OnInit, OnDestroy {
         this.reportsSubscription && this.reportsSubscription.unsubscribe();
     }
 }
-
