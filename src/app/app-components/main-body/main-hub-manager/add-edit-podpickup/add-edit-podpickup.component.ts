@@ -247,8 +247,8 @@ export class AddEditPodPickupComponent implements OnInit {
             name: this.podPickupForm.value['name'],
             image: this.imageURL,
             description: this.podPickupForm.value['description'],
-            start_date: startDate.getFullYear() + '-' + startDate.getMonth() + '-' + startDate.getDate(),
-            end_date: endDate.getFullYear() + '-' + endDate.getMonth() + '-' + endDate.getDate(),
+            start_date: startDate.getFullYear() + '-' + (startDate.getMonth() + 1) + '-' + startDate.getDate(),
+            end_date: endDate.getFullYear() + '-' + (endDate.getMonth() + 1) + '-' + endDate.getDate(),
             sponsors: this.sponsors,
             schedule: [
                 {

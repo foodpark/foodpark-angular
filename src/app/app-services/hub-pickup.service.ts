@@ -19,11 +19,7 @@ export class HubPickupService {
     }
 
     addHubPickup(data: any) {
-        return this.http.post<HubPickupModel>(environment.apiUrl + '/api/v1/rel/events', data)
-            .subscribe((response) => {
-                this.hubPickups.push(response);
-                this.hubPickupsUpdated.next([...this.hubPickups]);
-            });
+        return this.http.post(environment.apiUrl + '/api/v1/rel/events', data);
     }
 
     getHubPickups() {

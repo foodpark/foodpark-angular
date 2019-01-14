@@ -173,8 +173,8 @@ export class HubPickupsComponent implements OnInit {
             name: this.hubPickupForm.value['name'],
             image: this.imageURL,
             description: this.hubPickupForm.value['description'],
-            start_date: startDate.getFullYear() + '-' + startDate.getMonth() + '-' + startDate.getDate(),
-            end_date: endDate.getFullYear() + '-' + endDate.getMonth() + '-' + endDate.getDate(),
+            start_date: startDate.getFullYear() + '-' + (startDate.getMonth() + 1) + '-' + startDate.getDate(),
+            end_date: endDate.getFullYear() + '-' + (endDate.getMonth() + 1) + '-' + endDate.getDate(),
             latitude: this.mainHub['latitude'],
             longitude: this.mainHub['longitude'],
             sponsors: this.sponsors,
@@ -188,8 +188,10 @@ export class HubPickupsComponent implements OnInit {
         };
 
         if (!this.showDateError) {
-            this.hubPickupService.addHubPickup(obj);
-            this.router.navigate(['hubmanager/hubpickups']);
+            this.hubPickupService.addHubPickup(obj)
+            .subscribe((response) => {
+                this.router.navigate(['hubmanager/hubpickups']);
+            });
         }
     }
 

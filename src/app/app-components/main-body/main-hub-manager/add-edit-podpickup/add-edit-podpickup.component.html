@@ -1,6 +1,13 @@
 <div class="absolute-position">
-    <section class="greybg center ">
-        <h2 class="page-header" style="margin: 10px 80px;height: 50px;">{{pageTitle}}</h2>
+    <section class="greybg center">
+        <div class="title-center">
+            <h2>{{ pageTitle }}</h2>
+        </div>
+        <div class="title-center">
+            <h4>
+                Main Hub: <i>{{ mainHub?.name }}</i>
+            </h4>
+        </div>
         <div class="container-fluid col-sm-12 menu_detail shell bg_1">
             <form [formGroup]="podPickupForm">
                 <div class="form-group">
@@ -9,7 +16,8 @@
                         type="text"
                         formControlName="name"
                         class="form-control"
-                        placeholder="Event Name">
+                        placeholder="Event Name"
+                    />
                 </div>
                 <div class="form-group">
                     <h4>Event Description</h4>
@@ -17,30 +25,51 @@
                         type="text"
                         class="form-control"
                         formControlName="description"
-                        placeholder="Event Description">
+                        placeholder="Event Description"
+                    />
                 </div>
                 <div class="form-group">
                     <h4>Event Image</h4>
-                    <input type="file" name="event_image" accept="image/*" (input)="onImageUpload('event', $event)"
-                           alt="Event Image" *ngIf="!eventimage" (click)="filetype = 'EVENT'">
-                    <input type="file" name="event_image" accept="image/*" (input)="onImageUpload('event', $event)"
-                           alt="Event Image" *ngIf="eventimage"
-                           [ngStyle]="{'background-image': 'url(' + eventimage + ')'}">
-                    <h5 style="height: 30px;font-size: 20px;" id="event_image">File URL
+                    <input
+                        type="file"
+                        name="event_image"
+                        accept="image/*"
+                        (input)="onImageUpload('event', $event)"
+                        alt="Event Image"
+                        *ngIf="!eventimage"
+                        (click)="filetype = 'EVENT'"
+                    />
+                    <input
+                        type="file"
+                        name="event_image"
+                        accept="image/*"
+                        (input)="onImageUpload('event', $event)"
+                        alt="Event Image"
+                        *ngIf="eventimage"
+                        [ngStyle]="{
+                            'background-image': 'url(' + eventimage + ')'
+                        }"
+                    />
+                    <h5 style="height: 30px;font-size: 20px;" id="event_image">
+                        File URL
                     </h5>
                 </div>
                 <div class="form-group">
                     <h4>Select Regional Hub</h4>
                     <div class="dropdown">
-                        <button id="regional_hub"
-                                class="btn btn-primary dropdown-toggle"
-                                type="button"
-                                data-toggle="dropdown">Select
-
+                        <button
+                            id="regional_hub"
+                            class="btn btn-primary dropdown-toggle"
+                            type="button"
+                            data-toggle="dropdown"
+                        >
+                            Select
                         </button>
                         <ul class="dropdown-menu">
-                            <li *ngFor="let item of regionalHubs; let i = index"
-                                (click)="onRegionalHubClick(i)">
+                            <li
+                                *ngFor="let item of regionalHubs; let i = index"
+                                (click)="onRegionalHubClick(i)"
+                            >
                                 {{ item.name }}
                             </li>
                         </ul>
@@ -49,15 +78,19 @@
                 <div class="form-group">
                     <h4>Select Pod</h4>
                     <div class="dropdown">
-                        <button id="pod_button"
-                                class="btn btn-primary dropdown-toggle"
-                                type="button"
-                                data-toggle="dropdown">Select
-
+                        <button
+                            id="pod_button"
+                            class="btn btn-primary dropdown-toggle"
+                            type="button"
+                            data-toggle="dropdown"
+                        >
+                            Select
                         </button>
                         <ul class="dropdown-menu">
-                            <li *ngFor="let item of pods; let i = index"
-                                (click)="onPodClick(i)">
+                            <li
+                                *ngFor="let item of pods; let i = index"
+                                (click)="onPodClick(i)"
+                            >
                                 {{ item.name }}
                             </li>
                         </ul>
@@ -72,20 +105,49 @@
                                     type="text"
                                     class="form-control"
                                     (focusout)="onSponsor1Entered($event)"
-                                    attr.data-placeholder="{{sponsor1Name || 'sponsor1 Name'}}"
-                                    id="sponsor1">
+                                    attr.data-placeholder="{{
+                                        sponsor1Name || 'sponsor1 Name'
+                                    }}"
+                                    id="sponsor1"
+                                />
                             </div>
                             <h4>Sponsor 1 Image</h4>
-                            <h5 style="min-height: 30px;font-size: 20px;padding: 5px 0;" id="sponsor1_image"
-                                class="hide">{{ sponsor1Image || 'File URL'}}
+                            <h5
+                                style="min-height: 30px;font-size: 20px;padding: 5px 0;"
+                                id="sponsor1_image"
+                                class="hide"
+                            >
+                                {{ sponsor1Image || "File URL" }}
                             </h5>
-                            <img src="{{sponsor1Image}}" alt="" id="sponsor1_image">
-                            <input type="file" accept=".png, .jpg, .jpeg" (input)="onImageUpload('sponsor1', $event)"
-                                   alt="Sponsor Image" *ngIf="!sponsor1Image" (click)="filetype = 'SPONSOR1'">
-                            <input type="file" accept=".png, .jpg, .jpeg" (input)="onImageUpload('sponsor1', $event)"
-                                   alt="Sponsor Image" *ngIf="sponsor1Image"
-                                   [ngStyle]="{'background-image': 'url(' + sponsor1Image + ')'}">
-                            <h5 style="height: 30px;font-size: 20px;" id="sponsor1_image">File URL
+                            <img
+                                src="{{ sponsor1Image }}"
+                                alt=""
+                                id="sponsor1_image"
+                            />
+                            <input
+                                type="file"
+                                accept=".png, .jpg, .jpeg"
+                                (input)="onImageUpload('sponsor1', $event)"
+                                alt="Sponsor Image"
+                                *ngIf="!sponsor1Image"
+                                (click)="filetype = 'SPONSOR1'"
+                            />
+                            <input
+                                type="file"
+                                accept=".png, .jpg, .jpeg"
+                                (input)="onImageUpload('sponsor1', $event)"
+                                alt="Sponsor Image"
+                                *ngIf="sponsor1Image"
+                                [ngStyle]="{
+                                    'background-image':
+                                        'url(' + sponsor1Image + ')'
+                                }"
+                            />
+                            <h5
+                                style="height: 30px;font-size: 20px;"
+                                id="sponsor1_image"
+                            >
+                                File URL
                             </h5>
                         </div>
                     </div>
@@ -95,58 +157,90 @@
                                 type="text"
                                 class="form-control"
                                 (keyup)="onSponsor2Entered($event)"
-                                attr.data-placeholder="{{sponsor2Name || 'sponsor2 Name'}}"
-                                id="sponsor2">
+                                attr.data-placeholder="{{
+                                    sponsor2Name || 'sponsor2 Name'
+                                }}"
+                                id="sponsor2"
+                            />
                         </div>
                         <h4>Sponsor 2 Image</h4>
-                        <h5 style="min-height: 30px;font-size: 20px;padding: 5px 0;" id="sponsor2_image"
-                            class="hide">{{ sponsor2Image || 'File URL'}}
+                        <h5
+                            style="min-height: 30px;font-size: 20px;padding: 5px 0;"
+                            id="sponsor2_image"
+                            class="hide"
+                        >
+                            {{ sponsor2Image || "File URL" }}
                         </h5>
-                        <img src="{{sponsor2Image}}" alt="" id="sponsor2_image">
-                        <input type="file" accept=".png, .jpg, .jpeg" (input)="onImageUpload('sponsor2', $event)"
-                               alt="Sponsor Image" *ngIf="!sponsor2Image" (click)="filetype = 'SPONSOR2'">
-                        <input type="file" accept=".png, .jpg, .jpeg" (input)="onImageUpload('sponsor2', $event)"
-                               alt="Sponsor Image" *ngIf="sponsor2Image"
-                               [ngStyle]="{'background-image': 'url(' + sponsor2Image + ')'}">
-                        <h5 style="height: 30px;font-size: 20px;" id="sponsor2_image">File URL
+                        <img
+                            src="{{ sponsor2Image }}"
+                            alt=""
+                            id="sponsor2_image"
+                        />
+                        <input
+                            type="file"
+                            accept=".png, .jpg, .jpeg"
+                            (input)="onImageUpload('sponsor2', $event)"
+                            alt="Sponsor Image"
+                            *ngIf="!sponsor2Image"
+                            (click)="filetype = 'SPONSOR2'"
+                        />
+                        <input
+                            type="file"
+                            accept=".png, .jpg, .jpeg"
+                            (input)="onImageUpload('sponsor2', $event)"
+                            alt="Sponsor Image"
+                            *ngIf="sponsor2Image"
+                            [ngStyle]="{
+                                'background-image': 'url(' + sponsor2Image + ')'
+                            }"
+                        />
+                        <h5
+                            style="height: 30px;font-size: 20px;"
+                            id="sponsor2_image"
+                        >
+                            File URL
                         </h5>
                     </div>
                 </div>
                 <div style="display: flex;">
                     <div class="form-group">
                         <label style="margin: 0 20px 0 0;">
-                            <h4> Start Date:</h4>
+                            <h4>Start Date:</h4>
                             <input
                                 class="form-control"
                                 [owlDateTimeTrigger]="dt5"
                                 [owlDateTime]="dt5"
                                 formControlName="start_date"
-                                id="fromDate">
-                            <owl-date-time
-                                #dt5
-                                [pickerMode]="'dialog'">
+                                id="fromDate"
+                            />
+                            <owl-date-time #dt5 [pickerMode]="'dialog'">
                             </owl-date-time>
                         </label>
                     </div>
-                    <div class="form-group"><label>
-                        <h4> End Date:</h4>
-                        <input
-                            class="form-control"
-                            [owlDateTimeTrigger]="dt6"
-                            [owlDateTime]="dt6"
-                            formControlName="end_date"
-                            id="toDate">
-                        <owl-date-time
-                            #dt6
-                            [pickerMode]="'dialog'">
-                        </owl-date-time>
-                    </label></div>
+                    <div class="form-group">
+                        <label>
+                            <h4>End Date:</h4>
+                            <input
+                                class="form-control"
+                                [owlDateTimeTrigger]="dt6"
+                                [owlDateTime]="dt6"
+                                formControlName="end_date"
+                                id="toDate"
+                            />
+                            <owl-date-time #dt6 [pickerMode]="'dialog'">
+                            </owl-date-time>
+                        </label>
+                    </div>
                 </div>
-                <div *ngIf="showDateError" class="alert alert-danger">Start date must be less than End date</div>
+                <div *ngIf="showDateError" class="alert alert-danger">
+                    Start date must be less than End date
+                </div>
                 <button
                     type="button"
                     class="btn btn-default"
-                    (click)="onSaveClick()">SAVE
+                    (click)="onSaveClick()"
+                >
+                    SAVE
                 </button>
             </form>
         </div>
