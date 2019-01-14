@@ -2,9 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormBuilder, Validators} from '@angular/forms';
 
-import {PodsService} from '../../../../app-services/pods.service';
 import {PodsManagerService} from '../../../../app-services/pod-manager.service';
-import {MainhubService} from 'src/app/app-services/mainhub.service';
 import {PodModel} from '../../../../model';
 
 @Component({
@@ -12,22 +10,15 @@ import {PodModel} from '../../../../model';
     templateUrl: './load-resource.component.html'
 })
 export class LoadResourceComponent implements OnInit {
-    allvolunters: any;
-    mainHub: any;
-    mainhubId: any;
-    newvolunterpopup: any;
-    territoryid: any;
     loadrequests: any;
-    newloadrequestform: any;
-    popup1: any;
+    newLoadRequestForm: any;
+    popUp: any;
     pod: PodModel;
 
-    constructor(private podsService: PodsService,
-                private podsManagerService: PodsManagerService,
-                private mainhubService: MainhubService,
+    constructor(private podsManagerService: PodsManagerService,
                 private route: Router,
                 private formBuilder: FormBuilder) {
-        this.popup1 = true;
+        this.popUp = true;
     }
 
 
@@ -40,7 +31,7 @@ export class LoadResourceComponent implements OnInit {
     }
 
     requestInitform() {
-        this.newloadrequestform = this.formBuilder.group({
+        this.newLoadRequestForm = this.formBuilder.group({
             name: ['', Validators.required]
         });
     }
@@ -59,16 +50,16 @@ export class LoadResourceComponent implements OnInit {
 
     createrequest() {
         const reqobj = {
-            name: this.newloadrequestform.get('name').value,
+            name: this.newLoadRequestForm.get('name').value,
             church_id: this.pod['id']
         };
         this.podsManagerService.createLoadRequest(reqobj).subscribe(
             response => {
-                this.popup1 = true;
+                this.popUp = true;
                 this.getLoadRequestsFromPodId(this.pod['id']);
             },
             error => {
-                this.popup1 = false;
+                this.popUp = false;
             }
         );
     }

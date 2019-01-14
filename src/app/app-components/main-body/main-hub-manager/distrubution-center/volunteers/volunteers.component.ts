@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { DistributionService } from '../../../../../app-services/distribution-center.service';
 import { MainhubService } from 'src/app/app-services/mainhub.service';
+import { MainhubModel } from 'src/app/model';
 
 @Component({
     selector: 'app-volunteers',
@@ -9,15 +10,11 @@ import { MainhubService } from 'src/app/app-services/mainhub.service';
 })
 export class VolunteersComponent implements OnInit {
     allvolunters: any;
-    mainHub: any;
-    mainhubId: any;
+    mainHub: MainhubModel;
     newvolunterpopup: any;
     newvolunteersform: any;
-    territoryid: any;
     allregisteredvolunters: any;
     objresponse: any;
-    userid: any;
-    registereduserid: any;
 
     constructor(
         private distributionservice: DistributionService,
@@ -40,15 +37,15 @@ export class VolunteersComponent implements OnInit {
             .subscribe(response => {
                 if (response.length > 0) {
                     this.mainHub = response[0];
-                    this.mainhubId = this.mainHub.id;
-                    this.territoryid = this.mainHub.territory_id;
+                    // this.mainhubId = this.mainHub.id;
+                    // this.territoryid = this.mainHub.territory_id;
                     this.getAllVolunteers();
                 }
             });
     }
 
     getAllVolunteers() {
-        this.distributionservice.getVolunteers(this.mainhubId)
+        this.distributionservice.getVolunteers(this.mainHub.id)
         .subscribe(response => {
             this.allvolunters = response;
             this.getRegisteredVolunteers();
@@ -56,7 +53,7 @@ export class VolunteersComponent implements OnInit {
     }
 
     getRegisteredVolunteers() {
-        this.distributionservice.getRegisteredVolunteers(this.territoryid)
+        this.distributionservice.getRegisteredVolunteers(this.mainHub.territory_id)
         .subscribe(response => {
             this.allregisteredvolunters = response;
             for (let i = 0; i < this.allregisteredvolunters.length; i++) {
@@ -77,8 +74,8 @@ export class VolunteersComponent implements OnInit {
             phone: this.newvolunteersform.get('contact').value,
             email: this.newvolunteersform.get('username').value,
             password: this.newvolunteersform.get('password').value,
-            territory_id: this.territoryid,
-            food_park_id: this.mainhubId
+            territory_id: this.mainHub.territory_id,
+            food_park_id: this.mainHub.id
         };
 
         this.distributionservice.createVolunteer(reqobj).subscribe(
@@ -97,7 +94,7 @@ export class VolunteersComponent implements OnInit {
             phone: this.objresponse.phone,
             user_id: this.objresponse.id
         };
-        this.distributionservice.addVolunteers(this.mainhubId, obj).subscribe(
+        this.distributionservice.addVolunteers(this.mainHub.id, obj).subscribe(
             response => {
                 this.getAllVolunteers();
                 this.getRegisteredVolunteers();
@@ -120,7 +117,7 @@ export class VolunteersComponent implements OnInit {
 
         // api call
         this.distributionservice
-            .updateAvilablity(this.mainhubId, avilableid, avilData)
+            .updateAvilablity(this.mainHub.id, avilableid, avilData)
             .subscribe(
                 response => {
                     this.getAllVolunteers();
@@ -132,7 +129,7 @@ export class VolunteersComponent implements OnInit {
 
     deleteVolunteer(deleteid) {
         this.distributionservice
-            .deleteVolunteer(this.mainhubId, deleteid)
+            .deleteVolunteer(this.mainHub.id, deleteid)
             .subscribe(
                 response => {
                     this.getAllVolunteers();

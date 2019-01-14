@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { DistributionService } from '../../../../../app-services/distribution-center.service';
 import { MainhubService } from 'src/app/app-services/mainhub.service';
-import { VolunteerModel } from 'src/app/model';
+import { VolunteerModel, MainhubModel } from 'src/app/model';
 
 @Component({
     selector: 'app-gik-donations',
@@ -11,7 +11,7 @@ import { VolunteerModel } from 'src/app/model';
 })
 
 export class GIKDonationsComponent implements OnInit {
-    mainHub: any;
+    mainHub: MainhubModel;
     mainid: number;
     allordersdata: any;
     regionalhubs: any;
