@@ -27,9 +27,6 @@ export class HubPickupListingComponent implements OnInit, OnDestroy {
             .subscribe((hubPickups: HubPickupModel[]) => {
                     this.hubPickups = hubPickups;
                     this.hubPickups.forEach(hub => {
-                        // const startDate = new Date(hub['start_date']);
-                        // const endDate = new Date(hub['end_date']);
-                        // console.log(startDate, endDate);
                         const startDate = `${(hub['start_date'].split('T')[0]).split('-')[1]}-${(hub['start_date'].split('T')[0]).split('-')[2]}-${(hub['start_date'].split('T')[0]).split('-')[0]}`;
                         const endDate = `${(hub['end_date'].split('T')[0]).split('-')[1]}-${(hub['end_date'].split('T')[0]).split('-')[2]}-${(hub['end_date'].split('T')[0]).split('-')[0]}`;
                         this.hubPickupStartTime.push(startDate);

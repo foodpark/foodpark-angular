@@ -27,12 +27,12 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let item of hubPickups; let i = index">
+        <tr *ngFor="let item of podPickups; let i = index">
             <td>{{ item["name"] }}</td>
-            <td></td>
-            <td></td>
-            <td>{{ hubPickupStartTime[i]}}, {{item['schedule'][0]['start']}}</td>
-            <td>{{ hubPickupEndTime[i]}}, {{item['schedule'][0]['end']}}</td>
+            <td>{{item['regional_hub_name']}}</td>
+            <td>{{item['pod_name']}}</td>
+            <td>{{ podPickupStartTime[i]}}, {{item['schedule'][0]['start']}}</td>
+            <td>{{ podPickupEndTime[i]}}, {{item['schedule'][0]['end']}}</td>
             <td style="text-align: center;">
                 <i class="material-icons" (click)="onEditClick(i)">
                     edit

@@ -81,6 +81,8 @@ export class AddEditPodPickupComponent implements OnInit {
                     this.podPickup = res;
                     this.sponsor1Image = this.podPickup['sponsors'][0] ? this.podPickup['sponsors'][0]['image'] : '';
                     this.sponsor2Image = this.podPickup['sponsors'][1] ? this.podPickup['sponsors'][1]['image'] : '';
+                    this.sponsor1Name = this.podPickup['sponsors'][0] ? this.podPickup['sponsors'][0]['name'] : '';
+                    this.sponsor2Name = this.podPickup['sponsors'][1] ? this.podPickup['sponsors'][1]['name'] : '';
                     this.podPickupForm = this.fb.group({
                         name: [res['name'], Validators.required],
                         description: [res['description'], Validators.required],

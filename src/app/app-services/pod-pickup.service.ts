@@ -36,7 +36,7 @@ export class PodPickupService {
     }
 
     getPodPickupsFromId(podPickupId: number) {
-        return this.http.get<PodPickupModel[]>(environment.apiUrl + '/api/v1/rel/podevents' + podPickupId);
+        return this.http.get<PodPickupModel[]>(environment.apiUrl + '/api/v1/rel/podevents/' + podPickupId);
     }
 
     editPodPickup(podPickup: any) {

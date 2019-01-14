@@ -72,20 +72,21 @@
                                     type="text"
                                     class="form-control"
                                     (focusout)="onSponsor1Entered($event)"
-                                    placeholder="Sponsor Name"
+                                    attr.data-placeholder="{{sponsor1Name || 'sponsor1 Name'}}"
                                     id="sponsor1">
                             </div>
                             <h4>Sponsor 1 Image</h4>
-
+                            <h5 style="min-height: 30px;font-size: 20px;padding: 5px 0;" id="sponsor1_image"
+                                class="hide">{{ sponsor1Image || 'File URL'}}
+                            </h5>
+                            <img src="{{sponsor1Image}}" alt="" id="sponsor1_image">
                             <input type="file" accept=".png, .jpg, .jpeg" (input)="onImageUpload('sponsor1', $event)"
-                                   alt="Sponsor Image" *ngIf="!sponsor1image" (click)="filetype = 'SPONSOR1'">
+                                   alt="Sponsor Image" *ngIf="!sponsor1Image" (click)="filetype = 'SPONSOR1'">
                             <input type="file" accept=".png, .jpg, .jpeg" (input)="onImageUpload('sponsor1', $event)"
-                                   alt="Sponsor Image" *ngIf="sponsor1image"
-                                   [ngStyle]="{'background-image': 'url(' + sponsor1image + ')'}">
+                                   alt="Sponsor Image" *ngIf="sponsor1Image"
+                                   [ngStyle]="{'background-image': 'url(' + sponsor1Image + ')'}">
                             <h5 style="height: 30px;font-size: 20px;" id="sponsor1_image">File URL
                             </h5>
-                            <!-- <div id="PreviewPicture"></div> -->
-                            <!-- <img src="{{image}}" alt="" *ngIf="image"> -->
                         </div>
                     </div>
                     <div *ngIf="isSponsor1Available" class="form-group">
@@ -94,15 +95,19 @@
                                 type="text"
                                 class="form-control"
                                 (keyup)="onSponsor2Entered($event)"
-                                placeholder="Sponsor Name"
+                                attr.data-placeholder="{{sponsor2Name || 'sponsor2 Name'}}"
                                 id="sponsor2">
                         </div>
                         <h4>Sponsor 2 Image</h4>
+                        <h5 style="min-height: 30px;font-size: 20px;padding: 5px 0;" id="sponsor2_image"
+                            class="hide">{{ sponsor2Image || 'File URL'}}
+                        </h5>
+                        <img src="{{sponsor2Image}}" alt="" id="sponsor2_image">
                         <input type="file" accept=".png, .jpg, .jpeg" (input)="onImageUpload('sponsor2', $event)"
-                               alt="Sponsor Image" *ngIf="!sponsor2image" (click)="filetype = 'SPONSOR2'">
+                               alt="Sponsor Image" *ngIf="!sponsor2Image" (click)="filetype = 'SPONSOR2'">
                         <input type="file" accept=".png, .jpg, .jpeg" (input)="onImageUpload('sponsor2', $event)"
-                               alt="Sponsor Image" *ngIf="sponsor2image"
-                               [ngStyle]="{'background-image': 'url(' + sponsor2image + ')'}">
+                               alt="Sponsor Image" *ngIf="sponsor2Image"
+                               [ngStyle]="{'background-image': 'url(' + sponsor2Image + ')'}">
                         <h5 style="height: 30px;font-size: 20px;" id="sponsor2_image">File URL
                         </h5>
                     </div>
