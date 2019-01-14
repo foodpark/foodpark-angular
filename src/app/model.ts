@@ -129,3 +129,13 @@ export interface HubReportingModel {
     name: string;
     pods: PodmanagerModel[];
 }
+
+export interface VolunteerModel {
+    id: number;
+    username: string;
+    first_name: string;
+    last_name: string;
+    phone: string;
+    is_deleted: boolean;
+    available: boolean;
+}

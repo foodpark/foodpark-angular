@@ -17,7 +17,7 @@ export class OrderManagmentComponent implements OnInit {
   mainHubName : any;
   selectedid : number;
   ordersdata : any;
-  volunteerslist : any;
+  volunteersList : any;
   orderstatusvalue : string;
   filteredVolunteers : any;
   constructor(private router: Router,  private distributionservice: DistributionService, private mainhubService: MainhubService, private formBuilder: FormBuilder) {
@@ -50,25 +50,25 @@ export class OrderManagmentComponent implements OnInit {
       );
   }
 
-  openaccordian(orders,i){
+  expandAccordian(orders,i){
     this.ordersdata = orders;
     this.selectedid   = orders.id;
     console.log('this is orders', this.ordersdata.name)
-    this.getAvilablityVolunteerData();
+    this.getAvailableVolunteers();
   }
 
-  getAvilablityVolunteerData(){
-    this.distributionservice.getAvilablityVolunteers(this.mainid).subscribe(
+  getAvailableVolunteers(){
+    this.distributionservice.getAvailableVolunteers(this.mainid).subscribe(
         response => {
-            this.volunteerslist = response;
+            this.volunteersList = response;
             // is_deleted=false&available=true
 
-            this.filteredVolunteers = this.volunteerslist.filter((el) => {
+            this.filteredVolunteers = this.volunteersList.filter((el) => {
               return el.is_deleted==false && el.available==true;
             })
 
 
-            console.log('this is all volunteerslist', this.volunteerslist);
+            console.log('this is all volunteersList', this.volunteersList);
         },
         error => {}
     );
@@ -76,14 +76,14 @@ export class OrderManagmentComponent implements OnInit {
 
   onVolunteerClick(index: number, item) {
     const button = document.getElementById('volunteer_button');
-    button.innerText = this.volunteerslist[index]['username'];
+    button.innerText = this.volunteersList[index]['username'];
     console.log('this clicked',item);
     let reqobj = {
       "driver_id": item.id,
 	     "driver_name": item.username
     }
     // UPDATEING THE Driver STATUS
-   this.distributionservice.OnVolunteerUpdate(reqobj,this.selectedid).subscribe(
+   this.distributionservice.updateVolunteer(reqobj,this.selectedid).subscribe(
      response => {
          this.getAllOrders();
      },
@@ -99,9 +99,9 @@ export class OrderManagmentComponent implements OnInit {
       "status" : this.orderstatusvalue,
     }
      // UPDATEING THE ORDER STATUS
-    this.distributionservice.OnStatusUpdate(statusReq,this.selectedid).subscribe(
+    this.distributionservice.updateStatus(statusReq,this.selectedid).subscribe(
       response => {
-          //this.volunteerslist = response;
+          //this.volunteersList = response;
           console.log('this is all users', this.selectedid);
           this.getAllOrders();
       },

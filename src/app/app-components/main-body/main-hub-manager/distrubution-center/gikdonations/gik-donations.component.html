@@ -6,27 +6,41 @@
     </div>
     <div class="order_mngmnt_card_view">
         <ng-container *ngFor="let item of allordersdata" class="regional_hub_section">
-            <h4 style="padding-bottom: 10px;">Regional Hub: <i>{{ item.name }}</i></h4>
+            <h4 style="padding-bottom: 10px;">
+                Regional Hub: <i>{{ item.name }}</i>
+            </h4>
             <ng-container *ngFor="let pods of item.pods">
-                <h4>Pod: <i>{{ pods.name }}</i></h4>
+                <h4>
+                    Pod: <i>{{ pods.name }}</i>
+                </h4>
                 <ng-container *ngFor="let orders of pods.orders; let i = index">
                     <div
                         class="card_view accordion-toggle"
                         data-toggle="collapse"
                         [attr.data-target]="i"
-                        (click)="openaccordian(orders, i)"
+                        (click)="expandAccordian(orders, i)"
                     >
-
                         <div class="card_view_icon">
-                            <img alt="" src="assets/images/truck.jpeg" style="padding-left: 60px;">
+                            <img
+                                alt=""
+                                src="assets/images/truck.jpeg"
+                                style="padding-left: 60px;"
+                            />
                         </div>
                         <div class="crad_view__creation_details">
-                            Order Creation: {{ orders.created_at | date: "MMM d, y, - h:mm a" }}
+                            Order Creation:
+                            {{ orders.created_at | date: "MMM d, y, - h:mm a" }}
                         </div>
-                        <div class="card_view__names" *ngIf="orders.driver_name">
+                        <div
+                            class="card_view__names"
+                            *ngIf="orders.driver_name"
+                        >
                             Volunteer: {{ orders.driver_name }}
                         </div>
-                        <div class="card_view__names" *ngIf="!orders.driver_name">
+                        <div
+                            class="card_view__names"
+                            *ngIf="!orders.driver_name"
+                        >
                             Volunteer:
                         </div>
                         <div class="card_view__actions">
@@ -36,9 +50,12 @@
                                 [ngClass]="{
                                     button_arrived: orders.status === 'ARRIVED',
                                     button_ready: orders.status === 'POD READY',
-                                    button_palletized: orders.status === 'PALLETIZED',
-                                    button_dispatched: orders.status === 'DISPATCHED',
-                                    button_delivered: orders.status === 'DELIVERED'
+                                    button_palletized:
+                                        orders.status === 'PALLETIZED',
+                                    button_dispatched:
+                                        orders.status === 'DISPATCHED',
+                                    button_delivered:
+                                        orders.status === 'DELIVERED'
                                 }"
                             >
                                 {{ orders.status }}
@@ -140,7 +157,7 @@
                                             "
                                             (click)="onVolunteerClick(i, item)"
                                         >
-                                            {{ item.username }}
+                                            {{ item.name }}
                                         </li>
                                     </ul>
                                 </div>
@@ -164,18 +181,33 @@
                                             {{ ordersdata.created_at | date }}
                                         </td>
                                         <td>
-                                            <p *ngFor="let pallet of ordersdata.pallets">
-                                                {{ pallet.category_name }} X {{ pallet.quantity }}
+                                            <p
+                                                *ngFor="
+                                                    let pallet of ordersdata.pallets
+                                                "
+                                            >
+                                                {{ pallet.category_name }} X
+                                                {{ pallet.quantity }}
                                             </p>
                                         </td>
                                         <td>
-                                            <p *ngFor="let boxes of ordersdata.boxes">
-                                                {{ boxes.category_name }} X {{ boxes.quantity }}
+                                            <p
+                                                *ngFor="
+                                                    let boxes of ordersdata.boxes
+                                                "
+                                            >
+                                                {{ boxes.category_name }} X
+                                                {{ boxes.quantity }}
                                             </p>
                                         </td>
                                         <td>
-                                            <p *ngFor="let item of ordersdata.items">
-                                                {{ item.category_name }} X {{ item.quantity }}
+                                            <p
+                                                *ngFor="
+                                                    let item of ordersdata.items
+                                                "
+                                            >
+                                                {{ item.category_name }} X
+                                                {{ item.quantity }}
                                             </p>
                                         </td>
                                     </tr>
@@ -185,7 +217,9 @@
                     </div>
                 </ng-container>
                 <div class="no_orders" *ngIf="!pods.orders.length">
-                    <h5 style="padding-bottom: 20px;">There are no orders available for this Pod</h5>
+                    <h5 style="padding-bottom: 20px;">
+                        There are no orders available for this Pod
+                    </h5>
                 </div>
             </ng-container>
         </ng-container>

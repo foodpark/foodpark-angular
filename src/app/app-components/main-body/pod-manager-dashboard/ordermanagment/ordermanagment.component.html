@@ -9,7 +9,7 @@
       <ng-container *ngFor="let pods of item.pods">
         <!-- <p>{{pods.name}}</p> -->
         <ng-container *ngFor="let orders of pods.orders; let i = index">
-          <div class="card_view accordion-toggle" data-toggle="collapse" [attr.data-target]="i" (click)="openaccordian(orders,i)">
+          <div class="card_view accordion-toggle" data-toggle="collapse" [attr.data-target]="i" (click)="expandAccordian(orders,i)">
             <div class="card_view_icon">
               <img src="assets/images/truck.jpeg" alt="">
             </div>
