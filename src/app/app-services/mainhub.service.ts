@@ -38,14 +38,8 @@ export class MainhubService {
         return this.http.delete(environment.apiUrl + '/api/v1/rel/food_parks/' + deleteMainhubID);
     }
 
-    editMainhub(mainhub: MainhubModel) {
-        this.http.put<MainhubModel>(environment.apiUrl + '/api/v1/rel/food_parks/' + mainhub['id'], mainhub)
-            .subscribe((response) => {
-                this.mainhubs = this.mainhubs.filter((function (value) {
-                    return value !== response;
-                }));
-                this.mainhubsUpdated.next([...this.mainhubs]);
-            });
+    editMainhub(mainhub: MainhubModel, mainHubId: number) {
+        return this.http.put<MainhubModel>(environment.apiUrl + '/api/v1/rel/food_parks/' + mainHubId, mainhub);
     }
 
     getTerritoriesInCountry(countryId: number) {

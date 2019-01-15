@@ -93,12 +93,21 @@ export class AddEditMainhubComponent implements OnInit, OnDestroy {
     }
 
     onCreateMainHubClick() {
-        this.mainhubService.addMainhub(this.mainhubForm.value).subscribe(
-            res => {
-                this.mainhubService.getMainhubs();
-                this.router.navigate(['/admin/mainhubs']);
-            }
-        );
+        if (this.isEdit) {
+            this.mainhubService.editMainhub(this.mainhubForm.value, this.mainhubs['id']).subscribe(
+                res => {
+                    this.mainhubService.getMainhubs();
+                    this.router.navigate(['/admin/mainhubs']);
+                }
+            );
+        } else {
+            this.mainhubService.addMainhub(this.mainhubForm.value).subscribe(
+                res => {
+                    this.mainhubService.getMainhubs();
+                    this.router.navigate(['/admin/mainhubs']);
+                }
+            );
+        }
         this.mainhubForm.reset();
         const country_button = document.getElementById('country_button');
         country_button.innerText = 'Select';

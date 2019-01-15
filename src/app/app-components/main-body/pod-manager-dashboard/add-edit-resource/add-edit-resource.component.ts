@@ -196,7 +196,7 @@ export class AddEditResourceComponent implements OnInit {
         this.activatedroute = activateroute;
         this.loadID = this.activatedroute.snapshot.params['id'] ? this.activatedroute.snapshot.params['id'] : '';
         this.getLoadItems();
-        this.getcategories();
+        this.getCategories();
         this.loadtypes = [
             {
                 loadtype: 'PALLET',
@@ -215,7 +215,7 @@ export class AddEditResourceComponent implements OnInit {
         this.editpopup = false;
     }
 
-    getcategories() {
+    getCategories() {
         this.podsManagerService.getCategories().subscribe(response => {
             this.categories = response;
             this.displayCategories = response;
