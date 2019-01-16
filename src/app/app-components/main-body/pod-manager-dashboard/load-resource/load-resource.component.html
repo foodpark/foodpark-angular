@@ -13,7 +13,7 @@
             style="height: 50px;align-items: center;width: 100%;"
             data-toggle="modal"
 
-            (click)="popup1 = false">
+            (click)="popUp = false">
             Create Load Request
         </button>
     </div>
@@ -62,7 +62,7 @@
 </div>
 
 
-<div class="modal_popup" id="createload" role="dialog" data-backdrop="false" aria-hidden="true" *ngIf="!popup1"
+<div class="modal_popup" id="createload" role="dialog" data-backdrop="false" aria-hidden="true" *ngIf="!popUp"
      style="display:block">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -78,7 +78,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" (click)="createrequest()">Save</button>
-                <button type="button" class="btn btn-secondary" (click)="popup1 = true">Cancel</button>
+                <button type="button" class="btn btn-secondary" (click)="popUp = true">Cancel</button>
             </div>
         </div>
     </div>
