@@ -3,8 +3,10 @@
         <div class="title-center">
             <h2>Load Details</h2>
         </div>
-        <div class="title-center">
+        <div class="title-center" *ngIf="this.isCustomizing === false">
             <h4>Pod: <i>{{pod?.name}}</i></h4>
+        </div>
+        <div class="title-center">
             <h4>Load: <i>{{loadName}}</i></h4>
         </div>
         <button
@@ -45,7 +47,7 @@
         </tr>
         </tbody>
     </table>
-    <button *ngIf="this.activatedroute.snapshot?.params['src']?.toLowerCase() === 'hubmanager'"
+    <button *ngIf="this.isCustomizing"
             type="button"
             style="height: 50px;align-items: center;width: 100%;text-transform:none"
             class="btn btn-default new_btn"
@@ -182,9 +184,6 @@
                     <div class="new_volunteer_fields">
                         <input formControlName="description" type="text" name="" value="" placeholder="Description"/>
                     </div>
-                    <p class="formErrors" *ngIf="formErrors.description">
-                        {{ formErrors.description }}
-                    </p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" (click)="onSubmiteditform()">
