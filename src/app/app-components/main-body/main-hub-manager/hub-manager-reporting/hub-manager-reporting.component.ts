@@ -59,25 +59,27 @@ export class HubManagerReportingComponent implements OnInit, OnDestroy {
         this.markers.push(obj);
 
         const regionalTrees = [];
-        this.report.regionalhubs.forEach(hub => {
-            const children = [];
-            hub.pods.forEach(pod => {
-                children.push({'value': pod.name + '(' + pod.load_count + ')'});
+        if (this.report.regionalhubs.length > 0) {
+            this.report.regionalhubs.forEach(hub => {
+                const children = [];
+                hub.pods.forEach(pod => {
+                    children.push({'value': pod.name + '(' + pod.load_count + ')'});
 
-                const podMarker = {
-                    latitude: pod.latitude,
-                    longitude: pod.longitude,
-                    label: pod.name,
-                    icon: '../../../../../assets/images/church.png'
-                };
-                this.markers.push(podMarker);
-            });
+                    const podMarker = {
+                        latitude: pod.latitude,
+                        longitude: pod.longitude,
+                        label: pod.name,
+                        icon: '../../../../../assets/images/church.png'
+                    };
+                    this.markers.push(podMarker);
+                });
 
-            regionalTrees.push({
-                'value': hub.name + ' (' + hub.load_count + ')',
-                'children': children
+                regionalTrees.push({
+                    'value': hub.name + ' (' + hub.load_count + ')',
+                    'children': children
+                });
             });
-        });
+        }
 
         this.tree = {
             'value': this.report.mainhub.name + '(' + this.report.master_loads + ')',
@@ -104,11 +106,22 @@ export class HubManagerReportingComponent implements OnInit, OnDestroy {
     onYearSelected() {
         const button = document.getElementById('date');
         button.innerText = this.currentYear;
+        const startTime = new Date(new Date().getFullYear(), 0, 1).getTime();
+        this.reportService.getReportsFromTime(this.mainHub['id'], startTime).subscribe(reportModel => {
+            this.report = reportModel;
+            this.parseData();
+        });
     }
 
     onMonthSelected() {
         const button = document.getElementById('date');
         button.innerText = 'Last Month';
+        const date = new Date();
+        const startTime = new Date().setDate(date.getDate() - 30);
+        this.reportService.getReportsFromTime(this.mainHub['id'], startTime).subscribe(reportModel => {
+            this.report = reportModel;
+            this.parseData();
+        });
     }
 
     onMainHubSelected() {

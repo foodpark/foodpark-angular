@@ -65,16 +65,16 @@ export class EditHubpickupComponent implements OnInit {
                     this.s1image = this.hubPickup['sponsors'][0] ? this.hubPickup['sponsors'][0]['image'] : '';
                     this.s2image = this.hubPickup['sponsors'][1] ? this.hubPickup['sponsors'][1]['image'] : '';
                     this.hubPickupForm = this.fb.group({
-                        name: [res['name'], Validators.required],
-                        description: [res['description'], Validators.required],
+                        name: [this.hubPickup['name'], Validators.required],
+                        description: [this.hubPickup['description'], Validators.required],
                         image: [null, Validators.required],
-                        sponsors: [res['sponsors']],
-                        start_date: [new Date(res['start_date'])],
-                        end_date: [new Date(res['end_date'])],
-                        start_time: [res['schedule']['start']],
-                        end_time: [res['schedule']['end']],
-                        latitude: [res['latitude'], Validators.required],
-                        longitude: [res['longitude'], Validators.required],
+                        sponsors: [this.hubPickup['sponsors']],
+                        start_date: [new Date(this.hubPickup['start_date'])],
+                        end_date: [new Date(this.hubPickup['end_date'])],
+                        start_time: [this.hubPickup['schedule'][0]['start']],
+                        end_time: [this.hubPickup['schedule'][0]['end']],
+                        latitude: [this.hubPickup['latitude'], Validators.required],
+                        longitude: [this.hubPickup['longitude'], Validators.required],
                     });
                 });
             }

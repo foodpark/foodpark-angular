@@ -21,7 +21,6 @@ import {HubPickupListingComponent} from './hub-pickup-listing/hub-pickup-listing
 import {EditHubpickupComponent} from './edit-hubpickup/edit-hubpickup.component';
 import {EditPodManagerComponent} from './pod-managers/edit-pod-manager/edit-pod-manager.component';
 
-// import {PodManagerDashboardComponent} from './pod-manager-dashboard/pod-manager-dashboard.component';
 import {GIKDonationsComponent} from './distrubution-center/gikdonations/gik-donations.component';
 import {CreateDonationOrderComponent} from './create-donation-order/create-donation-order.component';
 import {EditMasterLoadComponent} from './edit-master-load/edit-master-load.component';
@@ -30,7 +29,6 @@ import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
 import {CustomizeLoadComponent} from './customize-load/customize-load.component';
 import {AgmCoreModule} from '@agm/core';
 import {HubManagerReportingComponent} from './hub-manager-reporting/hub-manager-reporting.component';
-// import {TreeModule} from 'angular-tree-component';
 import {TreeModule} from 'ng2-tree';
 import {PodPickupsListingComponent} from './pod-pickups-listing/pod-pickups-listing.component';
 import {AddEditPodPickupComponent} from './add-edit-podpickup/add-edit-podpickup.component';

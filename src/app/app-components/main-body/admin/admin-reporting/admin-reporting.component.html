@@ -83,16 +83,6 @@
                 </ul>
             </div>
         </div>
-        <div class="title-center"><h2>MASTER LOADS: {{masterLoadCount || ''}}</h2></div>
-        <div class="form-group" *ngFor="let regionalHub of regionalHubs;let i = index;">REGIONAL HUB #{{i+1}} LOADS
-            :{{loadCount}}
-        </div>
+        <tree [tree]="tree"></tree>
     </div>
-    <!--<i class="material-icons">-->
-    <!--home-->
-    <!--</i>-->
-    <!--<i class="material-icons">-->
-    <!--store_mall_directory-->c
-    <!--</i>-->
-
 </div>

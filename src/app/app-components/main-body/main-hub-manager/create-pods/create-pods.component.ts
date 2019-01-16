@@ -70,7 +70,7 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
         this.countryService.getCountries();
     }
 
-    onCountryClick(index: number, id: number) {
+    onCountryClick(index: number) {
         const button = document.getElementById('country_button');
         button.innerText = this.countries[index]['name'];
         this.registerpodform.get('country').setValue(this.countries[index]['name']);

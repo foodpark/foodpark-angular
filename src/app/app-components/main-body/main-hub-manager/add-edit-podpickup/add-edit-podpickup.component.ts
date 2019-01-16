@@ -90,8 +90,8 @@ export class AddEditPodPickupComponent implements OnInit {
                         sponsors: [res['sponsors']],
                         start_date: [new Date(res['start_date'])],
                         end_date: [new Date(res['end_date'])],
-                        start_time: [res['schedule']['start']],
-                        end_time: [res['schedule']['end']],
+                        start_time: [res['schedule'][0]['start']],
+                        end_time: [res['schedule'][0]['end']],
                     });
                 });
                 this.isCreate = false;

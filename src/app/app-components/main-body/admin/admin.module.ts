@@ -12,7 +12,7 @@ import {AddEditTerritoryComponent} from './add-edit-territory/add-edit-territory
 import {AddEditMainhubComponent} from './add-edit-mainhub/add-edit-mainhub.component';
 import {AdminReportingComponent} from './admin-reporting/admin-reporting.component';
 import {AgmCoreModule} from '@agm/core';
-import {TreeModule} from 'angular-tree-component';
+import {TreeModule} from 'ng2-tree';
 
 
 @NgModule({
@@ -25,7 +25,7 @@ import {TreeModule} from 'angular-tree-component';
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyCte3xKzZwcbVXm7942WDn1Twu2I0SAsoo'
         }),
-        TreeModule.forRoot()
+        TreeModule
     ],
     declarations: [
         AdminDashboardComponent,
