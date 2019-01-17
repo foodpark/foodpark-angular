@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ParamMap, Router, ActivatedRoute} from '@angular/router';
 import {HubPickupService} from '../../../../app-services/hub-pickup.service';
 import {MainhubService} from '../../../../app-services/mainhub.service';
@@ -29,6 +29,9 @@ export class EditHubpickupComponent implements OnInit {
     imageURL;
     isSponsor1Available = false;
     showDateError = false;
+    eventImageChanged = false;
+    sponsor1ImageChanged = false;
+    sponsor2ImageChanged = false;
     private fileUploadSubscription: Subscription;
 
     constructor(private fb: FormBuilder,
@@ -62,19 +65,22 @@ export class EditHubpickupComponent implements OnInit {
                 this.hubPickupId = JSON.parse(paramMap['params']['hubPickups']);
                 this.hubPickupService.getHubPickupsFromId(this.hubPickupId).subscribe(res => {
                     this.hubPickup = res;
-                    this.s1image = this.hubPickup['sponsors'][0] ? this.hubPickup['sponsors'][0]['image'] : '';
-                    this.s2image = this.hubPickup['sponsors'][1] ? this.hubPickup['sponsors'][1]['image'] : '';
+                    this.s1image = this.hubPickup['sponsors'][0] ? this.hubPickup['sponsors'][0]['image'] : null;
+                    this.s2image = this.hubPickup['sponsors'][1] ? this.hubPickup['sponsors'][1]['image'] : null;
+                    this.sponsor1Name = this.hubPickup['sponsors'][0] ? this.hubPickup['sponsors'][0]['name'] : '';
+                    this.sponsor2Name = this.hubPickup['sponsors'][1] ? this.hubPickup['sponsors'][1]['name'] : '';
+                    this.eventImage = this.hubPickup['image'] ? this.hubPickup['image'] : null;
+                    this.hubPickup['startDateTime'] = (this.hubPickup['start_date']).toString().split('T')[0].concat(',' + this.hubPickup['schedule'][0]['start']);
+                    this.hubPickup['endDateTime'] = (this.hubPickup['end_date']).toString().split('T')[0].concat(',' + this.hubPickup['schedule'][0]['end']);
                     this.hubPickupForm = this.fb.group({
-                        name: [res['name'], Validators.required],
-                        description: [res['description'], Validators.required],
+                        name: [this.hubPickup['name'], Validators.required],
+                        description: [this.hubPickup['description'], Validators.required],
                         image: [null, Validators.required],
-                        sponsors: [res['sponsors']],
-                        start_date: [new Date(res['start_date'])],
-                        end_date: [new Date(res['end_date'])],
-                        start_time: [res['schedule']['start']],
-                        end_time: [res['schedule']['end']],
-                        latitude: [res['latitude'], Validators.required],
-                        longitude: [res['longitude'], Validators.required],
+                        sponsors: [this.hubPickup['sponsors']],
+                        start_date: [(this.hubPickup['start_date']).split('T')[0]],
+                        end_date: [this.hubPickup['end_date']],
+                        latitude: [this.hubPickup['latitude'], Validators.required],
+                        longitude: [this.hubPickup['longitude'], Validators.required],
                     });
                 });
             }
@@ -89,7 +95,6 @@ export class EditHubpickupComponent implements OnInit {
             .subscribe((fileURL) => {
                 if (this.dataService.stringComparator(this.dataService.imageSource, 'sponsor1')) {
                     this.dataService.sponsor1Image = fileURL;
-                    // this.sponsor1Image = null;
                     if (this.sponsor2Image !== null && this.sponsor2Image !== undefined) {
                         this.dataService.imageSource = 'sponsor2';
                         this.fileUploadService.uploadFile(this.sponsor2Image);
@@ -99,12 +104,10 @@ export class EditHubpickupComponent implements OnInit {
                     }
                 } else if (this.dataService.stringComparator(this.dataService.imageSource, 'sponsor2')) {
                     this.dataService.sponsor2Image = fileURL;
-                    // this.sponsor2Image = null;
                     this.dataService.imageSource = 'event';
                     this.fileUploadService.uploadFile(this.eventImage);
                 } else {
                     this.imageURL = fileURL;
-                    // this.eventImage = null;
                     this.uploadFinalObj();
                 }
             });
@@ -121,22 +124,20 @@ export class EditHubpickupComponent implements OnInit {
         this.sponsor2Name = event['srcElement']['value'];
     }
 
-    // onHubClick() {
-    //     const button = document.getElementById('hub_button');
-    //     button.innerText = this.mainHub['name'];
-    // }
-
     onImageUpload(name: string, files: FileList) {
         document.getElementById(name + '_image').innerText = files[0].name;
         if (name === 'sponsor1') {
             this.sponsor1Image = files[0];
+            ths.sponsor1ImageChanged = true;
             if (this.sponsor1Image !== undefined && this.sponsor1Name !== undefined && this.sponsor1Name.length > 0) {
                 this.isSponsor1Available = true;
             }
         } else if (name === 'sponsor2') {
             this.sponsor2Image = files[0];
+            this.sponsor1ImageChanged = true;
         } else if (name === 'event') {
             this.eventImage = files[0];
+            this.eventImageChanged = true;
         }
     }
 
@@ -146,26 +147,36 @@ export class EditHubpickupComponent implements OnInit {
             this.fileUploadService.uploadFile(this.sponsor1Image);
         } else {
             this.dataService.imageSource = 'event';
-            this.fileUploadService.uploadFile(this.eventImage);
+            if (this.eventImageChanged) {
+                this.fileUploadService.uploadFile(this.eventImage);
+            } else {
+                console.log('upoad the final obj');
+                this.imageURL = this.eventImage;
+                this.uploadFinalObj();
+            }
         }
     }
 
     uploadFinalObj() {
         this.sponsors = [];
-        const sponsor1 = {
-            name: this.sponsor1Name,
-            image: this.dataService.sponsor1Image
-        };
-        const sponsor2 = {
-            name: this.sponsor2Name,
-            image: this.dataService.sponsor2Image
-        };
+        if (this.sponsor1ImageChanged) {
+            const sponsor1 = {
+                name: this.sponsor1Name,
+                image: this.dataService.sponsor1Image
+            };
+            const sponsor2 = {
+                name: this.sponsor2Name,
+                image: this.dataService.sponsor2Image
+            };
 
-        if (this.checkProperties(sponsor1)) {
-            this.sponsors.push(sponsor1);
-        }
-        if (this.checkProperties(sponsor2)) {
-            this.sponsors.push(sponsor2);
+            if (this.checkProperties(sponsor1)) {
+                this.sponsors.push(sponsor1);
+            }
+            if (this.checkProperties(sponsor2)) {
+                this.sponsors.push(sponsor2);
+            }
+        } else {
+            this.sponsors = this.hubPickup['sponsors'];
         }
         const startDate = new Date(document.getElementById('fromDate')['value']);
         const endDate = new Date(document.getElementById('toDate')['value']);
@@ -192,7 +203,7 @@ export class EditHubpickupComponent implements OnInit {
         };
 
         if (!this.showDateError) {
-            this.hubPickupService.editHubPickup(obj);
+            this.hubPickupService.editHubPickup(obj).subscribe();
             this.router.navigate(['hubmanager/hubpickups']);
         }
     }

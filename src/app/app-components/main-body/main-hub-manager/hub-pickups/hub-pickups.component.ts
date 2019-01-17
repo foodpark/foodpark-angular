@@ -164,7 +164,7 @@ export class HubPickupsComponent implements OnInit {
         };
 
         if (!this.showDateError) {
-            this.hubPickupService.addHubPickup(obj);
+            this.hubPickupService.addHubPickup(obj).subscribe();
             this.router.navigate(['hubmanager/hubpickups']);
         }
     }

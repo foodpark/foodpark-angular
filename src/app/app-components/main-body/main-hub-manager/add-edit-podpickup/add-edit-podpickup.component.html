@@ -16,8 +16,7 @@
                         type="text"
                         formControlName="name"
                         class="form-control"
-                        placeholder="Event Name"
-                    />
+                        placeholder="Event Name"/>
                 </div>
                 <div class="form-group">
                     <h4>Event Description</h4>
@@ -25,8 +24,7 @@
                         type="text"
                         class="form-control"
                         formControlName="description"
-                        placeholder="Event Description"
-                    />
+                        placeholder="Event Description"/>
                 </div>
                 <div class="form-group">
                     <h4>Event Image</h4>
@@ -37,8 +35,7 @@
                         (input)="onImageUpload('event', $event)"
                         alt="Event Image"
                         *ngIf="!eventimage"
-                        (click)="filetype = 'EVENT'"
-                    />
+                        (click)="filetype = 'EVENT'"/>
                     <input
                         type="file"
                         name="event_image"
@@ -46,10 +43,7 @@
                         (input)="onImageUpload('event', $event)"
                         alt="Event Image"
                         *ngIf="eventimage"
-                        [ngStyle]="{
-                            'background-image': 'url(' + eventimage + ')'
-                        }"
-                    />
+                        [ngStyle]="{'background-image': 'url(' + eventimage + ')'}"/>
                     <h5 style="height: 30px;font-size: 20px;" id="event_image">
                         File URL
                     </h5>
@@ -61,15 +55,13 @@
                             id="regional_hub"
                             class="btn btn-primary dropdown-toggle"
                             type="button"
-                            data-toggle="dropdown"
-                        >
+                            data-toggle="dropdown">
                             Select
                         </button>
                         <ul class="dropdown-menu">
                             <li
                                 *ngFor="let item of regionalHubs; let i = index"
-                                (click)="onRegionalHubClick(i)"
-                            >
+                                (click)="onRegionalHubClick(i)">
                                 {{ item.name }}
                             </li>
                         </ul>
@@ -82,15 +74,13 @@
                             id="pod_button"
                             class="btn btn-primary dropdown-toggle"
                             type="button"
-                            data-toggle="dropdown"
-                        >
+                            data-toggle="dropdown">
                             Select
                         </button>
                         <ul class="dropdown-menu">
                             <li
                                 *ngFor="let item of pods; let i = index"
-                                (click)="onPodClick(i)"
-                            >
+                                (click)="onPodClick(i)">
                                 {{ item.name }}
                             </li>
                         </ul>
@@ -105,38 +95,29 @@
                                     type="text"
                                     class="form-control"
                                     (focusout)="onSponsor1Entered($event)"
-                                    attr.data-placeholder="{{sponsor1Name || 'sponsor1 Name'}}"
-                                    id="sponsor1"
-                                />
+                                    value="{{sponsor1Name || 'sponsor1 Name'}}"
+                                    id="sponsor1"/>
                             </div>
                             <h4>Sponsor 1 Image</h4>
                             <h5
                                 style="min-height: 30px;font-size: 20px;padding: 5px 0;"
-                                id="sponsor1_image"
-                                class="hide">
+                                id="sponsor1_image">
                                 {{ sponsor1image || "File URL" }}
                             </h5>
-                            <img
-                                src="{{ sponsor1Image }}"
-                                alt=""
-                                id="sponsor1_image"/>
+                            <img src="{{ sponsor1Image }}" id="sponsor1_image"/>
                             <input
                                 type="file"
                                 accept=".png, .jpg, .jpeg"
                                 (input)="onImageUpload('sponsor1', $event)"
                                 alt="Sponsor Image"
-                                *ngIf="!sponsor1Image"
-                                (click)="filetype = 'SPONSOR1'"/>
+                                *ngIf="!sponsor1Image">
                             <input
                                 type="file"
                                 accept=".png, .jpg, .jpeg"
                                 (input)="onImageUpload('sponsor1', $event)"
                                 alt="Sponsor Image"
                                 *ngIf="sponsor1Image"
-                                [ngStyle]="{
-                                    'background-image':
-                                        'url(' + sponsor1Image + ')'
-                                }"/>
+                                [ngStyle]="{'background-image':'url(' + sponsor1Image + ')'}"/>
                             <h5
                                 style="height: 30px;font-size: 20px;"
                                 id="sponsor1_image">
@@ -150,9 +131,7 @@
                                 type="text"
                                 class="form-control"
                                 (keyup)="onSponsor2Entered($event)"
-                                attr.data-placeholder="{{
-                                    sponsor2Name || 'sponsor2 Name'
-                                }}"
+                                attr.data-placeholder="{{sponsor2Name || 'sponsor2 Name'}}"
                                 id="sponsor2"/>
                         </div>
                         <h4>Sponsor 2 Image</h4>
@@ -172,22 +151,17 @@
                             (input)="onImageUpload('sponsor2', $event)"
                             alt="Sponsor Image"
                             *ngIf="!sponsor2Image"
-                            (click)="filetype = 'SPONSOR2'"
-                        />
+                            (click)="filetype = 'SPONSOR2'"/>
                         <input
                             type="file"
                             accept=".png, .jpg, .jpeg"
                             (input)="onImageUpload('sponsor2', $event)"
                             alt="Sponsor Image"
                             *ngIf="sponsor2Image"
-                            [ngStyle]="{
-                                'background-image': 'url(' + sponsor2Image + ')'
-                            }"
-                        />
+                            [ngStyle]="{'background-image': 'url(' + sponsor2Image + ')'}"/>
                         <h5
                             style="height: 30px;font-size: 20px;"
-                            id="sponsor2_image"
-                        >
+                            id="sponsor2_image">
                             File URL
                         </h5>
                     </div>
@@ -201,8 +175,7 @@
                                 [owlDateTimeTrigger]="dt5"
                                 [owlDateTime]="dt5"
                                 formControlName="start_date"
-                                id="fromDate"
-                            />
+                                id="fromDate"/>
                             <owl-date-time #dt5 [pickerMode]="'dialog'">
                             </owl-date-time>
                         </label>
@@ -215,8 +188,7 @@
                                 [owlDateTimeTrigger]="dt6"
                                 [owlDateTime]="dt6"
                                 formControlName="end_date"
-                                id="toDate"
-                            />
+                                id="toDate"/>
                             <owl-date-time #dt6 [pickerMode]="'dialog'">
                             </owl-date-time>
                         </label>
@@ -228,8 +200,7 @@
                 <button
                     type="button"
                     class="btn btn-default"
-                    (click)="onSaveClick()"
-                >
+                    (click)="onSaveClick()">
                     SAVE
                 </button>
             </form>
