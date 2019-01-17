@@ -71,8 +71,8 @@ export class EditHubpickupComponent implements OnInit {
                     this.eventImage = this.hubPickup['image'];
                     const startDate = (this.hubPickup['start_date']).toString().split('T')[0];
                     const endDate = (this.hubPickup['end_date']).toString().split('T')[0];
-                    this.startDateAndTime = startDate.concat(this.hubPickup['schedule'][0]['start']);
-                    this.endDateAndTime = endDate.concat(this.hubPickup['schedule'][0]['start']);
+                    this.startDateAndTime = startDate.concat(',' + this.hubPickup['schedule'][0]['start']);
+                    this.endDateAndTime = endDate.concat(',' + this.hubPickup['schedule'][0]['start']);
                     this.hubPickupForm = this.fb.group({
                         name: [this.hubPickup['name'], Validators.required],
                         description: [this.hubPickup['description'], Validators.required],
