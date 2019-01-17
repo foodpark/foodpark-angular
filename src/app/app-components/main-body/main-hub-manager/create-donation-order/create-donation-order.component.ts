@@ -77,12 +77,6 @@ export class CreateDonationOrderComponent implements OnInit, OnDestroy {
         this.router.navigate(['/hubmanager/addeditloadresource', loadId, 'hubmanager']);
     }
 
-    onDeleteLoadClick(loadId: number) {
-    }
-
-    onEditLoadClick(loadId: number) {
-    }
-
     onMasterLoadClick(index: number) {
         const button = document.getElementById('master_load');
         button.innerText = this.masterLoads[index]['name'];
