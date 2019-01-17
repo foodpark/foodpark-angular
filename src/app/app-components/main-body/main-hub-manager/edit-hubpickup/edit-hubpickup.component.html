@@ -1,13 +1,6 @@
 <div class="absolute-position">
     <section class="greybg center ">
-        <div class="title-center">
-            <h2>Edit Hub Pickup</h2>
-        </div>
-        <div class="title-center">
-            <h4>
-                Main Hub: <i>{{ mainHub?.name }}</i>
-            </h4>
-        </div>
+        <h2 class="page-header" style="margin: 10px 80px;height: 50px;">Edit Hub Pickup</h2>
         <div class="container-fluid col-sm-12 menu_detail shell bg_1">
             <form [formGroup]="hubPickupForm">
                 <div class="form-group">
@@ -28,7 +21,6 @@
                 </div>
                 <div class="form-group">
                     <h4>Event Image</h4>
-                    <img src="{{eventImage}}" alt="event image" id="event">
                     <input
                         type="file"
                         id="event"
@@ -39,6 +31,23 @@
                         alt="Event Image">
                     <h5 style="height: 30px;font-size: 20px;" id="event_image">File URL</h5>
                 </div>
+                <!--<div class="form-group">-->
+                <!--<h4>Select Hub</h4>-->
+                <!--<div class="dropdown">-->
+                <!--<button id="hub_button"-->
+                <!--class="btn btn-primary dropdown-toggle"-->
+                <!--type="button"-->
+                <!--data-toggle="dropdown">Select-->
+
+                <!--</button>-->
+                <!--<ul class="dropdown-menu">-->
+                <!--<li-->
+                <!--(click)="onHubClick()">-->
+                <!--{{mainHub?.name}}-->
+                <!--</li>-->
+                <!--</ul>-->
+                <!--</div>-->
+                <!--</div>-->
                 <h4>Sponsor</h4>
                 <div style="display: flex;">
                     <div style="padding-right: 20px">
@@ -49,14 +58,13 @@
                                     class="form-control"
                                     (keyup)="onSponsor1Entered($event)"
                                     placeholder="Sponsor Name"
-                                    value="{{sponsor1Name}}"
                                     id="sponsor1">
                             </div>
                             <h4>Sponsor 1 Image</h4>
-                            <h5 style="min-height: 30px;font-size: 20px;padding: 5px 0;" id="sponsor1_image"
-                                class="hide">{{ s1image || 'File URL'}}
+                            <h5 style="min-height: 30px;font-size: 20px;padding: 5px 0;" id="sponsor1_image">{{ s1image
+                                ||
+                                'File URL'}}
                             </h5>
-                            <img src="{{s1image}}" alt="" id="sponsor1_image">
                             <input
                                 type="file"
                                 accept=".png, .jpg, .jpeg"
@@ -71,14 +79,12 @@
                                 class="form-control"
                                 (keyup)="onSponsor2Entered($event)"
                                 placeholder="Sponsor Name"
-                                value="{{sponsor2Name}}"
                                 id="sponsor2">
                         </div>
                         <h4>Sponsor 2 Image</h4>
-                        <!-- <h5 style="min-height: 30px;font-size: 20px;padding: 5px 0;" id="sponsor2_image">{{s2image ||
+                        <h5 style="min-height: 30px;font-size: 20px;padding: 5px 0;" id="sponsor2_image">{{s2image ||
                             'File URL'}}
-                        </h5> -->
-                        <img src="{{s2image}}" alt="">
+                        </h5>
                         <input
                             type="file"
                             accept=".png, .jpg, .jpeg"
@@ -125,3 +131,4 @@
         </div>
     </section>
 </div>
+

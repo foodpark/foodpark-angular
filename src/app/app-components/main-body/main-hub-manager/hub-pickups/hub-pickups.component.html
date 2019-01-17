@@ -1,13 +1,6 @@
 <div class="absolute-position">
     <section class="greybg center ">
-        <div class="title-center">
-            <h2>Add Hub Pickup</h2>
-        </div>
-        <div class="title-center">
-            <h4>
-                Main Hub: <i>{{ mainHub?.name }}</i>
-            </h4>
-        </div>
+        <h2 class="page-header" style="margin: 10px 80px;height: 50px;">Add Hub Pickup</h2>
         <div class="container-fluid col-sm-12 menu_detail shell bg_1">
             <form [formGroup]="hubPickupForm">
                 <div class="form-group">
@@ -28,14 +21,33 @@
                 </div>
                 <div class="form-group">
                     <h4>Event Image</h4>
-                    <input type="file" name="event_image" accept="image/*" (input)="onImageUpload('event', $event)"
-                           alt="Event Image" *ngIf="!eventimage" (click)="filetype = 'EVENT'">
-                    <input type="file" name="event_image" accept="image/*" (input)="onImageUpload('event', $event)"
-                           alt="Event Image" *ngIf="eventimage"
-                           [ngStyle]="{'background-image': 'url(' + eventimage + ')'}">
+                    <input
+                        type="file"
+                        name="event_image"
+                        formControlName="image"
+                        accept="image/*"
+                        (input)="onImageUpload('event', $event.target.files)"
+                        alt="Event Image">
                     <h5 style="height: 30px;font-size: 20px;" id="event_image">File URL
                     </h5>
                 </div>
+                <!--<div class="form-group">-->
+                <!--<h4>Select Hub</h4>-->
+                <!--<div class="dropdown">-->
+                <!--<button id="hub_button"-->
+                <!--class="btn btn-primary dropdown-toggle"-->
+                <!--type="button"-->
+                <!--data-toggle="dropdown">Select-->
+
+                <!--</button>-->
+                <!--<ul class="dropdown-menu">-->
+                <!--<li-->
+                <!--(click)="onHubClick()">-->
+                <!--{{mainHub?.name}}-->
+                <!--</li>-->
+                <!--</ul>-->
+                <!--</div>-->
+                <!--</div>-->
                 <h4>Sponsor</h4>
                 <div style="display: flex;">
                     <div style="padding-right: 20px">
@@ -49,11 +61,11 @@
                                     id="sponsor1">
                             </div>
                             <h4>Sponsor 1 Image</h4>
-                            <input type="file" accept=".png, .jpg, .jpeg" (input)="onImageUpload('sponsor1', $event)"
-                                   alt="Sponsor Image" *ngIf="!sponsor1image" (click)="filetype = 'SPONSOR1'">
-                            <input type="file" accept=".png, .jpg, .jpeg" (input)="onImageUpload('sponsor1', $event)"
-                                   alt="Sponsor Image" *ngIf="sponsor1image"
-                                   [ngStyle]="{'background-image': 'url(' + sponsor1image + ')'}">
+                            <input
+                                type="file"
+                                accept=".png, .jpg, .jpeg"
+                                (input)="onImageUpload('sponsor1', $event.target.files)"
+                                alt="Sponsor Image">
                             <h5 style="height: 30px;font-size: 20px;" id="sponsor1_image">File URL
                             </h5>
                         </div>
@@ -68,11 +80,11 @@
                                 id="sponsor2">
                         </div>
                         <h4>Sponsor 2 Image</h4>
-                        <input type="file" accept=".png, .jpg, .jpeg" (input)="onImageUpload('sponsor2', $event)"
-                               alt="Sponsor Image" *ngIf="!sponsor2image" (click)="filetype = 'SPONSOR2'">
-                        <input type="file" accept=".png, .jpg, .jpeg" (input)="onImageUpload('sponsor2', $event)"
-                               alt="Sponsor Image" *ngIf="sponsor2image"
-                               [ngStyle]="{'background-image': 'url(' + sponsor2image + ')'}">
+                        <input
+                            type="file"
+                            accept=".png, .jpg, .jpeg"
+                            (input)="onImageUpload('sponsor2', $event.target.files)"
+                            alt="Sponsor Image">
                         <h5 style="height: 30px;font-size: 20px;" id="sponsor2_image">File URL
                         </h5>
                     </div>
@@ -117,3 +129,4 @@
         </div>
     </section>
 </div>
+

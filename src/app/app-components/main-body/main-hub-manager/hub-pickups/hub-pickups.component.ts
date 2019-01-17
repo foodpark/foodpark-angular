@@ -27,11 +27,6 @@ export class HubPickupsComponent implements OnInit {
     isSponsor1Available = false;
     private fileUploadSubscription: Subscription;
     showDateError = false;
-    fileURL: any;
-    filetype: any;
-    eventimage: File;
-    sponsor1image: File;
-    sponsor2image: File;
 
     constructor(private fb: FormBuilder,
                 private mainhubService: MainhubService,
@@ -40,8 +35,6 @@ export class HubPickupsComponent implements OnInit {
                 private hubPickupService: HubPickupService,
                 private fileUploadService: FileUploadService,
                 private router: Router) {
-        this.fileURL = {};
-        this.filetype = '';
     }
 
     ngOnInit() {
@@ -69,6 +62,7 @@ export class HubPickupsComponent implements OnInit {
             .subscribe((fileURL) => {
                 if (this.dataService.stringComparator(this.dataService.imageSource, 'sponsor1')) {
                     this.dataService.sponsor1Image = fileURL;
+                    // this.sponsor1Image = null;
                     if (this.sponsor2Image !== null && this.sponsor2Image !== undefined) {
                         this.dataService.imageSource = 'sponsor2';
                         this.fileUploadService.uploadFile(this.sponsor2Image);
@@ -78,10 +72,12 @@ export class HubPickupsComponent implements OnInit {
                     }
                 } else if (this.dataService.stringComparator(this.dataService.imageSource, 'sponsor2')) {
                     this.dataService.sponsor2Image = fileURL;
+                    // this.sponsor2Image = null;
                     this.dataService.imageSource = 'event';
                     this.fileUploadService.uploadFile(this.eventImage);
                 } else {
                     this.imageURL = fileURL;
+                    // this.eventImage = null;
                     this.uploadFinalObj();
                 }
             });
@@ -103,27 +99,7 @@ export class HubPickupsComponent implements OnInit {
         button.innerText = this.mainHub['name'];
     }
 
-    onImageUpload(name: string, event) {
-        console.log('this is the image', event);
-        console.log('this is the filetype', this.filetype);
-        const files = event.target.files, data = files[0], reader = new FileReader();
-        reader.onload = event => {
-            this.fileURL = event;
-            switch (this.filetype) {
-                case 'EVENT':
-                    this.eventimage = this.fileURL.target.result;
-                    break;
-                case 'SPONSOR1':
-                    this.sponsor1image = this.fileURL.target.result;
-                    break;
-                case 'SPONSOR2':
-                    this.sponsor2image = this.fileURL.target.result;
-                    break;
-            }
-        };
-        reader.readAsDataURL(data);
-        console.log('this is image data', data);
-
+    onImageUpload(name: string, files: FileList) {
         document.getElementById(name + '_image').innerText = files[0].name;
         if (name === 'sponsor1') {
             this.sponsor1Image = files[0];
@@ -188,10 +164,8 @@ export class HubPickupsComponent implements OnInit {
         };
 
         if (!this.showDateError) {
-            this.hubPickupService.addHubPickup(obj)
-            .subscribe((response) => {
-                this.router.navigate(['hubmanager/hubpickups']);
-            });
+            this.hubPickupService.addHubPickup(obj);
+            this.router.navigate(['hubmanager/hubpickups']);
         }
     }
 

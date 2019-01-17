@@ -29,8 +29,6 @@ export class EditHubpickupComponent implements OnInit {
     imageURL;
     isSponsor1Available = false;
     showDateError = false;
-    startDateAndTime: string;
-    endDateAndTime: string;
     private fileUploadSubscription: Subscription;
 
     constructor(private fb: FormBuilder,
@@ -66,22 +64,17 @@ export class EditHubpickupComponent implements OnInit {
                     this.hubPickup = res;
                     this.s1image = this.hubPickup['sponsors'][0] ? this.hubPickup['sponsors'][0]['image'] : '';
                     this.s2image = this.hubPickup['sponsors'][1] ? this.hubPickup['sponsors'][1]['image'] : '';
-                    this.sponsor1Name = this.hubPickup['sponsors'][0] ? this.hubPickup['sponsors'][0]['name'] : '';
-                    this.sponsor2Name = this.hubPickup['sponsors'][1] ? this.hubPickup['sponsors'][1]['name'] : '';
-                    this.eventImage = this.hubPickup['image'];
-                    const startDate = (this.hubPickup['start_date']).toString().split('T')[0];
-                    const endDate = (this.hubPickup['end_date']).toString().split('T')[0];
-                    this.startDateAndTime = startDate.concat(',' + this.hubPickup['schedule'][0]['start']);
-                    this.endDateAndTime = endDate.concat(',' + this.hubPickup['schedule'][0]['start']);
                     this.hubPickupForm = this.fb.group({
-                        name: [this.hubPickup['name'], Validators.required],
-                        description: [this.hubPickup['description'], Validators.required],
+                        name: [res['name'], Validators.required],
+                        description: [res['description'], Validators.required],
                         image: [null, Validators.required],
-                        sponsors: [this.hubPickup['sponsors']],
-                        start_date: [this.startDateAndTime],
-                        end_date: [this.endDateAndTime],
-                        latitude: [this.hubPickup['latitude'], Validators.required],
-                        longitude: [this.hubPickup['longitude'], Validators.required],
+                        sponsors: [res['sponsors']],
+                        start_date: [new Date(res['start_date'])],
+                        end_date: [new Date(res['end_date'])],
+                        start_time: [res['schedule']['start']],
+                        end_time: [res['schedule']['end']],
+                        latitude: [res['latitude'], Validators.required],
+                        longitude: [res['longitude'], Validators.required],
                     });
                 });
             }
@@ -127,6 +120,11 @@ export class EditHubpickupComponent implements OnInit {
     onSponsor2Entered(event) {
         this.sponsor2Name = event['srcElement']['value'];
     }
+
+    // onHubClick() {
+    //     const button = document.getElementById('hub_button');
+    //     button.innerText = this.mainHub['name'];
+    // }
 
     onImageUpload(name: string, files: FileList) {
         document.getElementById(name + '_image').innerText = files[0].name;
