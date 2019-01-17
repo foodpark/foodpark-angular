@@ -91,10 +91,10 @@ export class AdminReportingComponent implements OnInit {
         this.mainhubsSubscription = this.mainhubService.getMainhubsUpdateListener()
             .subscribe((response: MainhubModel[]) => {
                 this.mainHub = response;
-                this.mainHubName = this.mainHub[0]['name'];
+                this.mainHubName = this.mainHub.length ? this.mainHub[0]['name'] : '';
                 const mainHubButton = document.getElementById('mainhub');
                 mainHubButton.innerText = this.mainHubName;
-                this.reportService.getReportsOfLoggedInUser(this.mainHub[0]['id']).subscribe(report => {
+                this.reportService.getReportsFromTime(this.mainHub[0]['id'], new Date(new Date().getFullYear(), 0, 1).getTime()).subscribe(report => {
                     this.masterLoadCount = report['master_loads'];
                     this.regionalHubs = report['regionalhubs'];
                     this.reports = report;

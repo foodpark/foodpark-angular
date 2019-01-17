@@ -11,10 +11,6 @@ export class ReportingService {
     constructor(private http: HttpClient) {
     }
 
-    getReportsOfLoggedInUser(mainHubId: number) {
-        return this.http.get<ReportingModel>(environment.apiUrl + '/api/v1/rel/food_parks/' + mainHubId + '/reports');
-    }
-
     getReportsFromTime(mainHubId: number, time: number) {
         return this.http.get<ReportingModel>(environment.apiUrl + '/api/v1/rel/food_parks/' + mainHubId + '/reports?start=' + time);
     }

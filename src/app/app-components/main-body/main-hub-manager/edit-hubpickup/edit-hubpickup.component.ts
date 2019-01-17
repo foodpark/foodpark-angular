@@ -29,6 +29,8 @@ export class EditHubpickupComponent implements OnInit {
     imageURL;
     isSponsor1Available = false;
     showDateError = false;
+    startDateAndTime;
+    endDateAndTime;
     private fileUploadSubscription: Subscription;
 
     constructor(private fb: FormBuilder,
@@ -64,15 +66,17 @@ export class EditHubpickupComponent implements OnInit {
                     this.hubPickup = res;
                     this.s1image = this.hubPickup['sponsors'][0] ? this.hubPickup['sponsors'][0]['image'] : '';
                     this.s2image = this.hubPickup['sponsors'][1] ? this.hubPickup['sponsors'][1]['image'] : '';
+                    const startDate = (this.hubPickup['start_date']).toString().split('T')[0];
+                    const endDate = (this.hubPickup['end_date']).toString().split('T')[0];
+                    this.startDateAndTime = startDate.concat(this.hubPickup['schedule'][0]['start']);
+                    this.endDateAndTime = endDate.concat(this.hubPickup['schedule'][0]['start']);
                     this.hubPickupForm = this.fb.group({
                         name: [this.hubPickup['name'], Validators.required],
                         description: [this.hubPickup['description'], Validators.required],
                         image: [null, Validators.required],
                         sponsors: [this.hubPickup['sponsors']],
-                        start_date: [new Date(this.hubPickup['start_date'])],
-                        end_date: [new Date(this.hubPickup['end_date'])],
-                        start_time: [this.hubPickup['schedule'][0]['start']],
-                        end_time: [this.hubPickup['schedule'][0]['end']],
+                        start_date: [this.startDateAndTime],
+                        end_date: [this.endDateAndTime],
                         latitude: [this.hubPickup['latitude'], Validators.required],
                         longitude: [this.hubPickup['longitude'], Validators.required],
                     });

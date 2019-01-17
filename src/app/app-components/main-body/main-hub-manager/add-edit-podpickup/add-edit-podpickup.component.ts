@@ -178,28 +178,31 @@ export class AddEditPodPickupComponent implements OnInit {
     onImageUpload(name: string, event) {
         console.log('this is the image', event);
         console.log('this is the filetype', this.filetype);
-
+        this.filetype = name;
         const files = event.target.files, data = files[0], reader = new FileReader();
         reader.onload = event => {
             this.fileURL = event;
-            switch (this.filetype) {
-                case 'EVENT':
+            switch (this.filetype.toLowerCase()) {
+                case 'event':
                     this.eventimage = this.fileURL.target.result;
                     break;
-                case 'SPONSOR1':
+                case 'sponsor1':
                     this.sponsor1image = this.fileURL.target.result;
                     break;
-                case 'SPONSOR2':
+                case 'sponsor2':
                     this.sponsor2image = this.fileURL.target.result;
                     break;
             }
         };
         reader.readAsDataURL(data);
-        console.log('this is image data', data);
+        console.log('this is image data', this.eventImage);
+        console.log('this is image data', this.sponsor1image);
+        console.log('this is image data', this.sponsor2Image);
 
         document.getElementById(name + '_image').innerText = files[0].name;
         if (name === 'sponsor1') {
             this.sponsor1Image = files[0];
+            console.log(this.sponsor2Image);
             if (this.sponsor1Image !== undefined && this.sponsor1Name !== undefined && this.sponsor1Name.length > 0) {
                 this.isSponsor1Available = true;
             }
