@@ -29,8 +29,8 @@ export class EditHubpickupComponent implements OnInit {
     imageURL;
     isSponsor1Available = false;
     showDateError = false;
-    startDateAndTime;
-    endDateAndTime;
+    startDateAndTime: string;
+    endDateAndTime: string;
     private fileUploadSubscription: Subscription;
 
     constructor(private fb: FormBuilder,
@@ -66,6 +66,9 @@ export class EditHubpickupComponent implements OnInit {
                     this.hubPickup = res;
                     this.s1image = this.hubPickup['sponsors'][0] ? this.hubPickup['sponsors'][0]['image'] : '';
                     this.s2image = this.hubPickup['sponsors'][1] ? this.hubPickup['sponsors'][1]['image'] : '';
+                    this.sponsor1Name = this.hubPickup['sponsors'][0] ? this.hubPickup['sponsors'][0]['name'] : '';
+                    this.sponsor2Name = this.hubPickup['sponsors'][1] ? this.hubPickup['sponsors'][1]['name'] : '';
+                    this.eventImage = this.hubPickup['image'];
                     const startDate = (this.hubPickup['start_date']).toString().split('T')[0];
                     const endDate = (this.hubPickup['end_date']).toString().split('T')[0];
                     this.startDateAndTime = startDate.concat(this.hubPickup['schedule'][0]['start']);
