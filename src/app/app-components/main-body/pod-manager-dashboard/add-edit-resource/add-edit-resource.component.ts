@@ -72,8 +72,23 @@ export class AddEditResourceComponent implements OnInit {
                 if (src === 'hubmanager') {
                     this.isCustomizing = true;
                 }
-                this.getLoadItems();
+            } else if (paramMap.has('id')) {
+                this.loadID = parseInt(paramMap.get('id'), 10);
             }
+
+            this.podsManagerService.getLoadRequestsFromId(this.loadID)
+            .subscribe(res => {
+                this.loadName = res['name'];
+            });
+
+            this.getLoadItems();
+        });
+    }
+
+    getLoadItems() {
+        this.podsManagerService.getLoadItems(this.loadID)
+        .subscribe(response => {
+            this.loaditems = response;
         });
     }
 
@@ -136,8 +151,7 @@ export class AddEditResourceComponent implements OnInit {
                 quantity: this.adddeatilsform.value.quantity,
                 description: this.adddeatilsform.value.description,
                 load_type: this.adddeatilsform.value.load_type,
-                load_id: this.loadID,
-                church_id: this.pod['id']
+                load_id: this.loadID
             };
 
             this.podsManagerService.createLoadItem(reqobj)
@@ -263,16 +277,6 @@ export class AddEditResourceComponent implements OnInit {
 
         this.displayCategories = this.categories.filter(category => {
             return loadItemsCategories.indexOf(category.category) === -1;
-        });
-    }
-
-    getLoadItems() {
-        this.podsManagerService.getLoadRequestsFromId(this.loadID).subscribe(res => {
-            this.loadName = res['name'];
-        });
-        this.podsManagerService.getLoadItems(this.loadID)
-        .subscribe(response => {
-            this.loaditems = response;
         });
     }
 
