@@ -33,7 +33,7 @@ export class PodsComponent implements OnInit, OnDestroy {
         this.regionalHubSubscription = this.regionalHubService.getRegionalHubsUpdateListener()
             .subscribe((regionalHubs: RegionalHubModel[]) => {
                 this.regionalHubs = regionalHubs;
-                this.podsService.getPodsInMainHub(this.mainHub['id']);
+                this.podsService.getPodsInMainHub(this.mainHub.id);
             });
 
         this.podsSubscription = this.podsService.getPodsUpdateListener()
@@ -97,7 +97,7 @@ export class PodsComponent implements OnInit, OnDestroy {
 
     onDeleteClick(index) {
         this.podsService.deletePod(index).subscribe(() => {
-            this.podsService.getAllPods();
+            this.podsService.getPodsInMainHub(this.mainHub.id);
         });
     }
 
