@@ -17,6 +17,10 @@ export class PodsManagerService {
         return this.http.get<CategoryModel[]>(environment.apiUrl + '/api/v1/rel/categories');
     }
 
+    getLoadRequestsForRegionalHub(regHubId: number) {
+        return this.http.get(environment.apiUrl + '/api/v1/rel/regionalhubs/' + regHubId + '/loads');
+    }
+
     getLoadRequests() {
         return this.http.get(environment.apiUrl + '/api/v1/rel/loads');
     }

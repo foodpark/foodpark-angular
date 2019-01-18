@@ -42,25 +42,27 @@ export class CreateDonationOrderComponent implements OnInit, OnDestroy {
             select_pod_load: ['', Validators.required],
         });
 
+        this.regionalHubsSubscription = this.regionalService.getRegionalHubsUpdateListener()
+        .subscribe((regionalHubs: RegionalHubModel[]) => {
+            this.regionalHubs = regionalHubs;
+        });
+
         this.masterLoadSubscription = this.masterLoadService.getMasterUpdateListener()
         .subscribe(res => {
             this.masterLoads = res;
-            this.regionalService.getRegionalHubsInMainHub(this.masterLoads[0]['main_hub_id']);
-            this.regionalHubsSubscription = this.regionalService.getRegionalHubsUpdateListener()
-                .subscribe((regionalHubs: RegionalHubModel[]) => {
-                    this.regionalHubs = regionalHubs;
-                });
         });
 
         this.mainHubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
         .subscribe((response) => {
             this.mainHub = response[0];
             this.masterLoadService.getMasterLoadsInMainHub(this.mainHub.id);
+            this.regionalService.getRegionalHubsInMainHub(this.mainHub.id);
         });
 
-        this.podsManagerService.getLoadRequests().subscribe(res => {
-            this.loads = res;
-        });
+        // this.podsManagerService.getLoadRequests()
+        // .subscribe(res => {
+        //     this.loads = res;
+        // });
 
         this.loadName = this.dataService.nullCheck(this.dataService.loadName) ? this.dataService.loadName : '';
         if (this.loadName !== '') {
@@ -87,12 +89,19 @@ export class CreateDonationOrderComponent implements OnInit, OnDestroy {
     }
 
     onRegionalHubClick(index: number) {
+        const regHub = this.regionalHubs[index];
         const button = document.getElementById('regional_hub');
-        button.innerText = this.regionalHubs[index]['name'];
+        button.innerText = regHub.name;
         this.requestBody = {
             ...this.requestBody,
-            regional_hub_id: this.regionalHubs[index]['id']
+            regional_hub_id: regHub.id // this.regionalHubs[index]['id']
         };
+        this.loads = [];
+        this.podsManagerService.getLoadRequestsForRegionalHub(regHub.id)
+        .subscribe(res => {
+            this.loads = res;
+        });
+
     }
 
     onLoadRequestSelected(loadRequest) {
@@ -106,8 +115,10 @@ export class CreateDonationOrderComponent implements OnInit, OnDestroy {
     }
 
     saveDonationOrder() {
-        this.masterLoadService.addDonationOrder(this.requestBody).subscribe();
-        this.router.navigate(['/hubmanager/loadmanagement']);
+        this.masterLoadService.addDonationOrder(this.requestBody)
+        .subscribe( response => {
+            this.router.navigate(['/hubmanager/loadmanagement']);
+        });
     }
 
 
