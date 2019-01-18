@@ -33,14 +33,13 @@ export class AddEditPodPickupComponent implements OnInit {
     showDateError = false;
     fileURL: any;
     filetype: any;
-    eventimage: File;
-    sponsor1image: File;
     regionalHubs;
-    sponsor2image: File;
     pods: PodModel[] = [];
     pageTitle = '';
     isCreate = false;
     reqObj = {};
+    eventImageChanged = false;
+    sponsor1ImageChanged = false;
     private regionalHubsSubscription: Subscription;
     private podsSubscription: Subscription;
 
@@ -83,15 +82,16 @@ export class AddEditPodPickupComponent implements OnInit {
                     this.sponsor2Image = this.podPickup['sponsors'][1] ? this.podPickup['sponsors'][1]['image'] : '';
                     this.sponsor1Name = this.podPickup['sponsors'][0] ? this.podPickup['sponsors'][0]['name'] : '';
                     this.sponsor2Name = this.podPickup['sponsors'][1] ? this.podPickup['sponsors'][1]['name'] : '';
+                    this.eventImage = this.podPickup['image'] ? this.podPickup['image'] : null;
                     this.podPickupForm = this.fb.group({
-                        name: [res['name'], Validators.required],
-                        description: [res['description'], Validators.required],
+                        name: [this.podPickup['name'], Validators.required],
+                        description: [this.podPickup['description'], Validators.required],
                         image: [null, Validators.required],
-                        sponsors: [res['sponsors']],
-                        start_date: [new Date(res['start_date'])],
-                        end_date: [new Date(res['end_date'])],
-                        start_time: [res['schedule'][0]['start']],
-                        end_time: [res['schedule'][0]['end']],
+                        sponsors: [this.podPickup['sponsors']],
+                        start_date: [new Date(this.podPickup['start_date'])],
+                        end_date: [new Date(this.podPickup['end_date'])],
+                        start_time: [this.podPickup['schedule'][0]['start']],
+                        end_time: [this.podPickup['schedule'][0]['end']],
                     });
                 });
                 this.isCreate = false;
@@ -101,6 +101,7 @@ export class AddEditPodPickupComponent implements OnInit {
                 this.pageTitle = 'Add Pod Pickup';
             }
         });
+
         this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
             .subscribe((response) => {
                 this.mainHub = response[0];
@@ -175,32 +176,11 @@ export class AddEditPodPickupComponent implements OnInit {
         };
     }
 
-    onImageUpload(name: string, event) {
-        console.log('this is the image', event);
-        console.log('this is the filetype', this.filetype);
-        this.filetype = name;
-        const files = event.target.files, data = files[0], reader = new FileReader();
-        this.fileURL = event;
-        switch (this.filetype.toLowerCase()) {
-            case 'event':
-                this.eventimage = this.fileURL.target.result;
-                break;
-            case 'sponsor1':
-                this.sponsor1image = this.fileURL.target.result;
-                break;
-            case 'sponsor2':
-                this.sponsor2image = this.fileURL.target.result;
-                break;
-        }
-        reader.readAsDataURL(data);
-        console.log('this is image data', this.eventImage);
-        console.log('this is image data', this.sponsor1image);
-        console.log('this is image data', this.sponsor2Image);
-
+    onImageUpload(name: string, files: FileList) {
         document.getElementById(name + '_image').innerText = files[0].name;
         if (name === 'sponsor1') {
             this.sponsor1Image = files[0];
-            console.log(this.sponsor2Image);
+            this.sponsor1ImageChanged = true;
             if (this.sponsor1Image !== undefined && this.sponsor1Name !== undefined && this.sponsor1Name.length > 0) {
                 this.isSponsor1Available = true;
             }
@@ -208,6 +188,7 @@ export class AddEditPodPickupComponent implements OnInit {
             this.sponsor2Image = files[0];
         } else if (name === 'event') {
             this.eventImage = files[0];
+            this.eventImageChanged = true;
         }
     }
 
@@ -217,26 +198,34 @@ export class AddEditPodPickupComponent implements OnInit {
             this.fileUploadService.uploadFile(this.sponsor1Image);
         } else {
             this.dataService.imageSource = 'event';
-            this.fileUploadService.uploadFile(this.eventImage);
+            if (this.eventImageChanged) {
+                this.fileUploadService.uploadFile(this.eventImage);
+            } else {
+                this.imageURL = this.eventImage;
+                this.uploadFinalObj();
+            }
         }
     }
 
     uploadFinalObj() {
-        this.sponsors = [];
-        const sponsor1 = {
-            name: this.sponsor1Name,
-            image: this.dataService.sponsor1Image
-        };
-        const sponsor2 = {
-            name: this.sponsor2Name,
-            image: this.dataService.sponsor2Image
-        };
+        if (this.sponsor1ImageChanged) {
+            const sponsor1 = {
+                name: this.sponsor1Name,
+                image: this.dataService.sponsor1Image
+            };
+            const sponsor2 = {
+                name: this.sponsor2Name,
+                image: this.dataService.sponsor2Image
+            };
 
-        if (this.checkProperties(sponsor1)) {
-            this.sponsors.push(sponsor1);
-        }
-        if (this.checkProperties(sponsor2)) {
-            this.sponsors.push(sponsor2);
+            if (this.checkProperties(sponsor1)) {
+                this.sponsors.push(sponsor1);
+            }
+            if (this.checkProperties(sponsor2)) {
+                this.sponsors.push(sponsor2);
+            }
+        } else {
+            this.sponsors = this.podPickup['sponsors'];
         }
         const startDate = new Date(document.getElementById('fromDate')['value']);
         const endDate = new Date(document.getElementById('toDate')['value']);
@@ -261,8 +250,13 @@ export class AddEditPodPickupComponent implements OnInit {
         };
 
         if (!this.showDateError) {
-            this.podPickupService.addPodPickup(this.reqObj);
-            this.router.navigate(['hubmanager/podpickups']);
+            if (this.isCreate) {
+                this.podPickupService.addPodPickup(this.reqObj).subscribe();
+                this.router.navigate(['hubmanager/podpickups']);
+            } else {
+                this.podPickupService.editPodPickup(this.podPickup['id'], this.reqObj).subscribe();
+                this.router.navigate(['hubmanager/podpickups']);
+            }
         }
     }
 

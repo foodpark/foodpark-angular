@@ -31,7 +31,6 @@ export class EditHubpickupComponent implements OnInit {
     showDateError = false;
     eventImageChanged = false;
     sponsor1ImageChanged = false;
-    sponsor2ImageChanged = false;
     private fileUploadSubscription: Subscription;
 
     constructor(private fb: FormBuilder,
@@ -77,7 +76,7 @@ export class EditHubpickupComponent implements OnInit {
                         description: [this.hubPickup['description'], Validators.required],
                         image: [null, Validators.required],
                         sponsors: [this.hubPickup['sponsors']],
-                        start_date: [(this.hubPickup['start_date']).split('T')[0]],
+                        start_date: [this.hubPickup['start_date']],
                         end_date: [this.hubPickup['end_date']],
                         latitude: [this.hubPickup['latitude'], Validators.required],
                         longitude: [this.hubPickup['longitude'], Validators.required],
@@ -150,7 +149,6 @@ export class EditHubpickupComponent implements OnInit {
             if (this.eventImageChanged) {
                 this.fileUploadService.uploadFile(this.eventImage);
             } else {
-                console.log('upoad the final obj');
                 this.imageURL = this.eventImage;
                 this.uploadFinalObj();
             }
@@ -184,7 +182,6 @@ export class EditHubpickupComponent implements OnInit {
         const startTime = startDate.getHours() + ':' + startDate.getMinutes();
         const endTime = endDate.getHours() + ':' + endDate.getMinutes();
         const obj = {
-            id: this.hubPickup['id'],
             name: this.hubPickupForm.value['name'],
             image: this.imageURL,
             description: this.hubPickupForm.value['description'],
@@ -203,7 +200,7 @@ export class EditHubpickupComponent implements OnInit {
         };
 
         if (!this.showDateError) {
-            this.hubPickupService.editHubPickup(obj).subscribe();
+            this.hubPickupService.editHubPickup(this.hubPickup['id'], obj).subscribe();
             this.router.navigate(['hubmanager/hubpickups']);
         }
     }

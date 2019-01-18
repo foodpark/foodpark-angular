@@ -20,11 +20,8 @@ export class PodPickupService {
     }
 
     addPodPickup(data: any) {
-        return this.http.post<PodPickupModel>(environment.apiUrl + '/api/v1/rel/podevents', data)
-            .subscribe((response) => {
-                this.podPickups.push(response);
-                this.podPickupsUpdated.next([...this.podPickups]);
-            });
+        return this.http.post<PodPickupModel>(environment.apiUrl + '/api/v1/rel/podevents', data);
+
     }
 
     getPodPickups(mainHubId: number) {
@@ -39,12 +36,8 @@ export class PodPickupService {
         return this.http.get<PodPickupModel[]>(environment.apiUrl + '/api/v1/rel/podevents/' + podPickupId);
     }
 
-    editPodPickup(podPickup: any) {
-        return this.http.put<PodPickupModel>(environment.apiUrl + '/api/v1/rel/podevents' + podPickup['id'], podPickup)
-            .subscribe((response) => {
-                this.podPickups.push(response);
-                this.podPickupsUpdated.next([...this.podPickups]);
-            });
+    editPodPickup(podPickupId: number, podPickup: any) {
+        return this.http.put<PodPickupModel>(environment.apiUrl + '/api/v1/rel/podevents' + podPickupId, podPickup);
     }
 
 
