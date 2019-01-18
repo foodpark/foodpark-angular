@@ -21,22 +21,28 @@
                 </div>
                 <div class="form-group">
                     <h4>Event Image</h4>
-                    <img *ngIf="eventImage" src="{{eventImage}}" alt="event image">
+                    <button mat-stroked-button type="button" (click)="eventImagePicker.click()">
+                        Select Event Image
+                    </button>
                     <input
                         type="file"
                         id="event"
                         name="event"
+                        #eventImagePicker
                         formControlName="image"
-                        accept="image/*"
+                        accept=".png, .jpg, .jpeg"
                         (input)="onImageUpload('event', $event.target.files)"
                         alt="Event Image">
-                    <h5 style="height: 30px;font-size: 20px;" id="event_image">File URL</h5>
+                    <div class="image-preview" *ngIf="eventImage">
+                        <img [src]="eventImage" />
+                    </div>
                 </div>
-                <h4>Sponsor</h4>
+
                 <div style="display: flex;">
                     <div style="padding-right: 20px">
                         <div class="form-group" style="width: 100%;">
                             <div class="form-group">
+                                <h4>Sponsor 1</h4>
                                 <input
                                     type="text"
                                     class="form-control"
@@ -44,17 +50,23 @@
                                     value="{{sponsor1Name}}"
                                     id="sponsor1">
                             </div>
-                            <h4>Sponsor 1 Image</h4>
-                            <img *ngIf="s1image" src="{{s1image}}" alt="sponsor1 image">
+                            <button mat-stroked-button type="button" (click)="sponsor1ImagePicker.click()">
+                                Select Sponsor1 Image
+                            </button>
                             <input
                                 type="file"
+                                #sponsor1ImagePicker
                                 accept=".png, .jpg, .jpeg"
                                 (input)="onImageUpload('sponsor1', $event.target.files)"
                                 alt="Sponsor Image">
+                            <div class="image-preview" *ngIf="s1image">
+                                <img [src]="s1image" />
+                            </div>
                         </div>
                     </div>
                     <div class="form-group" style="width: 100%;">
                         <div class="form-group">
+                            <h4>Sponsor 2</h4>
                             <input
                                 type="text"
                                 class="form-control"
@@ -62,13 +74,19 @@
                                 value="{{sponsor2Name}}"
                                 id="sponsor2">
                         </div>
-                        <h4>Sponsor 2 Image</h4>
-                        <img *ngIf="s2image" src="{{s2image}}" alt="sponsor2 image">
+                        <button mat-stroked-button type="button" (click)="sponsor2ImagePicker.click()">
+                            Select Sponsor2 Image
+                        </button>
+                        <!-- <img *ngIf="s2image" src="{{s2image}}" alt="sponsor2 image"> -->
                         <input
                             type="file"
+                            #sponsor2ImagePicker
                             accept=".png, .jpg, .jpeg"
                             (input)="onImageUpload('sponsor2', $event.target.files)"
                             alt="Sponsor Image">
+                        <div class="image-preview" *ngIf="s2image">
+                            <img [src]="s2image" />
+                        </div>
                     </div>
                 </div>
                 <div style="display: flex;">
