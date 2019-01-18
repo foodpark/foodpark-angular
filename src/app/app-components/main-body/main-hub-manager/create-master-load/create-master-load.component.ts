@@ -14,7 +14,7 @@ import {DataService} from '../../../../app-services/data.service';
 export class CreateMasterLoadComponent implements OnInit {
     createMasterForm: FormGroup;
     private wordfileURL: string;
-    private wordFileToUpload: File;
+    wordFileToUpload: File;
     mainHubId: number;
     hideFileContainer = false;
 

@@ -14,8 +14,8 @@ import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 export class EditMasterLoadComponent implements OnInit {
 
     editMasterForm: FormGroup;
-    private fileURL: string;
-    private wordFileToUpload: File;
+    fileURL: string;
+    wordFileToUpload: File;
     mainHubId: number;
     hideFileContainer = false;
     masterLoadId;

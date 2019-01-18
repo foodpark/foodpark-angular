@@ -14,7 +14,11 @@
         <div class="form-group">
             <h4>Upload Attachments</h4>
             <div [ngClass]="{'hide-file-container' : hideFileContainer}">
+                <button mat-stroked-button style="width:200px;" type="button" (click)="filePicker.click()">
+                    Select Excel
+                </button>
                 <input type="file"
+                        #filePicker
                        class="form-control"
                        placeholder="Upload Word Attachments"
                        [accept]="' .xls, .xlsx, .xlsb, .xlsm , .xlt , .xltm , .xltx , .xlw'"

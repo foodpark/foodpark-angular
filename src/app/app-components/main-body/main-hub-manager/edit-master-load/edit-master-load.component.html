@@ -14,15 +14,20 @@
         <div class="form-group">
             <h4>Upload Attachments</h4>
             <div [ngClass]="{'hide-file-container' : hideFileContainer}">
-                <input type="file"
-                       class="form-control"
-                       placeholder="Upload Word Attachments"
-                       [accept]="' .xls, .xlsx, .xlsb, .xlsm , .xlt , .xltm , .xltx , .xlw'"
-                       formControlName="excelfile"
-                       (change)="onFilePicked($event.target.files)">
+                <button mat-stroked-button style="width:200px;" type="button" (click)="filePicker.click()">
+                    Select Excel
+                </button>
                 <h5 style="min-height: 30px;padding: 10px 0;font-size: 20px;" id="wordfile_name">
-                    {{fileURL || 'File URL' }}
+                    {{wordFileToUpload !== null ? wordFileToUpload?.name : (fileURL != null ? fileURL : 'File URL') }}
                 </h5>
+                <input
+                    type="file"
+                    class="form-control"
+                    #filePicker
+                    placeholder="Upload Word Attachments"
+                    [accept]="' .xls, .xlsx, .xlsb, .xlsm , .xlt , .xltm , .xltx , .xlw'"
+                    formControlName="excelfile"
+                    (change)="onFilePicked($event.target.files)">
             </div>
         </div>
         <button type="submit"
