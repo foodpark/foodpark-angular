@@ -21,6 +21,7 @@
                 </div>
                 <div class="form-group">
                     <h4>Event Image</h4>
+                    <img *ngIf="eventImage" src="{{eventImage}}" alt="event image">
                     <input
                         type="file"
                         id="event"
@@ -31,23 +32,6 @@
                         alt="Event Image">
                     <h5 style="height: 30px;font-size: 20px;" id="event_image">File URL</h5>
                 </div>
-                <!--<div class="form-group">-->
-                <!--<h4>Select Hub</h4>-->
-                <!--<div class="dropdown">-->
-                <!--<button id="hub_button"-->
-                <!--class="btn btn-primary dropdown-toggle"-->
-                <!--type="button"-->
-                <!--data-toggle="dropdown">Select-->
-
-                <!--</button>-->
-                <!--<ul class="dropdown-menu">-->
-                <!--<li-->
-                <!--(click)="onHubClick()">-->
-                <!--{{mainHub?.name}}-->
-                <!--</li>-->
-                <!--</ul>-->
-                <!--</div>-->
-                <!--</div>-->
                 <h4>Sponsor</h4>
                 <div style="display: flex;">
                     <div style="padding-right: 20px">
@@ -57,14 +41,11 @@
                                     type="text"
                                     class="form-control"
                                     (keyup)="onSponsor1Entered($event)"
-                                    placeholder="Sponsor Name"
+                                    value="{{sponsor1Name}}"
                                     id="sponsor1">
                             </div>
                             <h4>Sponsor 1 Image</h4>
-                            <h5 style="min-height: 30px;font-size: 20px;padding: 5px 0;" id="sponsor1_image">{{ s1image
-                                ||
-                                'File URL'}}
-                            </h5>
+                            <img *ngIf="s1image" src="{{s1image}}" alt="sponsor1 image">
                             <input
                                 type="file"
                                 accept=".png, .jpg, .jpeg"
@@ -78,13 +59,11 @@
                                 type="text"
                                 class="form-control"
                                 (keyup)="onSponsor2Entered($event)"
-                                placeholder="Sponsor Name"
+                                value="{{sponsor2Name}}"
                                 id="sponsor2">
                         </div>
                         <h4>Sponsor 2 Image</h4>
-                        <h5 style="min-height: 30px;font-size: 20px;padding: 5px 0;" id="sponsor2_image">{{s2image ||
-                            'File URL'}}
-                        </h5>
+                        <img *ngIf="s2image" src="{{s2image}}" alt="sponsor2 image">
                         <input
                             type="file"
                             accept=".png, .jpg, .jpeg"

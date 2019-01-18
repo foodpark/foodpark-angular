@@ -49,7 +49,7 @@ export class HubPickupListingComponent implements OnInit, OnDestroy {
     }
 
     onDeleteClick(index: number) {
-        this.hubPickupService.deleteHubPickup(index).subscribe(() => {
+        this.hubPickupService.deleteHubPickup(this.hubPickups[index]['id']).subscribe(() => {
             this.hubPickupService.getHubPickups();
         });
     }

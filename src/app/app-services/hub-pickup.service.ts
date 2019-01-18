@@ -35,11 +35,7 @@ export class HubPickupService {
     }
 
     editHubPickup(hubPickup: any) {
-        return this.http.put<HubPickupModel>(environment.apiUrl + '/api/v1/rel/events/' + hubPickup['id'], hubPickup)
-            .subscribe((response) => {
-                this.hubPickups.push(response);
-                this.hubPickupsUpdated.next([...this.hubPickups]);
-            });
+        return this.http.put<HubPickupModel>(environment.apiUrl + '/api/v1/rel/events/' + hubPickup['id'], hubPickup);
     }
 
 
