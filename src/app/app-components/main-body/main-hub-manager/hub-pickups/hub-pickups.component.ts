@@ -23,6 +23,9 @@ export class HubPickupsComponent implements OnInit {
     sponsor1Image: File;
     sponsor2Image: File;
     eventImage: File;
+    eventImageFile: any;
+    sponsor1ImageFile: any;
+    sponsor2ImageFile: any;
     imageURL;
     isSponsor1Available = false;
     private fileUploadSubscription: Subscription;
@@ -101,6 +104,19 @@ export class HubPickupsComponent implements OnInit {
 
     onImageUpload(name: string, files: FileList) {
         document.getElementById(name + '_image').innerText = files[0].name;
+
+        const reader = new FileReader();
+        reader.onload = () => {
+          if (name === 'event') {
+              this.eventImageFile = reader.result;
+          } else if (name === 'sponsor1') {
+              this.sponsor1ImageFile = reader.result;
+          } else  if (name === 'sponsor2') {
+              this.sponsor2ImageFile =  reader.result;
+          }
+        };
+        reader.readAsDataURL(files[0]);
+
         if (name === 'sponsor1') {
             this.sponsor1Image = files[0];
             if (this.sponsor1Image !== undefined && this.sponsor1Name !== undefined && this.sponsor1Name.length > 0) {

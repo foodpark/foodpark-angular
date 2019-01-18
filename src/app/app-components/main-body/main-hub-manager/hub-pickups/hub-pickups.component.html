@@ -1,6 +1,8 @@
 <div class="absolute-position">
     <section class="greybg center ">
-        <h2 class="page-header" style="margin: 10px 80px;height: 50px;">Add Hub Pickup</h2>
+        <h2 class="page-header" style="margin: 10px 80px;height: 50px;">
+            Add Hub Pickup
+        </h2>
         <div class="container-fluid col-sm-12 menu_detail shell bg_1">
             <form [formGroup]="hubPickupForm">
                 <div class="form-group">
@@ -9,7 +11,8 @@
                         type="text"
                         formControlName="name"
                         class="form-control"
-                        placeholder="Event Name">
+                        placeholder="Event Name"
+                    />
                 </div>
                 <div class="form-group">
                     <h4>Event Description</h4>
@@ -17,18 +20,33 @@
                         type="text"
                         class="form-control"
                         formControlName="description"
-                        placeholder="Event Description">
+                        placeholder="Event Description"
+                    />
                 </div>
                 <div class="form-group">
                     <h4>Event Image</h4>
+                    <button
+                        mat-stroked-button
+                        type="button"
+                        (click)="eventImagePicker.click()"
+                    >
+                        Select Event Image
+                    </button>
                     <input
                         type="file"
+                        #eventImagePicker
                         name="event_image"
                         formControlName="image"
-                        accept="image/*"
+                        accept=".png, .jpg, .jpeg"
                         (input)="onImageUpload('event', $event.target.files)"
-                        alt="Event Image">
-                    <h5 style="height: 30px;font-size: 20px;" id="event_image">File URL
+                        alt="Event Image"
+                    />
+                    <div class="image-preview" *ngIf="eventImageFile">
+                        <img [src]="eventImageFile" />
+                    </div>
+
+                    <h5 style="height: 30px;font-size: 20px;" id="event_image">
+                        File URL
                     </h5>
                 </div>
                 <h4>Sponsor</h4>
@@ -41,15 +59,41 @@
                                     class="form-control"
                                     (focusout)="onSponsor1Entered($event)"
                                     placeholder="Sponsor Name"
-                                    id="sponsor1">
+                                    id="sponsor1"
+                                />
                             </div>
                             <h4>Sponsor 1 Image</h4>
+                            <button
+                                mat-stroked-button
+                                type="button"
+                                (click)="sponsor1ImagePicker.click()"
+                            >
+                                Select Sponsor1 Image
+                            </button>
                             <input
                                 type="file"
+                                #sponsor1ImagePicker
                                 accept=".png, .jpg, .jpeg"
-                                (input)="onImageUpload('sponsor1', $event.target.files)"
-                                alt="Sponsor Image">
-                            <h5 style="height: 30px;font-size: 20px;" id="sponsor1_image">File URL
+                                (input)="
+                                    onImageUpload(
+                                        'sponsor1',
+                                        $event.target.files
+                                    )
+                                "
+                                alt="Sponsor Image"
+                            />
+                            <div
+                                class="image-preview"
+                                *ngIf="sponsor1ImageFile"
+                            >
+                                <img [src]="sponsor1ImageFile" />
+                            </div>
+
+                            <h5
+                                style="height: 30px;font-size: 20px;"
+                                id="sponsor1_image"
+                            >
+                                File URL
                             </h5>
                         </div>
                     </div>
@@ -60,56 +104,79 @@
                                 class="form-control"
                                 (keyup)="onSponsor2Entered($event)"
                                 placeholder="Sponsor Name"
-                                id="sponsor2">
+                                id="sponsor2"
+                            />
                         </div>
                         <h4>Sponsor 2 Image</h4>
+                        <button
+                            mat-stroked-button
+                            type="button"
+                            (click)="sponsor2ImagePicker.click()"
+                        >
+                            Select Sponsor2 Image
+                        </button>
                         <input
                             type="file"
+                            #sponsor2ImagePicker
                             accept=".png, .jpg, .jpeg"
-                            (input)="onImageUpload('sponsor2', $event.target.files)"
-                            alt="Sponsor Image">
-                        <h5 style="height: 30px;font-size: 20px;" id="sponsor2_image">File URL
+                            (input)="
+                                onImageUpload('sponsor2', $event.target.files)
+                            "
+                            alt="Sponsor Image"
+                        />
+                        <div class="image-preview" *ngIf="sponsor2ImageFile">
+                            <img [src]="sponsor2ImageFile" />
+                        </div>
+
+                        <h5
+                            style="height: 30px;font-size: 20px;"
+                            id="sponsor2_image"
+                        >
+                            File URL
                         </h5>
                     </div>
                 </div>
                 <div style="display: flex;">
                     <div class="form-group">
                         <label style="margin: 0 20px 0 0;">
-                            <h4> Start Date:</h4>
+                            <h4>Start Date:</h4>
                             <input
                                 class="form-control"
                                 [owlDateTimeTrigger]="dt5"
                                 [owlDateTime]="dt5"
                                 formControlName="start_date"
-                                id="fromDate">
-                            <owl-date-time
-                                #dt5
-                                [pickerMode]="'dialog'">
+                                id="fromDate"
+                            />
+                            <owl-date-time #dt5 [pickerMode]="'dialog'">
                             </owl-date-time>
                         </label>
                     </div>
-                    <div class="form-group"><label>
-                        <h4> End Date:</h4>
-                        <input
-                            class="form-control"
-                            [owlDateTimeTrigger]="dt6"
-                            [owlDateTime]="dt6"
-                            formControlName="end_date"
-                            id="toDate">
-                        <owl-date-time
-                            #dt6
-                            [pickerMode]="'dialog'">
-                        </owl-date-time>
-                    </label></div>
+                    <div class="form-group">
+                        <label>
+                            <h4>End Date:</h4>
+                            <input
+                                class="form-control"
+                                [owlDateTimeTrigger]="dt6"
+                                [owlDateTime]="dt6"
+                                formControlName="end_date"
+                                id="toDate"
+                            />
+                            <owl-date-time #dt6 [pickerMode]="'dialog'">
+                            </owl-date-time>
+                        </label>
+                    </div>
                 </div>
-                <div *ngIf="showDateError" class="alert alert-danger">Start date must be less than End date</div>
+                <div *ngIf="showDateError" class="alert alert-danger">
+                    Start date must be less than End date
+                </div>
                 <button
                     type="button"
                     class="btn btn-default"
-                    (click)="onSaveClick()">SAVE
+                    (click)="onSaveClick()"
+                >
+                    SAVE
                 </button>
             </form>
         </div>
     </section>
 </div>
-

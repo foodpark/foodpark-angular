@@ -71,19 +71,32 @@ table {
     border-bottom: 5px solid blue !important;
 }
 
-input[type=file] {
-    display: inline-block;
-    width: 130px;
-    padding: 120px 0 0 0;
-    height: 100px;
-    overflow: hidden;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    background: url('../assets/images/file-upload.png') center center no-repeat #e4e4e4;
-    border-radius: 20px;
-    background-size: 60px 60px;
+input[type="file"] {
+    visibility: hidden;
 }
+
+.image-preview {
+    height: 5rem;
+    margin: 1rem 0;
+}
+
+.image-preview img {
+    height: 100%;
+}
+
+// input[type=file] {
+//     display: inline-block;
+//     width: 130px;
+//     padding: 120px 0 0 0;
+//     height: 100px;
+//     overflow: hidden;
+//     -webkit-box-sizing: border-box;
+//     -moz-box-sizing: border-box;
+//     box-sizing: border-box;
+//     background: url('../assets/images/file-upload.png') center center no-repeat #e4e4e4;
+//     border-radius: 20px;
+//     background-size: 60px 60px;
+// }
 
 .hide-file-container {
     display: flex;
