@@ -128,7 +128,7 @@ export class EditHubpickupComponent implements OnInit {
         document.getElementById(name + '_image').innerText = files[0].name;
         if (name === 'sponsor1') {
             this.sponsor1Image = files[0];
-            ths.sponsor1ImageChanged = true;
+            this.sponsor1ImageChanged = true;
             if (this.sponsor1Image !== undefined && this.sponsor1Name !== undefined && this.sponsor1Name.length > 0) {
                 this.isSponsor1Available = true;
             }
