@@ -32,7 +32,7 @@ export class RegionalHubComponent implements OnInit, OnDestroy {
         this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
             .subscribe((response) => {
                 this.mainHub = response[0];
-                this.regionalHubService.getRegionalHubsInMainHub(this.mainHub['id']);
+                this.regionalHubService.getRegionalHubsInMainHub(this.mainHub.id);
             });
     }
 
@@ -46,7 +46,7 @@ export class RegionalHubComponent implements OnInit, OnDestroy {
 
     onDeleteClick(id: number) {
         this.regionalHubService.deleteRegionalHub(id).subscribe(() => {
-            this.regionalHubService.getRegionalHubs();
+            this.regionalHubService.getRegionalHubsInMainHub(this.mainHub.id);
         });
     }
 
