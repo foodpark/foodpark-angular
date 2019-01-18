@@ -34,8 +34,8 @@ export class HubPickupService {
         return this.http.get<HubPickupModel[]>(environment.apiUrl + '/api/v1/rel/events/' + hubPickupId);
     }
 
-    editHubPickup(hubPickup: any) {
-        return this.http.put<HubPickupModel>(environment.apiUrl + '/api/v1/rel/events/' + hubPickup['id'], hubPickup);
+    editHubPickup(hubPickupId: number, hubPickup: any) {
+        return this.http.put<HubPickupModel>(environment.apiUrl + '/api/v1/rel/events/' + hubPickupId, hubPickup);
     }
 
 
