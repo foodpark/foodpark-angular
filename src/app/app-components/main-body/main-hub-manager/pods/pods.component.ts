@@ -96,7 +96,8 @@ export class PodsComponent implements OnInit, OnDestroy {
     }
 
     onDeleteClick(index) {
-        this.podsService.deletePod(index).subscribe(() => {
+        this.podsService.deletePod(index)
+        .subscribe(() => {
             this.podsService.getPodsInMainHub(this.mainHub.id);
         });
     }
