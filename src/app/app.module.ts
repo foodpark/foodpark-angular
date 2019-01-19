@@ -20,6 +20,7 @@ import {AppComponent} from './app.component';
 
 import {PodManagerModule} from './app-components/main-body/pod-manager-dashboard/pod-manager.module';
 import { TitleCasePipe } from '@angular/common';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
     declarations: [
@@ -41,6 +42,7 @@ import { TitleCasePipe } from '@angular/common';
         AdminModule,
         MainHubManagerModule,
         PodManagerModule,
+        ToastrModule.forRoot()
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
