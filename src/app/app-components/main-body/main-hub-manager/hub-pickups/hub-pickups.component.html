@@ -35,10 +35,9 @@
                         formControlName="image"
                         accept=".png, .jpg, .jpeg"
                         (input)="onImageUpload('event', $event.target.files)"
-                        alt="Event Image"
-                    />
+                        alt="Event Image"/>
                     <div class="image-preview" *ngIf="eventImageFile">
-                        <img [src]="eventImageFile" />
+                        <img [src]="eventImageFile"/>
                     </div>
                     <h5 style="height: 30px;font-size: 20px;" id="event_image">
                         File URL
@@ -68,7 +67,7 @@
                                 alt="Sponsor Image"
                             />
                             <div class="image-preview" *ngIf="sponsor1ImageFile">
-                                <img [src]="sponsor1ImageFile" />
+                                <img [src]="sponsor1ImageFile"/>
                             </div>
 
                             <h5 style="height: 30px;font-size: 20px;" id="sponsor1_image">
@@ -97,7 +96,7 @@
                             alt="Sponsor Image"
                         />
                         <div class="image-preview" *ngIf="sponsor2ImageFile">
-                            <img [src]="sponsor2ImageFile" />
+                            <img [src]="sponsor2ImageFile"/>
                         </div>
 
                         <h5

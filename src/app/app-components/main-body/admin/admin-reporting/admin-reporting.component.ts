@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CountryModel, MainhubModel, PodModel, RegionalHubModel, TerritoryModel} from '../../../../model';
 import {Subscription} from 'rxjs';
 import {DataService} from '../../../../app-services/data.service';
@@ -24,10 +24,7 @@ interface Marker {
     selector: 'app-admin-reporting',
     templateUrl: './admin-reporting.component.html'
 })
-export class AdminReportingComponent implements OnInit {
-
-    lat: number;
-    lng: number;
+export class AdminReportingComponent implements OnInit, OnDestroy {
     latitude: number;
     longitude: number;
     currentYear;
@@ -47,6 +44,7 @@ export class AdminReportingComponent implements OnInit {
     private countriesSubscription: Subscription;
     private territoriesSubscription: Subscription;
     private mainhubsSubscription: Subscription;
+    private reportsSubscription: Subscription;
     private territorySelected: number;
 
     constructor(private regionalHubService: RegionalhubsService,
@@ -94,7 +92,7 @@ export class AdminReportingComponent implements OnInit {
                 this.mainHubName = this.mainHub.length ? this.mainHub[0]['name'] : '';
                 const mainHubButton = document.getElementById('mainhub');
                 mainHubButton.innerText = this.mainHubName;
-                this.reportService.getReportsFromTime(this.mainHub[0]['id'], new Date(new Date().getFullYear(), 0, 1).getTime()).subscribe(report => {
+                this.reportsSubscription = this.reportService.getReportsFromTime(this.mainHub[0]['id'], new Date(new Date().getFullYear(), 0, 1).getTime()).subscribe(report => {
                     this.masterLoadCount = report['master_loads'];
                     this.regionalHubs = report['regionalhubs'];
                     this.reports = report;
@@ -154,20 +152,10 @@ export class AdminReportingComponent implements OnInit {
         this.mainhubService.getMainHubsInTerritory(this.countryName, this.territories[index]['id']);
     }
 
-    clickedMarker(label: string, index: number) {
-        console.log(`clicked the marker: ${label || index}`);
-    }
-
-    mapClicked($event: MouseEvent) {
-        this.markers.push({
-            latitude: $event['coords']['lat'],
-            longitude: $event['coords']['lng'],
-            draggable: true
-        });
-    }
-
-    markerDragEnd(m: Marker, $event: MouseEvent) {
-        console.log('dragEnd', m, $event);
+    onMainHubSelected(hub) {
+        const button = document.getElementById('mainhub');
+        button.innerText = hub['name'];
+        this.mainHub = hub;
     }
 
     onYearSelected() {
@@ -191,9 +179,8 @@ export class AdminReportingComponent implements OnInit {
         });
     }
 
-    onMainHubSelected(hub) {
-        const button = document.getElementById('mainhub');
-        button.innerText = hub['name'];
+    ngOnDestroy() {
+        this.mainhubsSubscription && this.mainhubsSubscription.unsubscribe();
+        this.reportsSubscription && this.reportsSubscription.unsubscribe();
     }
-
 }

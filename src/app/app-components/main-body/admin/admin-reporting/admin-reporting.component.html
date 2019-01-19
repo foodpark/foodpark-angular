@@ -59,7 +59,7 @@
                         data-toggle="dropdown">Select
                 </button>
                 <ul class="dropdown-menu">
-                    <li *ngFor="let hub of mainHub; let i = index" (click)="onMainHubSelected(i)">
+                    <li *ngFor="let hub of mainHub;" (click)="onMainHubSelected(hub)">
                         {{hub.name}}
                     </li>
                 </ul>

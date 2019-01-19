@@ -40316,8 +40316,16 @@ button.toast-close-button {
 
 .tree-plugin {
     font-family: 'Raleway', sans-serif !important;
-    font-size: 18px;
-    ul {
+    font-size: 20px !important;
+    color: black !important;
+    ul, li {
+        font-family: 'Raleway', sans-serif !important;
         padding-left: 0 !important;
+        font-size: 20px !important;
+        span {
+            font-family: 'Raleway', sans-serif !important;
+            color: black !important;
+            font-size: 20px !important;
+        }
     }
 }

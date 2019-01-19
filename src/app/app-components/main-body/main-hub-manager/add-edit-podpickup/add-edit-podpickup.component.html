@@ -29,7 +29,7 @@
                             class="btn btn-primary dropdown-toggle"
                             type="button"
                             data-toggle="dropdown">
-                            {{isCreate? podPickup['regional_hub_name'] : 'Select'}}
+                            {{isCreate? 'Select' :podPickup?.regional_hub_name }}
                         </button>
                         <ul class="dropdown-menu">
                             <li
@@ -48,7 +48,7 @@
                             class="btn btn-primary dropdown-toggle"
                             type="button"
                             data-toggle="dropdown">
-                            {{isCreate? podPickup['pod_name'] : 'Select'}}
+                            {{isCreate? 'Select': podPickup?.pod_name}}
                         </button>
                         <ul class="dropdown-menu">
                             <li
@@ -67,12 +67,11 @@
                         accept="image/*"
                         (input)="onImageUpload('event', $event.target.files)"
                         alt="Event Image"
-                        *ngIf="!eventImage"
-                        (click)="filetype = 'EVENT'"/>
+                        *ngIf="!eventImage"/>
                     <input
                         type="file"
                         name="event_image"
-                        accept="image/*"
+                        accept=".png, .jpg, .jpeg"
                         (input)="onImageUpload('event', $event.target.files)"
                         alt="Event Image"
                         *ngIf="eventImage"
