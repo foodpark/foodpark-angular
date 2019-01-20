@@ -53,8 +53,7 @@
                                     class="form-control"
                                     (focusout)="onSponsor1Entered($event)"
                                     placeholder="Sponsor Name"
-                                    id="sponsor1"
-                                />
+                                    id="sponsor1"/>
                             </div>
                             <button mat-stroked-button type="button" (click)="sponsor1ImagePicker.click()">
                                 Select Sponsor1 Image
@@ -64,12 +63,10 @@
                                 #sponsor1ImagePicker
                                 accept=".png, .jpg, .jpeg"
                                 (input)="onImageUpload('sponsor1', $event.target.files)"
-                                alt="Sponsor Image"
-                            />
+                                alt="Sponsor Image"/>
                             <div class="image-preview" *ngIf="sponsor1ImageFile">
                                 <img [src]="sponsor1ImageFile"/>
                             </div>
-
                             <h5 style="height: 30px;font-size: 20px;" id="sponsor1_image">
                                 File URL
                             </h5>
@@ -82,8 +79,7 @@
                                 class="form-control"
                                 (keyup)="onSponsor2Entered($event)"
                                 placeholder="Sponsor Name"
-                                id="sponsor2"
-                            />
+                                id="sponsor2"/>
                         </div>
                         <button mat-stroked-button type="button" (click)="sponsor2ImagePicker.click()">
                             Select Sponsor2 Image
@@ -93,16 +89,11 @@
                             #sponsor2ImagePicker
                             accept=".png, .jpg, .jpeg"
                             (input)="onImageUpload('sponsor2', $event.target.files)"
-                            alt="Sponsor Image"
-                        />
+                            alt="Sponsor Image"/>
                         <div class="image-preview" *ngIf="sponsor2ImageFile">
                             <img [src]="sponsor2ImageFile"/>
                         </div>
-
-                        <h5
-                            style="height: 30px;font-size: 20px;"
-                            id="sponsor2_image"
-                        >
+                        <h5 style="height: 30px;font-size: 20px;" id="sponsor2_image">
                             File URL
                         </h5>
                     </div>

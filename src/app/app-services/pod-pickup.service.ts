@@ -37,11 +37,11 @@ export class PodPickupService {
     }
 
     editPodPickup(podPickupId: number, podPickup: any) {
-        return this.http.put<PodPickupModel>(environment.apiUrl + '/api/v1/rel/podevents' + podPickupId, podPickup);
+        return this.http.put<PodPickupModel>(environment.apiUrl + '/api/v1/rel/podevents/' + podPickupId, podPickup);
     }
 
 
     deletePodPickup(podPickupId: number) {
-        return this.http.delete(environment.apiUrl + '/api/v1/rel/podevents' + podPickupId);
+        return this.http.delete(environment.apiUrl + '/api/v1/rel/podevents/' + podPickupId);
     }
 }

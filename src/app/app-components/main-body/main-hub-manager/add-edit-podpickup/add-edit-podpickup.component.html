@@ -61,21 +61,20 @@
                 </div>
                 <div class="form-group">
                     <h4>Event Image</h4>
+                    <button mat-stroked-button type="button" (click)="eventImagePicker.click()">
+                        Select Event Image
+                    </button>
                     <input
                         type="file"
+                        #eventImagePicker
                         name="event_image"
-                        accept="image/*"
-                        (input)="onImageUpload('event', $event.target.files)"
-                        alt="Event Image"
-                        *ngIf="!eventImage"/>
-                    <input
-                        type="file"
-                        name="event_image"
+                        formControlName="image"
                         accept=".png, .jpg, .jpeg"
                         (input)="onImageUpload('event', $event.target.files)"
-                        alt="Event Image"
-                        *ngIf="eventImage"
-                        [ngStyle]="{'background-image': 'url(' + eventImage + ')'}"/>
+                        alt="Event Image"/>
+                    <div class="image-preview" *ngIf="eventImageFile">
+                        <img [src]="eventImageFile"/>
+                    </div>
                     <h5 style="height: 30px;font-size: 20px;" id="event_image">
                         File URL
                     </h5>
@@ -89,23 +88,24 @@
                                     type="text"
                                     class="form-control"
                                     (focusout)="onSponsor1Entered($event)"
-                                    value="{{sponsor1Name || 'sponsor1 Name'}}"
+                                    value="{{this.sponsor1Name || 'Sponsor Name'}}"
                                     id="sponsor1"/>
                             </div>
-                            <h4>Sponsor 1 Image</h4>
+                            <button mat-stroked-button type="button" (click)="sponsor1ImagePicker.click()">
+                                Select Sponsor1 Image
+                            </button>
                             <input
                                 type="file"
+                                #sponsor1ImagePicker
                                 accept=".png, .jpg, .jpeg"
                                 (input)="onImageUpload('sponsor1', $event.target.files)"
-                                alt="Sponsor Image"
-                                *ngIf="!sponsor1Image">
-                            <input
-                                type="file"
-                                accept=".png, .jpg, .jpeg"
-                                (input)="onImageUpload('sponsor1', $event.target.files)"
-                                alt="Sponsor Image"
-                                *ngIf="sponsor1Image"
-                                [ngStyle]="{'background-image':'url(' + sponsor1Image + ')'}"/>
+                                alt="Sponsor Image"/>
+                            <div class="image-preview" *ngIf="sponsor1ImageFile">
+                                <img [src]="sponsor1ImageFile"/>
+                            </div>
+                            <h5 style="height: 30px;font-size: 20px;" id="sponsor1_image">
+                                File URL
+                            </h5>
                         </div>
                     </div>
                     <div *ngIf="isSponsor1Available" class="form-group">
@@ -113,25 +113,25 @@
                             <input
                                 type="text"
                                 class="form-control"
-                                (focusout)="onSponsor2Entered($event)"
-                                value="{{sponsor2Name || 'sponsor2 Name'}}"
+                                (keyup)="onSponsor2Entered($event)"
+                                placeholder="Sponsor Name"
                                 id="sponsor2"/>
                         </div>
-                        <h4>Sponsor 2 Image</h4>
+                        <button mat-stroked-button type="button" (click)="sponsor2ImagePicker.click()">
+                            Select Sponsor2 Image
+                        </button>
                         <input
                             type="file"
+                            #sponsor2ImagePicker
                             accept=".png, .jpg, .jpeg"
                             (input)="onImageUpload('sponsor2', $event.target.files)"
-                            alt="Sponsor Image"
-                            *ngIf="!sponsor2Image"
-                            (click)="filetype = 'SPONSOR2'"/>
-                        <input
-                            type="file"
-                            accept=".png, .jpg, .jpeg"
-                            (input)="onImageUpload('sponsor2', $event.target.files)"
-                            alt="Sponsor Image"
-                            *ngIf="sponsor2Image"
-                            [ngStyle]="{'background-image': 'url(' + sponsor2Image + ')'}"/>
+                            alt="Sponsor Image"/>
+                        <div class="image-preview" *ngIf="sponsor2ImageFile">
+                            <img [src]="sponsor2ImageFile"/>
+                        </div>
+                        <h5 style="height: 30px;font-size: 20px;" id="sponsor2_image">
+                            File URL
+                        </h5>
                     </div>
                 </div>
                 <div style="display: flex;">

@@ -40,6 +40,9 @@ export class AddEditPodPickupComponent implements OnInit {
     reqObj = {};
     eventImageChanged = false;
     sponsor1ImageChanged = false;
+    eventImageFile: any;
+    sponsor1ImageFile: any;
+    sponsor2ImageFile: any;
     private regionalHubsSubscription: Subscription;
     private podsSubscription: Subscription;
 
@@ -78,11 +81,11 @@ export class AddEditPodPickupComponent implements OnInit {
                 this.podPickupId = JSON.parse(paramMap['params']['podPickup']);
                 this.podPickupService.getPodPickupsFromId(this.podPickupId).subscribe(res => {
                     this.podPickup = res;
-                    this.sponsor1Image = this.podPickup['sponsors'][0] ? this.podPickup['sponsors'][0]['image'] : '';
-                    this.sponsor2Image = this.podPickup['sponsors'][1] ? this.podPickup['sponsors'][1]['image'] : '';
+                    this.sponsor1ImageFile = this.podPickup['sponsors'][0] ? this.podPickup['sponsors'][0]['image'] : '';
+                    this.sponsor2ImageFile = this.podPickup['sponsors'][1] ? this.podPickup['sponsors'][1]['image'] : '';
                     this.sponsor1Name = this.podPickup['sponsors'][0] ? this.podPickup['sponsors'][0]['name'] : '';
                     this.sponsor2Name = this.podPickup['sponsors'][1] ? this.podPickup['sponsors'][1]['name'] : '';
-                    this.eventImage = this.podPickup['image'] ? this.podPickup['image'] : null;
+                    this.eventImageFile = this.podPickup['image'] ? this.podPickup['image'] : null;
                     this.podPickupForm = this.fb.group({
                         name: [this.podPickup['name'], Validators.required],
                         description: [this.podPickup['description'], Validators.required],
@@ -113,11 +116,23 @@ export class AddEditPodPickupComponent implements OnInit {
                 this.regionalHubsSubscription = this.regionalService.getRegionalHubsUpdateListener()
                     .subscribe((regionalHubs: RegionalHubModel[]) => {
                         this.regionalHubs = regionalHubs;
+                        this.reqObj = {
+                            ...this.reqObj,
+                            regional_hub_id: this.regionalHubs[0]['id'],
+                            regional_hub_name: this.regionalHubs[0]['name']
+                        };
                     });
                 this.podsService.getPodsInMainHub(this.mainHub['id']);
                 this.podsSubscription = this.podsService.getPodsUpdateListener()
                     .subscribe((pods: PodModel[]) => {
                         this.pods = pods;
+                        this.reqObj = {
+                            ...this.reqObj,
+                            pod_id: this.pods[0]['id'],
+                            pod_name: this.pods[0]['name'],
+                            latitude: this.pods[0]['latitude'],
+                            longitude: this.pods[0]['longitude'],
+                        };
                     });
             });
 
@@ -178,6 +193,17 @@ export class AddEditPodPickupComponent implements OnInit {
 
     onImageUpload(name: string, files: FileList) {
         document.getElementById(name + '_image').innerText = files[0].name;
+        const reader = new FileReader();
+        reader.onload = () => {
+            if (name === 'event') {
+                this.eventImageFile = reader.result;
+            } else if (name === 'sponsor1') {
+                this.sponsor1ImageFile = reader.result;
+            } else if (name === 'sponsor2') {
+                this.sponsor2ImageFile = reader.result;
+            }
+        };
+        reader.readAsDataURL(files[0]);
         if (name === 'sponsor1') {
             this.sponsor1Image = files[0];
             this.sponsor1ImageChanged = true;

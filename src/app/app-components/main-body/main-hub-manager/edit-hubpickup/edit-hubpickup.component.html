@@ -34,7 +34,7 @@
                         (input)="onImageUpload('event', $event.target.files)"
                         alt="Event Image">
                     <div class="image-preview" *ngIf="eventImage">
-                        <img [src]="eventImage" />
+                        <img [src]="eventImage"/>
                     </div>
                 </div>
 
@@ -60,7 +60,7 @@
                                 (input)="onImageUpload('sponsor1', $event.target.files)"
                                 alt="Sponsor Image">
                             <div class="image-preview" *ngIf="s1image">
-                                <img [src]="s1image" />
+                                <img [src]="s1image"/>
                             </div>
                         </div>
                     </div>
@@ -77,7 +77,6 @@
                         <button mat-stroked-button type="button" (click)="sponsor2ImagePicker.click()">
                             Select Sponsor2 Image
                         </button>
-                        <!-- <img *ngIf="s2image" src="{{s2image}}" alt="sponsor2 image"> -->
                         <input
                             type="file"
                             #sponsor2ImagePicker
@@ -85,7 +84,7 @@
                             (input)="onImageUpload('sponsor2', $event.target.files)"
                             alt="Sponsor Image">
                         <div class="image-preview" *ngIf="s2image">
-                            <img [src]="s2image" />
+                            <img [src]="s2image"/>
                         </div>
                     </div>
                 </div>

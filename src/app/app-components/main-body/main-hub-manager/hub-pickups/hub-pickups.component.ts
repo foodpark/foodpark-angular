@@ -28,8 +28,8 @@ export class HubPickupsComponent implements OnInit {
     sponsor2ImageFile: any;
     imageURL;
     isSponsor1Available = false;
-    private fileUploadSubscription: Subscription;
     showDateError = false;
+    private fileUploadSubscription: Subscription;
 
     constructor(private fb: FormBuilder,
                 private mainhubService: MainhubService,
@@ -107,13 +107,13 @@ export class HubPickupsComponent implements OnInit {
 
         const reader = new FileReader();
         reader.onload = () => {
-          if (name === 'event') {
-              this.eventImageFile = reader.result;
-          } else if (name === 'sponsor1') {
-              this.sponsor1ImageFile = reader.result;
-          } else  if (name === 'sponsor2') {
-              this.sponsor2ImageFile =  reader.result;
-          }
+            if (name === 'event') {
+                this.eventImageFile = reader.result;
+            } else if (name === 'sponsor1') {
+                this.sponsor1ImageFile = reader.result;
+            } else if (name === 'sponsor2') {
+                this.sponsor2ImageFile = reader.result;
+            }
         };
         reader.readAsDataURL(files[0]);
 
