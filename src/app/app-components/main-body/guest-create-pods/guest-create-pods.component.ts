@@ -13,8 +13,8 @@ import { FileUploadService } from 'src/app/app-services/fileupload.service';
 import { DataService } from '../../../app-services/data.service';
 
 @Component({
-    selector: 'app-create-pods',
-    templateUrl: './create-pods.component.html'
+    selector: 'app-guest-create-pods',
+    templateUrl: './guest-create-pods.component.html'
 })
 export class GuestCreatePodsComponent implements OnInit, OnDestroy {
     registerpodform: FormGroup;
