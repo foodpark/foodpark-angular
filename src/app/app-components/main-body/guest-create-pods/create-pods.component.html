@@ -107,8 +107,12 @@
             <div class="form-group">
                 <h4>Upload Attachments</h4>
                 <div [ngClass]="{ 'hide-file-container': hideFileContainer }">
+                    <button mat-stroked-button style="width:200px;" type="button" (click)="filePicker.click()">
+                        Select Word Document
+                    </button>
                     <input
                         type="file"
+                        #filePicker
                         style="width:130px;"
                         class="form-control"
                         placeholder="Upload Word Attachments"
@@ -116,17 +120,8 @@
                         formControlName="wordFile"
                         (change)="onFilePicked($event.target.files)"
                     />
-                    <h5
-                        style="height: 30px;font-size: 20px;"
-                        id="wordfile_name"
-                    >
-                        {{
-                            wordFileToUpload != null
-                                ? wordFileToUpload.name
-                                : wordfileURL
-                                ? wordfileURL
-                                : "File URL"
-                        }}
+                    <h5 style="height: 30px;font-size: 20px;" id="wordfile_name">
+                        {{ wordFileToUpload != null ? wordFileToUpload.name : wordfileURL ? wordfileURL : "File URL" }}
                     </h5>
                 </div>
             </div>

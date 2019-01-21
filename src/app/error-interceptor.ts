@@ -4,15 +4,13 @@ import {
     HttpHandler,
     HttpEvent,
     HttpErrorResponse,
-    HttpResponse
 } from '@angular/common/http';
+
 import {catchError} from 'rxjs/operators';
 import {throwError} from 'rxjs';
 import {MatDialog} from '@angular/material';
-import {ErrorComponent} from './error/error.component';
 import {Injectable} from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { tap } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
