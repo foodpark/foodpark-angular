@@ -17,8 +17,8 @@ export class DistributionCenterComponent implements OnInit {
     }
 
     setSalestabActive() {
-        let url = this.route.url;
-        let index = url.split('/');
+        const url = this.route.url;
+        const index = url.split('/');
 
         switch (index[3]) {
             case 'gikdonations':

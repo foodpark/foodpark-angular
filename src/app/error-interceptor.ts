@@ -23,21 +23,13 @@ export class ErrorInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(req).pipe(
-            // tap(evt => {
-            //     if (evt instanceof HttpResponse) {
-            //         if (evt.body && evt.body.success) {
-            //             this.toasterService.success(evt.body.success.message, evt.body.success.title, { positionClass: 'toast-bottom-center' });
-            //         }
-            //     }
-            // }),
             catchError((error: HttpErrorResponse) => {
                 console.log(error);
                 let errorMessage = 'An unknown error occurred!';
                 if (error.message) {
                     errorMessage = error.message;
                 }
-                // Need to fix this
-                // this.dialog.open(ErrorComponent, {data: {message: errorMessage}});
+
                 try {
                     this.toasterService.error('Error', errorMessage, { positionClass: 'toast-bottom-center' });
                 } catch (e) {

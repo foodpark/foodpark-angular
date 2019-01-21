@@ -18,9 +18,9 @@ export class GIKDonationsComponent implements OnInit {
     mainHubName: any;
     selectedid: number;
     ordersdata: any;
-    volunteersList:  VolunteerModel[] = [];
+    volunteersList: VolunteerModel[] = [];
     orderstatusvalue: string;
-    filteredVolunteers: any;
+    filteredVolunteers: VolunteerModel[] = [];
 
     constructor(
         private router: Router,
@@ -64,16 +64,18 @@ export class GIKDonationsComponent implements OnInit {
     }
 
     onVolunteerClick(index: number, item) {
+        // const selectedVolunteer = this.filteredVolunteers[index];
+        // const displayName = selectedVolunteer.first_name + ' ' + selectedVolunteer.last_name;
+        const displayName = item.first_name + ' ' + item.last_name;
         const button = document.getElementById('volunteer_button');
-        button.innerText = this.volunteersList[index]['username'];
+        button.innerText = displayName;
 
-        let reqobj = {
+        const reqobj = {
             driver_id: item.id,
-            driver_name: item.username
+            driver_name: displayName
         };
         // UPDATEING THE Driver STATUS
-        this.distributionservice
-        .updateVolunteer(reqobj, this.selectedid)
+        this.distributionservice.updateVolunteer(reqobj, this.selectedid)
         .subscribe(response => {
             this.getAllOrders();
         });
