@@ -179,8 +179,10 @@ export class EditHubpickupComponent implements OnInit {
         const startDate = new Date(document.getElementById('fromDate')['value']);
         const endDate = new Date(document.getElementById('toDate')['value']);
         this.showDateError = startDate > endDate;
-        const startTime = startDate.getHours() + ':' + startDate.getMinutes();
-        const endTime = endDate.getHours() + ':' + endDate.getMinutes();
+        const startMinutes = startDate.getMinutes().toString().length === 1 ? `0${startDate.getMinutes()}` : startDate.getMinutes();
+        const endMinutes = endDate.getMinutes().toString().length === 1 ? `0${endDate.getMinutes()}` : endDate.getMinutes();
+        const startTime = startDate.getHours() + ':' + startMinutes;
+        const endTime = endDate.getHours() + ':' + endMinutes;
         const obj = {
             name: this.hubPickupForm.value['name'],
             image: this.imageURL,
