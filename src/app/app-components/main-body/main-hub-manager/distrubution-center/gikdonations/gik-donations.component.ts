@@ -27,7 +27,11 @@ export class GIKDonationsComponent implements OnInit {
         private distributionservice: DistributionService,
         private mainhubService: MainhubService,
         private formBuilder: FormBuilder) {
-        }
+    }
+
+    ngOnInit() {
+        this.getMainHub();
+    }
 
     getMainHub() {
         this.mainhubService
@@ -51,16 +55,20 @@ export class GIKDonationsComponent implements OnInit {
     }
 
     expandAccordian(orders, i) {
-        this.ordersdata = orders;
-        this.selectedid = orders.id;
+        if (this.selectedid === undefined || this.selectedid !== orders.id) {
+            this.ordersdata = orders;
+            this.selectedid = orders.id;
 
-        this.distributionservice.getAvailableVolunteers(this.mainid)
-        .subscribe(response => {
-            this.volunteersList = response;
-            this.filteredVolunteers = this.volunteersList.filter(el => {
-                return el.is_deleted === false && el.available === true;
+            this.distributionservice.getAvailableVolunteers(this.mainid)
+            .subscribe(response => {
+                this.volunteersList = response;
+                this.filteredVolunteers = this.volunteersList.filter(el => {
+                    return el.is_deleted === false && el.available === true;
+                });
             });
-        });
+        } else {
+            this.selectedid = undefined;
+        }
     }
 
     onVolunteerClick(index: number, item) {
@@ -93,9 +101,5 @@ export class GIKDonationsComponent implements OnInit {
         .subscribe(response => {
             this.getAllOrders();
         });
-    }
-
-    ngOnInit() {
-        this.getMainHub();
     }
 }

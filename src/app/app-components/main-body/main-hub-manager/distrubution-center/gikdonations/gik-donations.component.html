@@ -18,7 +18,8 @@
                         class="card_view accordion-toggle"
                         data-toggle="collapse"
                         [attr.data-target]="i"
-                        (click)="expandAccordian(orders, i)">
+                        (click)="expandAccordian(orders, i)"
+                        >
                         <div class="card_view_icon">
                             <img
                                 alt=""
@@ -62,74 +63,29 @@
                         </div>
                         <div class="order_staus_action_buttons">
                             <div class="card_view__actions">
-                                <button
-                                    type="button"
-                                    name="button"
-                                    value="ARRIVED"
-                                    (click)="onStatusClick($event)"
-                                    class="button_arrived">
-                                    Master Load
-                                </button>
+                                <button type="button" name="button" value="ARRIVED" (click)="onStatusClick($event)" class="button_arrived">Master Load</button>
                             </div>
                             <div class="card_view__actions">
-                                <button
-                                    type="button"
-                                    name="button"
-                                    value="PALLETIZED"
-                                    (click)="onStatusClick($event)"
-                                    class="button_palletized">
-                                    Palletized GIK
-                                </button>
+                                <button type="button" name="button" value="PALLETIZED" (click)="onStatusClick($event)" class="button_palletized">Palletized GIK</button>
                             </div>
                             <div class="card_view__actions">
-                                <button
-                                    type="button"
-                                    name="button"
-                                    value="POD READY"
-                                    (click)="onStatusClick($event)"
-                                    class="button_ready">
-                                    Pod Ready
-                                </button>
+                                <button type="button" name="button" value="POD READY" (click)="onStatusClick($event)" class="button_ready">Pod Ready</button>
                             </div>
                             <div class="card_view__actions">
-                                <button
-                                    type="button"
-                                    name="button"
-                                    value="DISPATCHED"
-                                    (click)="onStatusClick($event)"
-                                    class="button_dispatched">
-                                    Dispatched
-                                </button>
+                                <button type="button" name="button" value="DISPATCHED" (click)="onStatusClick($event)" class="button_dispatched">Dispatched</button>
                             </div>
                             <div class="card_view__actions">
-                                <button
-                                    type="button"
-                                    name="button"
-                                    value="DELIVERED"
-                                    (click)="onStatusClick($event)"
-                                    class="button_delivered">
-                                    Pod Delivered
-                                </button>
+                                <button type="button" name="button" value="DELIVERED" (click)="onStatusClick($event)" class="button_delivered">Pod Delivered</button>
                             </div>
                         </div>
                         <div class="volunteer_dropdown">
                             <div class="form-group">
                                 <h4>Volunteer</h4>
                                 <div class="dropdown">
-                                    <button
-                                        id="volunteer_button"
-                                        class="btn btn-primary dropdown-toggle"
-                                        type="button"
-                                        data-toggle="dropdown"
-                                        *ngIf="pods.orders">
+                                    <button id="volunteer_button" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" *ngIf="pods.orders">
                                         {{ orders.driver_name }}
                                     </button>
-                                    <button
-                                        id="volunteer_button"
-                                        class="btn btn-primary dropdown-toggle"
-                                        type="button"
-                                        data-toggle="dropdown"
-                                        *ngIf="!pods.orders">
+                                    <button id="volunteer_button" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" *ngIf="!pods.orders">
                                         Select
                                     </button>
                                     <ul class="dropdown-menu">
