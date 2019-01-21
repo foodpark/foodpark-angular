@@ -9,7 +9,11 @@ export class DataService {
     imageSource: string;
     sponsor1Image: string;
     sponsor2Image: string;
-    loadName: string;
+    loadObj = {
+        mainHub: '',
+        regionalHub: '',
+        loadName: ''
+    };
 
     // localeStringsMap: any;
 
