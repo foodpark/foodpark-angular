@@ -3,6 +3,9 @@
         <div class="title-center">
             <h2>{{ pageTitle }}</h2>
         </div>
+        <div class="title-center">
+            <h4>Main Hub: <i>{{mainHub?.name}}</i></h4>
+        </div>
         <div class="container-fluid col-sm-12 menu_detail shell bg_1">
             <form [formGroup]="podPickupForm">
                 <div class="form-group">
@@ -88,7 +91,8 @@
                                     type="text"
                                     class="form-control"
                                     (focusout)="onSponsor1Entered($event)"
-                                    value="{{this.sponsor1Name || 'Sponsor Name'}}"
+                                    placeholder="Sponsor1 Name"
+                                    value="{{this.sponsor1Name}}"
                                     id="sponsor1"/>
                             </div>
                             <button mat-stroked-button type="button" (click)="sponsor1ImagePicker.click()">
@@ -114,7 +118,8 @@
                                 type="text"
                                 class="form-control"
                                 (keyup)="onSponsor2Entered($event)"
-                                placeholder="Sponsor Name"
+                                placeholder="Sponsor2 Name"
+                                value="{{this.sponsor2Name}}"
                                 id="sponsor2"/>
                         </div>
                         <button mat-stroked-button type="button" (click)="sponsor2ImagePicker.click()">
