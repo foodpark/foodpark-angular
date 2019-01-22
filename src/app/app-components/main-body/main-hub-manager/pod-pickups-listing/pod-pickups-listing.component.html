@@ -31,8 +31,8 @@
             <td>{{ item["name"] }}</td>
             <td>{{item['regional_hub_name']}}</td>
             <td>{{item['pod_name']}}</td>
-            <td>{{ podPickupStartTime[i]}}, {{item['schedule'][0]['start']}}</td>
-            <td>{{ podPickupEndTime[i]}}, {{item['schedule'][0]['end']}}</td>
+            <td>{{ podPickupStartDate[i]}}, {{item['schedule'][0]['start']}}</td>
+            <td>{{ podPickupEndDate[i]}}, {{item['schedule'][0]['end']}}</td>
             <td style="text-align: center;">
                 <i class="material-icons" (click)="onEditClick(i)">
                     edit

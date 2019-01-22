@@ -14,8 +14,8 @@ export class PodPickupsListingComponent implements OnInit, OnDestroy {
     podPickups: PodPickupModel[] = [];
     private podPickupsSubscription: Subscription;
     mainHub: MainhubModel;
-    podPickupStartTime = [];
-    podPickupEndTime = [];
+    podPickupStartDate = [];
+    podPickupEndDate = [];
 
     constructor(private podPickupService: PodPickupService,
                 private mainhubService: MainhubService,
@@ -33,8 +33,8 @@ export class PodPickupsListingComponent implements OnInit, OnDestroy {
                             this.podPickups.forEach(hub => {
                                 const startDate = `${(hub['start_date'].split('T')[0]).split('-')[1]}-${(hub['start_date'].split('T')[0]).split('-')[2]}-${(hub['start_date'].split('T')[0]).split('-')[0]}`;
                                 const endDate = `${(hub['end_date'].split('T')[0]).split('-')[1]}-${(hub['end_date'].split('T')[0]).split('-')[2]}-${(hub['end_date'].split('T')[0]).split('-')[0]}`;
-                                this.podPickupStartTime.push(startDate);
-                                this.podPickupEndTime.push(endDate);
+                                this.podPickupStartDate.push(startDate);
+                                this.podPickupEndDate.push(endDate);
                             });
                         }
                     );
