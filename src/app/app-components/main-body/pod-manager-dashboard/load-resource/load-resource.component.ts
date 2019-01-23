@@ -25,10 +25,10 @@ export class LoadResourceComponent implements OnInit {
     ngOnInit() {
         this.requestInitform();
         this.podsManagerService.getPodOfLoggedInUser(parseInt(localStorage.getItem('user_id'), 10))
-        .subscribe( pod => {
-            this.pod = pod[0];
-            this.getLoadRequestsFromPodId(this.pod['id']);
-        });
+            .subscribe(pod => {
+                this.pod = pod[0];
+                this.getLoadRequestsFromPodId(this.pod['id']);
+            });
     }
 
     requestInitform() {
@@ -45,9 +45,9 @@ export class LoadResourceComponent implements OnInit {
 
     getLoadRequestsFromPodId(podId: number) {
         this.podsManagerService.getLoadRequestsFromPodId(podId)
-        .subscribe(response => {
-            this.loadrequests = response;
-        });
+            .subscribe(response => {
+                this.loadrequests = response;
+            });
     }
 
     createrequest() {

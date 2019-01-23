@@ -8,11 +8,9 @@
         </div>
         <button
             type="button"
-            name="button"
             class="btn btn-default new_btn"
             style="height: 50px;align-items: center;width: 100%;"
             data-toggle="modal"
-
             (click)="popUp = false">
             Create Load Request
         </button>
@@ -34,13 +32,9 @@
         <tr *ngFor="let loaddata of loadrequests">
             <td>{{ loaddata.name }}</td>
             <td>{{ loaddata.created_at | date }}</td>
-            <!-- <td *ngFor="let boxes of boxesdata">
-              <p>{{ boxes.category_name}}({{boxes.quantity}})</p>
-            </td> -->
             <td>
                 <p *ngFor="let pallet of loaddata.pallets"> {{ pallet.category_name}} X {{pallet.quantity}}</p>
             </td>
-            <!-- <td *ngFor="let boxes of loaddata.boxes">{{ boxes.category_name}}({{boxes.quantity}})</td> -->
             <td>
                 <p *ngFor="let boxes of loaddata.boxes">{{ boxes.category_name}} X {{boxes.quantity}}</p>
             </td>
@@ -62,7 +56,11 @@
 </div>
 
 
-<div class="modal_popup" id="createload" role="dialog" data-backdrop="false" aria-hidden="true" *ngIf="!popUp"
+<div *ngIf="!popUp"
+     class="modal_popup"
+     id="createload"
+     role="dialog"
+     data-backdrop="false"
      style="display:block">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

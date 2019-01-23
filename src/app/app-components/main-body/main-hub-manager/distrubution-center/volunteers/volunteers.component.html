@@ -1,54 +1,51 @@
 <div class="tab-absolute-position">
     <div class="title-center">
-            <h4>
-                Main Hub: <i>{{ mainHub?.name }}</i>
-            </h4>
-        </div>
+        <h4>
+            Main Hub: <i>{{ mainHub?.name }}</i>
+        </h4>
+    </div>
     <table class="table table-borderless">
         <thead>
-            <tr>
-                <th></th>
-                <th>Name</th>
-                <th>Availablity</th>
-                <th>Phone</th>
-                <th style="width: 5%;text-align: center;">Delete</th>
-            </tr>
+        <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Availablity</th>
+            <th>Phone</th>
+            <th style="width: 5%;text-align: center;">Delete</th>
+        </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of allvolunters; let i = index">
-                <td>{{ i + 1 }}</td>
-                <td>{{ item.first_name }} {{ item.last_name }}</td>
-                <td>
-                    <div class="button-switch">
-                        <input
-                            type="checkbox"
-                            id="switch-blue"
-                            class="switch"
-                            [checked]="item.available"
-                            (change)="changeVolunteereStatus($event, item.id)"
-                        />
-                    </div>
-                </td>
-                <td>{{ item.phone }}</td>
-                <td style="text-align: center;">
-                    <i class="material-icons" (click)="deleteVolunteer(item['id'])">
-                        delete
-                    </i>
-                </td>
-                <td></td>
-            </tr>
+        <tr *ngFor="let item of allvolunters; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ item.first_name }} {{ item.last_name }}</td>
+            <td>
+                <div class="button-switch">
+                    <input
+                        type="checkbox"
+                        id="switch-blue"
+                        class="switch"
+                        [checked]="item.available"
+                        (change)="changeVolunteereStatus($event, item.id)"
+                    />
+                </div>
+            </td>
+            <td>{{ item.phone }}</td>
+            <td style="text-align: center;">
+                <i class="material-icons" (click)="deleteVolunteer(item['id'])">
+                    delete
+                </i>
+            </td>
+            <td></td>
+        </tr>
         </tbody>
     </table>
     <div>
         <button
             type="button"
-            name="button"
             class="btn btn-default new_btn"
-            data-toggle="modal"
-            data-target="#exampleModal"
             style="height: 50px;align-items: center;width: 100%;"
-            (click)="newvolunterpopup = true"
-        >
+            data-toggle="modal"
+            (click)="newvolunterpopup = true">
             New Volunteer
         </button>
     </div>
@@ -57,43 +54,41 @@
         <h1 class="hedaing_title">Registered Volunteers ( Shared )</h1>
         <table class="table table-borderless">
             <tbody>
-                <tr *ngFor="let item of allregisteredvolunters">
-                    <td>{{ item.first_name }}.{{ item.last_name }}</td>
-                    <td>{{ item.phone }}</td>
-                    <td style="text-align: center;">
-                        <button
-                            class="add_button"
-                            type="button"
-                            name="button"
-                            (click)="addVolunteer(item)"
-                            *ngIf="!item.selected"
-                        >
-                            Add Volunteer
-                        </button>
-                        <button
-                            class="remove_button"
-                            type="button"
-                            name="button"
-                            *ngIf="item.selected"
-                            (click)="deleteVolunteer(item['id'])"
-                        >
-                            Remove
-                        </button>
-                    </td>
-                </tr>
+            <tr *ngFor="let item of allregisteredvolunters">
+                <td>{{ item.first_name }}.{{ item.last_name }}</td>
+                <td>{{ item.phone }}</td>
+                <td style="text-align: center;">
+                    <button
+                        class="add_button"
+                        type="button"
+                        name="button"
+                        (click)="addVolunteer(item)"
+                        *ngIf="!item.selected"
+                    >
+                        Add Volunteer
+                    </button>
+                    <button
+                        class="remove_button"
+                        type="button"
+                        name="button"
+                        *ngIf="item.selected"
+                        (click)="deleteVolunteer(item['id'])"
+                    >
+                        Remove
+                    </button>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>
 
     <div
+        *ngIf="newvolunterpopup"
+        role="dialog"
+        data-backdrop="false"
         class="modal_popup"
         id="exampleModal"
-        tabindex="-1"
-        role="dialog"
-        aria-hidden="true"
-        *ngIf="newvolunterpopup"
-        style="display: block"
-    >
+        style="display: block">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header modal__header">
@@ -107,8 +102,6 @@
                             <input
                                 formControlName="firstname"
                                 type="text"
-                                name=""
-                                value=""
                                 placeholder="First Name"
                             />
                         </div>
@@ -116,8 +109,6 @@
                             <input
                                 formControlName="lastname"
                                 type="text"
-                                name=""
-                                value=""
                                 placeholder="Last Name"
                             />
                         </div>
@@ -125,8 +116,6 @@
                             <input
                                 formControlName="contact"
                                 type="text"
-                                name=""
-                                value=""
                                 placeholder="Phone"
                             />
                         </div>
@@ -134,8 +123,6 @@
                             <input
                                 formControlName="username"
                                 type="text"
-                                name=""
-                                value=""
                                 placeholder="Username"
                             />
                         </div>
@@ -143,8 +130,6 @@
                             <input
                                 formControlName="password"
                                 type="password"
-                                name=""
-                                value=""
                                 placeholder="Password"
                             />
                         </div>
@@ -154,15 +139,13 @@
                     <button
                         type="button"
                         class="btn btn-secondary"
-                        (click)="createVolunteer()"
-                    >
+                        (click)="createVolunteer()">
                         Save
                     </button>
                     <button
                         type="button"
                         class="btn btn-secondary"
-                        (click)="newvolunterpopup = false"
-                    >
+                        (click)="newvolunterpopup = false">
                         Cancel
                     </button>
                 </div>
