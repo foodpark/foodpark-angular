@@ -1,46 +1,43 @@
-<h2 style="padding-top:100px;display:flex;justify-content:center;width:100%;">
-    Reporting
-</h2>
-<div class="title-center">
-    <h4>
-        Main Hub: <i>{{ mainHub?.name }}</i>
-    </h4>
-</div>
-<div>
-    <div style="height: 350px;width: 85%;margin: 0 auto;">
-        <agm-map #AgmMap [latitude]="latitude" (mapReady)="mapReady($event)" [longitude]="longitude">
-            <agm-marker
-                *ngFor="let marker of markers"
-                [latitude]="marker.latitude"
-                [longitude]="marker.longitude"
-                [iconUrl]="marker.icon"
-                [agmFitBounds]="true"
-                fit="true"
-                [label]="marker.label">
-            </agm-marker>
-        </agm-map>
+<div class="absolute-position">
+    <div class="title-center">
+        <h2>Reporting</h2>
     </div>
-    <div
-        class="container-fluid col-sm-12 menu_detail shell bg_1"
-        style="padding: 35px 100px;">
-        <div
-            class="form-group"
-            style="display: flex;justify-content: space-between;">
-            <h4>Select Date</h4>
-            <div class="dropdown" style="min-width: 86%;">
-                <button
-                    id="date"
-                    class="btn btn-primary dropdown-toggle"
-                    type="button"
-                    data-toggle="dropdown">
-                    {{ currentYear }}
-                </button>
-                <ul class="dropdown-menu">
-                    <li (click)="onYearSelected()">{{ currentYear }}</li>
-                    <li (click)="onMonthSelected()">Last Month</li>
-                </ul>
-            </div>
+    <div class="title-center">
+        <h4>Main Hub: <i>{{mainHub?.name}}</i></h4>
+    </div>
+    <div>
+        <div style="height: 350px;">
+            <agm-map
+                #AgmMap
+                [(latitude)]="latitude"
+                [(longitude)]="longitude"
+            >
+                <agm-marker
+                    *ngFor="let marker of markers"
+                    [latitude]="marker.latitude"
+                    [longitude]="marker.longitude"
+                    [iconUrl]="marker.icon"
+                    [agmFitBounds]="true"
+                    fit="true"
+                    [label]="marker.label"
+                >
+                </agm-marker>
+            </agm-map>
         </div>
-        <tree [tree]="tree" class="tree-plugin"></tree>
+        <div class="container-fluid col-sm-12 menu_detail shell bg_1" style="padding: 35px 100px;">
+            <div class="form-group" style="display: flex;justify-content: space-between;">
+                <h4>Select Date</h4>
+                <div class="dropdown" style="min-width: 86%;">
+                    <button id="date" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                        {{ currentYear }}
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li (click)="onYearSelected()">{{ currentYear }}</li>
+                        <li (click)="onMonthSelected()">Last Month</li>
+                    </ul>
+                </div>
+            </div>
+            <tree [tree]="tree" class="tree-plugin"></tree>
+        </div>
     </div>
 </div>

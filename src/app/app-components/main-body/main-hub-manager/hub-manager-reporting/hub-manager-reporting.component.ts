@@ -5,6 +5,7 @@ import {ReportingService} from '../../../../app-services/reporting.service';
 import {MainhubModel, ReportingModel} from '../../../../model';
 import {Subscription} from 'rxjs';
 import {TreeModel} from 'ng2-tree';
+import { AgmMap, AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
 
 interface Marker {
     latitude: number;
@@ -27,10 +28,9 @@ export class HubManagerReportingComponent implements OnInit, OnDestroy {
     mainHub: MainhubModel;
     report: ReportingModel;
     tree: TreeModel;
-    mapObj: any;
     private mainhubsSubscription: Subscription;
     private reportsSubscription: Subscription;
-
+    map: AgmMap;
 
     constructor(private mainhubService: MainhubService,
                 private reportService: ReportingService,
@@ -49,19 +49,10 @@ export class HubManagerReportingComponent implements OnInit, OnDestroy {
         this.currentYear = new Date().getFullYear();
     }
 
-    mapReady(map) {
-        this.mapObj = map;
-        this.mainhubsSubscription = this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
-            .subscribe((response) => {
-                this.mainHub = response[0];
-                this.reportsSubscription = this.reportService.getReportsFromTime(this.mainHub['id'], new Date(new Date().getFullYear(), 0, 1).getTime()).subscribe(reportModel => {
-                    this.report = reportModel;
-                    this.mapObj.setCenter({lat: this.report.mainhub.latitude, lng: this.report.mainhub.longitude});
-                });
-            });
-    }
-
     parseData() {
+        this.latitude = this.report.mainhub.latitude;
+        this.longitude = this.report.mainhub.longitude;
+
         const obj = {
             latitude: this.report.mainhub.latitude,
             longitude: this.report.mainhub.longitude,
@@ -100,18 +91,6 @@ export class HubManagerReportingComponent implements OnInit, OnDestroy {
 
     clickedMarker(label: string, index: number) {
         console.log(`clicked the marker: ${label || index}`);
-    }
-
-    mapClicked($event: MouseEvent) {
-        this.markers.push({
-            latitude: $event['coords']['lat'],
-            longitude: $event['coords']['lng'],
-            draggable: true
-        });
-    }
-
-    markerDragEnd(m: Marker, $event: MouseEvent) {
-        console.log('dragEnd', m, $event);
     }
 
     onYearSelected() {
