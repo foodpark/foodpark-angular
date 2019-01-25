@@ -1,5 +1,5 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
-import {Router, ParamMap, ActivatedRoute} from '@angular/router';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {PodsService} from 'src/app/app-services/pods.service';
 import {FileUploadService} from 'src/app/app-services/fileupload.service';
@@ -13,7 +13,7 @@ import {Subscription} from 'rxjs';
 export class EditPodsComponent implements OnInit, OnDestroy {
     editpodform: FormGroup;
     podId: string;
-    pod: any; // PodModel;
+    pod: any;
     churchType = [
         'Church',
         'Non-Profit',

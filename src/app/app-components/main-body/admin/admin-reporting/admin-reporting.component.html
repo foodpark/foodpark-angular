@@ -9,7 +9,7 @@
         <agm-map
             [latitude]="latitude"
             [longitude]="longitude"
-            [zoom]="zoom">
+            (mapReady)="mapReady($event)">
             <agm-marker
                 *ngFor="let m of markers;"
                 [latitude]="m.latitude"

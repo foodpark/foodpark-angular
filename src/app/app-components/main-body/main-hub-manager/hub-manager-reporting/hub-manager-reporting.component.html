@@ -8,12 +8,14 @@
 </div>
 <div>
     <div style="height: 350px;width: 85%;margin: 0 auto;">
-        <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+        <agm-map #AgmMap [latitude]="latitude" (mapReady)="mapReady($event)" [longitude]="longitude">
             <agm-marker
                 *ngFor="let marker of markers"
                 [latitude]="marker.latitude"
                 [longitude]="marker.longitude"
                 [iconUrl]="marker.icon"
+                [agmFitBounds]="true"
+                fit="true"
                 [label]="marker.label">
             </agm-marker>
         </agm-map>

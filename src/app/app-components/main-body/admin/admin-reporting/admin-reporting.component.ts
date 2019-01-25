@@ -28,7 +28,6 @@ export class AdminReportingComponent implements OnInit, OnDestroy {
     latitude: number;
     longitude: number;
     currentYear;
-    zoom = 1;
     markers: Marker[] = [];
     icon;
     mainHub: MainhubModel[];
@@ -41,6 +40,7 @@ export class AdminReportingComponent implements OnInit, OnDestroy {
     reports;
     tree: TreeModel;
     countryName: string;
+    mapObj: any;
     private countriesSubscription: Subscription;
     private territoriesSubscription: Subscription;
     private mainhubsSubscription: Subscription;
@@ -102,6 +102,19 @@ export class AdminReportingComponent implements OnInit, OnDestroy {
 
         this.currentYear = new Date().getFullYear();
     }
+
+    // mapReady(map) {
+    //     console.log(map);
+    //     this.mapObj = map;
+    //     this.mainhubsSubscription = this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
+    //         .subscribe((response) => {
+    //             this.mainHub = response[0];
+    //             this.reportsSubscription = this.reportService.getReportsFromTime(this.mainHub['id'], new Date(new Date().getFullYear(), 0, 1).getTime()).subscribe(reportModel => {
+    //                 this.report = reportModel;
+    //                 this.mapObj.setCenter({lat: this.report.mainhub.latitude, lng: this.report.mainhub.longitude});
+    //             });
+    //         });
+    // }
 
     parseData(report) {
         const obj = {

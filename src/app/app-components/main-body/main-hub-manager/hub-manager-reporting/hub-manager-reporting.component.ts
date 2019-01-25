@@ -20,14 +20,14 @@ interface Marker {
 })
 
 export class HubManagerReportingComponent implements OnInit, OnDestroy {
-    latitude: number;
-    longitude: number;
+    latitude = 95.7129;
+    longitude = 37.0902;
     currentYear;
-    zoom = 3;
     markers: Marker[] = [];
     mainHub: MainhubModel;
     report: ReportingModel;
     tree: TreeModel;
+    mapObj: any;
     private mainhubsSubscription: Subscription;
     private reportsSubscription: Subscription;
 
@@ -49,6 +49,18 @@ export class HubManagerReportingComponent implements OnInit, OnDestroy {
         this.currentYear = new Date().getFullYear();
     }
 
+    mapReady(map) {
+        this.mapObj = map;
+        this.mainhubsSubscription = this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
+            .subscribe((response) => {
+                this.mainHub = response[0];
+                this.reportsSubscription = this.reportService.getReportsFromTime(this.mainHub['id'], new Date(new Date().getFullYear(), 0, 1).getTime()).subscribe(reportModel => {
+                    this.report = reportModel;
+                    this.mapObj.setCenter({lat: this.report.mainhub.latitude, lng: this.report.mainhub.longitude});
+                });
+            });
+    }
+
     parseData() {
         const obj = {
             latitude: this.report.mainhub.latitude,
@@ -57,7 +69,6 @@ export class HubManagerReportingComponent implements OnInit, OnDestroy {
             icon: '../../../../../assets/images/warehouse.png'
         };
         this.markers.push(obj);
-
         const regionalTrees = [];
         if (this.report.regionalhubs.length > 0) {
             this.report.regionalhubs.forEach(hub => {
