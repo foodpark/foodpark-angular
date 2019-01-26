@@ -10,8 +10,7 @@
             <agm-map
                 #AgmMap
                 [(latitude)]="latitude"
-                [(longitude)]="longitude"
-            >
+                [(longitude)]="longitude">
                 <agm-marker
                     *ngFor="let marker of markers"
                     [latitude]="marker.latitude"
@@ -19,8 +18,7 @@
                     [iconUrl]="marker.icon"
                     [agmFitBounds]="true"
                     fit="true"
-                    [label]="marker.label"
-                >
+                    [label]="marker.label">
                 </agm-marker>
             </agm-map>
         </div>

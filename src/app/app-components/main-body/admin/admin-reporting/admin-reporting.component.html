@@ -8,8 +8,7 @@
     <div style="height: 350px;width: 85%;margin: 0 auto;">
         <agm-map
             [latitude]="latitude"
-            [longitude]="longitude"
-            (mapReady)="mapReady($event)">
+            [longitude]="longitude">
             <agm-marker
                 *ngFor="let m of markers;"
                 [latitude]="m.latitude"

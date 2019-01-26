@@ -96,37 +96,39 @@ export class AdminReportingComponent implements OnInit, OnDestroy {
                     this.masterLoadCount = report['master_loads'];
                     this.regionalHubs = report['regionalhubs'];
                     this.reports = report;
-                    this.parseData(report);
+                    this.parseData(this.reports);
                 });
             });
 
         this.currentYear = new Date().getFullYear();
     }
 
-    // mapReady(map) {
-    //     console.log(map);
-    //     this.mapObj = map;
-    //     this.mainhubsSubscription = this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
-    //         .subscribe((response) => {
-    //             this.mainHub = response[0];
-    //             this.reportsSubscription = this.reportService.getReportsFromTime(this.mainHub['id'], new Date(new Date().getFullYear(), 0, 1).getTime()).subscribe(reportModel => {
-    //                 this.report = reportModel;
-    //                 this.mapObj.setCenter({lat: this.report.mainhub.latitude, lng: this.report.mainhub.longitude});
-    //             });
-    //         });
-    // }
+    mapReady(map) {
+        console.log(map);
+        // this.mapObj = map;
+        // this.mainhubsSubscription = this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
+        //     .subscribe((response) => {
+        //         this.mainHub = response[0];
+        //         this.reportsSubscription = this.reportService.getReportsFromTime(this.mainHub['id'], new Date(new Date().getFullYear(), 0, 1).getTime()).subscribe(reportModel => {
+        //             this.report = reportModel;
+        //             this.mapObj.setCenter({lat: this.report.mainhub.latitude, lng: this.report.mainhub.longitude});
+        //         });
+        //     });
+    }
 
-    parseData(report) {
+    parseData(reports?) {
+        this.latitude = this.reports.mainhub.latitude;
+        this.longitude = this.reports.mainhub.longitude;
         const obj = {
-            latitude: parseFloat(report['mainhub'] ? report['mainhub']['latitude'] : this.mainHub[0]['latitude']),
-            longitude: parseFloat(report['mainhub'] ? report['mainhub']['longitude'] : this.mainHub[0]['longitude']),
-            label: report['mainhub']['name'] || this.mainHub[0]['name'],
+            latitude: parseFloat(reports['mainhub'] ? reports['mainhub']['latitude'] : this.mainHub[0]['latitude']),
+            longitude: parseFloat(reports['mainhub'] ? reports['mainhub']['longitude'] : this.mainHub[0]['longitude']),
+            label: reports['mainhub']['name'] || this.mainHub[0]['name'],
             icon: '../../../../../assets/images/warehouse.png'
         };
         this.markers.push(obj);
         const regionalTrees = [];
-        if (report.regionalhubs.length > 0) {
-            report.regionalhubs.forEach(hub => {
+        if (reports.regionalhubs.length > 0) {
+            reports.regionalhubs.forEach(hub => {
                 const children = [];
                 hub.pods.forEach(pod => {
                     children.push({'value': pod.name + '(' + pod.load_count + ')'});
@@ -147,7 +149,7 @@ export class AdminReportingComponent implements OnInit, OnDestroy {
         }
 
         this.tree = {
-            'value': this.reports.mainhub.name + '(' + this.reports.master_loads + ')',
+            'value': reports.mainhub.name + '(' + reports.master_loads + ')',
             'children': regionalTrees
         };
     }
@@ -175,7 +177,7 @@ export class AdminReportingComponent implements OnInit, OnDestroy {
         const button = document.getElementById('date');
         button.innerText = this.currentYear;
         const startTime = new Date(new Date().getFullYear(), 0, 1).getTime();
-        this.reportService.getReportsFromTime(this.mainHub['id'], startTime).subscribe(reportModel => {
+        this.reportService.getReportsFromTime(this.mainHub[0]['id'], startTime).subscribe(reportModel => {
             this.reports = reportModel;
             this.parseData(this.reports);
         });
@@ -186,7 +188,7 @@ export class AdminReportingComponent implements OnInit, OnDestroy {
         button.innerText = 'Last Month';
         const date = new Date();
         const startTime = new Date().setDate(date.getDate() - 30);
-        this.reportService.getReportsFromTime(this.mainHub['id'], startTime).subscribe(reportModel => {
+        this.reportService.getReportsFromTime(this.mainHub[0]['id'], startTime).subscribe(reportModel => {
             this.reports = reportModel;
             this.parseData(this.reports);
         });
