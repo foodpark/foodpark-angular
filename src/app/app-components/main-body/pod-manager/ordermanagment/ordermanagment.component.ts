@@ -10,6 +10,7 @@ import { PodsManagerService } from 'src/app/app-services/pod-manager.service';
 
 export class OrderManagmentComponent implements OnInit {
     pod: PodModel;
+    completeordersdata: any;
     ordersdata: any;
     mainHubName: any;
     selectedid: number;
@@ -32,11 +33,11 @@ export class OrderManagmentComponent implements OnInit {
     getAllOrders() {
         this.distributionservice.getPodOrderDetails(this.pod.id)
         .subscribe(response => {
-            this.ordersdata = response;
+            this.completeordersdata = response['orders'];
         });
     }
 
-    expandAccordian(orders, i) {
+    expandAccordian(orders) {
         if (this.selectedid === undefined || this.selectedid !== orders.id) {
             this.ordersdata = orders;
             this.selectedid = orders.id;

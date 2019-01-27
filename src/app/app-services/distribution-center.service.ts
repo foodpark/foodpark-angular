@@ -41,7 +41,6 @@ export class DistributionService {
 
     getPodOrderDetails(podId: number) {
         return this.http.get(environment.apiUrl + '/api/v1/rel/churches/' + podId + '/ordermanagement');
-        // /churches/:churchId/ordermanagement
     }
 
     getAvailableVolunteers(mainHubId) {
