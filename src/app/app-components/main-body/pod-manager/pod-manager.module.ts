@@ -4,10 +4,10 @@ import {BrowserModule} from '@angular/platform-browser';
 import {RouterModule} from '@angular/router';
 import {MaterialModule} from '../../../app-modules/material.module';
 
-import {PodManagerDashboardComponent} from './pod-manager-dashboard.component';
-import {LoadResourceComponent} from './load-resource/load-resource.component';
-import {AddEditResourceComponent} from './add-edit-resource/add-edit-resource.component';
+import {PodManagerDashboardComponent} from './pod-manager-dashboard/pod-manager-dashboard.component';
 import { OrderManagmentComponent } from './ordermanagment/ordermanagment.component';
+import { LoadResourceComponent } from './load-resource/load-resource-listing/load-resource-listing.component';
+import { AddEditResourceComponent } from './load-resource/add-edit-resource/add-edit-resource.component';
 
 @NgModule({
     imports: [

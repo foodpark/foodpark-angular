@@ -1,10 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {Router} from '@angular/router';
-import {CountryModel, MainhubModel} from '../../../../model';
-import {MainhubService} from '../../../../app-services/mainhub.service';
-import {CountryService} from '../../../../app-services/country.service';
-import {TerritoryService} from 'src/app/app-services/territory.service';
+import { MainhubModel, CountryModel } from 'src/app/model';
+import { MainhubService } from 'src/app/app-services/mainhub.service';
+import { CountryService } from 'src/app/app-services/country.service';
 
 @Component({
     selector: 'app-main-hub',
@@ -19,7 +18,6 @@ export class MainHubsListingComponent implements OnInit, OnDestroy {
     private selectedCountryName: string;
 
     constructor(private mainhubService: MainhubService,
-                private territoriesService: TerritoryService,
                 private router: Router,
                 private countryService: CountryService) {
     }

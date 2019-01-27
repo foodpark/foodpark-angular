@@ -1,11 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {CountryModel, TerritoryModel} from '../../../../model';
 import {Subscription} from 'rxjs';
-import {CountryService} from '../../../../app-services/country.service';
-import {TerritoryService} from '../../../../app-services/territory.service';
-import {MainhubService} from '../../../../app-services/mainhub.service';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
+import { CountryModel, TerritoryModel } from 'src/app/model';
+import { CountryService } from 'src/app/app-services/country.service';
+import { TerritoryService } from 'src/app/app-services/territory.service';
+import { MainhubService } from 'src/app/app-services/mainhub.service';
 
 @Component({
     selector: 'app-add-edit-mainhub',

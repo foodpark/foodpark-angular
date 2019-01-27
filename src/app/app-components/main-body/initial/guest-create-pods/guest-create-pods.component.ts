@@ -1,16 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
-import { CountryService } from '../../../app-services/country.service';
-import { TerritoryService } from '../../../app-services/territory.service';
-import { MainhubService } from '../../../app-services/mainhub.service';
-
-import { CountryModel, MainhubModel, TerritoryModel } from '../../../model';
+import { MainhubModel, TerritoryModel, CountryModel } from 'src/app/model';
 import { Subscription } from 'rxjs';
 import { PodsService } from 'src/app/app-services/pods.service';
 import { FileUploadService } from 'src/app/app-services/fileupload.service';
-import { DataService } from '../../../app-services/data.service';
+import { CountryService } from 'src/app/app-services/country.service';
+import { TerritoryService } from 'src/app/app-services/territory.service';
+import { MainhubService } from 'src/app/app-services/mainhub.service';
+import { DataService } from 'src/app/app-services/data.service';
 
 @Component({
     selector: 'app-guest-create-pods',

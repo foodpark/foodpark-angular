@@ -14,11 +14,11 @@ import { AppRoutingModule } from './app-routes/routing.module';
 import { ErrorInterceptor } from './error-interceptor';
 import { ErrorComponent } from './error/error.component';
 import { AuthInterceptor } from './auth-interceptor';
-import { LoginComponent } from './app-components/main-body/login/login.component';
 import { AdminModule } from './app-components/main-body/admin/admin.module';
 import { MainHubManagerModule } from './app-components/main-body/main-hub-manager/main-hub-manager.module';
-import { PodManagerModule } from './app-components/main-body/pod-manager-dashboard/pod-manager.module';
-import { GuestCreatePodsComponent } from './app-components/main-body/guest-create-pods/guest-create-pods.component';
+import { LoginComponent } from './app-components/main-body/initial/login/login.component';
+import { GuestCreatePodsComponent } from './app-components/main-body/initial/guest-create-pods/guest-create-pods.component';
+import { PodManagerModule } from './app-components/main-body/pod-manager/pod-manager.module';
 
 @NgModule({
     declarations: [

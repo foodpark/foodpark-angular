@@ -6,8 +6,8 @@ import {CountryModel, HubmanagerModel, TerritoryModel} from 'src/app/model';
 import {HubmanagerService} from 'src/app/app-services/hubmanager.service';
 import {TerritoryService} from 'src/app/app-services/territory.service';
 import {MatDialog} from '@angular/material';
-import {ErrorComponent} from '../../../../error/error.component';
-import {DataService} from '../../../../app-services/data.service';
+import { DataService } from 'src/app/app-services/data.service';
+import { ErrorComponent } from 'src/app/error/error.component';
 
 @Component({
     selector: 'app-mainhub-manager-listing',
