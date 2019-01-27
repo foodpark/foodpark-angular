@@ -1,123 +1,76 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {FormBuilder, Validators} from '@angular/forms';
-import {DistributionService} from '../../../../app-services/distribution-center.service';
-import {MainhubService} from 'src/app/app-services/mainhub.service';
+import { Component, OnInit } from '@angular/core';
+import { VolunteerModel, PodModel } from 'src/app/model';
+import { DistributionService } from 'src/app/app-services/distribution-center.service';
+import { PodsManagerService } from 'src/app/app-services/pod-manager.service';
 
 @Component({
     selector: 'app-ordermanagment',
-    templateUrl: './ordermanagment.component.html',
-
+    templateUrl: './ordermanagment.component.html'
 })
+
 export class OrderManagmentComponent implements OnInit {
-    mainHub: any;
-    mainid: number;
-    allordersdata: any;
-    regionalhubs: any;
+    pod: PodModel;
+    ordersdata: any;
     mainHubName: any;
     selectedid: number;
-    ordersdata: any;
-    volunteersList: any;
+    volunteersList: VolunteerModel[] = [];
     orderstatusvalue: string;
-    filteredVolunteers: any;
+    filteredVolunteers: VolunteerModel[] = [];
 
-    constructor(private router: Router, private distributionservice: DistributionService, private mainhubService: MainhubService, private formBuilder: FormBuilder) {
-        this.getMainHub();
-
+    constructor(private podsManagerService: PodsManagerService,
+                private distributionservice: DistributionService) {
     }
 
-    getMainHub() {
-        this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
-            .subscribe(response => {
-                if (response.length > 0) {
-                    this.mainHub = response[0];
-                    this.mainid = this.mainHub.id;
-                    this.mainHubName = this.mainHub.name;
-                    this.getAllOrders();
-                }
-
+    ngOnInit() {
+        this.podsManagerService.getPodOfLoggedInUser(parseInt(localStorage.getItem('user_id'), 10))
+            .subscribe(pod => {
+                this.pod = pod[0];
+                this.getAllOrders();
             });
     }
 
     getAllOrders() {
-        this.distributionservice.getOrderDetails(this.mainid).subscribe(
-            response => {
-                this.ordersdata = response;
-                this.allordersdata = this.ordersdata.regionalhubs;
-
-                console.log('this is all users', this.allordersdata);
-            },
-            error => {
-            }
-        );
+        this.distributionservice.getPodOrderDetails(this.pod.id)
+        .subscribe(response => {
+            this.ordersdata = response;
+        });
     }
 
     expandAccordian(orders, i) {
-        this.ordersdata = orders;
-        this.selectedid = orders.id;
-        console.log('this is orders', this.ordersdata.name);
-        this.getAvailableVolunteers();
-    }
-
-    getAvailableVolunteers() {
-        this.distributionservice.getAvailableVolunteers(this.mainid).subscribe(
-            response => {
-                this.volunteersList = response;
-                // is_deleted=false&available=true
-
-                this.filteredVolunteers = this.volunteersList.filter((el) => {
-                    return el.is_deleted == false && el.available == true;
-                });
-
-
-                console.log('this is all volunteersList', this.volunteersList);
-            },
-            error => {
-            }
-        );
+        if (this.selectedid === undefined || this.selectedid !== orders.id) {
+            this.ordersdata = orders;
+            this.selectedid = orders.id;
+        } else {
+            this.selectedid = undefined;
+        }
     }
 
     onVolunteerClick(index: number, item) {
+        const displayName = item.first_name + ' ' + item.last_name;
         const button = document.getElementById('volunteer_button');
-        button.innerText = this.volunteersList[index]['username'];
-        console.log('this clicked', item);
-        let reqobj = {
-            'driver_id': item.id,
-            'driver_name': item.username
+        button.innerText = displayName;
+
+        const reqobj = {
+            driver_id: item.id,
+            driver_name: displayName
         };
         // UPDATEING THE Driver STATUS
-        this.distributionservice.updateVolunteer(reqobj, this.selectedid).subscribe(
-            response => {
-                this.getAllOrders();
-            },
-            error => {
-            }
-        );
-
+        this.distributionservice.updateVolunteer(reqobj, this.selectedid)
+        .subscribe(response => {
+            this.getAllOrders();
+        });
     }
 
     onStatusClick(element) {
         this.orderstatusvalue = element.currentTarget.value;
-        console.log('button staus', this.orderstatusvalue);
-        let statusReq = {
-            'status': this.orderstatusvalue,
+        const statusReq = {
+            status: this.orderstatusvalue
         };
         // UPDATEING THE ORDER STATUS
-        this.distributionservice.updateStatus(statusReq, this.selectedid).subscribe(
-            response => {
-                //this.volunteersList = response;
-                console.log('this is all users', this.selectedid);
-                this.getAllOrders();
-            },
-            error => {
-            }
-        );
-
+        this.distributionservice
+        .updateStatus(statusReq, this.selectedid)
+        .subscribe(response => {
+            this.getAllOrders();
+        });
     }
-
-
-    ngOnInit() {
-
-    }
-
 }

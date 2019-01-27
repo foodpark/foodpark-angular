@@ -41,6 +41,7 @@ import { AddEditMainHubManagerComponent } from '../app-components/main-body/admi
 import { AddEditResourceComponent } from '../app-components/main-body/pod-manager/load-resource/add-edit-resource/add-edit-resource.component';
 import { PodManagerDashboardComponent } from '../app-components/main-body/pod-manager/pod-manager-dashboard/pod-manager-dashboard.component';
 import { LoadResourceComponent } from '../app-components/main-body/pod-manager/load-resource/load-resource-listing/load-resource-listing.component';
+import { OrderManagmentComponent } from '../app-components/main-body/pod-manager/ordermanagment/ordermanagment.component';
 
 const routes: Routes = [
     {
@@ -52,7 +53,10 @@ const routes: Routes = [
         path: 'dashboard',
         component: LoginComponent
     },
-    { path: 'guest-create-pod', component: GuestCreatePodsComponent },
+    {
+        path: 'guest-create-pod',
+        component: GuestCreatePodsComponent
+    },
     {
         path: 'admin',
         component: AdminDashboardComponent,
@@ -237,6 +241,10 @@ const routes: Routes = [
             {
                 path: 'addeditloadresource/:id',
                 component: AddEditResourceComponent
+            },
+            {
+                path: 'orderstatus',
+                component: OrderManagmentComponent
             }
         ]
     }
