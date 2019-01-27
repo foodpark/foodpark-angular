@@ -40,12 +40,11 @@ export class AdminReportingComponent implements OnInit, OnDestroy {
     reports;
     tree: TreeModel;
     countryName: string;
-    mapObj: any;
+    territoryName: string;
     private countriesSubscription: Subscription;
     private territoriesSubscription: Subscription;
     private mainhubsSubscription: Subscription;
     private reportsSubscription: Subscription;
-    private territorySelected: number;
 
     constructor(private regionalHubService: RegionalhubsService,
                 private mainhubService: MainhubService,
@@ -62,9 +61,9 @@ export class AdminReportingComponent implements OnInit, OnDestroy {
         this.countriesSubscription = this.countryService.getCountriesUpdateListener()
             .subscribe((countries: CountryModel[]) => {
                 if (countries.length > 0) {
-                    const countryName = countries[0]['name'];
+                    this.countryName = countries[0]['name'];
                     const button = document.getElementById('country_button');
-                    button.innerText = countryName;
+                    button.innerText = this.countryName;
                     this.countries = countries;
                     this.territoryService.getTerritoriesInCountry(countries[0]['id']);
                 } else {
@@ -75,10 +74,9 @@ export class AdminReportingComponent implements OnInit, OnDestroy {
         this.territoriesSubscription = this.territoryService.getTerritoriesUpdateListener()
             .subscribe((territories: TerritoryModel[]) => {
                 if (territories.length > 0) {
-                    this.territorySelected = 0;
-                    const territoryName = territories[0]['territory'];
+                    this.territoryName = territories[0]['territory'];
                     const territoryButton = document.getElementById('territory_button');
-                    territoryButton.innerText = territoryName;
+                    territoryButton.innerText = this.territoryName;
                     this.territories = territories;
                     this.mainhubService.getMainHubsInTerritory(this.territories[0]['country'], this.territories[0]['id']);
                 } else {
@@ -101,19 +99,6 @@ export class AdminReportingComponent implements OnInit, OnDestroy {
             });
 
         this.currentYear = new Date().getFullYear();
-    }
-
-    mapReady(map) {
-        console.log(map);
-        // this.mapObj = map;
-        // this.mainhubsSubscription = this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
-        //     .subscribe((response) => {
-        //         this.mainHub = response[0];
-        //         this.reportsSubscription = this.reportService.getReportsFromTime(this.mainHub['id'], new Date(new Date().getFullYear(), 0, 1).getTime()).subscribe(reportModel => {
-        //             this.report = reportModel;
-        //             this.mapObj.setCenter({lat: this.report.mainhub.latitude, lng: this.report.mainhub.longitude});
-        //         });
-        //     });
     }
 
     parseData(reports?) {
@@ -162,8 +147,8 @@ export class AdminReportingComponent implements OnInit, OnDestroy {
     }
 
     onTerritoryClick(index: number) {
-        const button = document.getElementById('country_button');
-        button.innerText = this.territories[index]['name'];
+        const button = document.getElementById('territory_button');
+        button.innerText = this.territories[index]['name'] || this.territories[index]['territory'];
         this.mainhubService.getMainHubsInTerritory(this.countryName, this.territories[index]['id']);
     }
 

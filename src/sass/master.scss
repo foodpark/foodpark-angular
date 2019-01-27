@@ -40320,12 +40320,41 @@ button.toast-close-button {
     color: black !important;
     ul, li {
         font-family: 'Raleway', sans-serif !important;
-        padding-left: 0 !important;
         font-size: 20px !important;
         span {
             font-family: 'Raleway', sans-serif !important;
             color: black !important;
             font-size: 20px !important;
+        }
+        tree-internal {
+            .tree {
+                .folding {
+                    &.node-expanded {
+                        &:before {
+                            color: black;
+                            font-size: 22px;
+                        }
+                    }
+                    &.node-collapsed {
+                        &:before {
+                            color: black;
+                            font-size: 20px;
+                        }
+                    }
+                    &.node-empty {
+                        &:before {
+                            color: black;
+                            font-size: 20px;
+                        }
+                    }
+                    &.node-leaf {
+                        &:before {
+                            color: black;
+                            font-size: 20px;
+                        }
+                    }
+                }
+            }
         }
     }
 }
