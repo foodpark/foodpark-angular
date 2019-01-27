@@ -2,10 +2,9 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
-
-import {CountryService} from '../../../../app-services/country.service';
-import {TerritoryService} from '../../../../app-services/territory.service';
-import {CountryModel, TerritoryModel} from '../../../../model';
+import { CountryService } from 'src/app/app-services/country.service';
+import { TerritoryService } from 'src/app/app-services/territory.service';
+import { CountryModel } from 'src/app/model';
 
 @Component({
     selector: 'app-edit-territory',

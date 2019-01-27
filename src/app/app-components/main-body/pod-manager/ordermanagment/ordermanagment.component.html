@@ -1,0 +1,123 @@
+<div class="absolute-position">
+    <div class="title-center">
+        <h2>Order Status</h2>
+    </div>
+    <div class="title-center">
+        <h4>Pod: <i>{{pod?.name}}</i></h4>
+    </div>
+    <div class="order_mngmnt_card_view">
+        <div *ngIf="completeordersdata !== undefined || completeordersdata.length">
+            <ng-container *ngFor="let orders of completeordersdata; let i = index">
+                <div class="card_view accordion-toggle" data-toggle="collapse" [attr.data-target]="i" (click)="expandAccordian(orders)">
+                    <div class="card_view_icon">
+                        <img alt="" src="assets/images/truck.jpeg" style="padding-left: 60px;"/>
+                    </div>
+                    <div class="crad_view__creation_details">
+                        Order Creation: {{ orders.created_at | date: "MMM d, y, - h:mm a" }}
+                    </div>
+                    <div class="card_view__names" *ngIf="orders.driver_name">
+                        Volunteer: {{ orders.driver_name }}
+                    </div>
+                    <div class="card_view__names" *ngIf="!orders.driver_name">
+                        Volunteer:
+                    </div>
+                    <div class="card_view__actions">
+                        <button type="button" name="button"
+                            [ngClass]="{
+                                button_arrived: orders.status === 'ARRIVED',
+                                button_ready: orders.status === 'POD READY',
+                                button_palletized: orders.status === 'PALLETIZED',
+                                button_dispatched: orders.status === 'DISPATCHED',
+                                button_delivered: orders.status === 'DELIVERED' }">
+                            {{ orders.status }}
+                        </button>
+                    </div>
+                </div>
+                <div class="accordian-body card_view_collapsed" id="{{ orders.id + '' }}" *ngIf="selectedid === orders.id">
+                    <div class="title-center">
+                        <h4>Select Order Status</h4>
+                    </div>
+                    <div class="order_staus_action_buttons">
+                        <div class="card_view__actions">
+                            <button type="button" name="button" value="ARRIVED" (click)="onStatusClick($event)" class="button_arrived">Master Load</button>
+                        </div>
+                        <div class="card_view__actions">
+                            <button type="button" name="button" value="PALLETIZED" (click)="onStatusClick($event)" class="button_palletized">Palletized GIK</button>
+                        </div>
+                        <div class="card_view__actions">
+                            <button type="button" name="button" value="POD READY" (click)="onStatusClick($event)" class="button_ready">Pod Ready</button>
+                        </div>
+                        <div class="card_view__actions">
+                            <button type="button" name="button" value="DISPATCHED" (click)="onStatusClick($event)" class="button_dispatched">Dispatched</button>
+                        </div>
+                        <div class="card_view__actions">
+                            <button type="button" name="button" value="DELIVERED" (click)="onStatusClick($event)" class="button_delivered">Pod Delivered</button>
+                        </div>
+                    </div>
+                    <!-- <div class="volunteer_dropdown">
+                        <div class="form-group">
+                            <h4>Volunteer</h4>
+                            <div class="dropdown">
+                                <button id="volunteer_button" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" *ngIf="pods.orders">
+                                    {{ orders.driver_name }}
+                                </button>
+                                <button id="volunteer_button" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" *ngIf="!pods.orders">
+                                    Select
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li *ngFor="let item of filteredVolunteers;let i = index" (click)="onVolunteerClick(i, item)">
+                                        {{ item.first_name }} {{ item.last_name }}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="load__details">
+                        <table class="table table-borderless">
+                            <thead>
+                            <tr>
+                                <th>Request Name</th>
+                                <th>Date</th>
+                                <th>Pallets</th>
+                                <th>Box</th>
+                                <th>Items</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>{{ ordersdata.name }}</td>
+                                <td>
+                                    {{ ordersdata.created_at | date }}
+                                </td>
+                                <td>
+                                    <p *ngFor="let pallet of ordersdata.pallets">
+                                        {{ pallet.category_name }} X
+                                        {{ pallet.quantity }}
+                                    </p>
+                                </td>
+                                <td>
+                                    <p *ngFor="let boxes of ordersdata.boxes">
+                                        {{ boxes.category_name }} X
+                                        {{ boxes.quantity }}
+                                    </p>
+                                </td>
+                                <td>
+                                    <p *ngFor="let item of ordersdata.items">
+                                        {{ item.category_name }} X
+                                        {{ item.quantity }}
+                                    </p>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+        <div class="no_orders" *ngIf="!completeordersdata.length">
+            <h5 style="padding-bottom: 20px;">
+                There are no orders available for this Pod
+            </h5>
+        </div>
+    </div>
+</div>

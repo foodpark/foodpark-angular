@@ -35,9 +35,12 @@ export class DistributionService {
     }
 
     // ordermanagement service
-
     getOrderDetails(mainHubId) {
         return this.http.get(environment.apiUrl + '/api/v1/rel/food_parks/' + mainHubId + '/ordermanagement');
+    }
+
+    getPodOrderDetails(podId: number) {
+        return this.http.get(environment.apiUrl + '/api/v1/rel/churches/' + podId + '/ordermanagement');
     }
 
     getAvailableVolunteers(mainHubId) {

@@ -2,9 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router, ParamMap} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
-import {PodsManagerService} from '../../../../app-services/pod-manager.service';
 import {CategoryModel, LoadItemModel, PodModel} from 'src/app/model';
 import {TitleCasePipe} from '@angular/common';
+import { PodsManagerService } from 'src/app/app-services/pod-manager.service';
 
 @Component({
     selector: 'app-add-edit-resource',

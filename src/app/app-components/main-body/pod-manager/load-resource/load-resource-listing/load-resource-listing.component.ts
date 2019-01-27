@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormBuilder, Validators} from '@angular/forms';
+import { PodModel } from 'src/app/model';
+import { PodsManagerService } from 'src/app/app-services/pod-manager.service';
 
-import {PodsManagerService} from '../../../../app-services/pod-manager.service';
-import {PodModel} from '../../../../model';
 
 @Component({
-    selector: 'app-loadresource',
-    templateUrl: './load-resource.component.html'
+    selector: 'app-loadresource-listing',
+    templateUrl: './load-resource-listing.component.html'
 })
 export class LoadResourceComponent implements OnInit {
     loadrequests: any;

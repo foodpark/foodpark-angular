@@ -1,12 +1,13 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {CountryService} from '../../../../app-services/country.service';
-import {TerritoryService} from '../../../../app-services/territory.service';
-import {HubmanagerService} from '../../../../app-services/hubmanager.service';
+
 import {Subscription} from 'rxjs';
-import {CountryModel, HubmanagerModel, TerritoryModel} from '../../../../model';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
-import {DataService} from '../../../../app-services/data.service';
+import { CountryModel, TerritoryModel, HubmanagerModel } from 'src/app/model';
+import { CountryService } from 'src/app/app-services/country.service';
+import { TerritoryService } from 'src/app/app-services/territory.service';
+import { HubmanagerService } from 'src/app/app-services/hubmanager.service';
+import { DataService } from 'src/app/app-services/data.service';
 
 @Component({
     selector: 'app-new-hub-manager-dashboard',

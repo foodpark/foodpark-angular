@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {TerritoryService} from '../../../../app-services/territory.service';
 import {Subscription} from 'rxjs';
-import {TerritoryModel} from '../../../../model';
+import { TerritoryModel } from 'src/app/model';
+import { TerritoryService } from 'src/app/app-services/territory.service';
 
 
 @Component({
@@ -13,7 +13,8 @@ export class TerritoriesListingComponent implements OnInit, OnDestroy {
     territories: TerritoryModel[] = [];
     private territoriesSubscription: Subscription;
 
-    constructor(private territoryService: TerritoryService, private router: Router) {
+    constructor(private territoryService: TerritoryService,
+                private router: Router) {
     }
 
     ngOnInit() {
