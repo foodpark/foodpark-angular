@@ -20,21 +20,26 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
     countries: CountryModel[] = [];
     private countriesSubscription: Subscription;
     private fileUploadSubscription: Subscription;
-    private mainhubsSubscription: Subscription;
     private church_id: number;
     wordfileURL: string;
-    mainHub : any;
+    mainHub: any;
     wordFileToUpload: File;
     hideFileContainer = false;
 
     churchType = ['Church', 'Non-Profit', 'Non-Religious', 'Non-Denominational', 'Other'];
     connectedWith = ['Personal Referral', 'Google Search', 'Social Media', 'Other'];
 
-    constructor(private formBuilder: FormBuilder, private route: Router, private countryService: CountryService, private podService: PodsService, private dataService: DataService, private fileUploadService: FileUploadService, private mainhubService: MainhubService) {
-      this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
-        .subscribe((response) => {
-          this.mainHub = response[0];
-      });
+    constructor(private formBuilder: FormBuilder,
+        private route: Router,
+        private countryService: CountryService,
+        private podService: PodsService,
+        private dataService: DataService,
+        private fileUploadService: FileUploadService,
+        private mainhubService: MainhubService) {
+            this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
+            .subscribe((response) => {
+            this.mainHub = response[0];
+            });
     }
 
     ngOnInit() {
@@ -57,16 +62,16 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
         });
 
         this.fileUploadSubscription = this.fileUploadService.getFileUploadListener()
-            .subscribe((fileURL) => {
-                console.log('File Uploaded: ' + fileURL);
-                this.wordfileURL = fileURL;
-                this.createPodManager();
-            });
+        .subscribe((fileURL) => {
+            this.wordfileURL = fileURL;
+            this.createPodManager();
+        });
 
         this.countriesSubscription = this.countryService.getCountriesUpdateListener()
-            .subscribe((countries: CountryModel[]) => {
-                this.countries = countries;
-            });
+        .subscribe((countries: CountryModel[]) => {
+            this.countries = countries;
+        });
+
         this.countryService.getCountries();
     }
 
@@ -136,9 +141,9 @@ export class CreatePodsComponent implements OnInit, OnDestroy {
         };
 
         this.podService.updatePod(this.church_id, updatePodData)
-            .subscribe(() => {
-                this.route.navigate(['/hubmanager/podapplications']);
-            });
+        .subscribe(() => {
+            this.route.navigate(['/hubmanager/podapplications']);
+        });
     }
 
 

@@ -30,6 +30,8 @@ export class EditPodsComponent implements OnInit, OnDestroy {
     ];
     wordfileURL: string;
     wordFileToUpload: File;
+    showLabel = false;
+
     private fileUploadSubscription: Subscription;
 
     constructor(
@@ -60,6 +62,7 @@ export class EditPodsComponent implements OnInit, OnDestroy {
                     .subscribe(res => {
                         this.pod = res;
                         this.wordfileURL = this.pod.wordfile;
+                        this.showLabel = false;
                         this.editpodform.get('pod_name').setValue(this.pod['name'], {emitEvent: false});
                         this.editpodform.get('latitude').setValue(this.pod['latitude'], {emitEvent: false});
                         this.editpodform.get('longitude').setValue(this.pod['longitude'], {emitEvent: false});
@@ -74,10 +77,11 @@ export class EditPodsComponent implements OnInit, OnDestroy {
         });
 
         this.fileUploadSubscription = this.fileUploadService.getFileUploadListener()
-            .subscribe((fileURL) => {
-                this.wordfileURL = fileURL;
-                this.uploadPod();
-            });
+        .subscribe((fileURL) => {
+            this.wordfileURL = fileURL;
+            this.showLabel = true;
+            this.uploadPod();
+        });
     }
 
     onChurchTypeClick(type: string) {
@@ -92,6 +96,7 @@ export class EditPodsComponent implements OnInit, OnDestroy {
 
     onFilePicked(files: FileList) {
         this.wordFileToUpload = files.item(0);
+        this.showLabel = true;
         this.editpodform.get('wordFile').setValue(this.wordFileToUpload);
         document.getElementById('wordfile_name').innerText = this.wordFileToUpload.name;
     }

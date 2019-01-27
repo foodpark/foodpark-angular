@@ -71,9 +71,12 @@
             <button mat-stroked-button style="width:200px;" type="button" (click)="filePicker.click()">
                 Select Word Document
             </button>
-            <h5 style="height: 30px;font-size: 20px;margin: 30px 0;" id="wordfile_name">{{wordFileToUpload !==     null ?
-                wordFileToUpload.name : wordfileURL ? wordfileURL :'File URL' }}
+            <h5 style="height: 30px;font-size: 20px;margin: 30px 0;" id="wordfile_name" *ngIf="showLabel">
+                {{ wordFileToUpload.name }}
             </h5>
+            <a href="{{ wordfileURL }}" target="_blank" *ngIf="!showLabel">
+                Download
+            </a>
             <input
                 style="width: 150px; height: 10px;"
                 #filePicker
