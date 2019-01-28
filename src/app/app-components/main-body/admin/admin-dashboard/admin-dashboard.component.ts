@@ -1,10 +1,6 @@
-import {Component, OnInit, AfterViewInit} from '@angular/core';
-
-import {DataService} from '../../../../app-services/data.service';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {AuthService} from '../../../../app-services/auth.service';
-
-import {from} from 'rxjs';
-import { Router } from '@angular/router';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-admin-dashboard',
@@ -14,7 +10,7 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
     userName: string;
 
     constructor(public authService: AuthService,
-        private router: Router) {
+                private router: Router) {
     }
 
     ngOnInit() {

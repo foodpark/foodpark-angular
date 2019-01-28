@@ -32,6 +32,8 @@ import {HubManagerReportingComponent} from './hub-manager-reporting/hub-manager-
 import {TreeModule} from 'ng2-tree';
 import {PodPickupsListingComponent} from './pod-pickups-listing/pod-pickups-listing.component';
 import {AddEditPodPickupComponent} from './add-edit-podpickup/add-edit-podpickup.component';
+import {HubmanagerReportingGraphsComponent} from './hubmanager-reporting-graphs/hubmanager-reporting-graphs.component';
+import {BarChartComponent} from 'angular-d3-charts';
 
 
 @NgModule({
@@ -46,7 +48,7 @@ import {AddEditPodPickupComponent} from './add-edit-podpickup/add-edit-podpickup
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyCte3xKzZwcbVXm7942WDn1Twu2I0SAsoo'
         }),
-        TreeModule
+        TreeModule,
     ],
     declarations: [
         HubManagerDashboardComponent,
@@ -73,7 +75,9 @@ import {AddEditPodPickupComponent} from './add-edit-podpickup/add-edit-podpickup
         CustomizeLoadComponent,
         HubManagerReportingComponent,
         PodPickupsListingComponent,
-        AddEditPodPickupComponent
+        AddEditPodPickupComponent,
+        HubmanagerReportingGraphsComponent,
+        BarChartComponent
     ],
     exports: [
         HubManagerDashboardComponent,

@@ -28,7 +28,7 @@ import { PodManagerModule } from './app-components/main-body/pod-manager/pod-man
         LoaderComponent,
         ErrorComponent,
         LoginComponent,
-        GuestCreatePodsComponent
+        GuestCreatePodsComponent,
     ],
     imports: [
         BrowserModule,
