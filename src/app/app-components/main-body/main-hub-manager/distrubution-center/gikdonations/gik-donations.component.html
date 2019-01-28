@@ -29,6 +29,10 @@
                         <div class="crad_view__creation_details">
                             Order Creation:
                             {{ orders.created_at | date: "MMM d, y, - h:mm a" }}
+                            <br>
+                        </div>
+                        <div class="card_view__names">
+                            Request: {{ orders.name }}
                         </div>
                         <div
                             class="card_view__names"
