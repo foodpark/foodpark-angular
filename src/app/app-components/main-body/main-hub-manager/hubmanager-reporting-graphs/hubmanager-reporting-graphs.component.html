@@ -1,0 +1,33 @@
+<div class="absolute-position">
+    <div class="title-center">
+        <h2>Reporting</h2>
+    </div>
+    <div class="title-center">
+        <h4>Main Hub: <i>{{mainHub?.name}}</i></h4>
+    </div>
+    <div>
+        <angular-d3-bar [id]="test2"
+                        [data]="barChartData"
+                        [dataColumns]="dataColumns"
+                        [colors]="colors"
+                        [yAxisTicks]=10
+                        [transitionDuration]=1000
+                        [transitionDelay]=30
+                        [barWidth]="'16px'">
+        </angular-d3-bar>
+        <div class="container-fluid col-sm-12 menu_detail shell bg_1" style="padding: 35px 20px;">
+            <div class="form-group" style="display: flex;justify-content: space-between;">
+                <h4>Select Date</h4>
+                <div class="dropdown" style="min-width: 86%;">
+                    <button id="date" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                        {{ currentYear }}
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li (click)="onYearSelected()">{{ currentYear }}</li>
+                        <li (click)="onMonthSelected()">Last Month</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
