@@ -5,7 +5,7 @@ import {ReportingService} from '../../../../app-services/reporting.service';
 import {MainhubModel, ReportingModel} from '../../../../model';
 import {Subscription} from 'rxjs';
 import {TreeModel} from 'ng2-tree';
-import { AgmMap, AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
+import { AgmMap } from '@agm/core';
 
 interface Marker {
     latitude: number;
