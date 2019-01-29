@@ -1,11 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 
-import {DataService} from '../../../../app-services/data.service';
-import {RegionalHubModel, MainhubModel} from '../../../../model';
-import {RegionalhubsService} from '../../../../app-services/regionalhubs.service';
 import {Subscription} from 'rxjs';
 import {Router} from '@angular/router';
 import {MainhubService} from 'src/app/app-services/mainhub.service';
+import { MainhubModel, RegionalHubModel } from 'src/app/model';
+import { DataService } from 'src/app/app-services/data.service';
+import { RegionalhubsService } from 'src/app/app-services/regionalhubs.service';
 
 
 @Component({

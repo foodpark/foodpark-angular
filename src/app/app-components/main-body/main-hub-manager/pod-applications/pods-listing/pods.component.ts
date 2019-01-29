@@ -1,10 +1,10 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ParamMap, Router} from '@angular/router';
-import {PodsService} from '../../../../app-services/pods.service';
-import {MainhubModel, PodModel, RegionalHubModel} from '../../../../model';
 import {Subscription} from 'rxjs';
-import {MainhubService} from '../../../../app-services/mainhub.service';
-import {RegionalhubsService} from '../../../../app-services/regionalhubs.service';
+import { PodModel, MainhubModel, RegionalHubModel } from 'src/app/model';
+import { PodsService } from 'src/app/app-services/pods.service';
+import { MainhubService } from 'src/app/app-services/mainhub.service';
+import { RegionalhubsService } from 'src/app/app-services/regionalhubs.service';
 
 
 @Component({

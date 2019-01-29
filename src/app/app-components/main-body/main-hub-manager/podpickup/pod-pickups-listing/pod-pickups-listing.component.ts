@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {MainhubModel, PodPickupModel} from '../../../../model';
 import {Subscription} from 'rxjs';
-import {MainhubService} from '../../../../app-services/mainhub.service';
 import {Router} from '@angular/router';
-import {PodPickupService} from '../../../../app-services/pod-pickup.service';
+import { PodPickupModel, MainhubModel } from 'src/app/model';
+import { PodPickupService } from 'src/app/app-services/pod-pickup.service';
+import { MainhubService } from 'src/app/app-services/mainhub.service';
 
 @Component({
     selector: 'app-pod-pickups-listing',

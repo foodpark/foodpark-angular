@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {MasterLoadService} from '../../../../app-services/master-load.service';
 import {Subscription} from 'rxjs';
-import {MasterLoadModel, MainhubModel} from '../../../../model';
+import {MasterLoadModel, MainhubModel} from 'src/app/model';
 import { MainhubService } from 'src/app/app-services/mainhub.service';
+import { MasterLoadService } from 'src/app/app-services/master-load.service';
 
 @Component({
     selector: 'app-load-management',

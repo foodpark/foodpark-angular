@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {FileUploadService} from '../../../../app-services/fileupload.service';
 import {Subscription} from 'rxjs';
-import {MasterLoadService} from '../../../../app-services/master-load.service';
-import {MainhubService} from '../../../../app-services/mainhub.service';
 import {Router} from '@angular/router';
-import {DataService} from '../../../../app-services/data.service';
+import { DataService } from 'src/app/app-services/data.service';
+import { FileUploadService } from 'src/app/app-services/fileupload.service';
+import { MasterLoadService } from 'src/app/app-services/master-load.service';
+import { MainhubService } from 'src/app/app-services/mainhub.service';
 
 @Component({
     selector: 'app-create-master',
