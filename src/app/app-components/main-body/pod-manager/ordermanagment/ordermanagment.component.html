@@ -1,6 +1,6 @@
 <div class="absolute-position">
     <div class="title-center">
-        <h2>Order Status</h2>
+        <h2>Order Management</h2>
     </div>
     <div class="title-center">
         <h4>Pod: <i>{{pod?.name}}</i></h4>
@@ -14,6 +14,9 @@
                     </div>
                     <div class="crad_view__creation_details">
                         Order Creation: {{ orders.created_at | date: "MMM d, y, - h:mm a" }}
+                    </div>
+                    <div class="card_view__names">
+                        Request: {{ orders.name }}
                     </div>
                     <div class="card_view__names" *ngIf="orders.driver_name">
                         Volunteer: {{ orders.driver_name }}

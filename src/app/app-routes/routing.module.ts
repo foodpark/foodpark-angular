@@ -3,33 +3,18 @@ import {RouterModule, Routes} from '@angular/router';
 import {AdminDashboardComponent} from '../app-components/main-body/admin/admin-dashboard/admin-dashboard.component';
 
 import {HubManagerDashboardComponent} from '../app-components/main-body/main-hub-manager/hub-manager-dashboard/hub-manager-dashboard.component';
-import {RegionalHubComponent} from '../app-components/main-body/main-hub-manager/regionalhub/regionalhub.component';
-import {CreatePodsComponent} from '../app-components/main-body/main-hub-manager/create-pods/create-pods.component';
-import {PodsComponent} from '../app-components/main-body/main-hub-manager/pods/pods.component';
-
-import {LoadManagementComponent} from '../app-components/main-body/main-hub-manager/load-management/load-management.component';
-import {HubPickupsComponent} from '../app-components/main-body/main-hub-manager/hub-pickups/hub-pickups.component';
-import {HubManagerComponent} from '../app-components/main-body/main-hub-manager/hub-manager/hub-manager.component';
 import {DistributionCenterComponent} from '../app-components/main-body/main-hub-manager/distrubution-center/distrubution-center.component';
 import {VolunteersComponent} from '../app-components/main-body/main-hub-manager/distrubution-center/volunteers/volunteers.component';
 
 import {AuthGuard} from '../app-services/auth.guard';
-import {AddEditRegionalHubComponent} from '../app-components/main-body/main-hub-manager/add-edit-regional-hub/add-edit-regional-hub.component';
-import {EditPodsComponent} from '../app-components/main-body/main-hub-manager/edit-pod/edit-pods.component';
 import {PodManagersListingComponent} from '../app-components/main-body/main-hub-manager/pod-managers/pod-managers-listing/pod-managers-listing.component';
-import {EditHubpickupComponent} from '../app-components/main-body/main-hub-manager/edit-hubpickup/edit-hubpickup.component';
-import {HubPickupListingComponent} from '../app-components/main-body/main-hub-manager/hub-pickup-listing/hub-pickup-listing.component';
 import {EditPodManagerComponent} from '../app-components/main-body/main-hub-manager/pod-managers/edit-pod-manager/edit-pod-manager.component';
 import {GIKDonationsComponent} from '../app-components/main-body/main-hub-manager/distrubution-center/gikdonations/gik-donations.component';
 
 import {CreateDonationOrderComponent} from '../app-components/main-body/main-hub-manager/create-donation-order/create-donation-order.component';
-import {CreateMasterLoadComponent} from '../app-components/main-body/main-hub-manager/create-master-load/create-master-load.component';
-import {EditMasterLoadComponent} from '../app-components/main-body/main-hub-manager/edit-master-load/edit-master-load.component';
 import {CustomizeLoadComponent} from '../app-components/main-body/main-hub-manager/customize-load/customize-load.component';
 import {AdminReportingComponent} from '../app-components/main-body/admin/admin-reporting/admin-reporting.component';
 import {HubManagerReportingComponent} from '../app-components/main-body/main-hub-manager/hub-manager-reporting/hub-manager-reporting.component';
-import {PodPickupsListingComponent} from '../app-components/main-body/main-hub-manager/pod-pickups-listing/pod-pickups-listing.component';
-import {AddEditPodPickupComponent} from '../app-components/main-body/main-hub-manager/add-edit-podpickup/add-edit-podpickup.component';
 import {LoginComponent} from '../app-components/main-body/initial/login/login.component';
 import {GuestCreatePodsComponent} from '../app-components/main-body/initial/guest-create-pods/guest-create-pods.component';
 import {TerritoriesListingComponent} from '../app-components/main-body/admin/territories/territories-listing/territories-listing.component';
@@ -44,6 +29,19 @@ import {LoadResourceComponent} from '../app-components/main-body/pod-manager/loa
 import {OrderManagmentComponent} from '../app-components/main-body/pod-manager/ordermanagment/ordermanagment.component';
 import {AdminReportingGraphsComponent} from '../app-components/main-body/admin/admin-reporting-graphs/admin-reporting-graphs.component';
 import {HubmanagerReportingGraphsComponent} from '../app-components/main-body/main-hub-manager/hubmanager-reporting-graphs/hubmanager-reporting-graphs.component';
+import { RegionalHubComponent } from '../app-components/main-body/main-hub-manager/regionalhub/regionalhublisting/regionalhub.component';
+import { AddEditRegionalHubComponent } from '../app-components/main-body/main-hub-manager/regionalhub/add-edit-regional-hub/add-edit-regional-hub.component';
+import { PodsComponent } from '../app-components/main-body/main-hub-manager/pod-applications/pods-listing/pods.component';
+import { EditPodsComponent } from '../app-components/main-body/main-hub-manager/pod-applications/edit-pod/edit-pods.component';
+import { CreatePodsComponent } from '../app-components/main-body/main-hub-manager/pod-applications/create-pods/create-pods.component';
+import { LoadManagementComponent } from '../app-components/main-body/main-hub-manager/master-load/load-management/load-management.component';
+import { HubPickupListingComponent } from '../app-components/main-body/main-hub-manager/hub-pickup/hub-pickup-listing/hub-pickup-listing.component';
+import { EditHubpickupComponent } from '../app-components/main-body/main-hub-manager/hub-pickup/edit-hubpickup/edit-hubpickup.component';
+import { HubPickupsComponent } from '../app-components/main-body/main-hub-manager/hub-pickup/hub-pickups/hub-pickups.component';
+import { CreateMasterLoadComponent } from '../app-components/main-body/main-hub-manager/master-load/create-master-load/create-master-load.component';
+import { EditMasterLoadComponent } from '../app-components/main-body/main-hub-manager/master-load/edit-master-load/edit-master-load.component';
+import { PodPickupsListingComponent } from '../app-components/main-body/main-hub-manager/podpickup/pod-pickups-listing/pod-pickups-listing.component';
+import { AddEditPodPickupComponent } from '../app-components/main-body/main-hub-manager/podpickup/add-edit-podpickup/add-edit-podpickup.component';
 
 const routes: Routes = [
     {
@@ -166,10 +164,6 @@ const routes: Routes = [
             {
                 path: 'addhubpickup',
                 component: HubPickupsComponent
-            },
-            {
-                path: 'hubmanager',
-                component: HubManagerComponent
             },
             {
                 path: 'hubmgrreporting',

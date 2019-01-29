@@ -2,13 +2,13 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
-import {CountryService} from '../../../../app-services/country.service';
-import {CountryModel} from '../../../../model';
 import {Subscription} from 'rxjs';
 import {PodsService} from 'src/app/app-services/pods.service';
 import {FileUploadService} from 'src/app/app-services/fileupload.service';
-import {DataService} from '../../../../app-services/data.service';
-import {MainhubService} from '../../../../app-services/mainhub.service';
+import { CountryModel } from 'src/app/model';
+import { CountryService } from 'src/app/app-services/country.service';
+import { DataService } from 'src/app/app-services/data.service';
+import { MainhubService } from 'src/app/app-services/mainhub.service';
 
 @Component({
     selector: 'app-create-pods',

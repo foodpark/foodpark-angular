@@ -1,15 +1,15 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MainhubModel, PodModel, RegionalHubModel} from '../../../../model';
 import {Subscription} from 'rxjs';
-import {MainhubService} from '../../../../app-services/mainhub.service';
 import {HttpClient} from '@angular/common/http';
-import {DataService} from '../../../../app-services/data.service';
-import {FileUploadService} from '../../../../app-services/fileupload.service';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
-import {PodPickupService} from '../../../../app-services/pod-pickup.service';
-import {RegionalhubsService} from '../../../../app-services/regionalhubs.service';
-import {PodsService} from '../../../../app-services/pods.service';
+import { MainhubModel, PodModel, RegionalHubModel } from 'src/app/model';
+import { MainhubService } from 'src/app/app-services/mainhub.service';
+import { DataService } from 'src/app/app-services/data.service';
+import { PodPickupService } from 'src/app/app-services/pod-pickup.service';
+import { RegionalhubsService } from 'src/app/app-services/regionalhubs.service';
+import { FileUploadService } from 'src/app/app-services/fileupload.service';
+import { PodsService } from 'src/app/app-services/pods.service';
 
 @Component({
     selector: 'app-add-edit-podpickup',

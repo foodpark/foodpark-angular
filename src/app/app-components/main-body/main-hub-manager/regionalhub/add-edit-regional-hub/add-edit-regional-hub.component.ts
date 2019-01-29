@@ -1,11 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {RegionalHubModel, MainhubModel} from '../../../../model';
 import {Subscription} from 'rxjs';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
-import {DataService} from '../../../../app-services/data.service';
-import {RegionalhubsService} from '../../../../app-services/regionalhubs.service';
 import {MainhubService} from 'src/app/app-services/mainhub.service';
+import { MainhubModel, RegionalHubModel } from 'src/app/model';
+import { RegionalhubsService } from 'src/app/app-services/regionalhubs.service';
+import { DataService } from 'src/app/app-services/data.service';
 
 @Component({
     selector: 'app-add-edit-regional-hub',

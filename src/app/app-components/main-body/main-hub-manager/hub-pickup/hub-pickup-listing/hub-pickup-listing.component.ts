@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {HubPickupModel, MainhubModel} from '../../../../model';
+import {HubPickupModel, MainhubModel} from 'src/app/model';
 import {Subscription} from 'rxjs';
 import {Router} from '@angular/router';
-import {HubPickupService} from '../../../../app-services/hub-pickup.service';
-import {MainhubService} from '../../../../app-services/mainhub.service';
+import {HubPickupService} from 'src/app/app-services/hub-pickup.service';
+import {MainhubService} from 'src/app/app-services/mainhub.service';
 
 @Component({
     selector: 'app-hub-pickup-listing',
