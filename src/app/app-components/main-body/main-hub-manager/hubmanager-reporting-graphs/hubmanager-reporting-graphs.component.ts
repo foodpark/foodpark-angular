@@ -39,7 +39,10 @@ export class HubmanagerReportingGraphsComponent implements OnInit, OnDestroy {
         this.mainhubsSubscription = this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
             .subscribe((response) => {
                 this.mainHub = response[0];
-                this.parseData();
+                this.reportsSubscription = this.reportService.getReportsFromTime(this.mainHub['id'], new Date(new Date().getFullYear(), 0, 1).getTime()).subscribe(reportModel => {
+                    this.report = reportModel;
+                    this.parseData();
+                });
             });
         this.currentYear = new Date().getFullYear();
     }
