@@ -24,10 +24,10 @@ export class OrderManagmentComponent implements OnInit {
 
     ngOnInit() {
         this.podsManagerService.getPodOfLoggedInUser(parseInt(localStorage.getItem('user_id'), 10))
-            .subscribe(pod => {
-                this.pod = pod[0];
-                this.getAllOrders();
-            });
+        .subscribe(pod => {
+            this.pod = pod[0];
+            this.getAllOrders();
+        });
     }
 
     getAllOrders() {

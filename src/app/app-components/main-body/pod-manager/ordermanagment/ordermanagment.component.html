@@ -1,39 +1,37 @@
 <div class="absolute-position">
-    <div class="title-center">
-        <h2>Order Management</h2>
-    </div>
-    <div class="title-center">
-        <h4>Pod: <i>{{pod?.name}}</i></h4>
+    <div>
+        <div class="title-center">
+            <h2>Order Management</h2>
+        </div>
+        <div class="title-center">
+            <h4>Pod: <i>{{pod?.name}}</i></h4>
+        </div>
     </div>
     <div class="order_mngmnt_card_view">
-        <div *ngIf="completeordersdata !== undefined || completeordersdata.length">
+        <div *ngIf="completeordersdata">
             <ng-container *ngFor="let orders of completeordersdata; let i = index">
                 <div class="card_view accordion-toggle" data-toggle="collapse" [attr.data-target]="i" (click)="expandAccordian(orders)">
                     <div class="card_view_icon">
                         <img alt="" src="assets/images/truck.jpeg" style="padding-left: 60px;"/>
                     </div>
                     <div class="crad_view__creation_details">
-                        Order Creation: {{ orders.created_at | date: "MMM d, y, - h:mm a" }}
+                        <p>Order Creation: {{orders.created_at | date: "MMM d, y, - h:mm a"}}</p>
+                        <p>Request: {{ orders.name }}</p>
+                        <p *ngIf="orders.driver_name"> Volunteer: {{ orders.driver_name }}</p>
+                        <p *ngIf="!orders.driver_name">Volunteer:</p>
                     </div>
-                    <div class="card_view__names">
-                        Request: {{ orders.name }}
-                    </div>
-                    <div class="card_view__names" *ngIf="orders.driver_name">
-                        Volunteer: {{ orders.driver_name }}
-                    </div>
-                    <div class="card_view__names" *ngIf="!orders.driver_name">
-                        Volunteer:
-                    </div>
-                    <div class="card_view__actions">
-                        <button type="button" name="button"
-                            [ngClass]="{
-                                button_arrived: orders.status === 'ARRIVED',
-                                button_ready: orders.status === 'POD READY',
-                                button_palletized: orders.status === 'PALLETIZED',
-                                button_dispatched: orders.status === 'DISPATCHED',
-                                button_delivered: orders.status === 'DELIVERED' }">
-                            {{ orders.status }}
-                        </button>
+                    <div style="padding-right: 60px;">
+                        <div class="card_view__actions">
+                            <button type="button" name="button"
+                                [ngClass]="{
+                                    button_arrived: orders.status === 'ARRIVED',
+                                    button_ready: orders.status === 'POD READY',
+                                    button_palletized: orders.status === 'PALLETIZED',
+                                    button_dispatched: orders.status === 'DISPATCHED',
+                                    button_delivered: orders.status === 'DELIVERED' }">
+                                {{ orders.status }}
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div class="accordian-body card_view_collapsed" id="{{ orders.id + '' }}" *ngIf="selectedid === orders.id">
@@ -116,11 +114,6 @@
                     </div>
                 </div>
             </ng-container>
-        </div>
-        <div class="no_orders" *ngIf="!completeordersdata.length">
-            <h5 style="padding-bottom: 20px;">
-                There are no orders available for this Pod
-            </h5>
         </div>
     </div>
 </div>
