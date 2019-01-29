@@ -1,34 +1,34 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {AdminDashboardComponent} from '../app-components/main-body/admin/admin-dashboard/admin-dashboard.component';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { AdminDashboardComponent } from '../app-components/main-body/admin/admin-dashboard/admin-dashboard.component';
 
-import {HubManagerDashboardComponent} from '../app-components/main-body/main-hub-manager/hub-manager-dashboard/hub-manager-dashboard.component';
-import {DistributionCenterComponent} from '../app-components/main-body/main-hub-manager/distrubution-center/distrubution-center.component';
-import {VolunteersComponent} from '../app-components/main-body/main-hub-manager/distrubution-center/volunteers/volunteers.component';
+import { HubManagerDashboardComponent } from '../app-components/main-body/main-hub-manager/hub-manager-dashboard/hub-manager-dashboard.component';
+import { DistributionCenterComponent } from '../app-components/main-body/main-hub-manager/distrubution-center/distrubution-center.component';
+import { VolunteersComponent } from '../app-components/main-body/main-hub-manager/distrubution-center/volunteers/volunteers.component';
 
-import {AuthGuard} from '../app-services/auth.guard';
-import {PodManagersListingComponent} from '../app-components/main-body/main-hub-manager/pod-managers/pod-managers-listing/pod-managers-listing.component';
-import {EditPodManagerComponent} from '../app-components/main-body/main-hub-manager/pod-managers/edit-pod-manager/edit-pod-manager.component';
-import {GIKDonationsComponent} from '../app-components/main-body/main-hub-manager/distrubution-center/gikdonations/gik-donations.component';
+import { AuthGuard } from '../app-services/auth.guard';
+import { PodManagersListingComponent } from '../app-components/main-body/main-hub-manager/pod-managers/pod-managers-listing/pod-managers-listing.component';
+import { EditPodManagerComponent } from '../app-components/main-body/main-hub-manager/pod-managers/edit-pod-manager/edit-pod-manager.component';
+import { GIKDonationsComponent } from '../app-components/main-body/main-hub-manager/distrubution-center/gikdonations/gik-donations.component';
 
-import {CreateDonationOrderComponent} from '../app-components/main-body/main-hub-manager/create-donation-order/create-donation-order.component';
-import {CustomizeLoadComponent} from '../app-components/main-body/main-hub-manager/customize-load/customize-load.component';
-import {AdminReportingComponent} from '../app-components/main-body/admin/admin-reporting/admin-reporting.component';
-import {HubManagerReportingComponent} from '../app-components/main-body/main-hub-manager/hub-manager-reporting/hub-manager-reporting.component';
-import {LoginComponent} from '../app-components/main-body/initial/login/login.component';
-import {GuestCreatePodsComponent} from '../app-components/main-body/initial/guest-create-pods/guest-create-pods.component';
-import {TerritoriesListingComponent} from '../app-components/main-body/admin/territories/territories-listing/territories-listing.component';
-import {AddEditTerritoryComponent} from '../app-components/main-body/admin/territories/add-edit-territory/add-edit-territory.component';
-import {MainHubsListingComponent} from '../app-components/main-body/admin/mainhubs/main-hubs-listing/main-hubs-listing.component';
-import {AddEditMainhubComponent} from '../app-components/main-body/admin/mainhubs/add-edit-mainhub/add-edit-mainhub.component';
-import {MainhubManagerListingComponent} from '../app-components/main-body/admin/mainhubmanager/mainhub-manager-listing/mainhub-manager-listing.component';
-import {AddEditMainHubManagerComponent} from '../app-components/main-body/admin/mainhubmanager/add-edit-main-hub-manager/add-edit-main-hub-manager.component';
-import {AddEditResourceComponent} from '../app-components/main-body/pod-manager/load-resource/add-edit-resource/add-edit-resource.component';
-import {PodManagerDashboardComponent} from '../app-components/main-body/pod-manager/pod-manager-dashboard/pod-manager-dashboard.component';
-import {LoadResourceComponent} from '../app-components/main-body/pod-manager/load-resource/load-resource-listing/load-resource-listing.component';
-import {OrderManagmentComponent} from '../app-components/main-body/pod-manager/ordermanagment/ordermanagment.component';
-import {AdminReportingGraphsComponent} from '../app-components/main-body/admin/admin-reporting-graphs/admin-reporting-graphs.component';
-import {HubmanagerReportingGraphsComponent} from '../app-components/main-body/main-hub-manager/hubmanager-reporting-graphs/hubmanager-reporting-graphs.component';
+import { CreateDonationOrderComponent } from '../app-components/main-body/main-hub-manager/create-donation-order/create-donation-order.component';
+import { CustomizeLoadComponent } from '../app-components/main-body/main-hub-manager/customize-load/customize-load.component';
+import { AdminReportingComponent } from '../app-components/main-body/admin/admin-reporting/admin-reporting.component';
+import { HubManagerReportingComponent } from '../app-components/main-body/main-hub-manager/hub-manager-reporting/hub-manager-reporting.component';
+import { LoginComponent } from '../app-components/main-body/initial/login/login.component';
+import { GuestCreatePodsComponent } from '../app-components/main-body/initial/guest-create-pods/guest-create-pods.component';
+import { TerritoriesListingComponent } from '../app-components/main-body/admin/territories/territories-listing/territories-listing.component';
+import { AddEditTerritoryComponent } from '../app-components/main-body/admin/territories/add-edit-territory/add-edit-territory.component';
+import { MainHubsListingComponent } from '../app-components/main-body/admin/mainhubs/main-hubs-listing/main-hubs-listing.component';
+import { AddEditMainhubComponent } from '../app-components/main-body/admin/mainhubs/add-edit-mainhub/add-edit-mainhub.component';
+import { MainhubManagerListingComponent } from '../app-components/main-body/admin/mainhubmanager/mainhub-manager-listing/mainhub-manager-listing.component';
+import { AddEditMainHubManagerComponent } from '../app-components/main-body/admin/mainhubmanager/add-edit-main-hub-manager/add-edit-main-hub-manager.component';
+import { AddEditResourceComponent } from '../app-components/main-body/pod-manager/load-resource/add-edit-resource/add-edit-resource.component';
+import { PodManagerDashboardComponent } from '../app-components/main-body/pod-manager/pod-manager-dashboard/pod-manager-dashboard.component';
+import { LoadResourceComponent } from '../app-components/main-body/pod-manager/load-resource/load-resource-listing/load-resource-listing.component';
+import { OrderManagmentComponent } from '../app-components/main-body/pod-manager/ordermanagment/ordermanagment.component';
+import { AdminReportingGraphsComponent } from '../app-components/main-body/admin/admin-reporting-graphs/admin-reporting-graphs.component';
+import { HubmanagerReportingGraphsComponent } from '../app-components/main-body/main-hub-manager/hubmanager-reporting-graphs/hubmanager-reporting-graphs.component';
 import { RegionalHubComponent } from '../app-components/main-body/main-hub-manager/regionalhub/regionalhublisting/regionalhub.component';
 import { AddEditRegionalHubComponent } from '../app-components/main-body/main-hub-manager/regionalhub/add-edit-regional-hub/add-edit-regional-hub.component';
 import { PodsComponent } from '../app-components/main-body/main-hub-manager/pod-applications/pods-listing/pods.component';
@@ -177,7 +177,7 @@ const routes: Routes = [
                 path: 'distributioncentermanagement',
                 component: DistributionCenterComponent,
                 children: [
-                    {path: '', redirectTo: 'gikdonations', pathMatch: 'full'},
+                    { path: '', redirectTo: 'gikdonations', pathMatch: 'full' },
                     {
                         path: 'gikdonations',
                         component: GIKDonationsComponent
@@ -259,5 +259,4 @@ const routes: Routes = [
     exports: [RouterModule],
     providers: [AuthGuard]
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule {}

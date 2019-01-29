@@ -10,8 +10,8 @@ import {ReportingService} from '../../../../app-services/reporting.service';
     templateUrl: './hubmanager-reporting-graphs.component.html',
 })
 export class HubmanagerReportingGraphsComponent implements OnInit, OnDestroy {
-    barChartData;
-    dataColumns = [1, 1];
+    barChartData: any;
+    dataColumns = [1];
     colors = ['red', 'green', 'blue'];
     currentYear;
     mainHub: MainhubModel;
@@ -25,6 +25,41 @@ export class HubmanagerReportingGraphsComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.mainhubsSubscription = this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
+            .subscribe((response) => {
+                this.mainHub = response[0];
+                this.reportsSubscription = this.reportService.getReportsFromTime(this.mainHub.id, new Date(new Date().getFullYear(), 0, 1).getTime()).subscribe(reportModel => {
+                    this.report = reportModel;
+                    this.parseData();
+                });
+            });
+        this.currentYear = new Date().getFullYear();
+    }
+
+    parseData() {
+        var count = 0;
+        var graphData = new Array();
+        if (this.report.regionalhubs.length > 0) {
+            this.report.regionalhubs.forEach(hub => {
+                graphData.push({
+                    id: count,
+                    label: hub.name,
+                    value1: hub.load_count
+                });
+                count += 1;
+                hub.pods.forEach(pod => {
+                    graphData.push({
+                        id: count,
+                        label: pod.name,
+                        value1: pod.load_count
+                    });
+                    count += 1;
+                });
+            });
+        }
+
+        this.barChartData = graphData;
+        /*
         this.barChartData = [{
             id: 0,
             label: 'Regional hub1',
@@ -35,17 +70,13 @@ export class HubmanagerReportingGraphsComponent implements OnInit, OnDestroy {
             label: 'Regional hub2',
             value1: 20,
             value2: 5,
+        }, {
+            id: 2,
+            label: 'Regional hub3',
+            value1: 20,
+            value2: 5,
         }];
-        this.mainhubsSubscription = this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
-            .subscribe((response) => {
-                this.mainHub = response[0];
-                this.parseData();
-            });
-        this.currentYear = new Date().getFullYear();
-    }
-
-    parseData() {
-
+        */
     }
 
     onYearSelected() {
