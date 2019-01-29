@@ -1,18 +1,26 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {MainhubModel, ReportingModel} from '../../../../model';
-import {TreeModel} from 'ng2-tree';
-import {Subscription} from 'rxjs';
-import {MainhubService} from '../../../../app-services/mainhub.service';
-import {ReportingService} from '../../../../app-services/reporting.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MainhubModel, ReportingModel } from '../../../../model';
+import { TreeModel } from 'ng2-tree';
+import { Subscription } from 'rxjs';
+import { MainhubService } from '../../../../app-services/mainhub.service';
+import { ReportingService } from '../../../../app-services/reporting.service';
 
 @Component({
     selector: 'app-hubmanager-reporting-graphs',
-    templateUrl: './hubmanager-reporting-graphs.component.html',
+    templateUrl: './hubmanager-reporting-graphs.component.html'
 })
 export class HubmanagerReportingGraphsComponent implements OnInit, OnDestroy {
-    barChartData: any;
-    dataColumns = [1];
-    colors = ['red', 'green', 'blue'];
+    title: string;
+    type = 'ColumnChart';
+    data;
+    columnNames = ['Entity', 'Loads'];
+    myRoles = [
+        { role: 'style', type: 'string', index: 2 },
+        { role: 'annotation', type: 'string', index: 3 }
+    ];
+    width = 1000;
+    height = 400;
+
     currentYear;
     mainHub: MainhubModel;
     report: ReportingModel;
@@ -20,73 +28,54 @@ export class HubmanagerReportingGraphsComponent implements OnInit, OnDestroy {
     private mainhubsSubscription: Subscription;
     private reportsSubscription: Subscription;
 
-    constructor(private mainhubService: MainhubService,
-                private reportService: ReportingService) {
-    }
+    constructor(
+        private mainhubService: MainhubService,
+        private reportService: ReportingService
+    ) {}
 
     ngOnInit() {
-        this.mainhubsSubscription = this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
-            .subscribe((response) => {
+        this.mainhubsSubscription = this.mainhubService
+            .getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
+            .subscribe(response => {
                 this.mainHub = response[0];
-                this.reportsSubscription = this.reportService.getReportsFromTime(this.mainHub.id, new Date(new Date().getFullYear(), 0, 1).getTime()).subscribe(reportModel => {
-                    this.report = reportModel;
-                    this.parseData();
-                });
+                this.reportsSubscription = this.reportService
+                    .getReportsFromTime(
+                        this.mainHub.id,
+                        new Date(new Date().getFullYear(), 0, 1).getTime()
+                    )
+                    .subscribe(reportModel => {
+                        this.report = reportModel;
+                        this.parseData();
+                    });
             });
         this.currentYear = new Date().getFullYear();
     }
 
     parseData() {
-        var count = 0;
+        this.title = this.mainHub.name;
+
         var graphData = new Array();
         if (this.report.regionalhubs.length > 0) {
             this.report.regionalhubs.forEach(hub => {
-                graphData.push({
-                    id: count,
-                    label: hub.name,
-                    value1: hub.load_count
-                });
-                count += 1;
+                graphData.push([hub.name, hub.load_count, 'gold', hub.load_count.toString(10)]);
                 hub.pods.forEach(pod => {
-                    graphData.push({
-                        id: count,
-                        label: pod.name,
-                        value1: pod.load_count
-                    });
-                    count += 1;
+                    graphData.push([pod.name, pod.load_count, '#blue', pod.load_count.toString(10)]);
                 });
             });
         }
-
-        this.barChartData = graphData;
-        /*
-        this.barChartData = [{
-            id: 0,
-            label: 'Regional hub1',
-            value1: 10,
-            value2: 15,
-        }, {
-            id: 1,
-            label: 'Regional hub2',
-            value1: 20,
-            value2: 5,
-        }, {
-            id: 2,
-            label: 'Regional hub3',
-            value1: 20,
-            value2: 5,
-        }];
-        */
+        this.data = graphData;
     }
 
     onYearSelected() {
         const button = document.getElementById('date');
         button.innerText = this.currentYear;
         const startTime = new Date(new Date().getFullYear(), 0, 1).getTime();
-        this.reportService.getReportsFromTime(this.mainHub['id'], startTime).subscribe(reportModel => {
-            this.report = reportModel;
-            this.parseData();
-        });
+        this.reportService
+            .getReportsFromTime(this.mainHub['id'], startTime)
+            .subscribe(reportModel => {
+                this.report = reportModel;
+                this.parseData();
+            });
     }
 
     onMonthSelected() {
@@ -94,10 +83,12 @@ export class HubmanagerReportingGraphsComponent implements OnInit, OnDestroy {
         button.innerText = 'Last Month';
         const date = new Date();
         const startTime = new Date().setDate(date.getDate() - 30);
-        this.reportService.getReportsFromTime(this.mainHub['id'], startTime).subscribe(reportModel => {
-            this.report = reportModel;
-            this.parseData();
-        });
+        this.reportService
+            .getReportsFromTime(this.mainHub['id'], startTime)
+            .subscribe(reportModel => {
+                this.report = reportModel;
+                this.parseData();
+            });
     }
 
     ngOnDestroy() {

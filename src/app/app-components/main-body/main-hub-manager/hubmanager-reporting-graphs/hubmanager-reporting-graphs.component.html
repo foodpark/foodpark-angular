@@ -6,19 +6,20 @@
         </h4>
     </div>
     <div>
-        <angular-d3-bar
-            *ngIf="barChartData"
-            [id]="test2"
-            [data]="barChartData"
-            [dataColumns]="dataColumns"
-            [colors]="colors"
-            [yAxisTicks]="10"
-            [transitionDuration]="500"
-            [transitionDelay]="30"
-            [barWidth]="'15px'"
+        <google-chart
+            #chart
+            *ngIf="data"
+            [title]="title"
+            [type]="type"
+            [data]="data"
+            [columnNames]="columnNames"
+            [roles]="myRoles"
+            [dynamicResize]=true
+            [width]="width"
+            [height]="height"
         >
-        </angular-d3-bar>
-        <h5 *ngIf="!barChartData">No reports available</h5>
+        </google-chart>
+        <h5 *ngIf="!data">No Reporting data available</h5>
         <div
             class="container-fluid col-sm-12 menu_detail shell bg_1"
             style="padding: 35px 20px;"

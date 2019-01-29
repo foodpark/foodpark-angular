@@ -4,8 +4,8 @@ import {BrowserModule} from '@angular/platform-browser';
 import {RouterModule} from '@angular/router';
 import {MaterialModule} from '../../../app-modules/material.module';
 import {TreeModule} from 'ng2-tree';
-import {BarChartComponent} from 'angular-d3-charts';
 import {AgmCoreModule} from '@agm/core';
+import { GoogleChartsModule } from 'angular-google-charts';
 
 import {HubManagerDashboardComponent} from './hub-manager-dashboard/hub-manager-dashboard.component';
 import {DistributionCenterComponent} from './distrubution-center/distrubution-center.component';
@@ -50,6 +50,7 @@ import { AddEditPodPickupComponent } from './podpickup/add-edit-podpickup/add-ed
             apiKey: 'AIzaSyCte3xKzZwcbVXm7942WDn1Twu2I0SAsoo'
         }),
         TreeModule,
+        GoogleChartsModule
     ],
     declarations: [
         HubManagerDashboardComponent,
@@ -77,8 +78,7 @@ import { AddEditPodPickupComponent } from './podpickup/add-edit-podpickup/add-ed
         HubManagerReportingComponent,
         PodPickupsListingComponent,
         AddEditPodPickupComponent,
-        HubmanagerReportingGraphsComponent,
-        BarChartComponent
+        HubmanagerReportingGraphsComponent
     ],
     exports: [
         HubManagerDashboardComponent,
@@ -95,9 +95,8 @@ import { AddEditPodPickupComponent } from './podpickup/add-edit-podpickup/add-ed
         AddEditRegionalHubComponent,
         CreateMasterLoadComponent,
         EditMasterLoadComponent,
-        HubManagerReportingComponent,
-        BarChartComponent
-    ],
+        HubManagerReportingComponent
+    ]
 })
 export class MainHubManagerModule {
 
