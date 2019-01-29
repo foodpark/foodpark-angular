@@ -13,7 +13,6 @@ import {AddEditTerritoryComponent} from './territories/add-edit-territory/add-ed
 import {MainHubsListingComponent} from './mainhubs/main-hubs-listing/main-hubs-listing.component';
 import {AddEditMainhubComponent} from './mainhubs/add-edit-mainhub/add-edit-mainhub.component';
 import {MainhubManagerListingComponent} from './mainhubmanager/mainhub-manager-listing/mainhub-manager-listing.component';
-import {BarChartComponent} from 'angular-d3-charts';
 import {AdminReportingGraphsComponent} from './admin-reporting-graphs/admin-reporting-graphs.component';
 
 

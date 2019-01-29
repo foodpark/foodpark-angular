@@ -94,7 +94,8 @@ import {BarChartComponent} from 'angular-d3-charts';
         AddEditRegionalHubComponent,
         CreateMasterLoadComponent,
         EditMasterLoadComponent,
-        HubManagerReportingComponent
+        HubManagerReportingComponent,
+        BarChartComponent
     ],
 })
 export class MainHubManagerModule {

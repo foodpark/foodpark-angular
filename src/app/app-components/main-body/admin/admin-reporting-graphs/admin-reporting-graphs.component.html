@@ -1,3 +1,49 @@
-<p>
-  admin-reporting-graphs works!
-</p>
+<h2 style="padding-top:100px;display:flex;justify-content:center;width:100%;">Reporting</h2>
+<div class="title-center">
+    <h4>Main Hub:
+        <i>{{mainHubName}}</i>
+    </h4>
+</div>
+<div>
+    <div class="container-fluid col-sm-12 menu_detail shell bg_1" style="padding: 35px 80px;">
+        <div class="form-group">
+            <h4>Country</h4>
+            <div class="dropdown">
+                <button id="country_button"
+                        class="btn btn-primary dropdown-toggle"
+                        type="button"
+                        data-toggle="dropdown">Select
+                </button>
+                <ul class="dropdown-menu">
+                    <li *ngFor="let item of countries; let i = index" (click)="onCountryClick(i)">
+                        {{item.name}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="form-group">
+            <h4>Territory</h4>
+            <div class="dropdown">
+                <button id="territory_button"
+                        class="btn btn-primary dropdown-toggle"
+                        type="button"
+                        data-toggle="dropdown">Select
+                </button>
+                <ul class="dropdown-menu">
+                    <li *ngFor="let item of territories; let i = index" (click)="onTerritoryClick(i)">
+                        {{item.territory}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <angular-d3-bar [id]="test1"
+                        [data]="barChartData"
+                        [dataColumns]="dataColumns"
+                        [colors]="colors"
+                        [yAxisTicks]=10
+                        [transitionDuration]=1000
+                        [transitionDelay]=30
+                        [barWidth]="'16px'">
+        </angular-d3-bar>
+    </div>
+</div>

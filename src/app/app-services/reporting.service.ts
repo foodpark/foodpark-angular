@@ -14,4 +14,8 @@ export class ReportingService {
     getReportsFromTime(mainHubId: number, time: number) {
         return this.http.get<ReportingModel>(environment.apiUrl + '/api/v1/rel/food_parks/' + mainHubId + '/reports?start=' + time);
     }
+
+    getReportsFromTerritoryIdInGraphs(territoryId: number) {
+        return this.http.get<ReportingModel>(environment.apiUrl + '/api/v1/rel/territories/' + territoryId + '/graphreports');
+    }
 }
