@@ -5,7 +5,7 @@
             Main Hub: <i>{{ mainHub?.name }}</i>
         </h4>
     </div>
-    <div>
+    <div style="display: flex;justify-content: space-between;">
         <google-chart
             #chart
             *ngIf="data"
@@ -16,16 +16,20 @@
             [columnNames]="columnNames"
             [dynamicResize]=true
             [width]="width"
+            [options]="options"
             [height]="height">
         </google-chart>
         <h5 *ngIf="!data">No Reporting data available</h5>
-        <div class="rect-container" style="height: 400px;width: 150px;background: #edede6;">
-            <p style="width: 20px;height: 20px;background: mediumseagreen;padding: 5px 10px;margin: 5px"><span
-                style="padding: 5px;"> Master Loads</span></p>
-            <p style="width: 5px;height: 5px;background: gold;padding: 5px 10px;margin: 5px"><span
-                style="padding: 5px;">Regional Hub Loads</span></p>
-            <p style="width: 5px;height: 5px;background: blue;padding: 5px 10px;margin: 5px"><span
-                style="padding: 5px;"> Pod  Loads</span></p>
+        <div class="rect-container" style="height: 400px;padding: 5px 10px;background: #edede6;">
+            <p style="padding: 2px 5px">
+                <span style="width: 20px;height: 20px;background: mediumseagreen;padding: 5px 10px;"></span>
+                <span style="padding: 5px;"> Master Loads</span></p>
+            <p style="padding: 2px 5px">
+                <span style="width: 20px;height: 20px;background: gold;padding: 5px 10px;"></span>
+                <span style="padding: 5px;">Regional Hub Loads</span></p>
+            <p style="padding: 2px 5px">
+                <span style="width: 20px;height: 20px;background: blue;padding: 5px 10px;"></span>
+                <span style="padding: 5px;"> Pod  Loads</span></p>
         </div>
         <div
             class="container-fluid col-sm-12 menu_detail shell bg_1"
