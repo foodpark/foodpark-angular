@@ -12,8 +12,8 @@
             [title]="title"
             [type]="type"
             [data]="data"
-            [columnNames]="columnNames"
             [roles]="myRoles"
+            [columnNames]="columnNames"
             [dynamicResize]=true
             [width]="width"
             [height]="height">
@@ -21,7 +21,8 @@
         <h5 *ngIf="!data">No Reporting data available</h5>
         <div
             class="container-fluid col-sm-12 menu_detail shell bg_1"
-            style="padding: 35px 20px;"
+            style="padding: 35px 20px; visibility: hidden;"
+
         >
             <div
                 class="form-group"
