@@ -90,7 +90,7 @@ export class AdminReportingGraphsComponent implements OnInit, OnDestroy {
         this.reports.forEach(report => {
             const graphData = [];
             this.title.push(report.mainhub.name);
-            graphData.push([report.mainhub.name, report.master_loads, 'MediumSeaGreen', report.master_loads.toString(10)]);
+            graphData.push(['Master Loads', report.master_loads, 'MediumSeaGreen', report.master_loads.toString(10)]);
             if (report.regionalhubs.length > 0) {
                 report.regionalhubs.forEach(hub => {
                     graphData.push([hub.name, hub.load_count, 'gold', hub.load_count.toString(10)]);

@@ -32,25 +32,26 @@
             </div>
         </div>
     </div>
-    <div style="display: flex;justify-content: space-between;">
-        <ng-container>
-            <google-chart *ngFor="let dataObj of data; let i = index"
-                          #chart
-                          [title]="title[i]"
-                          [type]="type"
-                          [data]="dataObj"
-                          [columnNames]="columnNames"
-                          [roles]="myRoles"
-                          [options]="options"
-                          [dynamicResize]=true
-                          [width]="width"
-                          [height]="height">
-            </google-chart>
-        </ng-container>
+    <div>
+        <google-chart *ngFor="let dataObj of data; let i = index"
+            #chart
+            [title]="title[i]"
+            [type]="type"
+            [data]="dataObj"
+            [columnNames]="columnNames"
+            [roles]="myRoles"
+            [dynamicResize]=true
+            [width]="width"
+            [height]="height"
+            style="padding-bottom:20px;">
+        </google-chart>
         <div class="rect-container" style="height: 400px;width: 150px;background: #edede6;">
-            <p style="width: 5px;height: 5px;background: mediumseagreen;"><span> Master Loads</span></p>
-            <p style="width: 5px;height: 5px;background: gold;"><span>Regional Hub Loads</span></p>
-            <p style="width: 5px;height: 5px;background: blue;"><span> Pod  Loads</span></p>
+            <p style="width: 20px;height: 20px;background: mediumseagreen;padding: 5px 10px;margin: 5px"><span
+                style="padding: 5px;"> Master Loads</span></p>
+            <p style="width: 5px;height: 5px;background: gold;padding: 5px 10px;margin: 5px"><span
+                style="padding: 5px;">Regional Hub Loads</span></p>
+            <p style="width: 5px;height: 5px;background: blue;padding: 5px 10px;margin: 5px"><span
+                style="padding: 5px;"> Pod  Loads</span></p>
         </div>
     </div>
 </div>

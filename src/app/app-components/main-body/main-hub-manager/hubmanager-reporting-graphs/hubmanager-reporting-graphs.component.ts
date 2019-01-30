@@ -13,7 +13,7 @@ export class HubmanagerReportingGraphsComponent implements OnInit, OnDestroy {
     title: string;
     type = 'ColumnChart';
     data = [];
-    columnNames = ['Entity', 'Loads'];
+    columnNames = ['Entity', 'Master Loads'];
     myRoles = [
         {role: 'style', type: 'string', index: 2},
         {role: 'annotation', type: 'string', index: 3}
@@ -57,7 +57,7 @@ export class HubmanagerReportingGraphsComponent implements OnInit, OnDestroy {
     parseData() {
         this.title = this.mainHub.name;
         const graphData = [];
-        graphData.push([this.report.mainhub.name, this.report.master_loads, 'MediumSeaGreen', this.report.master_loads.toString(10)]);
+        graphData.push(['Master Loads', this.report.master_loads, 'MediumSeaGreen', this.report.master_loads.toString(10)]);
         if (this.report.regionalhubs.length > 0) {
             this.report.regionalhubs.forEach(hub => {
                 graphData.push([hub.name, hub.load_count, 'gold', hub.load_count.toString(10)]);
