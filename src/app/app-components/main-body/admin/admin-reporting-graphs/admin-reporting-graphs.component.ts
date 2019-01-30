@@ -13,11 +13,11 @@ import {TerritoryService} from '../../../../app-services/territory.service';
 export class AdminReportingGraphsComponent implements OnInit, OnDestroy {
     title: string[] = [];
     type = 'ColumnChart';
-    data = new Array();
+    data = [];
     columnNames = ['Entity', 'Loads'];
     myRoles = [
-        { role: 'style', type: 'string', index: 2 },
-        { role: 'annotation', type: 'string', index: 3 }
+        {role: 'style', type: 'string', index: 2},
+        {role: 'annotation', type: 'string', index: 3}
     ];
     width = 1000;
     height = 400;
@@ -44,50 +44,50 @@ export class AdminReportingGraphsComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.countriesSubscription = this.countryService.getCountriesUpdateListener()
-        .subscribe((countries: CountryModel[]) => {
-            if (countries.length > 0) {
-                this.countryName = countries[0]['name'];
-                const button = document.getElementById('country_button');
-                button.innerText = this.countryName;
-                this.countries = countries;
-                this.territoryService.getTerritoriesInCountry(countries[0]['id']);
-            } else {
-                // this.dialog.open(ErrorComponent, {data: {message: 'No Countries found!!'}});
-                // show error
-            }
-        });
+            .subscribe((countries: CountryModel[]) => {
+                if (countries.length > 0) {
+                    this.countryName = countries[0]['name'];
+                    const button = document.getElementById('country_button');
+                    button.innerText = this.countryName;
+                    this.countries = countries;
+                    this.territoryService.getTerritoriesInCountry(countries[0]['id']);
+                } else {
+                    // this.dialog.open(ErrorComponent, {data: {message: 'No Countries found!!'}});
+                    // show error
+                }
+            });
 
         this.territoriesSubscription = this.territoryService.getTerritoriesUpdateListener()
-        .subscribe((territories: TerritoryModel[]) => {
-            if (territories.length > 0) {
-                this.territoryName = territories[0]['territory'];
-                const territoryButton = document.getElementById('territory_button');
-                territoryButton.innerText = this.territoryName;
-                this.territories = territories;
-                this.mainhubService.getMainHubsInTerritory(this.territories[0]['country'], this.territories[0]['id']);
-                this.reportService.getReportsFromTerritoryIdInGraphs(territories[0]['id'])
-                .subscribe(report => {
-                    this.reports = report;
-                    this.parseData();
-                });
-            } else {
-                // this.dialog.open(ErrorComponent, {data: {message: 'No Territories found for the selected country'}});
-                // show error
-            }
-        });
+            .subscribe((territories: TerritoryModel[]) => {
+                if (territories.length > 0) {
+                    this.territoryName = territories[0]['territory'];
+                    const territoryButton = document.getElementById('territory_button');
+                    territoryButton.innerText = this.territoryName;
+                    this.territories = territories;
+                    this.mainhubService.getMainHubsInTerritory(this.territories[0]['country'], this.territories[0]['id']);
+                    this.reportService.getReportsFromTerritoryIdInGraphs(territories[0]['id'])
+                        .subscribe(report => {
+                            this.reports = report;
+                            this.parseData();
+                        });
+                } else {
+                    // this.dialog.open(ErrorComponent, {data: {message: 'No Territories found for the selected country'}});
+                    // show error
+                }
+            });
 
         this.mainhubsSubscription = this.mainhubService.getMainhubsUpdateListener()
-        .subscribe((response: MainhubModel[]) => {
-            this.mainHub = response;
-            this.mainHubName = this.mainHub.length ? this.mainHub[0]['name'] : '';
-        });
+            .subscribe((response: MainhubModel[]) => {
+                this.mainHub = response;
+                this.mainHubName = this.mainHub.length ? this.mainHub[0]['name'] : '';
+            });
 
         this.countryService.getCountries();
     }
 
     parseData() {
         this.reports.forEach(report => {
-            var graphData = new Array();
+            const graphData = [];
             this.title.push(report.mainhub.name);
             graphData.push([report.mainhub.name, report.master_loads, 'MediumSeaGreen', report.master_loads.toString(10)]);
             if (report.regionalhubs.length > 0) {

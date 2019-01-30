@@ -1,9 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MainhubModel, ReportingModel } from '../../../../model';
-import { TreeModel } from 'ng2-tree';
-import { Subscription } from 'rxjs';
-import { MainhubService } from '../../../../app-services/mainhub.service';
-import { ReportingService } from '../../../../app-services/reporting.service';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {MainhubModel, ReportingModel} from '../../../../model';
+import {TreeModel} from 'ng2-tree';
+import {Subscription} from 'rxjs';
+import {MainhubService} from '../../../../app-services/mainhub.service';
+import {ReportingService} from '../../../../app-services/reporting.service';
 
 @Component({
     selector: 'app-hubmanager-reporting-graphs',
@@ -12,11 +12,11 @@ import { ReportingService } from '../../../../app-services/reporting.service';
 export class HubmanagerReportingGraphsComponent implements OnInit, OnDestroy {
     title: string;
     type = 'ColumnChart';
-    data;
+    data = [];
     columnNames = ['Entity', 'Loads'];
     myRoles = [
-        { role: 'style', type: 'string', index: 2 },
-        { role: 'annotation', type: 'string', index: 3 }
+        {role: 'style', type: 'string', index: 2},
+        {role: 'annotation', type: 'string', index: 3}
     ];
     width = 1000;
     height = 400;
@@ -31,7 +31,8 @@ export class HubmanagerReportingGraphsComponent implements OnInit, OnDestroy {
     constructor(
         private mainhubService: MainhubService,
         private reportService: ReportingService
-    ) {}
+    ) {
+    }
 
     ngOnInit() {
         this.mainhubsSubscription = this.mainhubService
@@ -53,8 +54,7 @@ export class HubmanagerReportingGraphsComponent implements OnInit, OnDestroy {
 
     parseData() {
         this.title = this.mainHub.name;
-
-        var graphData = new Array();
+        const graphData = [];
         graphData.push([this.report.mainhub.name, this.report.master_loads, 'MediumSeaGreen', this.report.master_loads.toString(10)]);
         if (this.report.regionalhubs.length > 0) {
             this.report.regionalhubs.forEach(hub => {

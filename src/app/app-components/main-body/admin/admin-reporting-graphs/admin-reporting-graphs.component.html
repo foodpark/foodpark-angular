@@ -6,7 +6,8 @@
         <div class="form-group">
             <h4>Country</h4>
             <div class="dropdown">
-                <button id="country_button" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                <button id="country_button" class="btn btn-primary dropdown-toggle" type="button"
+                        data-toggle="dropdown">
                     Select
                 </button>
                 <ul class="dropdown-menu">
@@ -19,7 +20,8 @@
         <div class="form-group">
             <h4>Territory</h4>
             <div class="dropdown">
-                <button id="territory_button" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                <button id="territory_button" class="btn btn-primary dropdown-toggle" type="button"
+                        data-toggle="dropdown">
                     Select
                 </button>
                 <ul class="dropdown-menu">
@@ -30,18 +32,17 @@
             </div>
         </div>
     </div>
-    <!-- <div *ngFor="let dataObj of data; lete i = index">
+    <ng-container *ngFor="let dataObj of data; let i = index">
         <google-chart
             #chart
-            [title]={{title[i]}}
+            [title]="title[i]"
             [type]="type"
-            [data]={{dataObj}}
+            [data]="dataObj"
             [columnNames]="columnNames"
             [roles]="myRoles"
             [dynamicResize]=true
             [width]="width"
-            [height]="height"
-        >
+            [height]="height">
         </google-chart>
-    </div> -->
+    </ng-container>
 </div>
