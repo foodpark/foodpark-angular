@@ -19,9 +19,6 @@ export class AdminReportingGraphsComponent implements OnInit, OnDestroy {
         {role: 'style', type: 'string', index: 2},
         {role: 'annotation', type: 'string', index: 3}
     ];
-    options = {
-        colors: ['#e2431e', '#e7711b']
-    };
     width = 1000;
     height = 400;
 
