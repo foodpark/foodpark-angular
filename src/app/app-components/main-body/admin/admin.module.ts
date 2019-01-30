@@ -14,6 +14,7 @@ import {MainHubsListingComponent} from './mainhubs/main-hubs-listing/main-hubs-l
 import {AddEditMainhubComponent} from './mainhubs/add-edit-mainhub/add-edit-mainhub.component';
 import {MainhubManagerListingComponent} from './mainhubmanager/mainhub-manager-listing/mainhub-manager-listing.component';
 import {AdminReportingGraphsComponent} from './admin-reporting-graphs/admin-reporting-graphs.component';
+import { GoogleChartsModule } from 'angular-google-charts';
 
 
 @NgModule({
@@ -22,11 +23,11 @@ import {AdminReportingGraphsComponent} from './admin-reporting-graphs/admin-repo
         ReactiveFormsModule,
         BrowserModule,
         RouterModule,
-        MainHubManagerModule,
         AgmCoreModule.forRoot({
             apiKey: 'abcdefgh'
         }),
-        TreeModule
+        TreeModule,
+        GoogleChartsModule
     ],
     declarations: [
         AdminDashboardComponent,

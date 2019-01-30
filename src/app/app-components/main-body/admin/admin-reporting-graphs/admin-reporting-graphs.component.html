@@ -32,8 +32,8 @@
             </div>
         </div>
     </div>
-    <ng-container *ngFor="let dataObj of data; let i = index">
-        <google-chart
+    <ng-container>
+        <google-chart *ngFor="let dataObj of data; let i = index"
             #chart
             [title]="title[i]"
             [type]="type"
