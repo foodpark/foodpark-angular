@@ -32,17 +32,25 @@
             </div>
         </div>
     </div>
-    <ng-container>
-        <google-chart *ngFor="let dataObj of data; let i = index"
-            #chart
-            [title]="title[i]"
-            [type]="type"
-            [data]="dataObj"
-            [columnNames]="columnNames"
-            [roles]="myRoles"
-            [dynamicResize]=true
-            [width]="width"
-            [height]="height">
-        </google-chart>
-    </ng-container>
+    <div style="display: flex;justify-content: space-between;">
+        <ng-container>
+            <google-chart *ngFor="let dataObj of data; let i = index"
+                          #chart
+                          [title]="title[i]"
+                          [type]="type"
+                          [data]="dataObj"
+                          [columnNames]="columnNames"
+                          [roles]="myRoles"
+                          [options]="options"
+                          [dynamicResize]=true
+                          [width]="width"
+                          [height]="height">
+            </google-chart>
+        </ng-container>
+        <div class="rect-container" style="height: 400px;width: 150px;background: #edede6;">
+            <p style="width: 5px;height: 5px;background: mediumseagreen;"><span> Master Loads</span></p>
+            <p style="width: 5px;height: 5px;background: gold;"><span>Regional Hub Loads</span></p>
+            <p style="width: 5px;height: 5px;background: blue;"><span> Pod  Loads</span></p>
+        </div>
+    </div>
 </div>

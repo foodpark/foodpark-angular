@@ -18,13 +18,15 @@ export class HubmanagerReportingGraphsComponent implements OnInit, OnDestroy {
         {role: 'style', type: 'string', index: 2},
         {role: 'annotation', type: 'string', index: 3}
     ];
-    width = 1000;
+    width = 1200;
     height = 400;
-
     currentYear;
     mainHub: MainhubModel;
     report: ReportingModel;
     tree: TreeModel;
+    options = {
+        legend: {position: 'none'}
+    };
     private mainhubsSubscription: Subscription;
     private reportsSubscription: Subscription;
 
