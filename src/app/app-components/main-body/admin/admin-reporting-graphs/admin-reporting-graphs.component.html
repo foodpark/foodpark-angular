@@ -1,22 +1,17 @@
-<h2 style="padding-top:100px;display:flex;justify-content:center;width:100%;">Reporting</h2>
-<div class="title-center">
-    <h4>Main Hub:
-        <i>{{mainHubName}}</i>
-    </h4>
-</div>
-<div>
+<div class="absolute-position">
+    <div class="title-center">
+        <h2>Reporting</h2>
+    </div>
     <div class="container-fluid col-sm-12 menu_detail shell bg_1" style="padding: 35px 80px;">
         <div class="form-group">
             <h4>Country</h4>
             <div class="dropdown">
-                <button id="country_button"
-                        class="btn btn-primary dropdown-toggle"
-                        type="button"
-                        data-toggle="dropdown">Select
+                <button id="country_button" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                    Select
                 </button>
                 <ul class="dropdown-menu">
                     <li *ngFor="let item of countries; let i = index" (click)="onCountryClick(i)">
-                        {{item.name}}
+                        {{ item.name }}
                     </li>
                 </ul>
             </div>
@@ -24,17 +19,29 @@
         <div class="form-group">
             <h4>Territory</h4>
             <div class="dropdown">
-                <button id="territory_button"
-                        class="btn btn-primary dropdown-toggle"
-                        type="button"
-                        data-toggle="dropdown">Select
+                <button id="territory_button" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                    Select
                 </button>
                 <ul class="dropdown-menu">
                     <li *ngFor="let item of territories; let i = index" (click)="onTerritoryClick(i)">
-                        {{item.territory}}
+                        {{ item.territory }}
                     </li>
                 </ul>
             </div>
         </div>
     </div>
+    <!-- <div *ngFor="let dataObj of data; lete i = index">
+        <google-chart
+            #chart
+            [title]={{title[i]}}
+            [type]="type"
+            [data]={{dataObj}}
+            [columnNames]="columnNames"
+            [roles]="myRoles"
+            [dynamicResize]=true
+            [width]="width"
+            [height]="height"
+        >
+        </google-chart>
+    </div> -->
 </div>

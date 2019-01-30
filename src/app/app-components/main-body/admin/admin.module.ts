@@ -24,7 +24,7 @@ import {AdminReportingGraphsComponent} from './admin-reporting-graphs/admin-repo
         RouterModule,
         MainHubManagerModule,
         AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyCte3xKzZwcbVXm7942WDn1Twu2I0SAsoo'
+            apiKey: 'abcdefgh'
         }),
         TreeModule
     ],

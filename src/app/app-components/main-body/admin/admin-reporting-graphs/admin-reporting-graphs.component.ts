@@ -1,23 +1,29 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {CountryModel, MainhubModel, PodModel, RegionalHubModel, TerritoryModel} from '../../../../model';
+import {CountryModel, MainhubModel, PodModel, TerritoryModel} from '../../../../model';
 import {Subscription} from 'rxjs';
-import {RegionalhubsService} from '../../../../app-services/regionalhubs.service';
 import {MainhubService} from '../../../../app-services/mainhub.service';
 import {ReportingService} from '../../../../app-services/reporting.service';
-import {Router} from '@angular/router';
 import {CountryService} from '../../../../app-services/country.service';
 import {TerritoryService} from '../../../../app-services/territory.service';
-import {MatDialog} from '@angular/material';
-import {ErrorComponent} from '../../../../error/error.component';
 
 @Component({
     selector: 'app-admin-reporting-graphs',
     templateUrl: './admin-reporting-graphs.component.html',
 })
 export class AdminReportingGraphsComponent implements OnInit, OnDestroy {
+    title: string[] = [];
+    type = 'ColumnChart';
+    data = new Array();
+    columnNames = ['Entity', 'Loads'];
+    myRoles = [
+        { role: 'style', type: 'string', index: 2 },
+        { role: 'annotation', type: 'string', index: 3 }
+    ];
+    width = 1000;
+    height = 400;
+
 
     mainHub: MainhubModel[];
-    regionalHubs: RegionalHubModel[];
     pods: PodModel[];
     countries = [];
     territories: TerritoryModel[] = [];
@@ -25,77 +31,75 @@ export class AdminReportingGraphsComponent implements OnInit, OnDestroy {
     reports;
     countryName: string;
     territoryName: string;
-    barChartData;
-    dataColumns = [1, 1];
-    colors = ['red', 'green', 'blue'];
-    masterLoadCount: number;
+
     private countriesSubscription: Subscription;
     private territoriesSubscription: Subscription;
     private mainhubsSubscription: Subscription;
-    private reportsSubscription: Subscription;
 
-    constructor(private regionalHubService: RegionalhubsService,
-                private mainhubService: MainhubService,
+    constructor(private mainhubService: MainhubService,
                 private reportService: ReportingService,
-                private router: Router,
                 private countryService: CountryService,
-                private territoryService: TerritoryService,
-                private dialog: MatDialog) {
+                private territoryService: TerritoryService) {
     }
 
     ngOnInit() {
-        this.barChartData = [{
-            id: 0,
-            label: 'Regional hub1',
-            value1: 10,
-            value2: 15,
-        }, {
-            id: 1,
-            label: 'Regional hub2',
-            value1: 20,
-            value2: 5,
-        }];
-        this.countryService.getCountries();
         this.countriesSubscription = this.countryService.getCountriesUpdateListener()
-            .subscribe((countries: CountryModel[]) => {
-                if (countries.length > 0) {
-                    this.countryName = countries[0]['name'];
-                    const button = document.getElementById('country_button');
-                    button.innerText = this.countryName;
-                    this.countries = countries;
-                    this.territoryService.getTerritoriesInCountry(countries[0]['id']);
-                } else {
-                    this.dialog.open(ErrorComponent, {data: {message: 'No Countries found!!'}});
-                }
-            });
+        .subscribe((countries: CountryModel[]) => {
+            if (countries.length > 0) {
+                this.countryName = countries[0]['name'];
+                const button = document.getElementById('country_button');
+                button.innerText = this.countryName;
+                this.countries = countries;
+                this.territoryService.getTerritoriesInCountry(countries[0]['id']);
+            } else {
+                // this.dialog.open(ErrorComponent, {data: {message: 'No Countries found!!'}});
+                // show error
+            }
+        });
 
         this.territoriesSubscription = this.territoryService.getTerritoriesUpdateListener()
-            .subscribe((territories: TerritoryModel[]) => {
-                if (territories.length > 0) {
-                    this.territoryName = territories[0]['territory'];
-                    const territoryButton = document.getElementById('territory_button');
-                    territoryButton.innerText = this.territoryName;
-                    this.territories = territories;
-                    this.mainhubService.getMainHubsInTerritory(this.territories[0]['country'], this.territories[0]['id']);
-                    this.reportsSubscription = this.reportService.getReportsFromTerritoryIdInGraphs(territories[0]['id']).subscribe(report => {
-                        this.masterLoadCount = report['master_loads'];
-                        this.regionalHubs = report['regionalhubs'];
-                        this.reports = report;
-                        this.parseData(this.reports);
-                    });
-                } else {
-                    this.dialog.open(ErrorComponent, {data: {message: 'No Territories found for the selected country'}});
-                }
-            });
+        .subscribe((territories: TerritoryModel[]) => {
+            if (territories.length > 0) {
+                this.territoryName = territories[0]['territory'];
+                const territoryButton = document.getElementById('territory_button');
+                territoryButton.innerText = this.territoryName;
+                this.territories = territories;
+                this.mainhubService.getMainHubsInTerritory(this.territories[0]['country'], this.territories[0]['id']);
+                this.reportService.getReportsFromTerritoryIdInGraphs(territories[0]['id'])
+                .subscribe(report => {
+                    this.reports = report;
+                    this.parseData();
+                });
+            } else {
+                // this.dialog.open(ErrorComponent, {data: {message: 'No Territories found for the selected country'}});
+                // show error
+            }
+        });
 
         this.mainhubsSubscription = this.mainhubService.getMainhubsUpdateListener()
-            .subscribe((response: MainhubModel[]) => {
-                this.mainHub = response;
-                this.mainHubName = this.mainHub.length ? this.mainHub[0]['name'] : '';
-            });
+        .subscribe((response: MainhubModel[]) => {
+            this.mainHub = response;
+            this.mainHubName = this.mainHub.length ? this.mainHub[0]['name'] : '';
+        });
+
+        this.countryService.getCountries();
     }
 
-    parseData(reports?) {
+    parseData() {
+        this.reports.forEach(report => {
+            var graphData = new Array();
+            this.title.push(report.mainhub.name);
+            graphData.push([report.mainhub.name, report.master_loads, 'MediumSeaGreen', report.master_loads.toString(10)]);
+            if (report.regionalhubs.length > 0) {
+                report.regionalhubs.forEach(hub => {
+                    graphData.push([hub.name, hub.load_count, 'gold', hub.load_count.toString(10)]);
+                    hub.pods.forEach(pod => {
+                        graphData.push([pod.name, pod.load_count, 'blue', pod.load_count.toString(10)]);
+                    });
+                });
+            }
+            this.data.push(graphData);
+        });
     }
 
     onCountryClick(index: number) {
@@ -112,8 +116,9 @@ export class AdminReportingGraphsComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.mainhubsSubscription && this.mainhubsSubscription.unsubscribe();
-        this.reportsSubscription && this.reportsSubscription.unsubscribe();
+        this.mainhubsSubscription.unsubscribe();
+        this.countriesSubscription.unsubscribe();
+        this.territoriesSubscription.unsubscribe();
     }
 
 }

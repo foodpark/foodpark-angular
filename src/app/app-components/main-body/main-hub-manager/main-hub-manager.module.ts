@@ -47,7 +47,7 @@ import { AddEditPodPickupComponent } from './podpickup/add-edit-podpickup/add-ed
         OwlDateTimeModule,
         OwlNativeDateTimeModule,
         AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyCte3xKzZwcbVXm7942WDn1Twu2I0SAsoo'
+            apiKey: 'abcdef'
         }),
         TreeModule,
         GoogleChartsModule
