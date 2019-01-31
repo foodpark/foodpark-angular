@@ -1,6 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MainhubModel, ReportingModel} from '../../../../model';
-import {Subscription} from 'rxjs';
 import {MainhubService} from '../../../../app-services/mainhub.service';
 import {ReportingService} from '../../../../app-services/reporting.service';
 
@@ -25,8 +24,6 @@ export class HubmanagerReportingGraphsComponent implements OnInit, OnDestroy {
     options = {
         legend: {position: 'none'}
     };
-    private mainhubsSubscription: Subscription;
-    private reportsSubscription: Subscription;
 
     constructor(
         private mainhubService: MainhubService,
@@ -35,15 +32,11 @@ export class HubmanagerReportingGraphsComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.width = document.getElementById('graph_container').clientWidth;
-        this.mainhubsSubscription = this.mainhubService
-            .getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
+        this.mainhubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
             .subscribe(response => {
                 this.mainHub = response[0];
-                this.reportsSubscription = this.reportService
-                    .getReportsFromTime(
-                        this.mainHub.id,
-                        new Date(new Date().getFullYear(), 0, 1).getTime()
-                    )
+                this.reportService.getReportsFromTime(this.mainHub.id,
+                    new Date(new Date().getFullYear(), 0, 1).getTime())
                     .subscribe(reportModel => {
                         this.report = reportModel;
                         this.parseData();
@@ -71,8 +64,7 @@ export class HubmanagerReportingGraphsComponent implements OnInit, OnDestroy {
         const button = document.getElementById('date');
         button.innerText = this.currentYear;
         const startTime = new Date(new Date().getFullYear(), 0, 1).getTime();
-        this.reportService
-            .getReportsFromTime(this.mainHub['id'], startTime)
+        this.reportService.getReportsFromTime(this.mainHub['id'], startTime)
             .subscribe(reportModel => {
                 this.report = reportModel;
                 this.parseData();
@@ -84,8 +76,7 @@ export class HubmanagerReportingGraphsComponent implements OnInit, OnDestroy {
         button.innerText = 'Last Month';
         const date = new Date();
         const startTime = new Date().setDate(date.getDate() - 30);
-        this.reportService
-            .getReportsFromTime(this.mainHub['id'], startTime)
+        this.reportService.getReportsFromTime(this.mainHub['id'], startTime)
             .subscribe(reportModel => {
                 this.report = reportModel;
                 this.parseData();
@@ -93,7 +84,5 @@ export class HubmanagerReportingGraphsComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.mainhubsSubscription && this.mainhubsSubscription.unsubscribe();
-        this.reportsSubscription && this.reportsSubscription.unsubscribe();
     }
 }
