@@ -71,14 +71,6 @@ export class CreateDonationOrderComponent implements OnInit, OnDestroy {
 
     }
 
-    clickCustomize(loadId: number) {
-        localStorage.setItem('loadId', loadId['id']);
-        this.podsManagerService.getLoadRequestsFromId(loadId).subscribe(res => {
-            this.dataService.loadObj['loadName'] = res['name'];
-        });
-        this.router.navigate(['/hubmanager/addeditloadresource', loadId, 'hubmanager']);
-    }
-
     onMasterLoadClick(index: number) {
         const button = document.getElementById('master_load');
         button.innerText = this.masterLoads[index]['name'];
@@ -115,9 +107,25 @@ export class CreateDonationOrderComponent implements OnInit, OnDestroy {
         };
     }
 
+    clickCustomize(load) {
+        this.requestBody = {
+            ...this.requestBody,
+            load_id: load['id'],
+            load_name: load['name']
+        };
+        this.dataService.loadRequestBody = this.requestBody;
+        localStorage.setItem('loadId', load['id']);
+        const loadId = load['id'];
+        this.podsManagerService.getLoadRequestsFromId(loadId).subscribe(res => {
+            this.dataService.loadObj['loadName'] = res['name'];
+        });
+        this.router.navigate(['/hubmanager/addeditloadresource', loadId, 'hubmanager']);
+    }
+
     saveDonationOrder() {
         this.dataService.loadIdFlag = false;
-        this.masterLoadService.addDonationOrder(this.requestBody)
+        const requestObj = Object.keys(this.requestBody).length === 0 && this.requestBody.constructor === Object ? this.dataService.loadRequestBody : this.requestBody;
+        this.masterLoadService.addDonationOrder(requestObj)
             .subscribe(response => {
                 this.router.navigate(['/hubmanager/loadmanagement']);
             });

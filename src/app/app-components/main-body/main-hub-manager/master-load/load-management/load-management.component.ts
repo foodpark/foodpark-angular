@@ -44,7 +44,6 @@ export class LoadManagementComponent implements OnInit, OnDestroy {
     }
 
     onCreateDonationClick() {
-        localStorage.removeItem('loadId');
         this.dataService.loadIdFlag = false;
         this.router.navigate(['/hubmanager/createdonationorder']);
     }

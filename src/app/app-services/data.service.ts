@@ -10,6 +10,7 @@ export class DataService {
     sponsor1Image: string;
     sponsor2Image: string;
     loadIdFlag = false;
+    loadRequestBody = {};
     loadObj = {
         mainHub: '',
         regionalHub: '',

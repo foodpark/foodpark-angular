@@ -15,7 +15,6 @@ export class DistributionCenterComponent implements OnInit {
         this.currentpage = {};
         this.currentpage.name = 'GIK_DONATIONS';
         this.setSalestabActive();
-        localStorage.removeItem('loadId');
     }
 
     setSalestabActive() {
