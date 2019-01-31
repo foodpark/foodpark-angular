@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
     selector: 'app-distribution-ceneter',
@@ -9,11 +9,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class DistributionCenterComponent implements OnInit {
     activatedroute: any;
     currentpage: any;
+
     constructor(private activateroute: ActivatedRoute, private route: Router) {
         this.activatedroute = this.activateroute;
         this.currentpage = {};
         this.currentpage.name = 'GIK_DONATIONS';
         this.setSalestabActive();
+        localStorage.removeItem('loadId');
     }
 
     setSalestabActive() {
@@ -30,5 +32,6 @@ export class DistributionCenterComponent implements OnInit {
         }
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+    }
 }

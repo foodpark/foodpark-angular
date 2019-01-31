@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {Subscription} from 'rxjs';
-import {MasterLoadModel, MainhubModel} from 'src/app/model';
-import { MainhubService } from 'src/app/app-services/mainhub.service';
-import { MasterLoadService } from 'src/app/app-services/master-load.service';
+import {MainhubModel, MasterLoadModel} from 'src/app/model';
+import {MainhubService} from 'src/app/app-services/mainhub.service';
+import {MasterLoadService} from 'src/app/app-services/master-load.service';
 
 @Component({
     selector: 'app-load-management',
@@ -22,15 +22,15 @@ export class LoadManagementComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.masterLoadSubscription = this.masterLoadService.getMasterUpdateListener()
-        .subscribe(res => {
-            this.masterLoads = res;
-        });
+            .subscribe(res => {
+                this.masterLoads = res;
+            });
 
         this.mainHubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
-        .subscribe((response) => {
-            this.mainHub = response[0];
-            this.loadMasterLoadsForMainHub()
-        });
+            .subscribe((response) => {
+                this.mainHub = response[0];
+                this.loadMasterLoadsForMainHub();
+            });
     }
 
     loadMasterLoadsForMainHub() {
@@ -42,12 +42,13 @@ export class LoadManagementComponent implements OnInit, OnDestroy {
     }
 
     onCreateDonationClick() {
+        localStorage.removeItem('loadId');
         this.router.navigate(['/hubmanager/createdonationorder']);
     }
 
     onDeleteClick(index: number) {
         this.masterLoadService.deleteMasterLoad(index).subscribe(() => {
-            this.loadMasterLoadsForMainHub()
+            this.loadMasterLoadsForMainHub();
         });
     }
 

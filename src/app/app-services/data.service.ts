@@ -9,6 +9,7 @@ export class DataService {
     imageSource: string;
     sponsor1Image: string;
     sponsor2Image: string;
+    loadIdFlag = false;
     loadObj = {
         mainHub: '',
         regionalHub: '',

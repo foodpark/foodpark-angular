@@ -58,14 +58,16 @@ export class CreateDonationOrderComponent implements OnInit, OnDestroy {
                 this.masterLoadService.getMasterLoadsInMainHub(this.mainHub.id);
                 this.regionalService.getRegionalHubsInMainHub(this.mainHub.id);
             });
-        const mainHubButton = document.getElementById('master_load');
-        mainHubButton.innerText = this.dataService.nullCheck(this.dataService.loadObj['mainHub']) ? this.dataService.loadObj['mainHub'] : 'Select';
+        if (this.dataService.loadIdFlag) {
+            const mainHubButton = document.getElementById('master_load');
+            mainHubButton.innerText = this.dataService.nullCheck(this.dataService.loadObj['mainHub']) ? this.dataService.loadObj['mainHub'] : 'Select';
 
-        const regionalHubButton = document.getElementById('regional_hub');
-        regionalHubButton.innerText = this.dataService.nullCheck(this.dataService.loadObj['regionalHub']) ? this.dataService.loadObj['regionalHub'] : 'Select';
+            const regionalHubButton = document.getElementById('regional_hub');
+            regionalHubButton.innerText = this.dataService.nullCheck(this.dataService.loadObj['regionalHub']) ? this.dataService.loadObj['regionalHub'] : 'Select';
 
-        const loadButton = document.getElementById('pod_load');
-        loadButton.innerText = this.dataService.nullCheck(this.dataService.loadObj['loadName']) ? this.dataService.loadObj['loadName'] : 'Select';
+            const loadButton = document.getElementById('pod_load');
+            loadButton.innerText = this.dataService.nullCheck(this.dataService.loadObj['loadName']) ? this.dataService.loadObj['loadName'] : 'Select';
+        }
 
     }
 
