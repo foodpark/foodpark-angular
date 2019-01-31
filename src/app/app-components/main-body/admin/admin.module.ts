@@ -3,10 +3,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {RouterModule} from '@angular/router';
 import {AdminDashboardComponent} from './admin-dashboard/admin-dashboard.component';
-import {MainHubManagerModule} from '../main-hub-manager/main-hub-manager.module';
-import {AdminReportingComponent} from './admin-reporting/admin-reporting.component';
-import {AgmCoreModule} from '@agm/core';
-import {TreeModule} from 'ng2-tree';
 import {TerritoriesListingComponent} from './territories/territories-listing/territories-listing.component';
 import {AddEditMainHubManagerComponent} from './mainhubmanager/add-edit-main-hub-manager/add-edit-main-hub-manager.component';
 import {AddEditTerritoryComponent} from './territories/add-edit-territory/add-edit-territory.component';
@@ -23,10 +19,6 @@ import { GoogleChartsModule } from 'angular-google-charts';
         ReactiveFormsModule,
         BrowserModule,
         RouterModule,
-        AgmCoreModule.forRoot({
-            apiKey: 'abcdefgh'
-        }),
-        TreeModule,
         GoogleChartsModule
     ],
     declarations: [
@@ -37,7 +29,6 @@ import { GoogleChartsModule } from 'angular-google-charts';
         MainHubsListingComponent,
         AddEditMainhubComponent,
         MainhubManagerListingComponent,
-        AdminReportingComponent,
         AdminReportingGraphsComponent
     ],
     exports: [],

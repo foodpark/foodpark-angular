@@ -1,26 +1,23 @@
-import {NgModule} from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {BrowserModule} from '@angular/platform-browser';
-import {RouterModule} from '@angular/router';
-import {MaterialModule} from '../../../app-modules/material.module';
-import {TreeModule} from 'ng2-tree';
-import {AgmCoreModule} from '@agm/core';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
+import { MaterialModule } from '../../../app-modules/material.module';
 import { GoogleChartsModule } from 'angular-google-charts';
 
-import {HubManagerDashboardComponent} from './hub-manager-dashboard/hub-manager-dashboard.component';
-import {DistributionCenterComponent} from './distrubution-center/distrubution-center.component';
-import {VolunteersComponent} from './distrubution-center/volunteers/volunteers.component';
-import {RemoveSpacesPipe} from '../../../app-pipes/removeSpaces.pipe';
-import {PodManagersListingComponent} from './pod-managers/pod-managers-listing/pod-managers-listing.component';
-import {EditPodManagerComponent} from './pod-managers/edit-pod-manager/edit-pod-manager.component';
+import { HubManagerDashboardComponent } from './hub-manager-dashboard/hub-manager-dashboard.component';
+import { DistributionCenterComponent } from './distrubution-center/distrubution-center.component';
+import { VolunteersComponent } from './distrubution-center/volunteers/volunteers.component';
+import { RemoveSpacesPipe } from '../../../app-pipes/removeSpaces.pipe';
+import { PodManagersListingComponent } from './pod-managers/pod-managers-listing/pod-managers-listing.component';
+import { EditPodManagerComponent } from './pod-managers/edit-pod-manager/edit-pod-manager.component';
 
-import {GIKDonationsComponent} from './distrubution-center/gikdonations/gik-donations.component';
-import {CreateDonationOrderComponent} from './create-donation-order/create-donation-order.component';
-import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
-import {CustomizeLoadComponent} from './customize-load/customize-load.component';
+import { GIKDonationsComponent } from './distrubution-center/gikdonations/gik-donations.component';
+import { CreateDonationOrderComponent } from './create-donation-order/create-donation-order.component';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { CustomizeLoadComponent } from './customize-load/customize-load.component';
 
-import {HubManagerReportingComponent} from './hub-manager-reporting/hub-manager-reporting.component';
-import {HubmanagerReportingGraphsComponent} from './hubmanager-reporting-graphs/hubmanager-reporting-graphs.component';
+import { HubmanagerReportingGraphsComponent } from './hubmanager-reporting-graphs/hubmanager-reporting-graphs.component';
 import { RegionalHubComponent } from './regionalhub/regionalhublisting/regionalhub.component';
 import { PodsComponent } from './pod-applications/pods-listing/pods.component';
 import { CreatePodsComponent } from './pod-applications/create-pods/create-pods.component';
@@ -35,8 +32,6 @@ import { EditMasterLoadComponent } from './master-load/edit-master-load/edit-mas
 import { PodPickupsListingComponent } from './podpickup/pod-pickups-listing/pod-pickups-listing.component';
 import { AddEditPodPickupComponent } from './podpickup/add-edit-podpickup/add-edit-podpickup.component';
 
-
-
 @NgModule({
     imports: [
         FormsModule,
@@ -46,10 +41,6 @@ import { AddEditPodPickupComponent } from './podpickup/add-edit-podpickup/add-ed
         MaterialModule,
         OwlDateTimeModule,
         OwlNativeDateTimeModule,
-        AgmCoreModule.forRoot({
-            apiKey: 'abcdef'
-        }),
-        TreeModule,
         GoogleChartsModule
     ],
     declarations: [
@@ -75,7 +66,6 @@ import { AddEditPodPickupComponent } from './podpickup/add-edit-podpickup/add-ed
         CreateDonationOrderComponent,
         EditMasterLoadComponent,
         CustomizeLoadComponent,
-        HubManagerReportingComponent,
         PodPickupsListingComponent,
         AddEditPodPickupComponent,
         HubmanagerReportingGraphsComponent
@@ -94,10 +84,7 @@ import { AddEditPodPickupComponent } from './podpickup/add-edit-podpickup/add-ed
         RemoveSpacesPipe,
         AddEditRegionalHubComponent,
         CreateMasterLoadComponent,
-        EditMasterLoadComponent,
-        HubManagerReportingComponent
+        EditMasterLoadComponent
     ]
 })
-export class MainHubManagerModule {
-
-}
+export class MainHubManagerModule {}

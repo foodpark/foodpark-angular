@@ -1,6 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MainhubModel, ReportingModel} from '../../../../model';
-import {TreeModel} from 'ng2-tree';
 import {Subscription} from 'rxjs';
 import {MainhubService} from '../../../../app-services/mainhub.service';
 import {ReportingService} from '../../../../app-services/reporting.service';
@@ -23,7 +22,6 @@ export class HubmanagerReportingGraphsComponent implements OnInit, OnDestroy {
     currentYear;
     mainHub: MainhubModel;
     report: ReportingModel;
-    tree: TreeModel;
     options = {
         legend: {position: 'none'}
     };

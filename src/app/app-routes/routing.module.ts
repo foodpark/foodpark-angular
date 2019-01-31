@@ -13,8 +13,6 @@ import { GIKDonationsComponent } from '../app-components/main-body/main-hub-mana
 
 import { CreateDonationOrderComponent } from '../app-components/main-body/main-hub-manager/create-donation-order/create-donation-order.component';
 import { CustomizeLoadComponent } from '../app-components/main-body/main-hub-manager/customize-load/customize-load.component';
-import { AdminReportingComponent } from '../app-components/main-body/admin/admin-reporting/admin-reporting.component';
-import { HubManagerReportingComponent } from '../app-components/main-body/main-hub-manager/hub-manager-reporting/hub-manager-reporting.component';
 import { LoginComponent } from '../app-components/main-body/initial/login/login.component';
 import { GuestCreatePodsComponent } from '../app-components/main-body/initial/guest-create-pods/guest-create-pods.component';
 import { TerritoriesListingComponent } from '../app-components/main-body/admin/territories/territories-listing/territories-listing.component';
@@ -108,10 +106,6 @@ const routes: Routes = [
                 children: []
             },
             {
-                path: 'adminreporting',
-                component: AdminReportingComponent
-            },
-            {
                 path: 'adminreportinggraphs',
                 component: AdminReportingGraphsComponent
             }
@@ -164,10 +158,6 @@ const routes: Routes = [
             {
                 path: 'addhubpickup',
                 component: HubPickupsComponent
-            },
-            {
-                path: 'hubmgrreporting',
-                component: HubManagerReportingComponent
             },
             {
                 path: 'hubmgrreportinggraphs',
