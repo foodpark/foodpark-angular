@@ -17,23 +17,25 @@
                 <span style="width: 20px;height: 20px;background: blue;padding: 5px 10px;"></span>
                 <span style="padding: 5px;"> Pod  Loads</span></p>
         </div>
-        <google-chart
-            #chart
-            *ngIf="data"
-            [title]="title"
-            [type]="type"
-            [data]="data"
-            [roles]="myRoles"
-            [columnNames]="columnNames"
-            [dynamicResize]=true
-            [width]="width"
-            [options]="options"
-            [height]="height">
-        </google-chart>
+        <div style="width: 90%">
+            <google-chart
+                #chart
+                *ngIf="data"
+                [title]="title"
+                [type]="type"
+                [data]="data"
+                [roles]="myRoles"
+                [columnNames]="columnNames"
+                [dynamicResize]=true
+                [width]="width"
+                [options]="options"
+                [height]="height">
+            </google-chart>
+        </div>
         <h5 *ngIf="!data">No Reporting data available</h5>
         <div
             class="container-fluid col-sm-12 menu_detail shell bg_1"
-            style="padding: 35px 20px;">
+            style="padding: 35px 0;">
             <div
                 class="form-group"
                 style="display: flex;justify-content: space-between;">
