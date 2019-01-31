@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, AfterViewInit} from '@angular/core';
 import {CountryModel, MainhubModel, PodModel, TerritoryModel} from '../../../../model';
 import {Subscription} from 'rxjs';
 import {MainhubService} from '../../../../app-services/mainhub.service';
@@ -10,7 +10,7 @@ import {TerritoryService} from '../../../../app-services/territory.service';
     selector: 'app-admin-reporting-graphs',
     templateUrl: './admin-reporting-graphs.component.html',
 })
-export class AdminReportingGraphsComponent implements OnInit, OnDestroy {
+export class AdminReportingGraphsComponent implements OnInit, OnDestroy, AfterViewInit {
     title: string[] = [];
     type = 'ColumnChart';
     data = [];
@@ -46,7 +46,6 @@ export class AdminReportingGraphsComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.width = document.getElementById('graph_container').clientWidth;
         this.countriesSubscription = this.countryService.getCountriesUpdateListener()
             .subscribe((countries: CountryModel[]) => {
                 if (countries.length > 0) {
@@ -82,6 +81,10 @@ export class AdminReportingGraphsComponent implements OnInit, OnDestroy {
             });
 
         this.countryService.getCountries();
+    }
+
+    ngAfterViewInit() {
+        this.width = document.getElementById('graph_container').clientWidth;
     }
 
     fetchReportsData(territoryId: number) {
