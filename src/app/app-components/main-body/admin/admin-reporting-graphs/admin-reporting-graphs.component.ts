@@ -19,7 +19,7 @@ export class AdminReportingGraphsComponent implements OnInit, OnDestroy {
         {role: 'style', type: 'string', index: 2},
         {role: 'annotation', type: 'string', index: 3}
     ];
-    width = 1200;
+    width;
     height = 400;
     options = {
         legend: {position: 'none'}
@@ -46,6 +46,7 @@ export class AdminReportingGraphsComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.width = document.getElementById('graph_container').clientWidth;
         this.countriesSubscription = this.countryService.getCountriesUpdateListener()
             .subscribe((countries: CountryModel[]) => {
                 if (countries.length > 0) {

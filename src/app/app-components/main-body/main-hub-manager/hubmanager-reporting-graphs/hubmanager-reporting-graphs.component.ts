@@ -17,7 +17,7 @@ export class HubmanagerReportingGraphsComponent implements OnInit, OnDestroy {
         {role: 'style', type: 'string', index: 2},
         {role: 'annotation', type: 'string', index: 3}
     ];
-    width = 1200;
+    width;
     height = 400;
     currentYear;
     mainHub: MainhubModel;
@@ -30,11 +30,11 @@ export class HubmanagerReportingGraphsComponent implements OnInit, OnDestroy {
 
     constructor(
         private mainhubService: MainhubService,
-        private reportService: ReportingService
-    ) {
+        private reportService: ReportingService) {
     }
 
     ngOnInit() {
+        this.width = document.getElementById('graph_container').clientWidth;
         this.mainhubsSubscription = this.mainhubService
             .getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
             .subscribe(response => {
