@@ -12,7 +12,7 @@ export class HubmanagerReportingGraphsComponent implements OnInit, OnDestroy {
     title: string;
     type = 'ColumnChart';
     data;
-    columnNames = ['Entity', 'Master Loads'];
+    columnNames = ['Entity', 'Loads'];
     myRoles = [
         {role: 'style', type: 'string', index: 2},
         {role: 'annotation', type: 'string', index: 3}

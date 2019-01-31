@@ -47,6 +47,7 @@
         <google-chart *ngFor="let dataObj of data; let i = index"
                       #chart
                       [title]="title[i]"
+                      [options]="options"
                       [type]="type"
                       [data]="dataObj"
                       [columnNames]="columnNames"

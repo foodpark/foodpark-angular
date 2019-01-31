@@ -21,6 +21,9 @@ export class AdminReportingGraphsComponent implements OnInit, OnDestroy {
     ];
     width = 1200;
     height = 400;
+    options = {
+        legend: {position: 'none'}
+    };
 
 
     mainHub: MainhubModel[];
