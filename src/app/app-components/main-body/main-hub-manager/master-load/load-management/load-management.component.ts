@@ -4,6 +4,7 @@ import {Subscription} from 'rxjs';
 import {MainhubModel, MasterLoadModel} from 'src/app/model';
 import {MainhubService} from 'src/app/app-services/mainhub.service';
 import {MasterLoadService} from 'src/app/app-services/master-load.service';
+import {DataService} from '../../../../../app-services/data.service';
 
 @Component({
     selector: 'app-load-management',
@@ -16,6 +17,7 @@ export class LoadManagementComponent implements OnInit, OnDestroy {
     masterLoads: MasterLoadModel[] = [];
 
     constructor(private router: Router,
+                private dataService: DataService,
                 private masterLoadService: MasterLoadService,
                 private mainHubService: MainhubService) {
     }
@@ -43,6 +45,7 @@ export class LoadManagementComponent implements OnInit, OnDestroy {
 
     onCreateDonationClick() {
         localStorage.removeItem('loadId');
+        this.dataService.loadIdFlag = false;
         this.router.navigate(['/hubmanager/createdonationorder']);
     }
 

@@ -116,6 +116,7 @@ export class CreateDonationOrderComponent implements OnInit, OnDestroy {
     }
 
     saveDonationOrder() {
+        this.dataService.loadIdFlag = false;
         this.masterLoadService.addDonationOrder(this.requestBody)
             .subscribe(response => {
                 this.router.navigate(['/hubmanager/loadmanagement']);
