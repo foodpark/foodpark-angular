@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, AfterViewInit} from '@angular/core';
 import {MainhubModel, ReportingModel} from '../../../../model';
 import {MainhubService} from '../../../../app-services/mainhub.service';
 import {ReportingService} from '../../../../app-services/reporting.service';
@@ -7,7 +7,7 @@ import {ReportingService} from '../../../../app-services/reporting.service';
     selector: 'app-hubmanager-reporting-graphs',
     templateUrl: './hubmanager-reporting-graphs.component.html'
 })
-export class HubmanagerReportingGraphsComponent implements OnInit, OnDestroy {
+export class HubmanagerReportingGraphsComponent implements OnInit, OnDestroy, AfterViewInit {
     title: string;
     type = 'ColumnChart';
     data;
@@ -43,6 +43,10 @@ export class HubmanagerReportingGraphsComponent implements OnInit, OnDestroy {
                     });
             });
         this.currentYear = new Date().getFullYear();
+    }
+
+    ngAfterViewInit() {
+        this.width = document.getElementById('graph_container').clientWidth;
     }
 
     parseData() {
