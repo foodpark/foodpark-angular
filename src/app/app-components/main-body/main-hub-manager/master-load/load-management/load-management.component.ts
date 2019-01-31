@@ -29,8 +29,12 @@ export class LoadManagementComponent implements OnInit, OnDestroy {
         this.mainHubService.getMainhubOfLoggedInUser(localStorage.getItem('user_id'))
         .subscribe((response) => {
             this.mainHub = response[0];
-            this.masterLoadService.getMasterLoadsInMainHub(this.mainHub.id);
+            this.loadMasterLoadsForMainHub()
         });
+    }
+
+    loadMasterLoadsForMainHub() {
+        this.masterLoadService.getMasterLoadsInMainHub(this.mainHub.id);
     }
 
     onCreateLoadMasterClick() {
@@ -43,7 +47,7 @@ export class LoadManagementComponent implements OnInit, OnDestroy {
 
     onDeleteClick(index: number) {
         this.masterLoadService.deleteMasterLoad(index).subscribe(() => {
-            this.masterLoadService.getAllMasterLoads();
+            this.loadMasterLoadsForMainHub()
         });
     }
 
