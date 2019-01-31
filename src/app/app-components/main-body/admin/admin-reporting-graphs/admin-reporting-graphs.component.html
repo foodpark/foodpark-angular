@@ -32,18 +32,29 @@
             </div>
         </div>
     </div>
-    <div>
+    <div style="display: flex;justify-content: space-between;flex-direction: column;">
+        <div class="rect-container" style="display:flex;padding: 5px 10px;background: #edede6;">
+            <p style="padding: 2px 5px">
+                <span style="width: 20px;height: 20px;background: mediumseagreen;padding: 5px 10px;"></span>
+                <span style="padding: 5px;"> Master Loads</span></p>
+            <p style="padding: 2px 5px">
+                <span style="width: 20px;height: 20px;background: gold;padding: 5px 10px;"></span>
+                <span style="padding: 5px;">Regional Hub Loads</span></p>
+            <p style="padding: 2px 5px">
+                <span style="width: 20px;height: 20px;background: blue;padding: 5px 10px;"></span>
+                <span style="padding: 5px;"> Pod  Loads</span></p>
+        </div>
         <google-chart *ngFor="let dataObj of data; let i = index"
-            #chart
-            [title]="title[i]"
-            [type]="type"
-            [data]="dataObj"
-            [columnNames]="columnNames"
-            [roles]="myRoles"
-            [dynamicResize]=true
-            [width]="width"
-            [height]="height"
-            style="padding-bottom:20px;">
+                      #chart
+                      [title]="title[i]"
+                      [type]="type"
+                      [data]="dataObj"
+                      [columnNames]="columnNames"
+                      [roles]="myRoles"
+                      [dynamicResize]=true
+                      [width]="width"
+                      [height]="height"
+                      style="padding-bottom:20px;">
         </google-chart>
     </div>
 </div>
