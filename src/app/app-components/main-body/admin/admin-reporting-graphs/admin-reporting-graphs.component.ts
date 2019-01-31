@@ -64,12 +64,7 @@ export class AdminReportingGraphsComponent implements OnInit, OnDestroy {
                     const territoryButton = document.getElementById('territory_button');
                     territoryButton.innerText = this.territoryName;
                     this.territories = territories;
-                    this.mainhubService.getMainHubsInTerritory(this.territories[0]['country'], this.territories[0]['id']);
-                    this.reportService.getReportsFromTerritoryIdInGraphs(territories[0]['id'])
-                        .subscribe(report => {
-                            this.reports = report;
-                            this.parseData();
-                        });
+                    this.fetchReportsData(territories[0]['id']);
                 } else {
                     // this.dialog.open(ErrorComponent, {data: {message: 'No Territories found for the selected country'}});
                     // show error
@@ -85,7 +80,17 @@ export class AdminReportingGraphsComponent implements OnInit, OnDestroy {
         this.countryService.getCountries();
     }
 
+    fetchReportsData(territoryId: number) {
+        this.reportService.getReportsFromTerritoryIdInGraphs(territoryId)
+        .subscribe(report => {
+            this.reports = report;
+            this.parseData();
+        });
+    }
+
     parseData() {
+        this.title = [];
+        this.data = [];
         this.reports.forEach(report => {
             const graphData = [];
             this.title.push(report.mainhub.name);
@@ -112,7 +117,7 @@ export class AdminReportingGraphsComponent implements OnInit, OnDestroy {
     onTerritoryClick(index: number) {
         const button = document.getElementById('territory_button');
         button.innerText = this.territories[index]['name'] || this.territories[index]['territory'];
-        this.mainhubService.getMainHubsInTerritory(this.countryName, this.territories[index]['id']);
+        this.fetchReportsData(this.territories[index]['id']);
     }
 
     ngOnDestroy() {

@@ -12,7 +12,7 @@ import {ReportingService} from '../../../../app-services/reporting.service';
 export class HubmanagerReportingGraphsComponent implements OnInit, OnDestroy {
     title: string;
     type = 'ColumnChart';
-    data = [];
+    data;
     columnNames = ['Entity', 'Master Loads'];
     myRoles = [
         {role: 'style', type: 'string', index: 2},
