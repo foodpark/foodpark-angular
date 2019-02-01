@@ -159,6 +159,7 @@ export class AddEditPodPickupComponent implements OnInit {
     onSponsor1Entered(event) {
         this.sponsor1Name = event['srcElement']['value'];
         if (this.sponsor1Image !== undefined && this.sponsor1Name.length > 0) {
+            this.sponsor1ImageChanged = true;
             this.isSponsor1Available = true;
         }
     }
