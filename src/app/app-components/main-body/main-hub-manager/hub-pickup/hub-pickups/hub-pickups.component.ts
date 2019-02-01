@@ -174,8 +174,8 @@ export class HubPickupsComponent implements OnInit {
             sponsors: this.sponsors,
             schedule: [
                 {
-                    start: startTime,
-                    end: endTime
+                    start: startDate,
+                    end: endDate
                 }
             ],
             manager: parseInt(localStorage['user_id'], 10)

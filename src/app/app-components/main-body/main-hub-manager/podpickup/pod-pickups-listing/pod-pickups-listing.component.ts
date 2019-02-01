@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {Router} from '@angular/router';
-import { PodPickupModel, MainhubModel } from 'src/app/model';
-import { PodPickupService } from 'src/app/app-services/pod-pickup.service';
-import { MainhubService } from 'src/app/app-services/mainhub.service';
+import {MainhubModel, PodPickupModel} from 'src/app/model';
+import {PodPickupService} from 'src/app/app-services/pod-pickup.service';
+import {MainhubService} from 'src/app/app-services/mainhub.service';
 
 @Component({
     selector: 'app-pod-pickups-listing',
@@ -14,8 +14,6 @@ export class PodPickupsListingComponent implements OnInit, OnDestroy {
     podPickups: PodPickupModel[] = [];
     private podPickupsSubscription: Subscription;
     mainHub: MainhubModel;
-    podPickupStartDate = [];
-    podPickupEndDate = [];
 
     constructor(private podPickupService: PodPickupService,
                 private mainhubService: MainhubService,
@@ -30,12 +28,6 @@ export class PodPickupsListingComponent implements OnInit, OnDestroy {
                 this.podPickupsSubscription = this.podPickupService.getPodPickupUpdateListener()
                     .subscribe((podPickup: PodPickupModel[]) => {
                             this.podPickups = podPickup;
-                            this.podPickups.forEach(hub => {
-                                const startDate = `${(hub['start_date'].split('T')[0]).split('-')[1]}-${(hub['start_date'].split('T')[0]).split('-')[2]}-${(hub['start_date'].split('T')[0]).split('-')[0]}`;
-                                const endDate = `${(hub['end_date'].split('T')[0]).split('-')[1]}-${(hub['end_date'].split('T')[0]).split('-')[2]}-${(hub['end_date'].split('T')[0]).split('-')[0]}`;
-                                this.podPickupStartDate.push(startDate);
-                                this.podPickupEndDate.push(endDate);
-                            });
                         }
                     );
             });
@@ -51,9 +43,9 @@ export class PodPickupsListingComponent implements OnInit, OnDestroy {
 
     onDeleteClick(index: number) {
         this.podPickupService.deletePodPickup(this.podPickups[index]['id'])
-        .subscribe(() => {
-            this.podPickupService.getPodPickups(this.mainHub['id']);
-        });
+            .subscribe(() => {
+                this.podPickupService.getPodPickups(this.mainHub['id']);
+            });
     }
 
     ngOnDestroy() {

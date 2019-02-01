@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ParamMap, Router, ActivatedRoute} from '@angular/router';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {HubPickupService} from 'src/app/app-services/hub-pickup.service';
 import {MainhubService} from 'src/app/app-services/mainhub.service';
 import {HttpClient} from '@angular/common/http';
 import {FileUploadService} from 'src/app/app-services/fileupload.service';
 import {Subscription} from 'rxjs';
 import {MainhubModel} from 'src/app/model';
-import { DataService } from 'src/app/app-services/data.service';
+import {DataService} from 'src/app/app-services/data.service';
 
 @Component({
     selector: 'app-edit-hubpickup',
@@ -69,15 +69,13 @@ export class EditHubpickupComponent implements OnInit {
                     this.sponsor1Name = this.hubPickup['sponsors'][0] ? this.hubPickup['sponsors'][0]['name'] : '';
                     this.sponsor2Name = this.hubPickup['sponsors'][1] ? this.hubPickup['sponsors'][1]['name'] : '';
                     this.eventImage = this.hubPickup['image'] ? this.hubPickup['image'] : null;
-                    this.hubPickup['startDateTime'] = (this.hubPickup['start_date']).toString().split('T')[0].concat(',' + this.hubPickup['schedule'][0]['start']);
-                    this.hubPickup['endDateTime'] = (this.hubPickup['end_date']).toString().split('T')[0].concat(',' + this.hubPickup['schedule'][0]['end']);
                     this.hubPickupForm = this.fb.group({
                         name: [this.hubPickup['name'], Validators.required],
                         description: [this.hubPickup['description'], Validators.required],
                         image: [null, Validators.required],
                         sponsors: [this.hubPickup['sponsors']],
-                        start_date: [this.hubPickup['start_date']],
-                        end_date: [this.hubPickup['end_date']],
+                        start_date: [ this.hubPickup['schedule'][0]['start']],
+                        end_date: [ this.hubPickup['schedule'][0]['end']],
                         latitude: [this.hubPickup['latitude'], Validators.required],
                         longitude: [this.hubPickup['longitude'], Validators.required],
                     });
@@ -179,10 +177,6 @@ export class EditHubpickupComponent implements OnInit {
         const startDate = new Date(document.getElementById('fromDate')['value']);
         const endDate = new Date(document.getElementById('toDate')['value']);
         this.showDateError = startDate > endDate;
-        const startMinutes = startDate.getMinutes().toString().length === 1 ? `0${startDate.getMinutes()}` : startDate.getMinutes();
-        const endMinutes = endDate.getMinutes().toString().length === 1 ? `0${endDate.getMinutes()}` : endDate.getMinutes();
-        const startTime = startDate.getHours() > 12 ? `${startDate.getHours() - 12}:${startMinutes}PM` : `${startDate.getHours()}:${startMinutes}AM`;
-        const endTime = startDate.getHours() > 12 ? `${endDate.getHours() - 12}:${endMinutes}PM` : `${endDate.getHours()}:${endMinutes}AM`;
         const obj = {
             name: this.hubPickupForm.value['name'],
             image: this.imageURL,
@@ -194,8 +188,8 @@ export class EditHubpickupComponent implements OnInit {
             sponsors: this.sponsors,
             schedule: [
                 {
-                    start: startTime,
-                    end: endTime
+                    start: startDate,
+                    end: endDate
                 }
             ],
             manager: parseInt(localStorage['user_id'], 10)

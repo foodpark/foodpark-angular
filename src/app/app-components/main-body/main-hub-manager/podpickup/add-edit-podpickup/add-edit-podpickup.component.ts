@@ -3,13 +3,13 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
-import { MainhubModel, PodModel, RegionalHubModel } from 'src/app/model';
-import { MainhubService } from 'src/app/app-services/mainhub.service';
-import { DataService } from 'src/app/app-services/data.service';
-import { PodPickupService } from 'src/app/app-services/pod-pickup.service';
-import { RegionalhubsService } from 'src/app/app-services/regionalhubs.service';
-import { FileUploadService } from 'src/app/app-services/fileupload.service';
-import { PodsService } from 'src/app/app-services/pods.service';
+import {MainhubModel, PodModel, RegionalHubModel} from 'src/app/model';
+import {MainhubService} from 'src/app/app-services/mainhub.service';
+import {DataService} from 'src/app/app-services/data.service';
+import {PodPickupService} from 'src/app/app-services/pod-pickup.service';
+import {RegionalhubsService} from 'src/app/app-services/regionalhubs.service';
+import {FileUploadService} from 'src/app/app-services/fileupload.service';
+import {PodsService} from 'src/app/app-services/pods.service';
 
 @Component({
     selector: 'app-add-edit-podpickup',
@@ -91,10 +91,8 @@ export class AddEditPodPickupComponent implements OnInit {
                         description: [this.podPickup['description'], Validators.required],
                         image: [null, Validators.required],
                         sponsors: [this.podPickup['sponsors']],
-                        start_date: [new Date(this.podPickup['start_date'])],
-                        end_date: [new Date(this.podPickup['end_date'])],
-                        start_time: [this.podPickup['schedule'][0]['start']],
-                        end_time: [this.podPickup['schedule'][0]['end']],
+                        start_date: [this.podPickup['schedule'][0]['start']],
+                        end_date: [this.podPickup['schedule'][0]['end']],
                     });
                 });
                 this.isCreate = false;
@@ -256,10 +254,6 @@ export class AddEditPodPickupComponent implements OnInit {
         const startDate = new Date(document.getElementById('fromDate')['value']);
         const endDate = new Date(document.getElementById('toDate')['value']);
         this.showDateError = startDate > endDate;
-        const startMinutes = startDate.getMinutes().toString().length === 1 ? `0${startDate.getMinutes()}` : startDate.getMinutes();
-        const endMinutes = endDate.getMinutes().toString().length === 1 ? `0${endDate.getMinutes()}` : endDate.getMinutes();
-        const startTime = startDate.getHours() > 12 ? `${startDate.getHours() - 12}:${startMinutes}PM` : `${startDate.getHours()}:${startMinutes}AM`;
-        const endTime = startDate.getHours() > 12 ? `${endDate.getHours() - 12}:${endMinutes}PM` : `${endDate.getHours()}:${endMinutes}AM`;
         this.reqObj = {
             ...this.reqObj,
             name: this.podPickupForm.value['name'],
@@ -270,8 +264,8 @@ export class AddEditPodPickupComponent implements OnInit {
             sponsors: this.sponsors,
             schedule: [
                 {
-                    start: startTime,
-                    end: endTime
+                    start: startDate,
+                    end: endDate
                 }
             ],
             manager: parseInt(localStorage['user_id'], 10)

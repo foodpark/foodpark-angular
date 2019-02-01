@@ -1,3 +1,4 @@
+podpickup
 <div class="absolute-position">
     <div>
         <div class="title-center"><h2>Pod Pickups</h2></div>
@@ -31,8 +32,8 @@
             <td>{{ item["name"] }}</td>
             <td>{{item['regional_hub_name']}}</td>
             <td>{{item['pod_name']}}</td>
-            <td>{{ podPickupStartDate[i]}}, {{item['schedule'][0]['start']}}</td>
-            <td>{{ podPickupEndDate[i]}}, {{item['schedule'][0]['end']}}</td>
+            <td>{{ item['schedule'][0]['start'] | date :" dd/MM/yyyy hh:mm:ss a"}}</td>
+            <td>{{ item['schedule'][0]['end']| date :" dd/MM/yyyy hh:mm:ss a"}}</td>
             <td style="text-align: center;">
                 <i class="material-icons" (click)="onEditClick(i)">
                     edit
